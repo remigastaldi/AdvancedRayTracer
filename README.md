@@ -6,6 +6,8 @@ Projet en infographie
 Description
 ----------------------
 
+Ajouter une description....
+
 Procédures de travail
 ----------------------
 
