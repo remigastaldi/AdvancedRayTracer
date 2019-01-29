@@ -1,0 +1,1 @@
+Checks: '*, -abseil*, -android*, -boost*, -fuchsia*, -objc*, -clang-diagnostic-c++98-compat*'

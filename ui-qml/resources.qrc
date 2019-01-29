@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qtquickcontrols2.conf</file>
+    </qresource>
+    <qresource prefix="/views">
+        <file alias="MainView.qml">views/MainView.qml</file>
+    </qresource>
+    <qresource prefix="/components">
+        <file alias="MenuComponent.qml">components/MenuComponent.qml</file>
+    </qresource>
+    <qresource prefix="/fonts">
+        <file alias="fontello.ttf">fonts/fontello.ttf</file>
+        <file alias="Hack-Regular.ttf">fonts/Hack-Regular.ttf</file>
+        <file alias="Hack-Bold.ttf">fonts/Hack-Bold.ttf</file>
+        <file alias="Hack-BoldItalic.ttf">fonts/Hack-BoldItalic.ttf</file>
+        <file alias="Hack-Italic.ttf">fonts/Hack-Italic.ttf</file>
+    </qresource>
+    <qresource prefix="/styles">
+        <file alias="Style.qml">styles/Style.qml</file>
+        <file alias="qmldir">styles/qmldir</file>
+        <file alias="MenuToolButton.qml">styles/MenuToolButton.qml</file>
+    </qresource>
+</RCC>
