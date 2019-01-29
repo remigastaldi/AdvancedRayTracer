@@ -8,7 +8,9 @@ Description
 
 Ajouter une description....
 
-Procédures de travail
+-------------------------
+
+# Procédures de travail
 ----------------------
 
 1-Create a feature in git 
