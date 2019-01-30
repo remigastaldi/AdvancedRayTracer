@@ -2,6 +2,10 @@ cmake_minimum_required(VERSION 3.8.2)
 cmake_policy(SET CMP0048 NEW)
 project(advancedRayTracer-test VERSION 1.0.0 LANGUAGES C CXX)
 
+if (CMAKE_BINARY_DIR STREQUAL CMAKE_SOURCE_DIR)
+    message(FATAL_ERROR "Source and build directories cannot be the same.")
+endif()
+
 ###########################
 # Dependencies
 
@@ -30,7 +34,7 @@ target_link_libraries(${PROJECT_NAME}
 
 target_compile_features(${PROJECT_NAME}
   PRIVATE
-    cxx_std_14
+    cxx_std_17
 )
 
 set_target_properties(${PROJECT_NAME}
