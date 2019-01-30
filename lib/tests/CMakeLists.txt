@@ -39,4 +39,4 @@ set_target_properties(${PROJECT_NAME}
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
 )
 
-cotire(${PROJECT_NAME})
+# cotire(${PROJECT_NAME})

@@ -75,6 +75,6 @@ set_target_properties(${PROJECT_NAME}
 ###########################
 # Include tests
 
-cotire(${PROJECT_NAME})
+# cotire(${PROJECT_NAME})
 
 add_subdirectory(tests)
