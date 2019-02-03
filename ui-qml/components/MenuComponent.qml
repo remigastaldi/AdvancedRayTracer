@@ -9,8 +9,6 @@ ToolBar {
     RowLayout {
         id: menuRow
 
-
-
         MenuToolButton {
             Layout.leftMargin: 10
             id: newButton

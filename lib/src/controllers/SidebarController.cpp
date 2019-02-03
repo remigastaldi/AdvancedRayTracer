@@ -1,14 +1,14 @@
-#include "menu-controller.hpp"
-#include "menu-model.hpp"
+#include "SidebarController.hpp"
+#include "SidebarModel.hpp"
 
 namespace ART {
 namespace Controllers {
 
-MenuController::MenuController(QObject* parent)
+SidebarController::SidebarController(QObject *parent)
   : QObject{parent}
 {}
 
-void MenuController::setModel(ART::Models::MenuModel* model) {
+void SidebarController::setModel(ART::Models::SidebarModel *model) {
   _model = model;
   if (_model == nullptr) {
     return;

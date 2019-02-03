@@ -1,20 +1,26 @@
 #include "main-controller.hpp"
 #include "menu-controller.hpp"
+#include "SidebarController.hpp"
 
 namespace ART {
 namespace Controllers {
 
 MainController::MainController(QObject* parent) :
   QObject{parent},
-  menu_controller_{new MenuController{this}}
+  _menuController{new MenuController{this}},
+  _sidebarController{new SidebarController{this}}
 {
-  connect(menu_controller_, &MenuController::saveFileClicked, this, &MainController::handleSaveFileClicked);
-  connect(menu_controller_, &MenuController::saveAsFileClicked, this, &MainController::handleSaveAsFileClicked);
-  connect(menu_controller_, &MenuController::newFileClicked, this, &MainController::handleNewFileClicked);
+  connect(_menuController, &MenuController::saveFileClicked, this, &MainController::handleSaveFileClicked);
+  connect(_menuController, &MenuController::saveAsFileClicked, this, &MainController::handleSaveAsFileClicked);
+  connect(_menuController, &MenuController::newFileClicked, this, &MainController::handleNewFileClicked);
 }
 
-MenuController* MainController::menuController() const {
-  return menu_controller_;
+MenuController* MainController::menuController() const noexcept {
+  return _menuController;
+}
+
+SidebarController *MainController::sidebarController() const noexcept {
+  return _sidebarController;
 }
 
 void MainController::handleSaveFileClicked() {

@@ -7,7 +7,8 @@
 namespace ART {
 namespace Models {
   class MenuModel;
-}
+} // nameSpace Models
+
 namespace Logic {
 } // nameSpace Logic
 
@@ -23,15 +24,14 @@ public:
   //Takes ownership of model
   void setModel(ART::Models::MenuModel* model);
 
+private:
+  ART::Models::MenuModel *_model{nullptr};
+
 Q_SIGNALS:
   void newFileClicked();
   void openFileClicked(const QUrl& file_url);
   void saveFileClicked();
   void saveAsFileClicked(const QUrl& file_url);
-
-private:
-  ART::Models::MenuModel* model_{nullptr};
-
 };
 
 } // namespace Controllers

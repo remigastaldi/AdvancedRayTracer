@@ -6,13 +6,13 @@
 #include "globals.h"
 
 namespace ART {
-  
 namespace Models {
 } // namespace Models
 
 namespace Controllers {
 
 class MenuController;
+class SidebarController;
 
 class ADVANCED_RAY_TRACER_EXPORT MainController : public QObject {
   Q_OBJECT
@@ -22,11 +22,13 @@ class ADVANCED_RAY_TRACER_EXPORT MainController : public QObject {
 
 public:
   explicit MainController(QObject* parent = nullptr);
-  MenuController* menuController() const;
+
+  MenuController* menuController() const noexcept;
+  SidebarController *sidebarController() const noexcept;
 
 private:
-  MenuController* menu_controller_{nullptr};
-  QMetaObject::Connection document_created_connection_;
+  MenuController* _menuController{nullptr};
+  SidebarController* _sidebarController{nullptr};
 
 private Q_SLOTS:
   void handleSaveFileClicked();

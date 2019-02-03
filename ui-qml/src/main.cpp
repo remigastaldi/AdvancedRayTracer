@@ -6,8 +6,10 @@
 
 #include "main-controller.hpp"
 #include "menu-controller.hpp"
+#include "SidebarController.hpp"
 
 #include "menu-model.hpp"
+#include "SidebarModel.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -28,21 +30,26 @@ int main(int argc, char *argv[])
 
   qmlRegisterType<ART::Controllers::MainController>("AdvancedRayTracer", 1, 0, "MainController");
   qmlRegisterType<ART::Controllers::MenuController>("AdvancedRayTracer", 1, 0, "MenuController");
+  qmlRegisterType<ART::Controllers::SidebarController>("AdvancedRayTracer", 1, 0, "SidebarController");
 
-  ART::Controllers::MainController main_controller;
+  ART::Controllers::MainController mainController;
 
+  auto menuModel = new ART::Models::MenuModel;
+  mainController.menuController()->setModel(menuModel);
 
-  auto menu_model = new ART::Models::MenuModel;
-  main_controller.menuController()->setModel(menu_model);
+  auto sidebarModel = new ART::Models::SidebarModel;
+  mainController.sidebarController()->setModel(sidebarModel);
 
   QQmlApplicationEngine engine;
-  engine.rootContext()->setContextProperty("mainController", &main_controller);
-  engine.rootContext()->setContextProperty("menuModel", menu_model);
+  engine.rootContext()->setContextProperty("mainController", &mainController);
+  engine.rootContext()->setContextProperty("menuModel", menuModel);
+  engine.rootContext()->setContextProperty("sidebarModel", sidebarModel);
   engine.load(QUrl(QStringLiteral("qrc:/views/MainView.qml")));
 
   if (engine.rootObjects().isEmpty()) {
     return -1;
   }
 
-  return app.exec();
+  mainController.dumpObjectTree();
+  return QApplication::exec();
 }

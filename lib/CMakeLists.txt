@@ -14,17 +14,21 @@ add_library(${PROJECT_NAME} SHARED
   ## Controllers
   src/controllers/main-controller.cpp
   src/controllers/menu-controller.cpp
+  src/controllers/SidebarController.cpp
 
   ## Models
   src/models/menu-model.cpp
+  src/models/SidebarModel.cpp
 
   # Public
   ## Controllers
   public/controllers/main-controller.hpp
   public/controllers/menu-controller.hpp
+  public/controllers/SidebarController.hpp
 
   ## Models
   public/models/menu-model.hpp
+  public/models/SidebarModel.hpp
 
   public/globals.h
 )

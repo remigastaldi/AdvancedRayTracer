@@ -8,6 +8,6 @@ QtObject {
     property color mainBlueColor: "#497EBE"
 
     // //Menu properties
-    property int menuIconSize: 14
+    property int menuIconSize: 12
     property alias menuIconColor: style.mainBlueColor
 }
