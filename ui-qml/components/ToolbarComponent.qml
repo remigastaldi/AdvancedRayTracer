@@ -8,20 +8,31 @@ import "../styles"
 ToolBar {
     RowLayout {
         id: menuRow
+        anchors.fill: parent
 
-        MenuToolButton {
-            Layout.leftMargin: 10
+        ToolbarButton {
+            Layout.leftMargin: 6
             id: newButton
             text: "\uE800" // icon-doc-text-inv-1
             focusPolicy: Qt.TabFocus
             onClicked: mainController.menuController.newFileClicked();
         }
 
-        MenuToolButton {
+        ToolbarButton {
             id: saveButton
-            text: "\uE802" // icon-floppy
+            text: "\uE802" // icon-doc-text-inv-1
             focusPolicy: Qt.TabFocus
             onClicked: saveDialog.open()
+        }
+    
+        Text {
+            id: menuTitle
+            text: "Test File"
+            horizontalAlignment: Qt.AlignHCenter
+            verticalAlignment: Qt.AlignVCenter
+            Layout.fillWidth: true
+            // color: Style.menuTitleColor
+            // font: Style.menuTitleFont
         }
     }
 
@@ -49,5 +60,11 @@ ToolBar {
         id: newShortcut
         sequence: StandardKey.New
         onActivated: mainController.menuController.newFileClicked();
+    }
+
+    Shortcut {
+        id: exitShortcut
+        sequence: StandardKey.Quit
+        onActivated: Qt.quit();
     }
 }

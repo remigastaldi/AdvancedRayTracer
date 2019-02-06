@@ -5,11 +5,11 @@
 #include <QFontDatabase>
 
 #include "MainController.hpp"
-#include "MenuController.hpp"
+#include "ToolbarController.hpp"
 #include "SidebarController.hpp"
 #include "RendererController.hpp"
 
-#include "MenuModel.hpp"
+#include "ToolbarModel.hpp"
 #include "SidebarModel.hpp"
 #include "RendererModel.hpp"
 
@@ -31,13 +31,13 @@ int main(int argc, char *argv[])
   }
 
   qmlRegisterType<ART::Controllers::MainController>("AdvancedRayTracer", 1, 0, "MainController");
-  qmlRegisterType<ART::Controllers::MenuController>("AdvancedRayTracer", 1, 0, "MenuController");
+  qmlRegisterType<ART::Controllers::ToolbarController>("AdvancedRayTracer", 1, 0, "ToolbarController");
   qmlRegisterType<ART::Controllers::SidebarController>("AdvancedRayTracer", 1, 0, "SidebarController");
   qmlRegisterType<ART::Controllers::RendererController>("AdvancedRayTracer", 1, 0, "RendererController");
 
   ART::Controllers::MainController mainController;
 
-  auto menuModel = new ART::Models::MenuModel;
+  auto menuModel = new ART::Models::ToolbarModel;
   mainController.menuController()->setModel(menuModel);
 
   auto sidebarModel = new ART::Models::SidebarModel;

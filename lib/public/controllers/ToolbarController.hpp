@@ -6,7 +6,7 @@
 
 namespace ART {
 namespace Models {
-  class MenuModel;
+  class ToolbarModel;
 } // nameSpace Models
 
 namespace Logic {
@@ -14,18 +14,18 @@ namespace Logic {
 
 namespace Controllers {
 
-class ADVANCED_RAY_TRACER_EXPORT MenuController : public QObject {
+class ADVANCED_RAY_TRACER_EXPORT ToolbarController : public QObject {
   Q_OBJECT
-  Q_DISABLE_COPY(MenuController)
+  Q_DISABLE_COPY(ToolbarController)
 
 public:
-  explicit MenuController(QObject* parent = nullptr);
+  explicit ToolbarController(QObject* parent = nullptr);
 
   //Takes ownership of model
-  void setModel(ART::Models::MenuModel* model);
+  void setModel(ART::Models::ToolbarModel* model);
 
 private:
-  ART::Models::MenuModel *_model{nullptr};
+  ART::Models::ToolbarModel *_model{nullptr};
 
 Q_SIGNALS:
   void newFileClicked();

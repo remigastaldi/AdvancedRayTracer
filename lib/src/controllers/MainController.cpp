@@ -1,5 +1,5 @@
 #include "MainController.hpp"
-#include "MenuController.hpp"
+#include "ToolbarController.hpp"
 #include "SidebarController.hpp"
 
 namespace ART {
@@ -7,15 +7,15 @@ namespace Controllers {
 
 MainController::MainController(QObject* parent) :
   QObject{parent},
-  _menuController{new MenuController{this}},
+  _menuController{new ToolbarController{this}},
   _sidebarController{new SidebarController{this}}
 {
-  connect(_menuController, &MenuController::saveFileClicked, this, &MainController::handleSaveFileClicked);
-  connect(_menuController, &MenuController::saveAsFileClicked, this, &MainController::handleSaveAsFileClicked);
-  connect(_menuController, &MenuController::newFileClicked, this, &MainController::handleNewFileClicked);
+  connect(_menuController, &ToolbarController::saveFileClicked, this, &MainController::handleSaveFileClicked);
+  connect(_menuController, &ToolbarController::saveAsFileClicked, this, &MainController::handleSaveAsFileClicked);
+  connect(_menuController, &ToolbarController::newFileClicked, this, &MainController::handleNewFileClicked);
 }
 
-MenuController* MainController::menuController() const noexcept {
+ToolbarController* MainController::menuController() const noexcept {
   return _menuController;
 }
 

@@ -6,7 +6,7 @@
         <file alias="MainView.qml">views/MainView.qml</file>
     </qresource>
     <qresource prefix="/components">
-        <file alias="MenuComponent.qml">components/MenuComponent.qml</file>
+        <file alias="ToolbarComponent.qml">components/ToolbarComponent.qml</file>
         <file alias="SidebarComponent.qml">components/SidebarComponent.qml</file>
         <file alias="RendererComponent.qml">components/RendererComponent.qml</file>
     </qresource>
@@ -20,6 +20,6 @@
     <qresource prefix="/styles">
         <file alias="Style.qml">styles/Style.qml</file>
         <file alias="qmldir">styles/qmldir</file>
-        <file alias="MenuToolButton.qml">styles/MenuToolButton.qml</file>
+        <file alias="ToolbarButton.qml">styles/ToolbarButton.qml</file>
     </qresource>
 </RCC>

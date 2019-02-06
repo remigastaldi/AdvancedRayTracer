@@ -1,2 +1,2 @@
 module components
-MenuComponent 1.0 MenuComponent.qml
+ToolbarComponent 1.0 ToolbarComponent.qml

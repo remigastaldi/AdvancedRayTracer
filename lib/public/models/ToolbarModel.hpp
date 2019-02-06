@@ -11,14 +11,14 @@ namespace ART {
 } // nameSpace Logic
 namespace Models {
 
-class ADVANCED_RAY_TRACER_EXPORT MenuModel : public QObject {
+class ADVANCED_RAY_TRACER_EXPORT ToolbarModel : public QObject {
   Q_OBJECT
-  Q_DISABLE_COPY(MenuModel)
+  Q_DISABLE_COPY(ToolbarModel)
 
   Q_PROPERTY(bool isNewFile READ isNewFile NOTIFY isNewFileChanged)
 
 public:
-  explicit MenuModel(QObject* parent = nullptr);
+  explicit ToolbarModel(QObject* parent = nullptr);
 
   bool isNewFile() const;
 

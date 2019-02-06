@@ -21,7 +21,7 @@ ApplicationWindow {
     maximumHeight: appContent.Layout.maximumHeight + topOffset
 
     menuBar: MenuBar {
-        Menu {
+        Menu {            
             title: qsTr("File")
             MenuItem {
                 text: qsTr("&Save")
@@ -33,9 +33,8 @@ ApplicationWindow {
         }
     }
 
-    header: MenuComponent {
+    header: ToolbarComponent {
         id: menu
-        width: parent.width
     }
 
     RowLayout {
