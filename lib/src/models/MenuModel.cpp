@@ -1,4 +1,4 @@
-#include "menu-model.hpp"
+#include "MenuModel.hpp"
 
 namespace ART {
 namespace Models {

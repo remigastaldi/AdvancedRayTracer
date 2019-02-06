@@ -1,5 +1,5 @@
-#include "menu-controller.hpp"
-#include "menu-model.hpp"
+#include "MenuController.hpp"
+#include "MenuModel.hpp"
 
 namespace ART {
 namespace Controllers {

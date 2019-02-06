@@ -12,25 +12,25 @@ find_package(Qt5 COMPONENTS  Quick QuickControls2 Widgets REQUIRED)
 add_library(${PROJECT_NAME} SHARED
   # Src
   ## Controllers
-  src/controllers/main-controller.cpp
-  src/controllers/menu-controller.cpp
+  src/controllers/MainController.cpp
+  src/controllers/MenuController.cpp
   src/controllers/SidebarController.cpp
   src/controllers/RendererController.cpp
 
   ## Models
-  src/models/menu-model.cpp
+  src/models/MenuModel.cpp
   src/models/SidebarModel.cpp
   src/models/RendererModel.cpp
 
   # Public
   ## Controllers
-  public/controllers/main-controller.hpp
-  public/controllers/menu-controller.hpp
+  public/controllers/MainController.hpp
+  public/controllers/MenuController.hpp
   public/controllers/SidebarController.hpp
   public/controllers/RendererController.hpp
 
   ## Models
-  public/models/menu-model.hpp
+  public/models/MenuModel.hpp
   public/models/SidebarModel.hpp
   public/models/RendererModel.hpp
 

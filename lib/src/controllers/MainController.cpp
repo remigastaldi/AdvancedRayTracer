@@ -1,5 +1,5 @@
-#include "main-controller.hpp"
-#include "menu-controller.hpp"
+#include "MainController.hpp"
+#include "MenuController.hpp"
 #include "SidebarController.hpp"
 
 namespace ART {

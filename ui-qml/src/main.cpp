@@ -4,12 +4,12 @@
 #include <QQmlContext>
 #include <QFontDatabase>
 
-#include "main-controller.hpp"
-#include "menu-controller.hpp"
+#include "MainController.hpp"
+#include "MenuController.hpp"
 #include "SidebarController.hpp"
 #include "RendererController.hpp"
 
-#include "menu-model.hpp"
+#include "MenuModel.hpp"
 #include "SidebarModel.hpp"
 #include "RendererModel.hpp"
 
