@@ -5,7 +5,7 @@ set(LIBRARY_NAME advancedraytracer)
 
 ###########################
 # Dependencies
-find_package(Qt5 COMPONENTS Core Gui Widgets REQUIRED)
+find_package(Qt5 COMPONENTS  Quick QuickControls2 Widgets REQUIRED)
 
 ###########################
 # Targets
@@ -15,20 +15,24 @@ add_library(${PROJECT_NAME} SHARED
   src/controllers/main-controller.cpp
   src/controllers/menu-controller.cpp
   src/controllers/SidebarController.cpp
+  src/controllers/RendererController.cpp
 
   ## Models
   src/models/menu-model.cpp
   src/models/SidebarModel.cpp
+  src/models/RendererModel.cpp
 
   # Public
   ## Controllers
   public/controllers/main-controller.hpp
   public/controllers/menu-controller.hpp
   public/controllers/SidebarController.hpp
+  public/controllers/RendererController.hpp
 
   ## Models
   public/models/menu-model.hpp
   public/models/SidebarModel.hpp
+  public/models/RendererModel.hpp
 
   public/globals.h
 )
@@ -58,9 +62,9 @@ target_compile_definitions(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
   PUBLIC
-    Qt5::Core
-    Qt5::Gui
     Qt5::Widgets
+    Qt5::Quick
+    Qt5::QuickControls2
 )
 
 target_compile_features(${PROJECT_NAME}

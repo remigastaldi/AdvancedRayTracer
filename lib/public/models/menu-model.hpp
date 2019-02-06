@@ -1,10 +1,10 @@
 #pragma once
 
-#include "globals.h"
-
 #include <QString>
 #include <QObject>
 #include <QPointer>
+
+#include "globals.h"
 
 namespace ART {
   namespace Logic {

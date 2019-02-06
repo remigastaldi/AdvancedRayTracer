@@ -7,9 +7,11 @@
 #include "main-controller.hpp"
 #include "menu-controller.hpp"
 #include "SidebarController.hpp"
+#include "RendererController.hpp"
 
 #include "menu-model.hpp"
 #include "SidebarModel.hpp"
+#include "RendererModel.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -31,6 +33,7 @@ int main(int argc, char *argv[])
   qmlRegisterType<ART::Controllers::MainController>("AdvancedRayTracer", 1, 0, "MainController");
   qmlRegisterType<ART::Controllers::MenuController>("AdvancedRayTracer", 1, 0, "MenuController");
   qmlRegisterType<ART::Controllers::SidebarController>("AdvancedRayTracer", 1, 0, "SidebarController");
+  qmlRegisterType<ART::Controllers::RendererController>("AdvancedRayTracer", 1, 0, "RendererController");
 
   ART::Controllers::MainController mainController;
 
