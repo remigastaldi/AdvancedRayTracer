@@ -1,6 +1,7 @@
 import QtQuick 2.12
 import QtQuick.Window 2.12
 import QtQuick.Layouts 1.12
+import QtQuick.Dialogs 1.0
 import QtQuick.Controls 2.12
 import QtQml 2.12
 import AdvancedRayTracer 1.0
@@ -23,6 +24,10 @@ ApplicationWindow {
     menuBar: MenuBar {
         Menu {            
             title: qsTr("File")
+			MenuItem {
+                text: qsTr("Import image")
+				onTriggered: importImgDialog.open()
+			}
             MenuItem {
                 text: qsTr("&Save")
             }
@@ -32,6 +37,20 @@ ApplicationWindow {
             }
         }
     }
+
+	FileDialog {
+		id: importImgDialog
+		title: "Please choose a file"
+		folder: shortcuts.home
+		nameFilters: [ "Image files (*.jpg *.png)", "All files (*)" ]
+		onAccepted: {
+			// User choice : importImgDialog.fileUrls
+			Qt.quit()
+		}
+		onRejected: {
+			Qt.quit()
+		}
+	}
 
     header: ToolbarComponent {
         id: menu
