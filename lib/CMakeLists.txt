@@ -14,24 +14,28 @@ add_library(${PROJECT_NAME} SHARED
   ## Controllers
   src/controllers/MainController.cpp
   src/controllers/ToolbarController.cpp
-  src/controllers/SidebarController.cpp
+  src/controllers/RightSidebarController.cpp
+  src/controllers/LeftSidebarController.cpp
   src/controllers/RendererController.cpp
 
   ## Models
   src/models/ToolbarModel.cpp
-  src/models/SidebarModel.cpp
+  src/models/RightSidebarModel.cpp
+  src/models/LeftSidebarModel.cpp
   src/models/RendererModel.cpp
 
   # Public
   ## Controllers
   public/controllers/MainController.hpp
   public/controllers/ToolbarController.hpp
-  public/controllers/SidebarController.hpp
+  public/controllers/RightSidebarController.hpp
+  public/controllers/LeftSidebarController.hpp
   public/controllers/RendererController.hpp
 
   ## Models
   public/models/ToolbarModel.hpp
-  public/models/SidebarModel.hpp
+  public/models/RightSidebarModel.hpp
+  public/models/LeftSidebarModel.hpp
   public/models/RendererModel.hpp
 
   public/globals.h

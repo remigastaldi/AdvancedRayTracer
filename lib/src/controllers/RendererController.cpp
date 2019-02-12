@@ -1,5 +1,5 @@
-#include "RendererController.hpp"
 #include "RendererModel.hpp"
+#include "RendererController.hpp"
 
 namespace ART {
 namespace Controllers {
@@ -7,11 +7,11 @@ namespace Controllers {
 RendererController::RendererController() {
 }
 
-QQuickFramebufferObject::Renderer *RendererController::createRenderer() const
+QQuickFramebufferObject::Renderer *RendererController::createRenderer() const noexcept
 {
-  std::cout << "======" << std::endl;
+  std::cout << "Create Renderer" << std::endl;
 
-   return new Models::RendererModel();
+  return new Models::RendererModel();
 }
 
 } //namespace Models

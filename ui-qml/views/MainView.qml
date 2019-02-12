@@ -61,16 +61,15 @@ ApplicationWindow {
 
         anchors.fill: parent
 
-        SidebarComponent {
-            id: sidebar
+        LeftSidebarComponent {
+            id: leftSidebar
+            Layout.margins: 10
             Layout.alignment: Qt.AlignLeft | Qt.AlignTop
         }
 
-
-        RendererComponent {
-            Layout.margins: 20
-            
+        RendererComponent {            
             id: engine
+            Layout.margins: 8
 
             Layout.fillWidth: true
             Layout.fillHeight: true
@@ -84,23 +83,10 @@ ApplicationWindow {
             Layout.maximumHeight: 1920
         }
 
-        Rectangle {
-            id: rect
-            color: "#FFFFFF"
-
-            Layout.alignment: Qt.AlignRight | Qt.AlignTop
-
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-
-            Layout.minimumWidth: 200
-            Layout.preferredWidth: 200
-            Layout.maximumWidth: 250
-            
-            Layout.minimumHeight: 150
-            Layout.preferredHeight: 700
-            Layout.maximumHeight: 1000
+        RightSidebarComponent {
+            id: rightSidebar
+            Layout.margins: 10
+            Layout.alignment: Qt.AlignLeft | Qt.AlignTop
         }
-
     }
 }

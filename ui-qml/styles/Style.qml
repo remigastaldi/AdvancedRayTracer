@@ -5,9 +5,9 @@ QtObject {
     id: style
 
     //General used by many properties
-    property color mainBlueColor: "#497EBE"
+    property color mainColor: "orange"
 
-    // //Menu properties
+    // Toolbar properties
     property int toolbarIconSize: 14
-    property alias toolbarIconColor: style.mainBlueColor
+    property color toolbarIconColor: "#497EBE"
 }

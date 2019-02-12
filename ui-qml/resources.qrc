@@ -7,7 +7,8 @@
     </qresource>
     <qresource prefix="/components">
         <file alias="ToolbarComponent.qml">components/ToolbarComponent.qml</file>
-        <file alias="SidebarComponent.qml">components/SidebarComponent.qml</file>
+        <file alias="RightSidebarComponent.qml">components/RightSidebarComponent.qml</file>
+        <file alias="LeftSidebarComponent.qml">components/LeftSidebarComponent.qml</file>
         <file alias="RendererComponent.qml">components/RendererComponent.qml</file>
     </qresource>
     <qresource prefix="/fonts">

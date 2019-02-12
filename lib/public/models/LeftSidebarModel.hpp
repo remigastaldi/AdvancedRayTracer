@@ -11,12 +11,12 @@ namespace ART {
 } // nameSpace Logic
 namespace Models {
 
-class ADVANCED_RAY_TRACER_EXPORT SidebarModel : public QObject {
+class ADVANCED_RAY_TRACER_EXPORT LeftSidebarModel : public QObject {
   Q_OBJECT
-  Q_DISABLE_COPY(SidebarModel)
+  Q_DISABLE_COPY(LeftSidebarModel)
 
 public:
-  explicit SidebarModel(QObject* parent = nullptr);
+  explicit LeftSidebarModel(QObject* parent = nullptr);
 
 private:
 

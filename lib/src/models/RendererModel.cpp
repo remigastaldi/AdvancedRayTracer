@@ -1,3 +1,4 @@
+#include "RendererController.hpp"
 #include "RendererModel.hpp"
 
 namespace ART {
@@ -39,15 +40,20 @@ QOpenGLFramebufferObject *RendererModel::createFramebufferObject(const QSize &si
 
 void RendererModel::render() noexcept {
   std::cout << "Start rendering" << std::endl;
-  glClear(GL_COLOR_BUFFER_BIT);
-  
+
+  QSize drawRectSize(static_cast<int>(_controller->size().width()), static_cast<int>(_controller->size().height()));
+  const QRect drawRect(0, 0, drawRectSize.width(), drawRectSize.height());
+
+  QOpenGLPaintDevice device(drawRectSize);
+  // p.beginNativePainting();
+
   _program->bind();
 
   _program->enableAttributeArray(0);
 
   float values[] = {-1, -1, 1, -1, -1, 1, 1, 1};
   _program->setAttributeArray(0, GL_FLOAT, values, 2);
-  // m_program->setUniformValue("t", (float)m_t);
+  _program->setUniformValue("t", 0);
 
   // glViewport(0, 0, 800, 600);
 
@@ -64,7 +70,36 @@ void RendererModel::render() noexcept {
   _program->disableAttributeArray(0);
   _program->release();
 
-  // m_window->resetOpenGLState();
+  // QPainter painter;
+  // painter.begin(&device);
+  // painter.setRenderHints(QPainter::Antialiasing | QPainter::HighQualityAntialiasing);
+
+  // painter.fillRect(drawRect, Qt::blue);
+
+  // painter.drawTiledPixmap(drawRect, QPixmap(":/qt-project.org/qmessagebox/images/qtlogo-64.png"));
+
+  // painter.setPen(QPen(Qt::green, 5));
+  // painter.setBrush(Qt::red);
+  // painter.drawEllipse(0, 100, 400, 200);
+  // painter.drawEllipse(100, 0, 200, 400);
+
+  // painter.setPen(QPen(Qt::white, 0));
+  // QFont font;
+  // font.setPointSize(24);
+  // painter.setFont(font);
+  // painter.drawText(drawRect, "Hello FBO", QTextOption(Qt::AlignCenter));
+
+  // painter.end();
+
+  _window->resetOpenGLState();
+}
+
+void  RendererModel::synchronize(QQuickFramebufferObject* qqfbo) noexcept {
+    std::cout << "Synchronize data" << std::endl;
+
+    auto parentItem = dynamic_cast<Controllers::RendererController*>(qqfbo);
+    _window = parentItem->window();
+    _controller = parentItem;
 }
 
 } // namespace Models

@@ -5,6 +5,8 @@ import "."
 
 ToolButton {
     id: root
+    implicitWidth: contentItem.implicitWidth * 1.5
+
     contentItem: Text {
         text: root.text
         font.family: "fontello"
@@ -14,5 +16,3 @@ ToolButton {
         color: Style.toolbarIconColor
     }
 }
-
-

@@ -6,11 +6,13 @@
 
 #include "MainController.hpp"
 #include "ToolbarController.hpp"
-#include "SidebarController.hpp"
+#include "RightSidebarController.hpp"
+#include "LeftSidebarController.hpp"
 #include "RendererController.hpp"
 
 #include "ToolbarModel.hpp"
-#include "SidebarModel.hpp"
+#include "RightSidebarModel.hpp"
+#include "LeftSidebarModel.hpp"
 #include "RendererModel.hpp"
 
 int main(int argc, char *argv[])
@@ -32,26 +34,33 @@ int main(int argc, char *argv[])
 
   qmlRegisterType<ART::Controllers::MainController>("AdvancedRayTracer", 1, 0, "MainController");
   qmlRegisterType<ART::Controllers::ToolbarController>("AdvancedRayTracer", 1, 0, "ToolbarController");
-  qmlRegisterType<ART::Controllers::SidebarController>("AdvancedRayTracer", 1, 0, "SidebarController");
+  qmlRegisterType<ART::Controllers::RightSidebarController>("AdvancedRayTracer", 1, 0, "RightSidebarController");
+  qmlRegisterType<ART::Controllers::LeftSidebarController>("AdvancedRayTracer", 1, 0, "LeftSidebarController");
   qmlRegisterType<ART::Controllers::RendererController>("AdvancedRayTracer", 1, 0, "RendererController");
 
+  QQmlApplicationEngine engine;
   ART::Controllers::MainController mainController;
 
-  auto menuModel = new ART::Models::ToolbarModel;
-  mainController.menuController()->setModel(menuModel);
+  auto toolBarModel = new ART::Models::ToolbarModel;
+  mainController.toolbarController()->setModel(toolBarModel);
 
-  auto sidebarModel = new ART::Models::SidebarModel;
-  mainController.sidebarController()->setModel(sidebarModel);
+  auto rightSidebarModel = new ART::Models::RightSidebarModel;
+  mainController.rightSidebarController()->setModel(rightSidebarModel);
+  auto leftSidebarModel = new ART::Models::LeftSidebarModel;
+  mainController.leftSidebarController()->setModel(leftSidebarModel);
 
-  QQmlApplicationEngine engine;
   engine.rootContext()->setContextProperty("mainController", &mainController);
-  engine.rootContext()->setContextProperty("menuModel", menuModel);
-  engine.rootContext()->setContextProperty("sidebarModel", sidebarModel);
+  engine.rootContext()->setContextProperty("menuModel", toolBarModel);
+  engine.rootContext()->setContextProperty("rightSidebarModel", rightSidebarModel);
+  engine.rootContext()->setContextProperty("leftSidebarModel", leftSidebarModel);
   engine.load(QUrl(QStringLiteral("qrc:/views/MainView.qml")));
 
   if (engine.rootObjects().isEmpty()) {
     return -1;
   }
+
+  auto *rendererController =  engine.rootObjects().first()->findChild<ART::Controllers::RendererController*>("rendererController");
+  mainController.setRendererController(rendererController);
 
   mainController.dumpObjectTree();
   return QApplication::exec();

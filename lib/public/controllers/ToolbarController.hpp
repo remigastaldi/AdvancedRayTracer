@@ -20,12 +20,16 @@ class ADVANCED_RAY_TRACER_EXPORT ToolbarController : public QObject {
 
 public:
   explicit ToolbarController(QObject* parent = nullptr);
+  ~ToolbarController() = default;
+  ToolbarController(ToolbarController&& other) = delete;
+  ToolbarController& operator=(ToolbarController&& other) = delete;
 
   //Takes ownership of model
   void setModel(ART::Models::ToolbarModel* model);
 
 private:
   ART::Models::ToolbarModel *_model{nullptr};
+
 
 Q_SIGNALS:
   void newFileClicked();

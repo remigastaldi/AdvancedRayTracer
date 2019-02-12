@@ -3,6 +3,7 @@ import AdvancedRayTracer 1.0
 
 Item {
     RendererController {
+        objectName: "rendererController"
         width: parent.width
         height: parent.height
         // SequentialAnimation on t {

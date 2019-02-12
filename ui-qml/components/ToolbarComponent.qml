@@ -11,11 +11,11 @@ ToolBar {
         anchors.fill: parent
 
         ToolbarButton {
-            Layout.leftMargin: 6
+            Layout.leftMargin: 10
             id: newButton
             text: "\uE800" // icon-doc-text-inv-1
             focusPolicy: Qt.TabFocus
-            onClicked: mainController.menuController.newFileClicked();
+            onClicked: mainController.toolbarController.newFileClicked();
         }
 
         ToolbarButton {
@@ -31,8 +31,7 @@ ToolBar {
             horizontalAlignment: Qt.AlignHCenter
             verticalAlignment: Qt.AlignVCenter
             Layout.fillWidth: true
-            // color: Style.menuTitleColor
-            // font: Style.menuTitleFont
+            color: Style.mainColor
         }
     }
 
@@ -41,7 +40,7 @@ ToolBar {
         fileMode: FileDialog.SaveFile
         nameFilters: ["*"]
         folder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation)
-        onAccepted: mainController.menuController.saveAsFileClicked(file);
+        onAccepted: mainController.toolbarController.saveAsFileClicked(file);
     }
 
     Shortcut {
@@ -53,13 +52,13 @@ ToolBar {
     Shortcut {
         id: saveShortcut
         sequence: StandardKey.Save
-        onActivated: menuModel.isNewFile ? saveDialog.open() : mainController.menuController.saveFileClicked();
+        onActivated: menuModel.isNewFile ? saveDialog.open() : mainController.toolbarController.saveFileClicked();
     }
 
     Shortcut {
         id: newShortcut
         sequence: StandardKey.New
-        onActivated: mainController.menuController.newFileClicked();
+        onActivated: mainController.toolbarController.newFileClicked();
     }
 
     Shortcut {

@@ -1,26 +1,45 @@
 #include "MainController.hpp"
+#include "LeftSidebarController.hpp"
 #include "ToolbarController.hpp"
-#include "SidebarController.hpp"
+#include "RightSidebarController.hpp"
+#include "RendererController.hpp"
 
+#include <iostream>
 namespace ART {
 namespace Controllers {
 
 MainController::MainController(QObject* parent) :
   QObject{parent},
-  _menuController{new ToolbarController{this}},
-  _sidebarController{new SidebarController{this}}
+  _toolbarController{new ToolbarController{this}},
+  _leftSidebarController{new LeftSidebarController{this}},
+  _rightSidebarController{new RightSidebarController{this}},
+  _rendererController{nullptr}
 {
-  connect(_menuController, &ToolbarController::saveFileClicked, this, &MainController::handleSaveFileClicked);
-  connect(_menuController, &ToolbarController::saveAsFileClicked, this, &MainController::handleSaveAsFileClicked);
-  connect(_menuController, &ToolbarController::newFileClicked, this, &MainController::handleNewFileClicked);
+  connect(_toolbarController, &ToolbarController::saveFileClicked, this, &MainController::handleSaveFileClicked);
+  connect(_toolbarController, &ToolbarController::saveAsFileClicked, this, &MainController::handleSaveAsFileClicked);
+  connect(_toolbarController, &ToolbarController::newFileClicked, this, &MainController::handleNewFileClicked);
 }
 
-ToolbarController* MainController::menuController() const noexcept {
-  return _menuController;
+void  MainController::setRendererController(RendererController *rendererController) noexcept {
+  _rendererController = rendererController;
+  connect(_rightSidebarController, &RightSidebarController::renderUpdate, _rendererController, &RendererController::update);
 }
 
-SidebarController *MainController::sidebarController() const noexcept {
-  return _sidebarController;
+ToolbarController* MainController::toolbarController() const noexcept {
+  return _toolbarController;
+}
+
+RightSidebarController *MainController::rightSidebarController() const noexcept {
+  return _rightSidebarController;
+}
+
+LeftSidebarController *MainController::leftSidebarController() const noexcept {
+  return _leftSidebarController;
+}
+
+RendererController  *MainController::rendererController() const noexcept {
+  std::cout << "get renderer" << std::endl;
+  return _rendererController;
 }
 
 void MainController::handleSaveFileClicked() {

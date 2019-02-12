@@ -1,46 +1,47 @@
 #pragma once
 
-#include <memory>
 #include <iostream>
+#include <memory>
 
-#include <QString>
 #include <QObject>
-#include <QPointer>
-#include <QtQuick/qquickwindow.h>
-#include <QtOpenGL/qglfunctions.h>
 #include <QOpenGLShaderProgram>
+#include <QPointer>
+#include <QString>
 #include <QtGui/QOpenGLFramebufferObject>
-#include <QtQuick/QQuickWindow>
+#include <QtOpenGL/qglfunctions.h>
 #include <QtQuick/QQuickFramebufferObject>
+#include <QtQuick/QQuickWindow>
+#include <QtQuick/qquickwindow.h>
+#include <QOpenGLPaintDevice>
 
 #include "globals.h"
 
 namespace ART {
-  namespace Logic {
+namespace Logic {
 } // nameSpace Logic
+namespace Controllers {
+  class RendererController;
+} // namesSpace Controller
 namespace Models {
 
-class ADVANCED_RAY_TRACER_EXPORT RendererModel : public QQuickItem, public QQuickFramebufferObject::Renderer, protected QOpenGLFunctions
+class ADVANCED_RAY_TRACER_EXPORT RendererModel : public QQuickItem,
+                                                 public QQuickFramebufferObject::Renderer,
+                                                 protected QOpenGLFunctions
 {
-    Q_OBJECT
+  Q_OBJECT
 public:
-    RendererModel();
-
-QOpenGLFramebufferObject *createFramebufferObject(const QSize &size) override;
-void render() noexcept override;
-
-public slots:
+  RendererModel();
+  
+  void render() noexcept override;
 
 private:
-    std::unique_ptr<QOpenGLShaderProgram> _program;
-    QQuickWindow* _window;
+  std::unique_ptr<QOpenGLShaderProgram> _program;
+  QQuickWindow *_window;
+  Controllers::RendererController *_controller;
 
 protected:
-    // void synchronize(QQuickFramebufferObject* qqfbo) override {
-    //     RendererModel* parentItem = (RendererModel*)qqfbo;
-
-    //     // m_window = parentItem->window();
-    // }
+  QOpenGLFramebufferObject *createFramebufferObject(const QSize &size) override;
+  void synchronize(QQuickFramebufferObject *item) noexcept override;
 };
 
 } // namespace Models
