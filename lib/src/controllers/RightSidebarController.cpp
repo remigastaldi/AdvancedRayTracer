@@ -1,6 +1,5 @@
 #include "RightSidebarController.hpp"
 #include "RightSidebarModel.hpp"
-#include <iostream>
 
 namespace ART {
 namespace Controllers {

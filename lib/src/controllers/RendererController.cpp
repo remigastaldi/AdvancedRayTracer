@@ -1,3 +1,5 @@
+#include <QMessageLogger>
+
 #include "RendererModel.hpp"
 #include "RendererController.hpp"
 
@@ -9,8 +11,8 @@ RendererController::RendererController() {
 
 QQuickFramebufferObject::Renderer *RendererController::createRenderer() const noexcept
 {
-  std::cout << "Create Renderer" << std::endl;
 
+  qInfo() << "Creating RendererModel";
   return new Models::RendererModel();
 }
 

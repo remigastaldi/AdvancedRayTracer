@@ -38,7 +38,6 @@ LeftSidebarController *MainController::leftSidebarController() const noexcept {
 }
 
 RendererController  *MainController::rendererController() const noexcept {
-  std::cout << "get renderer" << std::endl;
   return _rendererController;
 }
 

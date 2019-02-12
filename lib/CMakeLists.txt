@@ -5,7 +5,7 @@ set(LIBRARY_NAME advancedraytracer)
 
 ###########################
 # Dependencies
-find_package(Qt5 COMPONENTS  Quick QuickControls2 Widgets REQUIRED)
+find_package(Qt5 COMPONENTS QuickControls2 Widgets REQUIRED)
 
 ###########################
 # Targets
@@ -66,9 +66,8 @@ target_compile_definitions(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
   PUBLIC
-    Qt5::Widgets
-    Qt5::Quick
     Qt5::QuickControls2
+    Qt5::Widgets
 )
 
 target_compile_features(${PROJECT_NAME}

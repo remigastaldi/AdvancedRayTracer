@@ -39,7 +39,7 @@ QOpenGLFramebufferObject *RendererModel::createFramebufferObject(const QSize &si
 }
 
 void RendererModel::render() noexcept {
-  std::cout << "Start rendering" << std::endl;
+  qInfo() << "Start rendering";
 
   QSize drawRectSize(static_cast<int>(_controller->size().width()), static_cast<int>(_controller->size().height()));
   const QRect drawRect(0, 0, drawRectSize.width(), drawRectSize.height());
@@ -95,7 +95,7 @@ void RendererModel::render() noexcept {
 }
 
 void  RendererModel::synchronize(QQuickFramebufferObject* qqfbo) noexcept {
-    std::cout << "Synchronize data" << std::endl;
+    qInfo() << "Synchronize data before rendering";
 
     auto parentItem = dynamic_cast<Controllers::RendererController*>(qqfbo);
     _window = parentItem->window();
