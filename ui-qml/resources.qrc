@@ -18,6 +18,10 @@
         <file alias="Hack-BoldItalic.ttf">fonts/Hack-BoldItalic.ttf</file>
         <file alias="Hack-Italic.ttf">fonts/Hack-Italic.ttf</file>
     </qresource>
+    <qresource prefix="/shaders">
+        <file alias="test.vert">shaders/test.vert</file>
+        <file alias="test.frag">shaders/test.frag</file>
+    </qresource>
     <qresource prefix="/styles">
         <file alias="Style.qml">styles/Style.qml</file>
         <file alias="qmldir">styles/qmldir</file>
