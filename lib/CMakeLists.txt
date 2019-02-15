@@ -16,13 +16,15 @@ add_library(${PROJECT_NAME} SHARED
   src/controllers/ToolbarController.cpp
   src/controllers/RightSidebarController.cpp
   src/controllers/LeftSidebarController.cpp
-  src/controllers/RendererController.cpp
 
   ## Models
   src/models/ToolbarModel.cpp
   src/models/RightSidebarModel.cpp
   src/models/LeftSidebarModel.cpp
-  src/models/RendererModel.cpp
+
+  ## Logic
+  src/logic/FbItem.cpp
+  src/logic/FbItemRenderer.cpp
 
   # Public
   ## Controllers
@@ -30,13 +32,15 @@ add_library(${PROJECT_NAME} SHARED
   public/controllers/ToolbarController.hpp
   public/controllers/RightSidebarController.hpp
   public/controllers/LeftSidebarController.hpp
-  public/controllers/RendererController.hpp
+
+  ## Logic
+  public/logic/FbItem.hpp
+  public/logic/FbItemRenderer.hpp
 
   ## Models
   public/models/ToolbarModel.hpp
   public/models/RightSidebarModel.hpp
   public/models/LeftSidebarModel.hpp
-  public/models/RendererModel.hpp
 
   public/globals.h
 )
@@ -47,16 +51,19 @@ target_include_directories(${PROJECT_NAME}
       public
       public/controllers
       public/models
+      public/logic
      >
     $<BUILD_INTERFACE:
       ${CMAKE_CURRENT_SOURCE_DIR}/public
       ${CMAKE_CURRENT_SOURCE_DIR}/public/controllers
       ${CMAKE_CURRENT_SOURCE_DIR}/public/models
+      ${CMAKE_CURRENT_SOURCE_DIR}/public/logic
      >
   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${CMAKE_CURRENT_SOURCE_DIR}/src/controllers
     ${CMAKE_CURRENT_SOURCE_DIR}/src/models
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/logic
 )
 
 target_compile_definitions(${PROJECT_NAME}

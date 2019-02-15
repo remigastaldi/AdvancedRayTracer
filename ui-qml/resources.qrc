@@ -9,7 +9,7 @@
         <file alias="ToolbarComponent.qml">components/ToolbarComponent.qml</file>
         <file alias="RightSidebarComponent.qml">components/RightSidebarComponent.qml</file>
         <file alias="LeftSidebarComponent.qml">components/LeftSidebarComponent.qml</file>
-        <file alias="RendererComponent.qml">components/RendererComponent.qml</file>
+        <file alias="FbItemComponent.qml">components/FbItemComponent.qml</file>
     </qresource>
     <qresource prefix="/fonts">
         <file alias="fontello.ttf">fonts/fontello.ttf</file>

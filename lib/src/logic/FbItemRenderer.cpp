@@ -1,10 +1,10 @@
-#include "RendererModel.hpp"
-#include "RendererController.hpp"
+#include "FbItemRenderer.hpp"
+#include "FbItem.hpp"
 
 namespace ART {
-namespace Models {
+namespace Logic {
 
-RendererModel::RendererModel() : _program{nullptr} {
+FbItemRenderer::FbItemRenderer() : _program{nullptr} {
   initializeOpenGLFunctions();
 
   _program = std::make_unique<QOpenGLShaderProgram>();
@@ -15,7 +15,7 @@ RendererModel::RendererModel() : _program{nullptr} {
   _program->link();
 }
 
-QOpenGLFramebufferObject *RendererModel::createFramebufferObject(const QSize &size) {
+QOpenGLFramebufferObject *FbItemRenderer::createFramebufferObject(const QSize &size) {
   QOpenGLFramebufferObjectFormat format;
   format.setAttachment(QOpenGLFramebufferObject::CombinedDepthStencil);
   format.setSamples(4);
@@ -23,7 +23,7 @@ QOpenGLFramebufferObject *RendererModel::createFramebufferObject(const QSize &si
   return new QOpenGLFramebufferObject(size, format);
 }
 
-void RendererModel::render() noexcept {
+void FbItemRenderer::render() noexcept {
   qInfo() << "Start rendering";
 
   _program->bind();
@@ -52,12 +52,12 @@ void RendererModel::render() noexcept {
   _window->resetOpenGLState();
 }
 
-void RendererModel::synchronize(QQuickFramebufferObject *qqfbo) noexcept {
+void FbItemRenderer::synchronize(QQuickFramebufferObject *qqfbo) noexcept {
   qInfo() << "Synchronize data before rendering";
 
-  auto parentItem = dynamic_cast<Controllers::RendererController *>(qqfbo);
+  auto parentItem = dynamic_cast<Logic::FbItem *>(qqfbo);
   _window = parentItem->window();
-  _controller = parentItem;
+  _fbItem = parentItem;
 }
 
 } // namespace Models

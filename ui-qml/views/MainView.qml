@@ -67,7 +67,7 @@ ApplicationWindow {
             Layout.alignment: Qt.AlignLeft | Qt.AlignTop
         }
 
-        RendererComponent {            
+        FbItemComponent {            
             id: engine
             Layout.margins: 8
 

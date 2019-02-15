@@ -2,9 +2,8 @@
 #include "LeftSidebarController.hpp"
 #include "ToolbarController.hpp"
 #include "RightSidebarController.hpp"
-#include "RendererController.hpp"
+#include "FbItem.hpp"
 
-#include <iostream>
 namespace ART {
 namespace Controllers {
 
@@ -13,16 +12,16 @@ MainController::MainController(QObject* parent) :
   _toolbarController{new ToolbarController{this}},
   _leftSidebarController{new LeftSidebarController{this}},
   _rightSidebarController{new RightSidebarController{this}},
-  _rendererController{nullptr}
+  _fbItem{nullptr}
 {
   connect(_toolbarController, &ToolbarController::saveFileClicked, this, &MainController::handleSaveFileClicked);
   connect(_toolbarController, &ToolbarController::saveAsFileClicked, this, &MainController::handleSaveAsFileClicked);
   connect(_toolbarController, &ToolbarController::newFileClicked, this, &MainController::handleNewFileClicked);
 }
 
-void  MainController::setRendererController(RendererController *rendererController) noexcept {
-  _rendererController = rendererController;
-  connect(_rightSidebarController, &RightSidebarController::renderUpdate, _rendererController, &RendererController::update);
+void  MainController::setFbItem(Logic::FbItem *_fbItem) noexcept {
+  _fbItem = _fbItem;
+  connect(_rightSidebarController, &RightSidebarController::renderUpdate, _fbItem, &Logic::FbItem::update);
 }
 
 ToolbarController* MainController::toolbarController() const noexcept {
@@ -37,8 +36,8 @@ LeftSidebarController *MainController::leftSidebarController() const noexcept {
   return _leftSidebarController;
 }
 
-RendererController  *MainController::rendererController() const noexcept {
-  return _rendererController;
+Logic::FbItem  *MainController::fbItem() const noexcept {
+  return _fbItem;
 }
 
 void MainController::handleSaveFileClicked() {
