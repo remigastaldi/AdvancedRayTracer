@@ -21,6 +21,7 @@ MainController::MainController(QObject* parent) :
 
 void  MainController::setFbItem(Logic::FbItem *_fbItem) noexcept {
   _fbItem = _fbItem;
+  connect(_rightSidebarController, &RightSidebarController::renderUpdate, _fbItem, &Logic::FbItem::test);
   connect(_rightSidebarController, &RightSidebarController::renderUpdate, _fbItem, &Logic::FbItem::update);
 }
 

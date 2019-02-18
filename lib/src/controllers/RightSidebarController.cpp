@@ -1,6 +1,9 @@
 #include "RightSidebarController.hpp"
 #include "RightSidebarModel.hpp"
 
+#include <thread>
+#include <iostream>
+
 namespace ART {
 namespace Controllers {
 
@@ -18,6 +21,10 @@ void RightSidebarController::setModel(ART::Models::RightSidebarModel *model) {
 
 void RightSidebarController::render() {
   Q_EMIT renderUpdate();
+}
+
+void RightSidebarController::scale() {
+  Q_EMIT scaleUpdate();
 }
 
 } // namespace Controllers

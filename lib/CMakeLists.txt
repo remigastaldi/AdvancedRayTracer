@@ -25,6 +25,8 @@ add_library(${PROJECT_NAME} SHARED
   ## Logic
   src/logic/FbItem.cpp
   src/logic/FbItemRenderer.cpp
+  src/logic/Transform3D.cpp
+  src/logic/Cube.cpp
 
   # Public
   ## Controllers
@@ -36,6 +38,10 @@ add_library(${PROJECT_NAME} SHARED
   ## Logic
   public/logic/FbItem.hpp
   public/logic/FbItemRenderer.hpp
+  public/logic/Vertex.hpp
+  public/logic/Transform3D.hpp
+  public/logic/Cube.hpp
+  public/logic/RenderObject.hpp
 
   ## Models
   public/models/ToolbarModel.hpp
@@ -80,6 +86,11 @@ target_link_libraries(${PROJECT_NAME}
 target_compile_features(${PROJECT_NAME}
   PUBLIC
     cxx_std_17
+)
+
+target_compile_options(${PROJECT_NAME}
+  PRIVATE
+  -fdiagnostics-color=always
 )
 
 set_target_properties(${PROJECT_NAME}

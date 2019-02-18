@@ -26,13 +26,14 @@ public:
 
 private:
   ART::Models::RightSidebarModel *_model{nullptr};
-  // QMetaObject::Connection document_created_connection_;
 
 public Q_SLOTS:
   void render();
+  void scale();
 
 Q_SIGNALS:
   void renderUpdate();
+  void scaleUpdate();
 };
 
 } // namespace Controllers

@@ -39,6 +39,7 @@ Rectangle {
       Layout.bottomMargin: 10
       Layout.alignment: Qt.AlignHCenter
       text: "Do nothing"
+      // onClicked: mainController.rightSidebarController .scale()
     }
   }
 }
