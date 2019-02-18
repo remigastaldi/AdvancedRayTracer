@@ -19,12 +19,23 @@ void RightSidebarController::setModel(ART::Models::RightSidebarModel *model) {
   _model->setParent(this);
 }
 
-void RightSidebarController::render() {
+void RightSidebarController::render() noexcept {
   Q_EMIT renderUpdate();
 }
 
-void RightSidebarController::scale() {
-  Q_EMIT scaleUpdate();
+void RightSidebarController::deleteShape() noexcept {
+  Q_EMIT deleteShapeUpdate();
+  Q_EMIT renderUpdate();
+}
+
+void RightSidebarController::setAutoRenderRate(int rate) noexcept {
+  Q_EMIT renderRateUpdate(rate);
+  Q_EMIT renderUpdate();
+}
+
+void RightSidebarController::createCube() noexcept {
+  Q_EMIT createCubeEvent();
+  Q_EMIT renderUpdate();
 }
 
 } // namespace Controllers

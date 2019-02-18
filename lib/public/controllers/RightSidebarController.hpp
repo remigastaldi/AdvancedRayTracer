@@ -28,12 +28,16 @@ private:
   ART::Models::RightSidebarModel *_model{nullptr};
 
 public Q_SLOTS:
-  void render();
-  void scale();
+  void render() noexcept;
+  void deleteShape()noexcept;
+  void setAutoRenderRate(int rate) noexcept;
+  void createCube() noexcept;
 
 Q_SIGNALS:
   void renderUpdate();
-  void scaleUpdate();
+  void deleteShapeUpdate();
+  void renderRateUpdate(int rate);
+  void createCubeEvent();
 };
 
 } // namespace Controllers

@@ -3,51 +3,51 @@
 
 // Transform By (Add/Scale)
 void Transform3D::translate(const QVector3D &dt) {
-  m_dirty = true;
-  m_translation += dt;
+  _dirty = true;
+  _translation += dt;
 }
 
 void Transform3D::scale(const QVector3D &ds) {
-  m_dirty = true;
-  m_scale *= ds;
+  _dirty = true;
+  _scale *= ds;
 }
 
 void Transform3D::rotate(const QQuaternion &dr) {
-  m_dirty = true;
-  m_rotation = dr * m_rotation;
+  _dirty = true;
+  _rotation = dr * _rotation;
 }
 
 void Transform3D::grow(const QVector3D &ds) {
-  m_dirty = true;
-  m_scale += ds;
+  _dirty = true;
+  _scale += ds;
 }
 
 // Transform To (Setters)
 void Transform3D::setTranslation(const QVector3D &t) {
-  m_dirty = true;
-  m_translation = t;
+  _dirty = true;
+  _translation = t;
 }
 
 void Transform3D::setScale(const QVector3D &s) {
-  m_dirty = true;
-  m_scale = s;
+  _dirty = true;
+  _scale = s;
 }
 
 void Transform3D::setRotation(const QQuaternion &r) {
-  m_dirty = true;
-  m_rotation = r;
+  _dirty = true;
+  _rotation = r;
 }
 
 // Accessors
 const QMatrix4x4 &Transform3D::toMatrix() {
-  if (m_dirty) {
-    m_dirty = false;
-    m_world.setToIdentity();
-    m_world.translate(m_translation);
-    m_world.rotate(m_rotation);
-    m_world.scale(m_scale);
+  if (_dirty) {
+    _dirty = false;
+    _world.setToIdentity();
+    _world.translate(_translation);
+    _world.rotate(_rotation);
+    _world.scale(_scale);
   }
-  return m_world;
+  return _world;
 }
 
 // Qt Streams
@@ -62,16 +62,16 @@ QDebug operator<<(QDebug dbg, const Transform3D &transform) {
 }
 
 QDataStream &operator<<(QDataStream &out, const Transform3D &transform) {
-  out << transform.m_translation;
-  out << transform.m_scale;
-  out << transform.m_rotation;
+  out << transform._translation;
+  out << transform._scale;
+  out << transform._rotation;
   return out;
 }
 
 QDataStream &operator>>(QDataStream &in, Transform3D &transform) {
-  in >> transform.m_translation;
-  in >> transform.m_scale;
-  in >> transform.m_rotation;
-  transform.m_dirty = true;
+  in >> transform._translation;
+  in >> transform._scale;
+  in >> transform._rotation;
+  transform._dirty = true;
   return in;
 }

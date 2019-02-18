@@ -19,7 +19,11 @@ const std::unordered_map<size_t, FbItem::Data> &FbItem::shapes() const noexcept 
   return _shapes;
 }
 
-void  FbItem::setAutoRenderFps(int fps) noexcept {
+int FbItem::autoRate() const noexcept {
+  return _renderFps;
+}
+
+void  FbItem::setAutoRenderRate(int fps) noexcept {
   _renderFps = fps;
   update();
 }
@@ -32,8 +36,11 @@ void FbItem::createCube() noexcept {
   _shapes.emplace(_currentId++, Data{FbItem::Type::CUBE, cube});
 }
 
-void FbItem::test()  {
-  createCube();
+void FbItem::deleteShape() noexcept {
+  if (_shapes.size() > 0) {
+    _shapes.erase(_shapes.begin()->first);
+    _currentId--;
+  }
 };
 
 } //namespace Logic

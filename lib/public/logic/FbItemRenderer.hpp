@@ -43,14 +43,14 @@ public:
 protected:
   QOpenGLFramebufferObject *createFramebufferObject(const QSize &size) override;
   void synchronize(QQuickFramebufferObject *item) noexcept override;
-  void checkAutoRender() noexcept;
+  bool checkAutoRender() noexcept;
   void render() noexcept override;
 
 private:
   QQuickWindow *_window;
   Logic::FbItem *_fbItem;
 
-  QMatrix4x4 m_projection;
+  QMatrix4x4 _projection;
 
   std::chrono::high_resolution_clock::time_point t1;
   int _renderFps;

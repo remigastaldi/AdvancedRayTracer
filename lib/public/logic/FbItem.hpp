@@ -37,11 +37,9 @@ public:
   FbItem(FbItem &&other) = delete;
   FbItem &operator=(FbItem &&other) = delete;
 
+  int autoRate() const noexcept;
 
-  void setAutoRenderFps(int fps) noexcept;
   const std::unordered_map<size_t, Data> &shapes() const noexcept;
-  void createCube() noexcept;
-
 protected:
   QQuickFramebufferObject::Renderer *createRenderer() const noexcept override;
 
@@ -52,7 +50,10 @@ private:
   size_t _currentId;
 
 public Q_SLOTS:
-  void test();
+  void setAutoRenderRate(int fps) noexcept;
+  
+  void createCube() noexcept;
+  void deleteShape() noexcept;
 };
 
 } // nameSpace Logic

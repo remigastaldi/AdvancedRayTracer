@@ -30,10 +30,15 @@ QOpenGLFramebufferObject *FbItemRenderer::createFramebufferObject(const QSize &s
 }
 
 void FbItemRenderer::render() noexcept {
+  if (_renderFps > 0 && !checkAutoRender()) {
+    Renderer::update();
+    return;
+  }
+
   qInfo() << "Start rendering";
   
-  m_projection.setToIdentity();
-  m_projection.perspective(45.0f, _fbItem->width() / _fbItem->height(), 0.0f, 1000.0f);
+  _projection.setToIdentity();
+  _projection.perspective(45.0f, _fbItem->width() / _fbItem->height(), 0.0f, 1000.0f);
   // glViewport(0, 0, _fbItem->width(), _fbItem->height());
   glDisable(GL_DEPTH_TEST);
 
@@ -45,30 +50,32 @@ void FbItemRenderer::render() noexcept {
 
   for (auto &shape : _shapes) {
     auto transform = dynamic_cast<Transform3D*>(shape.second.get());
+    
     transform->rotate(1.0f, QVector3D(0.4f, 0.3f, 0.3f));
 
-    shape.second->update(m_projection);
+    shape.second->update(_projection);
   }
 
   _window->resetOpenGLState();
 
-  if (_renderFps > 0) {
-    checkAutoRender();
-  }
   qInfo() << "End rendering";
+  
+  if (_renderFps > 0)
+    Renderer::update();
 }
 
-void  FbItemRenderer::checkAutoRender() noexcept {
+bool  FbItemRenderer::checkAutoRender() noexcept {
   auto t2 = std::chrono::high_resolution_clock::now();
   auto int_ms = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);
 
-  if (int_ms.count() < 1000 / _renderFps) {
+  if (int_ms.count() > 1000 / _renderFps) {
     // std::cout << "sleep for " << 16 - static_cast<int>(int_ms.count()) << std::endl;
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000 / _renderFps - static_cast<int>(int_ms.count())));
+    // std::this_thread::sleep_for(std::chrono::milliseconds(1000 / _renderFps - static_cast<int>(int_ms.count())));
+    t1 = std::chrono::high_resolution_clock::now();
+    return true;
   }
-  t1 = std::chrono::high_resolution_clock::now();
+  return false;
   // synchronize(_fbItem);
-  Renderer::update();
 }
 
 void  FbItemRenderer::synchronize(QQuickFramebufferObject *qqfbo) noexcept {
@@ -86,6 +93,7 @@ void  FbItemRenderer::synchronize(QQuickFramebufferObject *qqfbo) noexcept {
       break;
     }
   }
+  _renderFps = parentItem->autoRate();
 
   t1 = std::chrono::high_resolution_clock::now();
 }

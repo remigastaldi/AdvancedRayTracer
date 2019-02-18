@@ -39,11 +39,11 @@ public:
   const QMatrix4x4 &toMatrix();
 
 private:
-  bool m_dirty;
-  QVector3D m_translation;
-  QVector3D m_scale;
-  QQuaternion m_rotation;
-  QMatrix4x4 m_world;
+  bool _dirty;
+  QVector3D _translation;
+  QVector3D _scale;
+  QQuaternion _rotation;
+  QMatrix4x4 _world;
 
 #ifndef QT_NO_DATASTREAM
   friend QDataStream &operator<<(QDataStream &out, const Transform3D &transform);
@@ -53,7 +53,7 @@ private:
 
 Q_DECLARE_TYPEINFO(Transform3D, Q_MOVABLE_TYPE);
 
-inline Transform3D::Transform3D() : m_dirty(true), m_scale(1.0f, 1.0f, 1.0f) {}
+inline Transform3D::Transform3D() : _dirty(true), _scale(1.0f, 1.0f, 1.0f) {}
 
 // Transform By (Add/Scale)
 inline void Transform3D::translate(float dx, float dy, float dz) { translate(QVector3D(dx, dy, dz)); }
@@ -80,9 +80,9 @@ inline void Transform3D::setRotation(float angle, float ax, float ay, float az) 
 }
 
 // Accessors
-inline const QVector3D &Transform3D::translation() const { return m_translation; }
-inline const QVector3D &Transform3D::scale() const { return m_scale; }
-inline const QQuaternion &Transform3D::rotation() const { return m_rotation; }
+inline const QVector3D &Transform3D::translation() const { return _translation; }
+inline const QVector3D &Transform3D::scale() const { return _scale; }
+inline const QQuaternion &Transform3D::rotation() const { return _rotation; }
 
 // Qt Streams
 #ifndef QT_NO_DEBUG_STREAM

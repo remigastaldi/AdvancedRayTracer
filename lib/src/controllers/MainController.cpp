@@ -21,8 +21,10 @@ MainController::MainController(QObject* parent) :
 
 void  MainController::setFbItem(Logic::FbItem *_fbItem) noexcept {
   _fbItem = _fbItem;
-  connect(_rightSidebarController, &RightSidebarController::renderUpdate, _fbItem, &Logic::FbItem::test);
   connect(_rightSidebarController, &RightSidebarController::renderUpdate, _fbItem, &Logic::FbItem::update);
+  connect(_rightSidebarController, &RightSidebarController::renderRateUpdate, _fbItem, &Logic::FbItem::setAutoRenderRate);
+  connect(_rightSidebarController, &RightSidebarController::deleteShapeUpdate, _fbItem, &Logic::FbItem::deleteShape);
+  connect(_rightSidebarController, &RightSidebarController::createCubeEvent, _fbItem, &Logic::FbItem::createCube);
 }
 
 ToolbarController* MainController::toolbarController() const noexcept {
