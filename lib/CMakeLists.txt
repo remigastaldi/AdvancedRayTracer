@@ -5,6 +5,7 @@ set(LIBRARY_NAME advancedraytracer)
 
 ###########################
 # Dependencies
+find_package(OpenGL REQUIRED COMPONENTS OpenGL)
 find_package(Qt5 COMPONENTS QuickControls2 Widgets REQUIRED)
 
 ###########################
@@ -79,6 +80,7 @@ target_compile_definitions(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
   PUBLIC
+    OpenGL::GL
     Qt5::QuickControls2
     Qt5::Widgets
 )
