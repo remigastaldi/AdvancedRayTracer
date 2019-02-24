@@ -1,19 +1,18 @@
+#include "MainController.hpp"
+#include "ToolbarController.hpp"
+#include "RightSidebarController.hpp"
+#include "LeftSidebarController.hpp"
+
+#include "ToolbarModel.hpp"
+#include "RightSidebarModel.hpp"
+#include "LeftSidebarModel.hpp"
+#include "Scene3D.hpp"
+
 #include <QApplication>
 #include <QDebug>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QFontDatabase>
-
-#include "MainController.hpp"
-#include "ToolbarController.hpp"
-#include "RightSidebarController.hpp"
-#include "LeftSidebarController.hpp"
-#include "FbItem.hpp"
-
-#include "ToolbarModel.hpp"
-#include "RightSidebarModel.hpp"
-#include "LeftSidebarModel.hpp"
-#include "FbItemRenderer.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -37,7 +36,18 @@ int main(int argc, char *argv[])
   qmlRegisterType<ART::Controllers::ToolbarController>("AdvancedRayTracer", 1, 0, "ToolbarController");
   qmlRegisterType<ART::Controllers::RightSidebarController>("AdvancedRayTracer", 1, 0, "RightSidebarController");
   qmlRegisterType<ART::Controllers::LeftSidebarController>("AdvancedRayTracer", 1, 0, "LeftSidebarController");
-  qmlRegisterType<ART::Logic::FbItem>("AdvancedRayTracer", 1, 0, "FbItem");
+  // qmlRegisterType<ART::Logic::FbItem>("AdvancedRayTracer", 1, 0, "FbItem");
+  qmlRegisterType<ART::Logic::Scene3D>("AdvancedRayTracer", 1, 0, "CustomScene3D");
+
+  QSurfaceFormat format;
+  if (QOpenGLContext::openGLModuleType() == QOpenGLContext::LibGL) {
+      format.setVersion(3, 3);
+      format.setProfile(QSurfaceFormat::CoreProfile);
+  }
+  format.setDepthBufferSize(24);
+  format.setStencilBufferSize(8);
+  format.setSamples(4);
+  QSurfaceFormat::setDefaultFormat(format);
 
   QQmlApplicationEngine engine;
   ART::Controllers::MainController mainController;
@@ -60,8 +70,8 @@ int main(int argc, char *argv[])
     return -1;
   }
 
-  auto *fbItem =  engine.rootObjects().first()->findChild<ART::Logic::FbItem*>("fbItem");
-  mainController.setFbItem(fbItem);
+  auto *scene3D =  engine.rootObjects().first()->findChild<ART::Logic::Scene3D*>("customScene3D");
+  mainController.setScene3D(scene3D);
 
   mainController.dumpObjectTree();
   return QApplication::exec();

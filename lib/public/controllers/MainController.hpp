@@ -1,13 +1,28 @@
 #pragma once
 
+#include "globals.h"
+
 #include <QObject>
 #include <QString>
 
-#include "globals.h"
+#include <Qt3DCore/QAspectEngine>
+#include <Qt3DCore/QEntity>
+#include <Qt3DCore/QTransform>
+#include <Qt3DRender/QCamera>
+#include <Qt3DRender/QCameraLens>
+
+#include <Qt3DInput/QInputAspect>
+
+#include <Qt3DExtras/QCylinderMesh>
+#include <Qt3DExtras/QForwardRenderer>
+#include <Qt3DExtras/QPhongMaterial>
+#include <Qt3DExtras/QSphereMesh>
+#include <Qt3DExtras/QTorusMesh>
+#include <Qt3DRender/QRenderAspect>
 
 namespace ART {
 namespace Logic {
-  class FbItem;
+class Scene3D;
 } // namespace Logic
 
 namespace Controllers {
@@ -20,36 +35,36 @@ class ADVANCED_RAY_TRACER_EXPORT MainController : public QObject {
   Q_OBJECT
   Q_DISABLE_COPY(MainController)
 
-  Q_PROPERTY(ART::Controllers::ToolbarController* toolbarController READ toolbarController CONSTANT)
-  Q_PROPERTY(ART::Controllers::RightSidebarController* rightSidebarController READ rightSidebarController CONSTANT)
-  Q_PROPERTY(ART::Controllers::LeftSidebarController* leftSidebarController READ leftSidebarController CONSTANT)
-  Q_PROPERTY(ART::Logic::FbItem* fbItem READ fbItem CONSTANT)
+  Q_PROPERTY(ART::Controllers::ToolbarController *toolbarController READ toolbarController CONSTANT)
+  Q_PROPERTY(ART::Controllers::RightSidebarController *rightSidebarController READ rightSidebarController CONSTANT)
+  Q_PROPERTY(ART::Controllers::LeftSidebarController *leftSidebarController READ leftSidebarController CONSTANT)
+  Q_PROPERTY(ART::Logic::Scene3D *scene3D READ scene3D CONSTANT)
 
 public:
-  explicit MainController(QObject* parent = nullptr);
+  explicit MainController(QObject *parent = nullptr);
   ~MainController() = default;
-  MainController(MainController&& other) = delete;
-  MainController& operator=(MainController&& other) = delete;
+  MainController(MainController &&other) = delete;
+  MainController &operator=(MainController &&other) = delete;
 
-  void  setFbItem(Logic::FbItem *FbItem) noexcept;
+  void setScene3D(Logic::Scene3D *scene) noexcept;
 
 public Q_SLOTS:
-  ToolbarController* toolbarController() const noexcept;
+  ToolbarController *toolbarController() const noexcept;
   RightSidebarController *rightSidebarController() const noexcept;
   LeftSidebarController *leftSidebarController() const noexcept;
-  Logic::FbItem *fbItem() const noexcept;
+  Logic::Scene3D *scene3D() const noexcept;
 
 private:
-  ToolbarController* _toolbarController{nullptr};
-  RightSidebarController* _rightSidebarController{nullptr};
-  LeftSidebarController* _leftSidebarController{nullptr};
-  Logic::FbItem *_fbItem{nullptr};
+  ToolbarController *_toolbarController{nullptr};
+  RightSidebarController *_rightSidebarController{nullptr};
+  LeftSidebarController *_leftSidebarController{nullptr};
+  Logic::Scene3D *_scene3D{nullptr};
 
 private Q_SLOTS:
   void handleSaveFileClicked();
-  void handleSaveAsFileClicked(const QUrl& url);
+  void handleSaveAsFileClicked(const QUrl &url);
   void handleNewFileClicked();
-  void handleimportImageClicked(const QUrl& url);
+  void handleimportImageClicked(const QUrl &url);
 };
 
 } // namespace Controllers

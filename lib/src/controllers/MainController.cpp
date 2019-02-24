@@ -2,7 +2,7 @@
 #include "LeftSidebarController.hpp"
 #include "ToolbarController.hpp"
 #include "RightSidebarController.hpp"
-#include "FbItem.hpp"
+#include "Scene3D.hpp"
 
 namespace ART {
 namespace Controllers {
@@ -10,9 +10,9 @@ namespace Controllers {
 MainController::MainController(QObject* parent) :
   QObject{parent},
   _toolbarController{new ToolbarController{this}},
-  _leftSidebarController{new LeftSidebarController{this}},
   _rightSidebarController{new RightSidebarController{this}},
-  _fbItem{nullptr}
+  _leftSidebarController{new LeftSidebarController{this}},
+  _scene3D{nullptr}
 {
   // connect a sender which sends signals to a receiver (sender, sender signal name, receiver, receiver action)
   connect(_toolbarController, &ToolbarController::saveFileClicked, this, &MainController::handleSaveFileClicked);
@@ -21,12 +21,10 @@ MainController::MainController(QObject* parent) :
   connect(_toolbarController, &ToolbarController::importImageClicked, this, &MainController::handleimportImageClicked);
 }
 
-void  MainController::setFbItem(Logic::FbItem *_fbItem) noexcept {
-  _fbItem = _fbItem;
-  connect(_rightSidebarController, &RightSidebarController::renderUpdate, _fbItem, &Logic::FbItem::update);
-  connect(_rightSidebarController, &RightSidebarController::renderRateUpdate, _fbItem, &Logic::FbItem::setAutoRenderRate);
-  connect(_rightSidebarController, &RightSidebarController::deleteShapeUpdate, _fbItem, &Logic::FbItem::deleteShape);
-  connect(_rightSidebarController, &RightSidebarController::createCubeEvent, _fbItem, &Logic::FbItem::createCube);
+void  MainController::setScene3D(Logic::Scene3D *scene) noexcept {
+  _scene3D = scene;
+  connect(_rightSidebarController, &RightSidebarController::createCubeEvent, _scene3D, &Logic::Scene3D::createSphere);
+  connect(_rightSidebarController, &RightSidebarController::deleteShapeUpdate, _scene3D, &Logic::Scene3D::removeSphere);
 }
 
 ToolbarController* MainController::toolbarController() const noexcept {
@@ -41,8 +39,8 @@ LeftSidebarController *MainController::leftSidebarController() const noexcept {
   return _leftSidebarController;
 }
 
-Logic::FbItem  *MainController::fbItem() const noexcept {
-  return _fbItem;
+Logic::Scene3D  *MainController::scene3D() const noexcept {
+  return _scene3D;
 }
 
 void MainController::handleSaveFileClicked() {
@@ -56,7 +54,7 @@ void MainController::handleNewFileClicked() {
 }
 
 void MainController::handleimportImageClicked(const QUrl& url) {
-	qInfo() << url.path();
+	// qInfo() << url.path();
 }
 
 } // namespace Controllers

@@ -1,13 +1,21 @@
-#version 330
-layout(location = 0) in vec3 position;
-layout(location = 1) in vec3 color;
-out vec4 vColor;
- 
-uniform mat4 modelToWorld;
-uniform mat4 worldToView;
- 
+#version 330 core
+
+in vec3 vertexPosition;
+in vec3 vertexNormal;
+
+out EyeSpaceVertex {
+    vec3 position;
+    vec3 normal;
+} vs_out;
+
+uniform mat4 modelView;
+uniform mat3 modelViewNormal;
+uniform mat4 mvp;
+
 void main()
 {
-  gl_Position = worldToView * modelToWorld * vec4(position, 1.0);
-  vColor = vec4(color, 0.8);
+    vs_out.normal = normalize( modelViewNormal * vertexNormal );
+    vs_out.position = vec3( modelView * vec4( vertexPosition, 1.0 ) );
+
+    gl_Position = mvp * vec4( vertexPosition, 1.0 );
 }

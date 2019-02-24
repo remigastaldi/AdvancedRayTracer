@@ -1,11 +1,11 @@
+import "../components"
+import AdvancedRayTracer 1.0
 import QtQuick 2.12
 import QtQuick.Window 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Dialogs 1.0
 import QtQuick.Controls 2.12
 import QtQml 2.12
-import AdvancedRayTracer 1.0
-import "../components"
 
 ApplicationWindow {
     id: root
@@ -52,6 +52,7 @@ ApplicationWindow {
         id: menu
     }
 
+    
     RowLayout {
         id: appContent
 
@@ -63,20 +64,34 @@ ApplicationWindow {
             Layout.alignment: Qt.AlignLeft | Qt.AlignTop
         }
 
-        FbItemComponent {            
-            id: engine
-            Layout.margins: 8
-
+        ColumnLayout{
             Layout.fillWidth: true
             Layout.fillHeight: true
 
             Layout.minimumWidth: 700
             Layout.preferredWidth: 700
             Layout.maximumWidth: 1920
-            
+
             Layout.minimumHeight: 700
             Layout.preferredHeight: 700
             Layout.maximumHeight: 1920
+
+            TabBar {
+                id: tabBar
+                width: parent.width
+                TabButton {
+                    text: qsTr("3D")
+                }
+                TabButton {
+                    text: qsTr("2D")
+                }
+            }
+            StackLayout {
+                currentIndex: tabBar.currentIndex
+
+                Scene3DComponent {}
+                Scene2DComponent {}
+            }
         }
 
         RightSidebarComponent {

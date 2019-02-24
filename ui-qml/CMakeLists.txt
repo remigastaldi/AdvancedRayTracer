@@ -5,7 +5,7 @@ project(advancedRayTracer VERSION 1.0.0 LANGUAGES C CXX)
 ###########################
 # Dependencies
 
-find_package(Qt5 COMPONENTS Core Gui Qml REQUIRED)
+find_package(Qt5 COMPONENTS Core Gui Qml 3DCore 3DRender 3DInput 3DLogic 3DExtras 3DAnimation REQUIRED)
 
 ###########################
 # Targets
@@ -30,6 +30,11 @@ target_link_libraries(${PROJECT_NAME}
     Qt5::Core
     Qt5::Gui
     Qt5::Qml
+    Qt5::3DRender
+    Qt5::3DInput
+    Qt5::3DLogic
+    Qt5::3DExtras
+    Qt5::3DAnimation
     advancedRayTracer-lib
 )
 

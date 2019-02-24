@@ -5,8 +5,8 @@ set(LIBRARY_NAME advancedraytracer)
 
 ###########################
 # Dependencies
-find_package(OpenGL REQUIRED COMPONENTS OpenGL)
-find_package(Qt5 COMPONENTS QuickControls2 Widgets REQUIRED)
+find_package(OpenGL COMPONENTS OpenGL REQUIRED)
+find_package(Qt5 COMPONENTS QuickControls2 Widgets 3DCore 3DRender 3DInput 3DLogic 3DExtras 3DAnimation  REQUIRED)
 
 ###########################
 # Targets
@@ -24,10 +24,9 @@ add_library(${PROJECT_NAME} SHARED
   src/models/LeftSidebarModel.cpp
 
   ## Logic
-  src/logic/FbItem.cpp
-  src/logic/FbItemRenderer.cpp
-  src/logic/Transform3D.cpp
-  src/logic/Cube.cpp
+  src/logic/Scene3D.cpp
+  src/logic/3D/Sphere.cpp
+  src/logic/3D/Shape3D.cpp
 
   # Public
   ## Controllers
@@ -37,12 +36,9 @@ add_library(${PROJECT_NAME} SHARED
   public/controllers/LeftSidebarController.hpp
 
   ## Logic
-  public/logic/FbItem.hpp
-  public/logic/FbItemRenderer.hpp
-  public/logic/Vertex.hpp
-  public/logic/Transform3D.hpp
-  public/logic/Cube.hpp
-  public/logic/RenderObject.hpp
+  public/logic/Scene3D.hpp
+  public/logic/3D/Sphere.hpp
+  public/logic/3D/Shape3D.hpp
 
   ## Models
   public/models/ToolbarModel.hpp
@@ -59,18 +55,21 @@ target_include_directories(${PROJECT_NAME}
       public/controllers
       public/models
       public/logic
+      public/logic/3D
      >
     $<BUILD_INTERFACE:
       ${CMAKE_CURRENT_SOURCE_DIR}/public
       ${CMAKE_CURRENT_SOURCE_DIR}/public/controllers
       ${CMAKE_CURRENT_SOURCE_DIR}/public/models
       ${CMAKE_CURRENT_SOURCE_DIR}/public/logic
+      ${CMAKE_CURRENT_SOURCE_DIR}/public/logic/3D
      >
   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${CMAKE_CURRENT_SOURCE_DIR}/src/controllers
     ${CMAKE_CURRENT_SOURCE_DIR}/src/models
     ${CMAKE_CURRENT_SOURCE_DIR}/src/logic
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/logic/3D
 )
 
 target_compile_definitions(${PROJECT_NAME}
@@ -83,6 +82,11 @@ target_link_libraries(${PROJECT_NAME}
     OpenGL::GL
     Qt5::QuickControls2
     Qt5::Widgets
+    Qt5::3DRender
+    Qt5::3DInput
+    Qt5::3DLogic
+    Qt5::3DExtras
+    Qt5::3DAnimation
 )
 
 target_compile_features(${PROJECT_NAME}

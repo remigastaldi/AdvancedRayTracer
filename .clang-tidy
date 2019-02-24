@@ -1,1 +1,1 @@
-Checks: '*, -abseil*, -android*, -boost*, -fuchsia*, -objc*, -clang-diagnostic-c++98-compat*'
+Checks: '*, -abseil*, -android*, -boost*, -fuchsia*, -objc*, -clang-diagnostic-c++98-compat*, -clang-diagnostic-switch-enum, -llvm-header-guard'
