@@ -18,6 +18,7 @@
 int main(int argc, char *argv[])
 {
   QApplication::setApplicationName("AdvancedRayTracer");
+  QCoreApplication::setOrganizationName("Team 5");
   QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
   QApplication app(argc, argv);

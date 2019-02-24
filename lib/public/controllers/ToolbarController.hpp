@@ -36,6 +36,7 @@ Q_SIGNALS:
   void openFileClicked(const QUrl& file_url);
   void saveFileClicked();
   void saveAsFileClicked(const QUrl& file_url);
+  void importImageClicked(const QUrl& file_url);
 };
 
 } // namespace Controllers

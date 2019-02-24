@@ -40,15 +40,11 @@ ApplicationWindow {
 
 	FileDialog {
 		id: importImgDialog
-		title: "Please choose a file"
+		title: "Please choose an image"
 		folder: shortcuts.home
 		nameFilters: [ "Image files (*.jpg *.png)", "All files (*)" ]
 		onAccepted: {
-			// User choice : importImgDialog.fileUrls
-			Qt.quit()
-		}
-		onRejected: {
-			Qt.quit()
+			mainController.toolbarController.importImageClicked(importImgDialog.fileUrl);
 		}
 	}
 

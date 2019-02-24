@@ -14,9 +14,11 @@ MainController::MainController(QObject* parent) :
   _rightSidebarController{new RightSidebarController{this}},
   _fbItem{nullptr}
 {
+  // connect a sender which sends signals to a receiver (sender, sender signal name, receiver, receiver action)
   connect(_toolbarController, &ToolbarController::saveFileClicked, this, &MainController::handleSaveFileClicked);
   connect(_toolbarController, &ToolbarController::saveAsFileClicked, this, &MainController::handleSaveAsFileClicked);
   connect(_toolbarController, &ToolbarController::newFileClicked, this, &MainController::handleNewFileClicked);
+  connect(_toolbarController, &ToolbarController::importImageClicked, this, &MainController::handleimportImageClicked);
 }
 
 void  MainController::setFbItem(Logic::FbItem *_fbItem) noexcept {
@@ -51,6 +53,10 @@ void MainController::handleSaveAsFileClicked(const QUrl& url) {
 }
 
 void MainController::handleNewFileClicked() {
+}
+
+void MainController::handleimportImageClicked(const QUrl& url) {
+	qInfo() << url.path();
 }
 
 } // namespace Controllers

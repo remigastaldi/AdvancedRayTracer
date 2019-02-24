@@ -49,6 +49,7 @@ private Q_SLOTS:
   void handleSaveFileClicked();
   void handleSaveAsFileClicked(const QUrl& url);
   void handleNewFileClicked();
+  void handleimportImageClicked(const QUrl& url);
 };
 
 } // namespace Controllers

@@ -31,7 +31,7 @@ void  FbItem::setAutoRenderRate(int fps) noexcept {
 void FbItem::createCube() noexcept {
   Transform3D cube;
 
-  cube.translate({-2.0 + _currentId, 0.0, -5.0});
+  cube.translate({-2.0f + _currentId, 0.0f, -5.0f});
   
   _shapes.emplace(_currentId++, Data{FbItem::Type::CUBE, cube});
 }
