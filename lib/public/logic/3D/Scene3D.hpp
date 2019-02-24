@@ -2,7 +2,7 @@
 
 #include "globals.h"
 
-#include "3D/Sphere.hpp"
+#include "Sphere.hpp"
 
 #include <QEntity>
 #include <QPointLight>

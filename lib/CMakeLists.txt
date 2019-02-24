@@ -24,7 +24,7 @@ add_library(${PROJECT_NAME} SHARED
   src/models/LeftSidebarModel.cpp
 
   ## Logic
-  src/logic/Scene3D.cpp
+  src/logic/3D/Scene3D.cpp
   src/logic/3D/Sphere.cpp
   src/logic/3D/Shape3D.cpp
 
@@ -36,7 +36,7 @@ add_library(${PROJECT_NAME} SHARED
   public/controllers/LeftSidebarController.hpp
 
   ## Logic
-  public/logic/Scene3D.hpp
+  public/logic/3D/Scene3D.hpp
   public/logic/3D/Sphere.hpp
   public/logic/3D/Shape3D.hpp
 
