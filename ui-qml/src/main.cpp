@@ -7,6 +7,7 @@
 #include "RightSidebarModel.hpp"
 #include "LeftSidebarModel.hpp"
 #include "Scene3D.hpp"
+#include "Scene2D.hpp"
 
 #include <QApplication>
 #include <QDebug>
@@ -36,7 +37,7 @@ int main(int argc, char *argv[])
   qmlRegisterType<ART::Controllers::ToolbarController>("AdvancedRayTracer", 1, 0, "ToolbarController");
   qmlRegisterType<ART::Controllers::RightSidebarController>("AdvancedRayTracer", 1, 0, "RightSidebarController");
   qmlRegisterType<ART::Controllers::LeftSidebarController>("AdvancedRayTracer", 1, 0, "LeftSidebarController");
-  // qmlRegisterType<ART::Logic::FbItem>("AdvancedRayTracer", 1, 0, "FbItem");
+  qmlRegisterType<ART::Logic::Scene2D>("AdvancedRayTracer", 1, 0, "CustomScene2D");
   qmlRegisterType<ART::Logic::Scene3D>("AdvancedRayTracer", 1, 0, "CustomScene3D");
 
   QSurfaceFormat format;
@@ -72,6 +73,9 @@ int main(int argc, char *argv[])
 
   auto *scene3D =  engine.rootObjects().first()->findChild<ART::Logic::Scene3D*>("customScene3D");
   mainController.setScene3D(scene3D);
+
+  auto *scene2D =  engine.rootObjects().first()->findChild<ART::Logic::Scene2D*>("customScene2D");
+  mainController.setScene2D(scene2D);
 
   mainController.dumpObjectTree();
   return QApplication::exec();

@@ -18,17 +18,9 @@ class ADVANCED_RAY_TRACER_EXPORT Shape3D : public Qt3DCore::QEntity {
 public:
   Shape3D(Qt3DCore::QEntity *parent);
 
-  std::shared_ptr<Qt3DRender::QMaterial> material() {
-    return _material;
-  }
-
-  std::shared_ptr<Qt3DExtras::QSphereMesh> mesh() {
-    return _mesh;
-  }
-
-  std::shared_ptr<Qt3DCore::QTransform> transform() {
-    return _transform;
-  }
+  std::shared_ptr<Qt3DRender::QMaterial> material() const noexcept;
+  std::shared_ptr<Qt3DExtras::QSphereMesh> mesh() const noexcept;
+  std::shared_ptr<Qt3DCore::QTransform> transform() const noexcept;
 
 private:
   std::shared_ptr<Qt3DRender::QMaterial> _material;

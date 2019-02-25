@@ -10,8 +10,6 @@
 #include <Qt3DExtras>
 #include <Qt3DRender>
 
-#include <QMatrix>
-
 #include <unordered_map>
 
 namespace ART {

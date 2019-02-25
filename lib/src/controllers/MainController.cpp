@@ -3,6 +3,7 @@
 #include "ToolbarController.hpp"
 #include "RightSidebarController.hpp"
 #include "Scene3D.hpp"
+#include "Scene2D.hpp"
 
 namespace ART {
 namespace Controllers {
@@ -12,7 +13,8 @@ MainController::MainController(QObject* parent) :
   _toolbarController{new ToolbarController{this}},
   _rightSidebarController{new RightSidebarController{this}},
   _leftSidebarController{new LeftSidebarController{this}},
-  _scene3D{nullptr}
+  _scene3D{nullptr},
+  _scene2D{nullptr}
 {
   // connect a sender which sends signals to a receiver (sender, sender signal name, receiver, receiver action)
   connect(_toolbarController, &ToolbarController::saveFileClicked, this, &MainController::handleSaveFileClicked);
@@ -25,6 +27,10 @@ void  MainController::setScene3D(Logic::Scene3D *scene) noexcept {
   _scene3D = scene;
   connect(_rightSidebarController, &RightSidebarController::createCubeEvent, _scene3D, &Logic::Scene3D::createSphere);
   connect(_rightSidebarController, &RightSidebarController::deleteShapeUpdate, _scene3D, &Logic::Scene3D::removeSphere);
+}
+
+void  MainController::setScene2D(Logic::Scene2D *scene) noexcept {
+  _scene2D = scene;
 }
 
 ToolbarController* MainController::toolbarController() const noexcept {
@@ -41,6 +47,10 @@ LeftSidebarController *MainController::leftSidebarController() const noexcept {
 
 Logic::Scene3D  *MainController::scene3D() const noexcept {
   return _scene3D;
+}
+
+Logic::Scene2D  *MainController::scene2D() const noexcept {
+  return _scene2D;
 }
 
 void MainController::handleSaveFileClicked() {

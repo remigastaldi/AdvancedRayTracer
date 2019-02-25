@@ -13,5 +13,17 @@ Shape3D::Shape3D(Qt3DCore::QEntity *parent)
   addComponent(_transform.get());
 }
 
+std::shared_ptr<Qt3DRender::QMaterial> Shape3D::material() const noexcept {
+  return _material;
+}
+
+std::shared_ptr<Qt3DExtras::QSphereMesh> Shape3D::mesh() const noexcept {
+  return _mesh;
+}
+
+std::shared_ptr<Qt3DCore::QTransform> Shape3D::transform() const noexcept {
+  return _transform;
+}
+
 } // namespace Logic
 } // namespace ART

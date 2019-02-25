@@ -24,9 +24,12 @@ add_library(${PROJECT_NAME} SHARED
   src/models/LeftSidebarModel.cpp
 
   ## Logic
+  ## 3D
   src/logic/3D/Scene3D.cpp
   src/logic/3D/Sphere.cpp
   src/logic/3D/Shape3D.cpp
+  ## 2D
+  src/logic/2D/Scene2D.cpp
 
   # Public
   ## Controllers
@@ -36,9 +39,12 @@ add_library(${PROJECT_NAME} SHARED
   public/controllers/LeftSidebarController.hpp
 
   ## Logic
+  ## 3D
   public/logic/3D/Scene3D.hpp
   public/logic/3D/Sphere.hpp
   public/logic/3D/Shape3D.hpp
+  ## 2D
+  public/logic/2D/Scene2D.hpp
 
   ## Models
   public/models/ToolbarModel.hpp
@@ -55,6 +61,7 @@ target_include_directories(${PROJECT_NAME}
       public/controllers
       public/models
       public/logic
+      public/logic/2D
       public/logic/3D
      >
     $<BUILD_INTERFACE:
@@ -63,6 +70,7 @@ target_include_directories(${PROJECT_NAME}
       ${CMAKE_CURRENT_SOURCE_DIR}/public/models
       ${CMAKE_CURRENT_SOURCE_DIR}/public/logic
       ${CMAKE_CURRENT_SOURCE_DIR}/public/logic/3D
+      ${CMAKE_CURRENT_SOURCE_DIR}/public/logic/2D
      >
   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src
@@ -70,6 +78,7 @@ target_include_directories(${PROJECT_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/src/models
     ${CMAKE_CURRENT_SOURCE_DIR}/src/logic
     ${CMAKE_CURRENT_SOURCE_DIR}/src/logic/3D
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/logic/2D
 )
 
 target_compile_definitions(${PROJECT_NAME}
