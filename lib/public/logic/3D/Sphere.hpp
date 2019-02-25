@@ -12,9 +12,7 @@
 namespace ART {
 namespace Logic {
 
-class ADVANCED_RAY_TRACER_EXPORT Sphere : public Shape3D {
-  Q_OBJECT
-  Q_DISABLE_COPY(Sphere)
+class Sphere : public Shape3D {
 
 public:
   Sphere(Qt3DCore::QEntity *parent);

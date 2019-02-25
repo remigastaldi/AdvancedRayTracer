@@ -1,4 +1,6 @@
 #include "Scene2D.hpp"
+#include "Rectangle.hpp"
+
 #include <QPainter>
 
 namespace ART {
@@ -7,12 +9,15 @@ namespace Logic {
 Scene2D::Scene2D() {}
 
 void Scene2D::paint(QPainter *painter) {
-  painter->setBrush(Qt::blue);
-  painter->drawRect(0, 0, 400, 400);
+  for (auto & [ key, value ] : _entities) {
+    value->draw(painter);
+  }
 }
 
 void Scene2D::createRectangle() noexcept {
-  // Todo, create an hashmap like for 3d with 2d shapes, add rectangle and call update
+  std::unique_ptr<Rectangle> rect = std::make_unique<Rectangle>();
+  _entities.emplace("Rectangle [0]", std::move(rect));
+  QQuickPaintedItem::update();
 }
 
 } // namespace Logic

@@ -1,11 +1,11 @@
 #pragma once
 
 #include "globals.h"
+#include "Shape2D.hpp"
 
 #include  <QQuickPaintedItem>
 
 namespace ART {
-namespace Models {} // nameSpace Models
 
 namespace Logic {
 
@@ -22,6 +22,7 @@ public:
 public Q_SLOTS:
 
 private:
+  std::unordered_map<std::string, std::unique_ptr<Shape2D>> _entities;
 };
 } // namespace Logic
 } // namespace ART

@@ -5,23 +5,28 @@ import QtQuick.Controls 2.12
 import AdvancedRayTracer 1.0
 
 UiMainBorder {
-  ColumnLayout {
-    id: column
+  GroupBox {
+    title: qsTr("Shapes")
     anchors.right: parent.right
     anchors.left: parent.left
-    anchors.topMargin: 10
-    spacing: 10
+    anchors.top: parent.top
+    anchors.margins: 10
 
-    Button {
-      Layout.topMargin: 10
-      Layout.alignment: Qt.AlignHCenter
-      text: "Rectangle"
-      onClicked: mainController.drawToolbar2DController.createSphere()
-    }
+    ColumnLayout {
+      id: column
+      anchors.fill: parent
+      spacing: 10
 
-    Button {
-      Layout.alignment: Qt.AlignHCenter
-      text: "Not bind"
+      Button {
+        Layout.alignment: Qt.AlignHCenter
+        text: "Rectangle"
+        onClicked: mainController.drawToolbar2DController.createRectangle()
+      }
+
+      Button {
+        Layout.alignment: Qt.AlignHCenter
+        text: "Not bind"
+      }
     }
   }
 }

@@ -16,6 +16,6 @@ QtObject {
   // property int containerBorderRadius: 5
 
   // Toolbar properties
-  property int toolbarIconSize: 14
+  property int toolbarIconSize: 16
   property color toolbarIconColor: "#497EBE"
 }
