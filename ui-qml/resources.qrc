@@ -8,10 +8,11 @@
     <qresource prefix="/components">
         <file alias="ToolbarComponent.qml">components/ToolbarComponent.qml</file>
         <file alias="RightSidebarComponent.qml">components/RightSidebarComponent.qml</file>
-        <file alias="LeftSidebarComponent.qml">components/LeftSidebarComponent.qml</file>
         <file alias="FbItemComponent.qml">components/FbItemComponent.qml</file>
         <file alias="Scene3DComponent.qml">components/Scene3DComponent.qml</file>
         <file alias="Scene2DComponent.qml">components/Scene2DComponent.qml</file>
+        <file alias="DrawToolbar3DComponent.qml">components/DrawToolbar3DComponent.qml</file>
+        <file alias="DrawToolbar2DComponent.qml">components/DrawToolbar2DComponent.qml</file>
     </qresource>
     <qresource prefix="/fonts">
         <file alias="fontello.ttf">fonts/fontello.ttf</file>
@@ -28,5 +29,6 @@
         <file alias="Style.qml">styles/Style.qml</file>
         <file alias="qmldir">styles/qmldir</file>
         <file alias="ToolbarButton.qml">styles/ToolbarButton.qml</file>
+        <file alias="UiMainBorder.qml">styles/UiMainBorder.qml</file>
     </qresource>
 </RCC>

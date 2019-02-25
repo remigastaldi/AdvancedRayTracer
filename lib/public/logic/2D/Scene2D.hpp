@@ -15,7 +15,9 @@ class ADVANCED_RAY_TRACER_EXPORT Scene2D : public QQuickPaintedItem {
 
 public:
   Scene2D();
-  void paint(QPainter *painter) override;
+  virtual void paint(QPainter *painter) override;
+
+  void createRectangle() noexcept;
 
 public Q_SLOTS:
 

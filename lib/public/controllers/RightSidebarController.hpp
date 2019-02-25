@@ -29,7 +29,7 @@ private:
 
 public Q_SLOTS:
   void render() noexcept;
-  void deleteShape()noexcept;
+  void deleteShape() noexcept;
   void setAutoRenderRate(int rate) noexcept;
   void createCube() noexcept;
 

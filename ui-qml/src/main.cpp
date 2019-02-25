@@ -1,11 +1,11 @@
 #include "MainController.hpp"
 #include "ToolbarController.hpp"
 #include "RightSidebarController.hpp"
-#include "LeftSidebarController.hpp"
+#include "DrawToolbar3DController.hpp"
+#include "DrawToolbar2DController.hpp"
 
 #include "ToolbarModel.hpp"
 #include "RightSidebarModel.hpp"
-#include "LeftSidebarModel.hpp"
 #include "Scene3D.hpp"
 #include "Scene2D.hpp"
 
@@ -36,9 +36,10 @@ int main(int argc, char *argv[])
   qmlRegisterType<ART::Controllers::MainController>("AdvancedRayTracer", 1, 0, "MainController");
   qmlRegisterType<ART::Controllers::ToolbarController>("AdvancedRayTracer", 1, 0, "ToolbarController");
   qmlRegisterType<ART::Controllers::RightSidebarController>("AdvancedRayTracer", 1, 0, "RightSidebarController");
-  qmlRegisterType<ART::Controllers::LeftSidebarController>("AdvancedRayTracer", 1, 0, "LeftSidebarController");
-  qmlRegisterType<ART::Logic::Scene2D>("AdvancedRayTracer", 1, 0, "CustomScene2D");
+  qmlRegisterType<ART::Controllers::DrawToolbar3DController>("DrawToolbar3DController", 1, 0, "DrawToolbar3DController");
+  qmlRegisterType<ART::Controllers::DrawToolbar2DController>("DrawToolbar2DController", 1, 0, "DrawToolbar2DController");
   qmlRegisterType<ART::Logic::Scene3D>("AdvancedRayTracer", 1, 0, "CustomScene3D");
+  qmlRegisterType<ART::Logic::Scene2D>("AdvancedRayTracer", 1, 0, "CustomScene2D");
 
   QSurfaceFormat format;
   if (QOpenGLContext::openGLModuleType() == QOpenGLContext::LibGL) {
@@ -58,13 +59,10 @@ int main(int argc, char *argv[])
 
   auto rightSidebarModel = new ART::Models::RightSidebarModel;
   mainController.rightSidebarController()->setModel(rightSidebarModel);
-  auto leftSidebarModel = new ART::Models::LeftSidebarModel;
-  mainController.leftSidebarController()->setModel(leftSidebarModel);
 
   engine.rootContext()->setContextProperty("mainController", &mainController);
   engine.rootContext()->setContextProperty("menuModel", toolBarModel);
   engine.rootContext()->setContextProperty("rightSidebarModel", rightSidebarModel);
-  engine.rootContext()->setContextProperty("leftSidebarModel", leftSidebarModel);
   engine.load(QUrl(QStringLiteral("qrc:/views/MainView.qml")));
 
   if (engine.rootObjects().isEmpty()) {

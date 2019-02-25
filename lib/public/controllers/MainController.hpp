@@ -29,8 +29,9 @@ class Scene2D;
 namespace Controllers {
 
 class ToolbarController;
+class DrawToolbar3DController;
+class DrawToolbar2DController;
 class RightSidebarController;
-class LeftSidebarController;
 
 class ADVANCED_RAY_TRACER_EXPORT MainController : public QObject {
   Q_OBJECT
@@ -38,7 +39,8 @@ class ADVANCED_RAY_TRACER_EXPORT MainController : public QObject {
 
   Q_PROPERTY(ART::Controllers::ToolbarController *toolbarController READ toolbarController CONSTANT)
   Q_PROPERTY(ART::Controllers::RightSidebarController *rightSidebarController READ rightSidebarController CONSTANT)
-  Q_PROPERTY(ART::Controllers::LeftSidebarController *leftSidebarController READ leftSidebarController CONSTANT)
+  Q_PROPERTY(ART::Controllers::DrawToolbar3DController *drawToolbar3DController READ drawToolbar3DController CONSTANT)
+  Q_PROPERTY(ART::Controllers::DrawToolbar2DController *drawToolbar2DController READ drawToolbar2DController CONSTANT)
   Q_PROPERTY(ART::Logic::Scene3D *scene3D READ scene3D CONSTANT)
   Q_PROPERTY(ART::Logic::Scene2D *scene2D READ scene2D CONSTANT)
 
@@ -53,17 +55,19 @@ public:
 
 public Q_SLOTS:
   ToolbarController *toolbarController() const noexcept;
+  DrawToolbar3DController *drawToolbar3DController() const noexcept;
+  DrawToolbar2DController *drawToolbar2DController() const noexcept;
   RightSidebarController *rightSidebarController() const noexcept;
-  LeftSidebarController *leftSidebarController() const noexcept;
   Logic::Scene3D *scene3D() const noexcept;
   Logic::Scene2D *scene2D() const noexcept;
 
 private:
-  ToolbarController *_toolbarController{nullptr};
-  RightSidebarController *_rightSidebarController{nullptr};
-  LeftSidebarController *_leftSidebarController{nullptr};
-  Logic::Scene3D *_scene3D{nullptr};
-  Logic::Scene2D *_scene2D{nullptr};
+  DrawToolbar3DController *_drawToolbar3DController;
+  DrawToolbar2DController *_drawToolbar2DController;
+  ToolbarController *_toolbarController;
+  RightSidebarController *_rightSidebarController;
+  Logic::Scene3D *_scene3D;
+  Logic::Scene2D *_scene2D;
 
 private Q_SLOTS:
   void handleSaveFileClicked();

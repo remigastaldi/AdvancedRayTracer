@@ -16,12 +16,12 @@ add_library(${PROJECT_NAME} SHARED
   src/controllers/MainController.cpp
   src/controllers/ToolbarController.cpp
   src/controllers/RightSidebarController.cpp
-  src/controllers/LeftSidebarController.cpp
+  src/controllers/DrawToolbar3DController.cpp
+  src/controllers/DrawToolbar2DController.cpp
 
   ## Models
   src/models/ToolbarModel.cpp
   src/models/RightSidebarModel.cpp
-  src/models/LeftSidebarModel.cpp
 
   ## Logic
   ## 3D
@@ -36,7 +36,8 @@ add_library(${PROJECT_NAME} SHARED
   public/controllers/MainController.hpp
   public/controllers/ToolbarController.hpp
   public/controllers/RightSidebarController.hpp
-  public/controllers/LeftSidebarController.hpp
+  public/controllers/DrawToolbar3DController.hpp
+  public/controllers/DrawToolbar2DController.hpp
 
   ## Logic
   ## 3D
@@ -49,7 +50,6 @@ add_library(${PROJECT_NAME} SHARED
   ## Models
   public/models/ToolbarModel.hpp
   public/models/RightSidebarModel.hpp
-  public/models/LeftSidebarModel.hpp
 
   public/globals.h
 )
