@@ -9,28 +9,28 @@ Shape3D::Shape3D(Qt3DCore::QEntity *parent)
   addComponent(_transform.get());
 }
 
-Shape3D::Shape3D(Qt3DCore::QEntity *parent, std::shared_ptr<Qt3DRender::QGeometryRenderer> mesh,
-  std::shared_ptr<Qt3DRender::QMaterial> material)
-    : Qt3DCore::QEntity{parent}, _mesh{std::move(mesh)}, _material{std::move(material)},
+Shape3D::Shape3D(Qt3DCore::QEntity *parent, Qt3DRender::QGeometryRenderer *mesh,
+  Qt3DRender::QMaterial *material)
+    : Qt3DCore::QEntity{parent}, _mesh{mesh}, _material{material},
     _transform{std::make_shared<Qt3DCore::QTransform>()} {
   
   _mesh->setParent(this);
   _material->setParent(this);
-  addComponent(_mesh.get());
-  addComponent(_material.get());
+  addComponent(_mesh);
+  addComponent(_material);
   addComponent(_transform.get());
 }
 
-void Shape3D::setMesh(std::shared_ptr<Qt3DRender::QGeometryRenderer> &mesh) noexcept {
+void Shape3D::setMesh(Qt3DRender::QGeometryRenderer *mesh) noexcept {
   _mesh = mesh;
   _mesh->setParent(this);
 }
 
-std::shared_ptr<Qt3DRender::QGeometryRenderer> &Shape3D::mesh() noexcept {
+Qt3DRender::QGeometryRenderer *Shape3D::mesh() noexcept {
   return _mesh;
 }
 
-std::shared_ptr<Qt3DRender::QMaterial> &Shape3D::material() noexcept {
+Qt3DRender::QMaterial *Shape3D::material() noexcept {
   return _material;
 }
 

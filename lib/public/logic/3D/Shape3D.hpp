@@ -17,25 +17,23 @@ class ADVANCED_RAY_TRACER_EXPORT Shape3D : public Qt3DCore::QEntity {
 
 public:
   explicit Shape3D(Qt3DCore::QEntity *parent);
-  Shape3D(Qt3DCore::QEntity *parent, std::shared_ptr<Qt3DRender::QGeometryRenderer> mesh,
-          std::shared_ptr<Qt3DRender::QMaterial> material);
+  Shape3D(Qt3DCore::QEntity *parent, Qt3DRender::QGeometryRenderer *mesh,
+          Qt3DRender::QMaterial *material);
 
-  // void setMaterial(std::shared_ptr<Qt3DRender::QMaterial> material) noexcept;
-  void setMesh(std::shared_ptr<Qt3DRender::QGeometryRenderer> &mesh) noexcept;
-  // void setTransform(std::shared_ptr<Qt3DCore::QTransform> transform) noexcept;
+  void setMesh(Qt3DRender::QGeometryRenderer *mesh) noexcept;
 
   template<typename T>
-  std::shared_ptr<T> mesh() noexcept {
-    return std::static_pointer_cast<T>(_mesh);
+  T *mesh() noexcept {
+    return dynamic_cast<T*>(_mesh);
   }
 
-  virtual std::shared_ptr<Qt3DRender::QGeometryRenderer> &mesh() noexcept;
-  virtual std::shared_ptr<Qt3DRender::QMaterial> &material() noexcept;
+  virtual Qt3DRender::QGeometryRenderer *mesh() noexcept;
+  virtual Qt3DRender::QMaterial *material() noexcept;
   virtual std::shared_ptr<Qt3DCore::QTransform> &transform() noexcept;
 
 private:
-  std::shared_ptr<Qt3DRender::QGeometryRenderer> _mesh;
-  std::shared_ptr<Qt3DRender::QMaterial> _material;
+  Qt3DRender::QGeometryRenderer *_mesh;
+  Qt3DRender::QMaterial *_material;
   std::shared_ptr<Qt3DCore::QTransform> _transform;
 };
 } // namespace Logic
