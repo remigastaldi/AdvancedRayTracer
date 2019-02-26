@@ -4,6 +4,7 @@
 #include "Shape2D.hpp"
 
 #include  <QQuickPaintedItem>
+#include <unordered_map>
 
 namespace ART {
 
