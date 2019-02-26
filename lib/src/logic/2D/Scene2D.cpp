@@ -6,7 +6,9 @@
 namespace ART {
 namespace Logic {
 
-Scene2D::Scene2D() {}
+Scene2D::Scene2D() {
+  setFillColor("black");
+}
 
 void Scene2D::paint(QPainter *painter) {
   for (auto & [ key, value ] : _entities) {

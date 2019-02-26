@@ -113,7 +113,17 @@ ApplicationWindow {
     RightSidebarComponent {
       id: rightSidebar
       Layout.margins: 10
-      Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+      // Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+      Layout.fillWidth: true
+      Layout.fillHeight: true
+
+      Layout.minimumWidth: 250
+      Layout.preferredWidth: 250
+      Layout.maximumWidth: 300
+
+      Layout.minimumHeight: 150
+      Layout.preferredHeight: 700
+      Layout.maximumHeight: 1000
     }
   }
 }

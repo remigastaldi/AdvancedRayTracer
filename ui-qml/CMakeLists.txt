@@ -16,6 +16,10 @@ find_package(Qt5 COMPONENTS Core Gui Qml 3DCore 3DRender 3DInput 3DLogic 3DExtra
 
 add_executable(${PROJECT_NAME}
   src/main.cpp
+  src/Outliner.cpp
+ 
+  src/Outliner.hpp
+ 
   resources.qrc
   ${QML_SRC}
 )

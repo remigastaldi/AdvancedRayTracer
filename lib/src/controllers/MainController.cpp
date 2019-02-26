@@ -12,8 +12,8 @@ namespace Controllers {
 MainController::MainController(QObject* parent) :
   QObject{parent},
   _toolbarController{new ToolbarController{this}},
-  _rightSidebarController{new RightSidebarController{this}},
   _drawToolbar3DController{new DrawToolbar3DController{this}},
+  _rightSidebarController{new RightSidebarController{this}},
   _drawToolbar2DController{new DrawToolbar2DController{this}},
   _scene3D{nullptr},
   _scene2D{nullptr}

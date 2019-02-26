@@ -18,6 +18,7 @@ public:
   virtual void paint(QPainter *painter) override;
 
   void createRectangle() noexcept;
+  
 
 public Q_SLOTS:
 

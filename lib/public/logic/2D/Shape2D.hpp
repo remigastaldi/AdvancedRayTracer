@@ -15,7 +15,7 @@ class Shape2D {
 public:
   // Shape2D() = default;
 
-  virtual void draw(QPainter *painter) noexcept  {};
+  virtual void draw(QPainter *painter) noexcept {};
 };
 
 } // namespace Logic

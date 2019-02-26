@@ -7,15 +7,27 @@ import AdvancedRayTracer 1.0
 UiMainBorder {
   id: root
 
-  Layout.fillWidth: true
-  Layout.fillHeight: true
+  // Layout.fillWidth: true
+  // Layout.fillHeight: true
 
-  Layout.minimumWidth: 200
-  Layout.preferredWidth: 200
-  Layout.maximumWidth: 250
+  // Layout.minimumWidth: 250
+  // Layout.preferredWidth: 250
+  // Layout.maximumWidth: 300
 
-  Layout.maximumHeight: column.implicitHeight
+  // Layout.maximumHeight: column.implicitHeight
 
+  GroupBox {
+    title: qsTr("Outliner")
+      anchors.top: root.top
+      anchors.left: root.left
+      anchors.right: root.right
+      anchors.margins: 10
+      height: 200
+      Outliner {
+        anchors.fill: parent
+      }
+  }
+ 
   ColumnLayout {
     id: column
     anchors.fill: parent
@@ -25,7 +37,7 @@ UiMainBorder {
       Layout.topMargin: 10
       Layout.alignment: Qt.AlignHCenter
       text: "Nothin"
-      // onClicked: mainController.rightSidebarController.render()
+      onClicked: outliner.add()
     }
 
     // Button {
