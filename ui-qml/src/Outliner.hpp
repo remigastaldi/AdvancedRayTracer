@@ -7,7 +7,7 @@
 namespace ART {
 namespace UI {
 
-class ADVANCED_RAY_TRACER_EXPORT Outliner : public QAbstractListModel {
+class Outliner : public QAbstractListModel {
   Q_OBJECT
   Q_DISABLE_COPY(Outliner)
 
