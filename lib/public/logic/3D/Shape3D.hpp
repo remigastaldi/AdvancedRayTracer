@@ -27,14 +27,15 @@ public:
     return dynamic_cast<T*>(_mesh);
   }
 
-  virtual Qt3DRender::QGeometryRenderer *mesh() noexcept;
-  virtual Qt3DRender::QMaterial *material() noexcept;
-  virtual std::shared_ptr<Qt3DCore::QTransform> &transform() noexcept;
+  Qt3DRender::QGeometryRenderer *mesh() noexcept;
+  Qt3DRender::QMaterial *material() noexcept;
+  Qt3DCore::QTransform *transform() noexcept;
 
 private:
   Qt3DRender::QGeometryRenderer *_mesh;
   Qt3DRender::QMaterial *_material;
-  std::shared_ptr<Qt3DCore::QTransform> _transform;
+  Qt3DCore::QTransform *_transform;
 };
+
 } // namespace Logic
 } // namespace ART
