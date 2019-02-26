@@ -39,8 +39,9 @@ void Scene3D::createSphere() noexcept {
   qInfo() << "Add sphere";
   std::unique_ptr<Sphere> sphere{std::make_unique<Sphere>(this)};
 
-  sphere->mesh()->setRadius(5);
-  sphere->mesh()->setSlices(100);
+  std::shared_ptr<Qt3DExtras::QSphereMesh> mesh = sphere->mesh<Qt3DExtras::QSphereMesh>();
+  mesh->setRadius(5);
+  mesh->setSlices(100);
 
   _entities.emplace("Sphere[0]", std::move(sphere));
 }
