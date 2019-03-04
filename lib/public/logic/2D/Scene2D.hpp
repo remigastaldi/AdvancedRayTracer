@@ -15,11 +15,15 @@ class ADVANCED_RAY_TRACER_EXPORT Scene2D : public QQuickPaintedItem {
   Q_DISABLE_COPY(Scene2D)
 
 public:
+  int id = 0;
+
   Scene2D();
   virtual void paint(QPainter *painter) override;
 
   void createRectangle() noexcept;
-  
+  void importImg(const QUrl &url) noexcept;
+
+  void mousePressEvent(QMouseEvent *event);
 
 public Q_SLOTS:
 

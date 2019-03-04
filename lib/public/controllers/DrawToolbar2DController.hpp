@@ -29,6 +29,7 @@ private:
 
 Q_SIGNALS:
   void createRectangle();
+  void importImg(const QUrl& file_url);
 
   // void createSphereEvent() noexcept;
 };

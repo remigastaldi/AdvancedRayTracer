@@ -32,6 +32,7 @@ add_library(${PROJECT_NAME} SHARED
   src/logic/2D/Scene2D.cpp
   src/logic/2D/Shape2D.cpp
   src/logic/2D/Rectangle.cpp
+  src/logic/2D/Image.cpp
 
   # Public
   ## Controllers
@@ -50,6 +51,7 @@ add_library(${PROJECT_NAME} SHARED
   public/logic/2D/Scene2D.hpp
   public/logic/2D/Shape2D.hpp
   public/logic/2D/Rectangle.hpp
+  public/logic/2D/Image.hpp
 
   ## Models
   public/models/ToolbarModel.hpp

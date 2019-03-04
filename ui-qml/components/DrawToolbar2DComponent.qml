@@ -3,6 +3,7 @@ import QtQuick 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 import AdvancedRayTracer 1.0
+import QtQuick.Dialogs 1.0
 
 UiMainBorder {
   GroupBox {
@@ -25,8 +26,18 @@ UiMainBorder {
 
       Button {
         Layout.alignment: Qt.AlignHCenter
-        text: "Not bind"
+        text: "Import image"
+		onClicked: importImgDialog.open()
       }
-    }
+	FileDialog {
+		id: importImgDialog
+		title: "Please choose an image"
+		folder: shortcuts.home
+		nameFilters: [ "Image files (*.jpg *.png)", "All files (*)" ]
+		onAccepted: {
+			mainController.drawToolbar2DController.importImg(importImgDialog.fileUrl)
+	    }
+  }
+	}
   }
 }
