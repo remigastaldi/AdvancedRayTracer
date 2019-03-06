@@ -9,7 +9,7 @@ namespace Logic {
 class Image : public Shape2D {
 public:
   Image(std::string id);
-  Image(const QUrl& imgUrl, std::string id);
+  Image(QUrl imgUrl, std::string id);
 
   //Image(std::string id, const QUrl& imgUrl);
 
