@@ -11,6 +11,7 @@ namespace Logic {
 Scene2D::Scene2D() {
   setFillColor("black");
   setAcceptedMouseButtons(Qt::AllButtons);
+  setAcceptHoverEvents(true);
 }
 
 void Scene2D::paint(QPainter *painter) {
@@ -52,8 +53,34 @@ void Scene2D::mousePressEvent(QMouseEvent *event) {
 
 void Scene2D::mouseMoveEvent(QMouseEvent *event) {
 	if (shapePressed) {
-		selectedShape->x1 = event->x() - decalx;
-		selectedShape->y1 = event->y() - decaly;
+		// Move item
+		if (event->buttons() == Qt::LeftButton) {
+			selectedShape->x1 = event->x() - decalx;
+			selectedShape->y1 = event->y() - decaly;
+		// Resize item
+		} else if (event->buttons() == Qt::RightButton) {
+			if (lastMouseX != event->x()) {
+				// bigger
+				if (lastMouseX < event->x()) {
+					selectedShape->x2 += (event->x() - lastMouseX);
+				// smaller
+				} else if (selectedShape->x2 >= SizeMinX) {
+					selectedShape->x2 -= (lastMouseX - event->x());
+				}
+			}
+			
+			if (lastMouseY != event->y()) {
+				if (lastMouseX < event->x()) {
+					selectedShape->y2 += (event->y() - lastMouseY);
+				}
+				else if (selectedShape->y2 >= SizeMinY) {
+					selectedShape->y2 -= (lastMouseY - event->y());
+				}
+			}
+
+			lastMouseX = event->x();
+			lastMouseY = event->y();
+		}
 		QQuickPaintedItem::update();
 	}
 }

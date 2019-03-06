@@ -15,8 +15,7 @@ Image::Image(QUrl imgUrl, std::string id) : Shape2D{std::move(id)}, _url{std::mo
 			QString fixedUrl(_url.path().mid(1));
 			_img = QImage(fixedUrl);
 		}
-	}
-	else {
+	} else {
 		_img = QImage(_url.path());
 	}
 
@@ -34,7 +33,7 @@ Image::Image(QUrl imgUrl, std::string id) : Shape2D{std::move(id)}, _url{std::mo
 */
 
 void Image::draw(QPainter *painter) noexcept {
-	imgRect = QRect(x1, y1, _img.width(), _img.height());
+	imgRect = QRect(x1, y1, x2, y2);
 
 	painter->drawImage(imgRect, _img);
 }
