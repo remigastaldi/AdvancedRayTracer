@@ -9,7 +9,7 @@
 #include "Scene3D.hpp"
 #include "Scene2D.hpp"
 
-#include "Outliner.hpp"
+#include "QmlOutliner.hpp"
 
 #include <QApplication>
 #include <QDebug>
@@ -62,12 +62,13 @@ int main(int argc, char *argv[])
   auto rightSidebarModel = new ART::Models::RightSidebarModel;
   mainController.rightSidebarController()->setModel(rightSidebarModel);
 
-  auto outliner = new ART::UI::Outliner;
+  auto qmlOutliner = new ART::UI::QmlOutliner;
   
   engine.rootContext()->setContextProperty("mainController", &mainController);
   engine.rootContext()->setContextProperty("menuModel", toolBarModel);
   engine.rootContext()->setContextProperty("rightSidebarModel", rightSidebarModel);
-  engine.rootContext()->setContextProperty("outliner", outliner);
+  
+  engine.rootContext()->setContextProperty("qmlOutliner", qmlOutliner);
   engine.load(QUrl(QStringLiteral("qrc:/views/MainView.qml")));
 
   if (engine.rootObjects().isEmpty()) {

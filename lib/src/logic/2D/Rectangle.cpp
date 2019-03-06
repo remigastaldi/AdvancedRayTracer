@@ -5,7 +5,7 @@
 namespace ART {
 namespace Logic {
 
-Rectangle::Rectangle() {}
+Rectangle::Rectangle(std::string id) : Shape2D{std::move(id)} {}
 
 void Rectangle::draw(QPainter *painter) noexcept {
   painter->setBrush(Qt::blue);

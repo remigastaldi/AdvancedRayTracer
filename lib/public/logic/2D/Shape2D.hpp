@@ -1,6 +1,7 @@
 #pragma once
 
 #include "globals.h"
+#include "Entity.hpp"
 
 #include <QQuickPaintedItem>
 
@@ -11,9 +12,9 @@ namespace Models {} // nameSpace Models
 
 namespace Logic {
 
-class Shape2D {
+class Shape2D : public Entity {
 public:
-  // Shape2D() = default;
+  Shape2D(std::string id);
 
   virtual void draw(QPainter *painter) noexcept {};
 };

@@ -94,17 +94,19 @@ ApplicationWindow {
 
       TabBar {
         id: tabBar
-        width: parent.width
         TabButton {
           text: qsTr("3D")
+          onPressed: checked != true ? console.log("3D") : 0
         }
         TabButton {
           text: qsTr("2D")
+          onPressed: checked != true ? console.log("2D") : 0
         }
       }
-      StackLayout {
-        currentIndex: tabBar.currentIndex
 
+      StackLayout {
+        id: stackView
+        currentIndex: tabBar.currentIndex
         Scene3DComponent {}
         Scene2DComponent {}
       }

@@ -1,26 +1,20 @@
 #include "Image.hpp"
 
-#include <QPainter>
-
 namespace ART {
 namespace Logic {
 
-Image::Image() {}
-Image::Image(const QUrl& imgUrl) {
-	url = imgUrl;
+Image::Image(std::string id, const QUrl& imgUrl) : Shape2D{std::move(id)}, _url{imgUrl} {
+  // If the path starts with a "/", we remove it so it will load properly
+  if (_url.path().at(0) == "/") {
+	  _url = _url.path().mid(1);
+  }
+  _img.load(imgUrl.path());
 }
 
 void Image::draw(QPainter *painter) noexcept {
-	QString path;
+  // std::cout << "DRAW" << _img << std::endl;
 
-  // If the path starts with a "/", we remove it so it will load properly
-  if (url.path().at(0) == "/") {
-	  path = url.path().mid(1);
-  }
-
-  QImage img(path);
-
-  painter->drawImage(QRect(0, 0, img.width(), img.height()), QImage(path));
+  painter->drawImage(QRect(0, 0, _img.width(), _img.height()), _img);
 }
 
 } // namespace Logic
