@@ -5,6 +5,7 @@
 
 #include  <QQuickPaintedItem>
 #include <unordered_map>
+#include <QCursor>
 
 namespace ART {
 

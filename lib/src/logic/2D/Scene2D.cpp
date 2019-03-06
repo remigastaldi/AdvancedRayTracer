@@ -55,10 +55,14 @@ void Scene2D::mouseMoveEvent(QMouseEvent *event) {
 	if (shapePressed) {
 		// Move item
 		if (event->buttons() == Qt::LeftButton) {
+			this->setCursor(QCursor(Qt::ClosedHandCursor));
 			selectedShape->x1 = event->x() - decalx;
 			selectedShape->y1 = event->y() - decaly;
 		// Resize item
 		} else if (event->buttons() == Qt::RightButton) {
+			this->setCursor(QCursor(Qt::SizeAllCursor));
+
+			// x resize
 			if (lastMouseX != event->x()) {
 				// bigger
 				if (lastMouseX < event->x()) {
@@ -69,11 +73,13 @@ void Scene2D::mouseMoveEvent(QMouseEvent *event) {
 				}
 			}
 			
+			// y resize
 			if (lastMouseY != event->y()) {
+				// bigger
 				if (lastMouseX < event->x()) {
 					selectedShape->y2 += (event->y() - lastMouseY);
-				}
-				else if (selectedShape->y2 >= SizeMinY) {
+				// smaller
+				} else if (selectedShape->y2 >= SizeMinY) {
 					selectedShape->y2 -= (lastMouseY - event->y());
 				}
 			}
@@ -81,12 +87,14 @@ void Scene2D::mouseMoveEvent(QMouseEvent *event) {
 			lastMouseX = event->x();
 			lastMouseY = event->y();
 		}
+
 		QQuickPaintedItem::update();
 	}
 }
 
 void Scene2D::mouseReleaseEvent(QMouseEvent *event) {
 	shapePressed = false;
+	this->setCursor(QCursor(Qt::ArrowCursor));
 }
 
 } // namespace Logic
