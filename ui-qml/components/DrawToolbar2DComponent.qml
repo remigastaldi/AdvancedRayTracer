@@ -45,13 +45,13 @@ UiMainBorder {
 	  Button {
         Layout.alignment: Qt.AlignHCenter
         text: "Ellipse/Circle"
-        onClicked: mainController.drawToolbar2DController.createRectangle()
+        onClicked: mainController.drawToolbar2DController.createCircle()
       }
 
 	  Button {
         Layout.alignment: Qt.AlignHCenter
-        text: "Rectangle"
-        onClicked: mainController.drawToolbar2DController.createRectangle()
+        text: "Triangle"
+        onClicked: mainController.drawToolbar2DController.createTriangle()
       }
 
 	  Button {

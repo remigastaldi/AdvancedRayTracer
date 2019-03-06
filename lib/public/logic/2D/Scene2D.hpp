@@ -29,6 +29,8 @@ public:
 	bool userIsDrawing = false;
 	bool drawingRectangle = false;
 	bool drawingLine = false;
+	bool drawingCircle = false;
+	bool drawingTriangle = false;
     Shape2D *selectedShape;
 
     Scene2D();
@@ -36,6 +38,8 @@ public:
 
 	void createLine() noexcept;
     void createRectangle() noexcept;
+	void createCircle() noexcept;
+	void createTriangle() noexcept;
     void importImg(const QUrl &url) noexcept;
 	void saveScene(const QUrl &url) noexcept;
 

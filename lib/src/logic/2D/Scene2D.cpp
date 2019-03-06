@@ -2,6 +2,8 @@
 #include "Shape2D.hpp"
 #include "Line.hpp"
 #include "Rectangle.hpp"
+#include "Circle.hpp"
+#include "Triangle.hpp"
 #include "Image.hpp"
 
 #include <QPainter>
@@ -22,7 +24,6 @@ void Scene2D::paint(QPainter *painter) {
 }
 
 void Scene2D::createLine() noexcept {
-	qInfo() << "hey";
 	userIsDrawing = true;
 	drawingLine = true;
 	std::string objId = "Line [" + std::to_string(id) + "]";
@@ -38,6 +39,26 @@ void Scene2D::createRectangle() noexcept {
 	std::string objId = "Rectangle [" + std::to_string(id) + "]";
 	std::unique_ptr<Rectangle> rect = std::make_unique<Rectangle>(objId);
 	_entities.emplace(objId, std::move(rect));
+	selectedShape = _entities.find(objId)->second.get();
+	id++;
+}
+
+void Scene2D::createCircle() noexcept {
+	userIsDrawing = true;
+	drawingCircle = true;
+	std::string objId = "Circle [" + std::to_string(id) + "]";
+	std::unique_ptr<Circle> circle = std::make_unique<Circle>(objId);
+	_entities.emplace(objId, std::move(circle));
+	selectedShape = _entities.find(objId)->second.get();
+	id++;
+}
+
+void Scene2D::createTriangle() noexcept {
+	userIsDrawing = true;
+	drawingTriangle = true;
+	std::string objId = "Triangle [" + std::to_string(id) + "]";
+	std::unique_ptr<Triangle> triangle = std::make_unique<Triangle>(objId);
+	_entities.emplace(objId, std::move(triangle));
 	selectedShape = _entities.find(objId)->second.get();
 	id++;
 }
@@ -66,7 +87,7 @@ void Scene2D::saveScene(const QUrl &url) noexcept {
 
 void Scene2D::mousePressEvent(QMouseEvent *event) {
 	if (userIsDrawing) {
-		if (drawingRectangle || drawingLine) {
+		if (drawingRectangle || drawingLine || drawingCircle || drawingTriangle) {
 			selectedShape->x1 = event->x();
 			selectedShape->y1 = event->y();
 		}
@@ -90,7 +111,7 @@ void Scene2D::mousePressEvent(QMouseEvent *event) {
 void Scene2D::mouseMoveEvent(QMouseEvent *event) {
 	if (userIsDrawing) {
 		this->setCursor(QCursor(Qt::CrossCursor));
-		if (drawingRectangle) {
+		if (drawingRectangle || drawingCircle || drawingRectangle || drawingTriangle) {
 			selectedShape->x2 = event->x() - selectedShape->x1;
 			selectedShape->y2 = event->y() - selectedShape->y1;
 		} else if (drawingLine) {
@@ -145,6 +166,8 @@ void Scene2D::mouseReleaseEvent(QMouseEvent *event) {
 		userIsDrawing = false;
 		drawingRectangle = false;
 		drawingLine = false;
+		drawingCircle = false;
+		drawingTriangle = false;
 	}
 }
 
