@@ -3,8 +3,9 @@
 namespace ART {
 namespace Logic {
 
-Image::Image() {}
-Image::Image(const QUrl& imgUrl) {
+Image::Image(std::string id) : Shape2D{std::move(id)}{}
+
+Image::Image(const QUrl& imgUrl, std::string id) : Shape2D{std::move(id)} {
 	QString path;
 
 	// If the path starts with a "/", we remove it so it will load properly

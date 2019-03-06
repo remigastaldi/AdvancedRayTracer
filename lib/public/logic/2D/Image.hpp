@@ -8,8 +8,8 @@ namespace Logic {
 
 class Image : public Shape2D {
 public:
-  Image();
-  Image(const QUrl& imgUrl);
+  Image(std::string id);
+  Image(const QUrl& imgUrl, std::string id);
 
   //Image(std::string id, const QUrl& imgUrl);
 

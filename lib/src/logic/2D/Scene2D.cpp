@@ -26,8 +26,8 @@ void Scene2D::createRectangle() noexcept {
 }
 
 void Scene2D::importImg(const QUrl &url) noexcept {
-	std::unique_ptr<Logic::Image> img = std::make_unique<Logic::Image>(url);
 	std::string objId = "Image [" + std::to_string(id) + "]";
+	std::unique_ptr<Logic::Image> img = std::make_unique<Logic::Image>(url, objId);
 	_entities.emplace(objId, std::move(img));
 	id++;
 	QQuickPaintedItem::update();
