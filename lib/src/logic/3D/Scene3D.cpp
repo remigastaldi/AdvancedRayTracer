@@ -140,7 +140,7 @@ void Scene3D::removeSphere() noexcept {
   _entities.erase("Sphere[0]");
 }
 
-const std::unordered_map<std::string, std::unique_ptr<Entity>> &Scene3D::shapes() const noexcept {
+const std::unordered_map<std::string, std::unique_ptr<Entity>> &Scene3D::entities() const noexcept {
   return _entities;
 }
 

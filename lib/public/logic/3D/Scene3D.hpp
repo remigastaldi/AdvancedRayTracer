@@ -28,7 +28,7 @@ public Q_SLOTS:
   void createSphere() noexcept;
   void removeSphere() noexcept;
 
-  const std::unordered_map<std::string, std::unique_ptr<Entity>> &shapes() const noexcept;
+  const std::unordered_map<std::string, std::unique_ptr<Entity>> &entities() const noexcept;
 
 Q_SIGNALS:
   void sceneUpdate();

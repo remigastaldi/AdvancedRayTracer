@@ -52,7 +52,6 @@ add_library(${PROJECT_NAME} SHARED
 
   ## Logic
   public/logic/Entity.hpp
-  public/logic/Module.hpp
   ## 3D
   public/logic/3D/Scene3D.hpp
   public/logic/3D/Sphere.hpp

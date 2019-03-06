@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Entity.hpp"
-#include "Module.hpp"
 #include "Shape3D.hpp"
 
 #include <QEntity>
@@ -13,12 +12,12 @@ namespace Logic {
 namespace Modules {
 
 template <typename T = Qt3DExtras::QDiffuseSpecularMaterial>
-class Material : public Entity, public Module<T> {
+class Material : public Entity {
 public:
   Material(Shape3D &parent, std::string id, T *material = new T)
-      : Entity{std::move(id)}, Module<T>{material}, _parent{parent} {
-    Module<T>::get()->setParent(&parent);
-    _parent.addComponent(Module<T>::get());
+      : Entity{std::move(id)}, _material{material}, _parent{parent} {
+    _material->setParent(&parent);
+    _parent.addComponent(_material);
     _parent.addChildren(Entity::id(), std::unique_ptr<Entity>(this));
   };
 
@@ -27,9 +26,18 @@ public:
     // _parent.removeComponent(Module<T>::get());
   }
 
+  T *get() noexcept { return _material; }
+  T * operator->();
+
 private:
   Shape3D &_parent;
+  T *_material;
 };
+
+template <typename T>
+T * Material<T>::operator->() {
+  return _material;
+}
 
 } // namespace Modules
 } // namespace Logic

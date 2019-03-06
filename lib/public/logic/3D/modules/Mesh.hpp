@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Entity.hpp"
-#include "Module.hpp"
 #include "Shape3D.hpp"
 
 #include <Qt3DExtras>
@@ -12,11 +11,11 @@ namespace Logic {
 namespace Modules {
 
 template <typename T = Qt3DExtras::QSphereMesh> 
-class Mesh : public Entity, public Module<T> {
+class Mesh : public Entity {
 public:
-  Mesh(Shape3D &parent, std::string id, T *mesh = new T) : Entity{std::move(id)}, Module<T>{mesh}, _parent{parent} {
-    Module<T>::get()->setParent(&parent);
-    parent.addComponent(Module<T>::get());
+  Mesh(Shape3D &parent, std::string id, T *mesh = new T) : Entity{std::move(id)}, _mesh{mesh}, _parent{parent} {
+    _mesh->setParent(&parent);
+    parent.addComponent(_mesh);
     parent.addChildren(Entity::id(), std::unique_ptr<Entity>(this));
   };
 
@@ -25,9 +24,18 @@ public:
     // std::cout << "DESTROY MESH" << std::endl;
   }
 
+  T *get() noexcept { return _mesh; }
+  T * operator->();
+
 private:
   Shape3D &_parent;
+  T *_mesh;
 };
+
+template <typename T>
+T * Mesh<T>::operator->() {
+  return _mesh;
+}
 
 } // namespace Modules
 } // namespace Logic

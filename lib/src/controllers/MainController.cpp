@@ -48,7 +48,7 @@ void  MainController::setOutliner(ART::Models::Outliner *outliner) noexcept {
 }
 
 void MainController::sceneUpdate() noexcept {
-  _outliner->setEntities(_scene3D->shapes());
+  _outliner->setEntities(_scene3D->entities());
 }
 
 ToolbarController* MainController::toolbarController() const noexcept {
