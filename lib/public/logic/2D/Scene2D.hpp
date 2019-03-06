@@ -6,6 +6,7 @@
 #include  <QQuickPaintedItem>
 #include <unordered_map>
 #include <QCursor>
+#include <QQuickItemGrabResult>
 
 namespace ART {
 
@@ -32,6 +33,7 @@ public:
 
     void createRectangle() noexcept;
     void importImg(const QUrl &url) noexcept;
+	void saveScene(const QUrl &url) noexcept;
 
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);

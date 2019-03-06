@@ -34,6 +34,20 @@ void Scene2D::importImg(const QUrl &url) noexcept {
 	QQuickPaintedItem::update();
 }
 
+void Scene2D::saveScene(const QUrl &url) noexcept {
+	QString path = url.path() + ".png";
+
+	if (QSysInfo::kernelType().compare("winnt") == 0) {
+		path = path.mid(1);
+	}
+
+	auto imgResult = this->grabToImage();
+	connect(imgResult.data(), &QQuickItemGrabResult::ready, [=]() {
+		imgResult->saveToFile(path);
+		//grabResult->image() for a QImage instance of the output
+	});
+}
+
 void Scene2D::mousePressEvent(QMouseEvent *event) {
 	// Backward iteration into the map
 	for (auto it = _entities.rbegin(); it != _entities.rend(); ++it)
