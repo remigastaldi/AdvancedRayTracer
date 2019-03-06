@@ -1,15 +1,19 @@
 #include "Image.hpp"
 
+#include <QSysInfo>
+
 namespace ART {
 namespace Logic {
 
 Image::Image(std::string id) : Shape2D{std::move(id)}{}
 
 Image::Image(QUrl imgUrl, std::string id) : Shape2D{std::move(id)}, _url{std::move(imgUrl)} {
-	// If the path starts with a "/", we remove it so it will load properly
-	// if (_url.path().at(0) == "/") {
-	// 	_url = _url.path().mid(1);
-	// }
+	if (QSysInfo::kernelType().compare("winnt") == 0) {
+		// If the path starts with a "/", we remove it so it will load properly
+		if (_url.path().at(0) == "/") {
+			_url = _url.path().mid(1);
+		}
+	}
 	_img = QImage(_url.path());
 
 	x2 = _img.width();
