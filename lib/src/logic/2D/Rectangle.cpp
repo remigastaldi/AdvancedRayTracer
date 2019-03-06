@@ -9,7 +9,7 @@ Rectangle::Rectangle(std::string id) : Shape2D{std::move(id)} {}
 
 void Rectangle::draw(QPainter *painter) noexcept {
   painter->setBrush(Qt::blue);
-  painter->drawRect(0, 0, 400, 400);
+  painter->drawRect(x1, y1, x2, y2);
 }
 
 } // namespace Logic

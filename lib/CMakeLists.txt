@@ -36,6 +36,7 @@ add_library(${PROJECT_NAME} SHARED
   ## 2D
   src/logic/2D/Scene2D.cpp
   src/logic/2D/Shape2D.cpp
+  src/logic/2D/Line.cpp
   src/logic/2D/Rectangle.cpp
   src/logic/2D/Image.cpp
 
@@ -60,6 +61,7 @@ add_library(${PROJECT_NAME} SHARED
   ## 2D
   public/logic/2D/Scene2D.hpp
   public/logic/2D/Shape2D.hpp
+  public/logic/2D/Line.hpp
   public/logic/2D/Rectangle.hpp
   public/logic/2D/Image.hpp
 

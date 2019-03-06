@@ -22,14 +22,42 @@ UiMainBorder {
 
       Button {
         Layout.alignment: Qt.AlignHCenter
+        text: "Import image"
+		onClicked: importImgDialog.open()
+      }
+
+	  Button {
+        Layout.alignment: Qt.AlignHCenter
+        text: "Line"
+        onClicked: mainController.drawToolbar2DController.createLine()
+      }
+
+	  Button {
+        Layout.alignment: Qt.AlignHCenter
+		id: rectangleButton
+        text: "Rectangle"
+		highlighted: false
+        onClicked: {
+			mainController.drawToolbar2DController.createRectangle()
+		}
+      }
+
+	  Button {
+        Layout.alignment: Qt.AlignHCenter
+        text: "Ellipse/Circle"
+        onClicked: mainController.drawToolbar2DController.createRectangle()
+      }
+
+	  Button {
+        Layout.alignment: Qt.AlignHCenter
         text: "Rectangle"
         onClicked: mainController.drawToolbar2DController.createRectangle()
       }
 
-      Button {
+	  Button {
         Layout.alignment: Qt.AlignHCenter
-        text: "Import image"
-		onClicked: importImgDialog.open()
+        text: "Rectangle"
+        onClicked: mainController.drawToolbar2DController.createRectangle()
       }
 
 	  Button {

@@ -32,6 +32,7 @@ void  MainController::setScene3D(Logic::Scene3D *scene) noexcept {
 
 void  MainController::setScene2D(Logic::Scene2D *scene) noexcept {
   _scene2D = scene;
+  connect(_drawToolbar2DController, &DrawToolbar2DController::createLine, _scene2D, &Logic::Scene2D::createLine);
   connect(_drawToolbar2DController, &DrawToolbar2DController::createRectangle, _scene2D, &Logic::Scene2D::createRectangle);
   connect(_drawToolbar2DController, &DrawToolbar2DController::importImg, _scene2D, &Logic::Scene2D::importImg);
   connect(_drawToolbar2DController, &DrawToolbar2DController::saveScene, _scene2D, &Logic::Scene2D::saveScene);

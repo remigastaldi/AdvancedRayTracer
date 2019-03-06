@@ -1,5 +1,6 @@
 #include "Scene2D.hpp"
 #include "Shape2D.hpp"
+#include "Line.hpp"
 #include "Rectangle.hpp"
 #include "Image.hpp"
 
@@ -20,10 +21,25 @@ void Scene2D::paint(QPainter *painter) {
   }
 }
 
+void Scene2D::createLine() noexcept {
+	qInfo() << "hey";
+	userIsDrawing = true;
+	drawingLine = true;
+	std::string objId = "Line [" + std::to_string(id) + "]";
+	std::unique_ptr<Line> line = std::make_unique<Line>(objId);
+	_entities.emplace(objId, std::move(line));
+	selectedShape = _entities.find(objId)->second.get();
+	id++;
+}
+
 void Scene2D::createRectangle() noexcept {
-  std::unique_ptr<Rectangle> rect = std::make_unique<Rectangle>("Rectangle [0]");
-  _entities.emplace("Rectangle [0]", std::move(rect));
-  QQuickPaintedItem::update();
+	userIsDrawing = true;
+	drawingRectangle = true;
+	std::string objId = "Rectangle [" + std::to_string(id) + "]";
+	std::unique_ptr<Rectangle> rect = std::make_unique<Rectangle>(objId);
+	_entities.emplace(objId, std::move(rect));
+	selectedShape = _entities.find(objId)->second.get();
+	id++;
 }
 
 void Scene2D::importImg(const QUrl &url) noexcept {
@@ -44,29 +60,44 @@ void Scene2D::saveScene(const QUrl &url) noexcept {
 	auto imgResult = this->grabToImage();
 	connect(imgResult.data(), &QQuickItemGrabResult::ready, [=]() {
 		imgResult->saveToFile(path);
-		//grabResult->image() for a QImage instance of the output
+		//imgResult->image() for a QImage instance of the output
 	});
 }
 
 void Scene2D::mousePressEvent(QMouseEvent *event) {
-	// Backward iteration into the map
-	for (auto it = _entities.rbegin(); it != _entities.rend(); ++it)
-	{
-		selectedShape = it->second.get();
+	if (userIsDrawing) {
+		if (drawingRectangle || drawingLine) {
+			selectedShape->x1 = event->x();
+			selectedShape->y1 = event->y();
+		}
+	}
+	else {
+		// Backward iteration into the map
+		for (auto it = _entities.rbegin(); it != _entities.rend(); ++it) {
+			selectedShape = it->second.get();
 
-		// Did the user click on a shape?
-		if (selectedShape->imgRect.contains(event->x(), event->y()))
-		{
-			decalx = event->x();
-			decaly = event->y();
-			shapePressed = true;
-			break;
+			// Did the user click on a shape?
+			if (selectedShape->imgRect.contains(event->x(), event->y())) {
+				decalx = event->x();
+				decaly = event->y();
+				shapePressed = true;
+				break;
+			}
 		}
 	}
 }
 
 void Scene2D::mouseMoveEvent(QMouseEvent *event) {
-	if (shapePressed) {
+	if (userIsDrawing) {
+		this->setCursor(QCursor(Qt::CrossCursor));
+		if (drawingRectangle) {
+			selectedShape->x2 = event->x() - selectedShape->x1;
+			selectedShape->y2 = event->y() - selectedShape->y1;
+		} else if (drawingLine) {
+			selectedShape->x2 = event->x();
+			selectedShape->y2 = event->y();
+		}
+	} else if (shapePressed) {
 		// Move item
 		if (event->buttons() == Qt::LeftButton) {
 			this->setCursor(QCursor(Qt::ClosedHandCursor));
@@ -101,14 +132,20 @@ void Scene2D::mouseMoveEvent(QMouseEvent *event) {
 			lastMouseX = event->x();
 			lastMouseY = event->y();
 		}
-
-		QQuickPaintedItem::update();
 	}
+
+	QQuickPaintedItem::update();
 }
 
 void Scene2D::mouseReleaseEvent(QMouseEvent *event) {
 	shapePressed = false;
 	this->setCursor(QCursor(Qt::ArrowCursor));
+
+	if (userIsDrawing) {
+		userIsDrawing = false;
+		drawingRectangle = false;
+		drawingLine = false;
+	}
 }
 
 } // namespace Logic

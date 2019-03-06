@@ -28,6 +28,7 @@ private:
   // void createSphere() noexcept;
 
 Q_SIGNALS:
+  void createLine();
   void createRectangle();
   void importImg(const QUrl& file_url);
   void saveScene(const QUrl& file_url);

@@ -26,11 +26,15 @@ public:
 	int lastMouseX = 0;
 	int lastMouseY = 0;
 	bool shapePressed = false;
+	bool userIsDrawing = false;
+	bool drawingRectangle = false;
+	bool drawingLine = false;
     Shape2D *selectedShape;
 
     Scene2D();
     virtual void paint(QPainter *painter) override;
 
+	void createLine() noexcept;
     void createRectangle() noexcept;
     void importImg(const QUrl &url) noexcept;
 	void saveScene(const QUrl &url) noexcept;
