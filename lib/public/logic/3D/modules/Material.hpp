@@ -22,8 +22,8 @@ public:
   };
 
   virtual ~Material() {
-    // std::cout << "DESTROY MATERIAL" << std::endl;
-    // _parent.removeComponent(Module<T>::get());
+    _parent.removeComponent(_material);
+    delete _material;
   }
 
   T *get() noexcept { return _material; }

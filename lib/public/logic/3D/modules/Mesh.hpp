@@ -20,8 +20,8 @@ public:
   };
 
   virtual ~Mesh() {
-    // _parent.removeComponent(Module<T>::get());
-    // std::cout << "DESTROY MESH" << std::endl;
+    _parent.removeComponent(_mesh);
+    delete _mesh;
   }
 
   T *get() noexcept { return _mesh; }

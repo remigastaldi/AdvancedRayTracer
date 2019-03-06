@@ -21,8 +21,8 @@ public:
   }
 
   virtual ~Transform() {
-    // std::cout << "DESTROY TRANSFORM" << std::endl;
-    // _parent.removeChildren(Entity::id());
+    _parent.removeComponent(_transform);
+    delete _transform;
   }
 
   Qt3DCore::QTransform *get() noexcept { return _transform; }

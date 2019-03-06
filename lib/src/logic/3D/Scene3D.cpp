@@ -104,6 +104,7 @@ void Scene3D::createSphere() noexcept {
   mesh->setSlices(100);
   mesh->setRings(100);
 
+  sphere->removeChildren("Material");
   auto *material = new Modules::Material<Qt3DExtras::QMetalRoughMaterial>(*sphere, "MetalMaterial");
   auto *metal = material->get();
   metal->setBaseColor(QColor(125, 125, 125));
