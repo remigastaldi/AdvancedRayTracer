@@ -71,6 +71,19 @@ void Scene2D::importImg(const QUrl &url) noexcept {
 	QQuickPaintedItem::update();
 }
 
+bool Scene2D::isCloseEnough(const QLineF& line, const QPointF& point) {
+	QLineF perpendicLine(point, QPointF(point.x(), 0.0));
+	perpendicLine.setAngle(90.0 + line.angle());
+	QPointF result;
+	line.intersect(perpendicLine, &result);
+
+	if (abs(point.x() - result.x()) <= 5 && abs(point.y() - result.y()) <= 5) {
+		return true;
+	}
+
+	return false;
+}
+
 void Scene2D::saveScene(const QUrl &url) noexcept {
 	QString path = url.path() + ".png";
 
@@ -97,7 +110,7 @@ void Scene2D::mousePressEvent(QMouseEvent *event) {
 			selectedShape = it->second.get();
 
 			// Did the user click on a shape?
-			if (selectedShape->imgRect.contains(event->x(), event->y())) {
+			if (selectedShape->imgRect.contains(event->x(), event->y()) || selectedShape->shapeRect.contains(QPointF(event->x(), event->y())) || isCloseEnough(selectedShape->line, QPointF(event->x(), event->y()))) {
 				decalx = event->x() - selectedShape->x1;
 				decaly = event->y() - selectedShape->y1;
 				shapePressed = true;
@@ -123,6 +136,10 @@ void Scene2D::mouseMoveEvent(QMouseEvent *event) {
 			this->setCursor(QCursor(Qt::ClosedHandCursor));
 			selectedShape->x1 = event->x() - decalx;
 			selectedShape->y1 = event->y() - decaly;
+			if (!selectedShape->line.isNull()) {
+				selectedShape->x2 = selectedShape->x1 + event->x() - decalx;
+				selectedShape->y2 = selectedShape->y1 + event->y() - decaly;
+			}
 		// Resize item
 		} else if (event->buttons() == Qt::RightButton) {
 			this->setCursor(QCursor(Qt::SizeAllCursor));

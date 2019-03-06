@@ -40,6 +40,7 @@ public:
     void createRectangle() noexcept;
 	void createCircle() noexcept;
 	void createTriangle() noexcept;
+	bool isCloseEnough(const QLineF& line, const QPointF& point);
     void importImg(const QUrl &url) noexcept;
 	void saveScene(const QUrl &url) noexcept;
 

@@ -4,6 +4,8 @@
 #include "Entity.hpp"
 
 #include <QQuickPaintedItem>
+#include <qpainterpath.h>
+#include <QLine>
 
 #include <memory>
 
@@ -19,6 +21,8 @@ public:
 	  y1 = 0,
 	  y2 = 0;
   QRect imgRect;
+  QPainterPath shapeRect;
+  QLine line;
 
   Shape2D(std::string id);
 

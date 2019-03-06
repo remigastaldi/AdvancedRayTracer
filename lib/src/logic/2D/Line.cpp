@@ -9,7 +9,8 @@ Line::Line(std::string id) : Shape2D{std::move(id)} {}
 
 void Line::draw(QPainter *painter) noexcept {
   painter->setPen(Qt::blue);
-  painter->drawLine(x1, y1, x2, y2);
+  line = QLine(x1, y1, x2, y2);
+  painter->drawLine(line);
 }
 
 } // namespace Logic

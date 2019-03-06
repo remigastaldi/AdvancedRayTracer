@@ -16,6 +16,8 @@ void Triangle::draw(QPainter *painter) noexcept {
   path.lineTo(rect.bottomRight());
   path.lineTo(rect.left() + (rect.width() / 2), rect.top());
 
+  shapeRect = path;
+
   painter->fillPath(path, QBrush(QColor("blue")));
 }
 
