@@ -13,7 +13,11 @@ namespace Logic {
 
 class Shape2D {
 public:
-  // Shape2D() = default;
+  int x1 = 0,
+	  x2 = 0,
+	  y1 = 0,
+	  y2 = 0;
+  QRect imgRect;
 
   virtual void draw(QPainter *painter) noexcept {};
 };

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Shape2D.hpp"
+#include <QPainter>
 
 namespace ART {
 namespace Logic {
@@ -11,6 +12,7 @@ public:
   Image(const QUrl& imgUrl);
 
   QUrl url;
+  QImage img;
 
   virtual void draw(QPainter *painter) noexcept override;
 };

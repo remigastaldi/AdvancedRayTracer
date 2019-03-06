@@ -1,26 +1,28 @@
 #include "Image.hpp"
 
-#include <QPainter>
-
 namespace ART {
 namespace Logic {
 
 Image::Image() {}
 Image::Image(const QUrl& imgUrl) {
-	url = imgUrl;
+	QString path;
+
+	// If the path starts with a "/", we remove it so it will load properly
+	if (imgUrl.path().at(0) == "/") {
+		path = imgUrl.path().mid(1);
+	}
+
+	img = QImage(path);
+	x1 = 0;
+    y1 = 0;
+    x2 = img.width();
+    y2 = img.height();
 }
 
 void Image::draw(QPainter *painter) noexcept {
-	QString path;
+  imgRect = QRect(x1, y1, img.width(), img.height());
 
-  // If the path starts with a "/", we remove it so it will load properly
-  if (url.path().at(0) == "/") {
-	  path = url.path().mid(1);
-  }
-
-  QImage img(path);
-
-  painter->drawImage(QRect(0, 0, img.width(), img.height()), QImage(path));
+  painter->drawImage(imgRect, img);
 }
 
 } // namespace Logic
