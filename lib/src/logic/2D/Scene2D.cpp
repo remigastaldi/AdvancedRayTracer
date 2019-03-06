@@ -91,16 +91,15 @@ void Scene2D::mousePressEvent(QMouseEvent *event) {
 			selectedShape->x1 = event->x();
 			selectedShape->y1 = event->y();
 		}
-	}
-	else {
+	} else {
 		// Backward iteration into the map
 		for (auto it = _entities.rbegin(); it != _entities.rend(); ++it) {
 			selectedShape = it->second.get();
 
 			// Did the user click on a shape?
 			if (selectedShape->imgRect.contains(event->x(), event->y())) {
-				decalx = event->x();
-				decaly = event->y();
+				decalx = event->x() - selectedShape->x1;
+				decaly = event->y() - selectedShape->y1;
 				shapePressed = true;
 				break;
 			}
@@ -111,7 +110,7 @@ void Scene2D::mousePressEvent(QMouseEvent *event) {
 void Scene2D::mouseMoveEvent(QMouseEvent *event) {
 	if (userIsDrawing) {
 		this->setCursor(QCursor(Qt::CrossCursor));
-		if (drawingRectangle || drawingCircle || drawingRectangle || drawingTriangle) {
+		if (drawingRectangle || drawingCircle || drawingTriangle) {
 			selectedShape->x2 = event->x() - selectedShape->x1;
 			selectedShape->y2 = event->y() - selectedShape->y1;
 		} else if (drawingLine) {

@@ -35,7 +35,7 @@ UiMainBorder {
 	  Button {
         Layout.alignment: Qt.AlignHCenter
 		id: rectangleButton
-        text: "Rectangle"
+        text: "Rectangle/Square"
 		highlighted: false
         onClicked: {
 			mainController.drawToolbar2DController.createRectangle()
@@ -56,7 +56,7 @@ UiMainBorder {
 
 	  Button {
         Layout.alignment: Qt.AlignHCenter
-        text: "Rectangle"
+        text: "Arc"
         onClicked: mainController.drawToolbar2DController.createRectangle()
       }
 
@@ -72,7 +72,7 @@ UiMainBorder {
 		folder: shortcuts.home
 		nameFilters: [ "Image files (*.jpg *.png)", "All files (*)" ]
 		onAccepted: {
-			mainController.drawToolbar2DController.importImg(importImgDialog.fileUrl)
+			mainController.drawToolbar2DController.importImg(file)
 		}
 	  }
 
