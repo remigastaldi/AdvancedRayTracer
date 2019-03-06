@@ -11,10 +11,13 @@ public:
   Image();
   Image(const QUrl& imgUrl);
 
-  QUrl url;
-  QImage img;
+  //Image(std::string id, const QUrl& imgUrl);
 
   virtual void draw(QPainter *painter) noexcept override;
+
+private:
+  QUrl _url;
+  QImage _img;
 };
 
 } // namespace Logic

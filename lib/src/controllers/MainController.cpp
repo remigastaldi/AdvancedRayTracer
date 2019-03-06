@@ -27,6 +27,7 @@ MainController::MainController(QObject* parent) :
 void  MainController::setScene3D(Logic::Scene3D *scene) noexcept {
   _scene3D = scene;
   connect(_drawToolbar3DController, &DrawToolbar3DController::createSphere, _scene3D, &Logic::Scene3D::createSphere);
+  // connect(_rightSidebarController, &RightSidebarController::test, _scene3D, &Logic::Scene3D::test);
 }
 
 void  MainController::setScene2D(Logic::Scene2D *scene) noexcept {

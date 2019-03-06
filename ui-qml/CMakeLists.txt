@@ -16,11 +16,13 @@ find_package(Qt5 COMPONENTS Core Gui Qml 3DCore 3DRender 3DInput 3DLogic 3DExtra
 
 add_executable(${PROJECT_NAME}
   src/main.cpp
-  src/Outliner.cpp
- 
-  src/Outliner.hpp
- 
+  src/QmlOutliner.hpp
+  src/QmlOutliner.cpp
+  # TODO : FIND WHY WINDOWS NEED THIS / linkage dosen't work ?
+  ../lib/src/models/Outliner.cpp
+
   resources.qrc
+  skybox/skybox.qrc
   ${QML_SRC}
 )
 

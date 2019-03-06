@@ -20,14 +20,15 @@ void Scene2D::paint(QPainter *painter) {
 }
 
 void Scene2D::createRectangle() noexcept {
-  std::unique_ptr<Rectangle> rect = std::make_unique<Rectangle>();
+  std::unique_ptr<Rectangle> rect = std::make_unique<Rectangle>("Rectangle [0]");
   _entities.emplace("Rectangle [0]", std::move(rect));
   QQuickPaintedItem::update();
 }
 
 void Scene2D::importImg(const QUrl &url) noexcept {
 	std::unique_ptr<Logic::Image> img = std::make_unique<Logic::Image>(url);
-	_entities.emplace(std::to_string(id), std::move(img));
+	std::string objId = "Image [" + std::to_string(id) + "]";
+	_entities.emplace(objId, std::move(img));
 	id++;
 	QQuickPaintedItem::update();
 }

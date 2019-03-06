@@ -7,7 +7,7 @@ namespace Logic {
 
 class Rectangle : public Shape2D {
 public:
-  Rectangle();
+  Rectangle(std::string id);
 
   virtual void draw(QPainter *painter) noexcept override;
 };

@@ -12,17 +12,24 @@ Image::Image(const QUrl& imgUrl) {
 		path = imgUrl.path().mid(1);
 	}
 
-	img = QImage(path);
-	x1 = 0;
-    y1 = 0;
-    x2 = img.width();
-    y2 = img.height();
+	_img = QImage(path);
+    x2 = _img.width();
+    y2 = _img.height();
 }
 
-void Image::draw(QPainter *painter) noexcept {
-  imgRect = QRect(x1, y1, img.width(), img.height());
+/*Image::Image(std::string id, const QUrl& imgUrl) : Shape2D{std::move(id)}, _url{imgUrl} {
+  // If the path starts with a "/", we remove it so it will load properly
+  if (_url.path().at(0) == "/") {
+	  _url = _url.path().mid(1);
+  }
+  _img.load(imgUrl.path());
+}
+*/
 
-  painter->drawImage(imgRect, img);
+void Image::draw(QPainter *painter) noexcept {
+	imgRect = QRect(x1, y1, _img.width(), _img.height());
+
+	painter->drawImage(imgRect, _img);
 }
 
 } // namespace Logic

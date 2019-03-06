@@ -28,8 +28,15 @@ public Q_SLOTS:
   void createSphere() noexcept;
   void removeSphere() noexcept;
 
+  // void status(Qt3DRender::QSceneLoader::Status status) {
+  //   qInfo() << status;
+  //   qInfo() << sceneLoader->entityNames();
+  //   // qInfo() << sceneLoader->component("Earth", ;
+  // }
+
 private:
   std::unordered_map<std::string, std::unique_ptr<Qt3DCore::QEntity>> _entities;
+  // Qt3DRender::QSceneLoader *sceneLoader;
 };
 } // namespace Logic
 } // namespace ART

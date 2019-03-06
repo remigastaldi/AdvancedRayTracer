@@ -7,7 +7,7 @@ import AdvancedRayTracer 1.0
 ScrollView {
   ListView {
     id: listview
-    model: outliner
+    model: qmlOutliner
     anchors.fill: parent
 
     delegate: Rectangle {
@@ -16,19 +16,19 @@ ScrollView {
       anchors.right: parent.right
       height: 25
 
-      color: ListView.isCurrentItem ? "black" : "red"
+      color: ListView.isCurrentItem ? "#2F343F" : Style.mainContainerColor
 
       Text {
-        text: entityType
-        color: wrapper.ListView.isCurrentItem ? "red" : "black"
+        text: id
+        color: wrapper.ListView.isCurrentItem ? Style.mainColor : "white"
         font.pointSize: 12
       }
 
       MouseArea {
         anchors.fill: parent
         onClicked:  {
-          listview.focus = true
           wrapper.ListView.view.currentIndex = index
+          listview.focus = true
         }
       }
     }

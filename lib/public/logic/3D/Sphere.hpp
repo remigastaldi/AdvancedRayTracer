@@ -15,7 +15,7 @@ namespace Logic {
 class Sphere : public Shape3D {
 
 public:
-  Sphere(Qt3DCore::QEntity *parent);
+  Sphere(std::string id, Qt3DCore::QEntity *parent);
 
 private:
 };

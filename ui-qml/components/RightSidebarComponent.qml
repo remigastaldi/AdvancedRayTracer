@@ -18,14 +18,14 @@ UiMainBorder {
 
   GroupBox {
     title: qsTr("Outliner")
-      anchors.top: root.top
-      anchors.left: root.left
-      anchors.right: root.right
-      anchors.margins: 10
-      height: 200
-      Outliner {
-        anchors.fill: parent
-      }
+    anchors.top: root.top
+    anchors.left: root.left
+    anchors.right: root.right
+    anchors.margins: 10
+    height: 200
+    Outliner {
+      anchors.fill: parent
+    }
   }
  
   ColumnLayout {
@@ -37,7 +37,15 @@ UiMainBorder {
       Layout.topMargin: 10
       Layout.alignment: Qt.AlignHCenter
       text: "Nothin"
-      onClicked: outliner.add()
+      onClicked: {
+        qmlOutliner.add()
+        mainController.scene3D.removeSphere()
+      //   var arr = mainController.rightSidebarController.test()
+      //   for (var module in arr) {
+      //     if (arr[module] == "Mesh")
+      //       console.log(arr[module]);
+      //   }
+      }
     }
 
     // Button {

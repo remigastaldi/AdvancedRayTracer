@@ -1,15 +1,20 @@
 #pragma once
 
+#include "globals.h"
+
 #include <QObject>
 #include <QString>
+#include <QVariantList>
 
-#include "globals.h"
+#include <iostream>
 
 namespace ART {
 namespace Models {
   class RightSidebarModel;
 } // namespace Models
-
+namespace Logic {
+  class Entity;
+}
 namespace Controllers {
 
 class ADVANCED_RAY_TRACER_EXPORT RightSidebarController : public QObject {
@@ -28,6 +33,9 @@ private:
   ART::Models::RightSidebarModel *_model{nullptr};
 
 public Q_SLOTS:
+  // QVariantList test() {
+  //   return QVariantList{"qwe", "Mesh", "zxc"};
+  // }
   void render() noexcept;
   void deleteShape() noexcept;
   void setAutoRenderRate(int rate) noexcept;
