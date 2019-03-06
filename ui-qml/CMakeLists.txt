@@ -19,7 +19,7 @@ add_executable(${PROJECT_NAME}
   src/QmlOutliner.hpp
   src/QmlOutliner.cpp
   # TODO : FIND WHY WINDOWS NEED THIS / linkage dosen't work ?
-  ../lib/src/models/Outliner.cpp
+  # ../lib/src/models/Outliner.cpp
 
   resources.qrc
   skybox/skybox.qrc
