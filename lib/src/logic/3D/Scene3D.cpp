@@ -113,13 +113,35 @@ void Scene3D::createSphere() noexcept {
   // auto &transform = sphere->module<Modules::Transform>("Transform");
   // transform->setTranslation({0.0, 0.0, 0.0});
   
+
+  // std::unique_ptr<Sphere> sphere2{std::make_unique<Sphere>("Sphere[1]", sphere.get())};
+  // auto &mesh2 = sphere2->module<Modules::Mesh<Qt3DExtras::QSphereMesh>>("Mesh");
+  // mesh2->setRadius(5);
+  // mesh2->setSlices(100);
+  // mesh2->setRings(100);
+
+  // auto *material2 = new Modules::Material<Qt3DExtras::QMetalRoughMaterial>(*sphere2, "MetalMaterial");
+  // auto *metal2 = material2->get();
+  // metal2->setBaseColor(QColor(125, 125, 125));
+  // metal2->setRoughness(0.10);
+  // metal2->setMetalness(0.95);
+
+  // auto &transform = sphere2->module<Modules::Transform>("Transform");
+  // transform->setTranslation({15.0, 0.0, 0.0});
+  // sphere->addChildren("Sphere[1]", std::move(sphere2));
   _entities.emplace("Sphere[0]", std::move(sphere));
+
+  Q_EMIT sceneUpdate();
 }
 
 void Scene3D::removeSphere() noexcept {
   qInfo() << "Remove sphere";
 
   _entities.erase("Sphere[0]");
+}
+
+const std::unordered_map<std::string, std::unique_ptr<Entity>> &Scene3D::shapes() const noexcept {
+  return _entities;
 }
 
 } // namespace Logic

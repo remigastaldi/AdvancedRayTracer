@@ -62,7 +62,8 @@ int main(int argc, char *argv[])
   auto rightSidebarModel = new ART::Models::RightSidebarModel;
   mainController.rightSidebarController()->setModel(rightSidebarModel);
 
-  auto qmlOutliner = new ART::UI::QmlOutliner;
+  auto *qmlOutliner = new ART::UI::QmlOutliner;
+  mainController.setOutliner(qmlOutliner);
   
   engine.rootContext()->setContextProperty("mainController", &mainController);
   engine.rootContext()->setContextProperty("menuModel", toolBarModel);
@@ -80,7 +81,7 @@ int main(int argc, char *argv[])
 
   auto *scene2D =  engine.rootObjects().first()->findChild<ART::Logic::Scene2D*>("customScene2D");
   mainController.setScene2D(scene2D);
-
+  
   mainController.dumpObjectTree();
   return QApplication::exec();
 }

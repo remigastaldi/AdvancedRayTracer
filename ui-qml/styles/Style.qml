@@ -9,6 +9,7 @@ QtObject {
 
   property color mainContainerColor: "#1B1E2B"
   // property color containerColor: "#292D3E"
+  // property color mainContainerSecondaryColor: "#1B1E2B"
   // property color containerBorderColor: "#D3DAE3"
   property int mainBorderWidth: 1
   property int mainBorderRadius: 5

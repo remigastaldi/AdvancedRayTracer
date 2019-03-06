@@ -14,12 +14,14 @@ ScrollView {
       id: wrapper
       anchors.left: parent.left
       anchors.right: parent.right
-      height: 25
+      height: 20
 
-      color: ListView.isCurrentItem ? "#2F343F" : Style.mainContainerColor
+      // color: ListView.isCurrentItem ? "#2F343F" : Style.mainContainerColor
+      color : lineColor
 
       Text {
         text: id
+        anchors.verticalCenter: wrapper.verticalCenter
         color: wrapper.ListView.isCurrentItem ? Style.mainColor : "white"
         font.pointSize: 12
       }

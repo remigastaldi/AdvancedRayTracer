@@ -20,11 +20,17 @@
 #include <Qt3DExtras/QTorusMesh>
 #include <Qt3DRender/QRenderAspect>
 
+
+#include "Outliner.hpp"
+#include "Scene3D.hpp"
 namespace ART {
 namespace Logic {
 class Scene3D;
-class Scene2D;
+class Scene2D;;
 } // namespace Logic
+// namespace Models {
+// class Outliner;
+// } // namespace Models
 
 namespace Controllers {
 
@@ -52,6 +58,7 @@ public:
 
   void setScene3D(Logic::Scene3D *scene) noexcept;
   void setScene2D(Logic::Scene2D *scene) noexcept;
+  void setOutliner(ART::Models::Outliner *outliner) noexcept;
 
 public Q_SLOTS:
   ToolbarController *toolbarController() const noexcept;
@@ -61,6 +68,18 @@ public Q_SLOTS:
   Logic::Scene3D *scene3D() const noexcept;
   Logic::Scene2D *scene2D() const noexcept;
 
+  void sceneUpdate() noexcept;
+  // QVariantList loadTree() {
+  //   QVariantList list;
+  //   _outliner->setShapesHierarchy(_scene3D->shapes());
+  //   const std::vector<std::string> &hier = _outliner->shapesHierarchy();
+
+  //   for (const auto &shape : hier) {
+  //     list.push_back(QString::fromStdString(shape));
+  //   }
+  //   return list;
+  // }
+
 private:
   DrawToolbar3DController *_drawToolbar3DController;
   DrawToolbar2DController *_drawToolbar2DController;
@@ -68,6 +87,7 @@ private:
   RightSidebarController *_rightSidebarController;
   Logic::Scene3D *_scene3D;
   Logic::Scene2D *_scene2D;
+  ART::Models::Outliner *_outliner;
 
 private Q_SLOTS:
   void handleSaveFileClicked();

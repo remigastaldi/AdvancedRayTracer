@@ -5,18 +5,20 @@
 #include "DrawToolbar2DController.hpp"
 #include "Scene3D.hpp"
 #include "Scene2D.hpp"
+// #include "Outliner.hpp"
 
 namespace ART {
 namespace Controllers {
 
 MainController::MainController(QObject* parent) :
   QObject{parent},
-  _toolbarController{new ToolbarController{this}},
   _drawToolbar3DController{new DrawToolbar3DController{this}},
-  _rightSidebarController{new RightSidebarController{this}},
   _drawToolbar2DController{new DrawToolbar2DController{this}},
+  _toolbarController{new ToolbarController{this}},
+  _rightSidebarController{new RightSidebarController{this}},
   _scene3D{nullptr},
-  _scene2D{nullptr}
+  _scene2D{nullptr},
+  _outliner{nullptr}
 {
   connect(_toolbarController, &ToolbarController::saveFileClicked, this, &MainController::handleSaveFileClicked);
   connect(_toolbarController, &ToolbarController::saveAsFileClicked, this, &MainController::handleSaveAsFileClicked);
@@ -27,6 +29,7 @@ MainController::MainController(QObject* parent) :
 void  MainController::setScene3D(Logic::Scene3D *scene) noexcept {
   _scene3D = scene;
   connect(_drawToolbar3DController, &DrawToolbar3DController::createSphere, _scene3D, &Logic::Scene3D::createSphere);
+  connect(_scene3D, &Logic::Scene3D::sceneUpdate, this, &MainController::sceneUpdate);
   // connect(_rightSidebarController, &RightSidebarController::test, _scene3D, &Logic::Scene3D::test);
 }
 
@@ -36,6 +39,14 @@ void  MainController::setScene2D(Logic::Scene2D *scene) noexcept {
   connect(_drawToolbar2DController, &DrawToolbar2DController::createRectangle, _scene2D, &Logic::Scene2D::createRectangle);
   connect(_drawToolbar2DController, &DrawToolbar2DController::importImg, _scene2D, &Logic::Scene2D::importImg);
   connect(_drawToolbar2DController, &DrawToolbar2DController::saveScene, _scene2D, &Logic::Scene2D::saveScene);
+}
+
+void  MainController::setOutliner(ART::Models::Outliner *outliner) noexcept {
+  _outliner = outliner;
+}
+
+void MainController::sceneUpdate() noexcept {
+  _outliner->setEntities(_scene3D->shapes());
 }
 
 ToolbarController* MainController::toolbarController() const noexcept {

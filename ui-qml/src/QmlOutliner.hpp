@@ -17,20 +17,19 @@ private:
 
 enum RoleType {
   // ENT_TYPE = Qt::UserRole + 1,
-  ID
+  ID,
+  LINE_COLOR
 };
 
 public:
   QmlOutliner(QObject *parent = 0);
 
-  // void AddEntry(QString aMessage, QColor aColor);
-
 public Q_SLOTS:
-  void add() {
-    beginInsertRows(QModelIndex(), _test, _test);
-    ++_test;
-    endInsertRows();
-  }
+  // void add() {
+    // beginInsertRows(QModelIndex(), _shapesId.size(), _shapesId.size());
+    // // ++_test;
+    // endInsertRows();
+  // }
 
 
   virtual QVariant data(const QModelIndex &index, int role) const override;
@@ -38,8 +37,16 @@ public Q_SLOTS:
 
   virtual QHash<int, QByteArray> roleNames() const override;
 
+  void updateData() noexcept override {
+    for (const auto &shapeId : entitiesHierarchy()) {
+      beginInsertRows(QModelIndex(), _shapesId.size(), _shapesId.size());
+      _shapesId.push_back(QString::fromStdString(shapeId));
+      endInsertRows();
+    }
+  }
+
 private:
-int _test{0};
+  QVariantList _shapesId;
 };
 
 } // namespace UI

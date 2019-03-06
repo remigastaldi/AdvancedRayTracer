@@ -38,13 +38,13 @@ UiMainBorder {
       Layout.alignment: Qt.AlignHCenter
       text: "Nothin"
       onClicked: {
-        qmlOutliner.add()
-        mainController.scene3D.removeSphere()
-      //   var arr = mainController.rightSidebarController.test()
-      //   for (var module in arr) {
-      //     if (arr[module] == "Mesh")
-      //       console.log(arr[module]);
-      //   }
+        // qmlOutliner.add()
+        // mainController.scene3D.removeSphere()
+        // var arr = mainController.loadTree()
+        // for (var module in arr) {
+          // if (arr[module] == "Mesh")
+            // console.log(arr[module]);
+        // }
       }
     }
 
