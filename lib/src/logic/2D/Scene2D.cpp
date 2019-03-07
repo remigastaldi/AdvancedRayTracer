@@ -224,12 +224,12 @@ const std::unordered_map<std::string, std::unique_ptr<Entity>> &Scene2D::entitie
 
 void Scene2D::zIndexUpdate(const std::string &id) {
 	size_t index = _entities.at(id)->getChildren<Modules::ZIndex>("zIndex").zIndex();
-	_zIndex[index].emplace(id, std::cref<std::unique_ptr<Shape2D>>(_entities.at(id)));
+	_zIndex[index].emplace(id, std::ref<std::unique_ptr<Shape2D>>(_entities.at(id)));
 }
 
-void Scene2D::zIndexDelete(const std::string &id) {
-	size_t index = _entities.at(id)->getChildren<Modules::ZIndex>("zIndex").zIndex();
-	_zIndex.at(index).erase(id);
+void Scene2D::zIndexDelete(size_t zIndex, const std::string &id) {
+	_zIndex.at(zIndex).erase(id);
+	// Q_EMIT sceneUpdate();
 }
 
 } // namespace Logic

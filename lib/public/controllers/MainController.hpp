@@ -28,6 +28,7 @@ namespace Logic {
 class Scene3D;
 class Scene2D;
 class Scene;
+class Entity;
 } // namespace Logic
 namespace Models {
 class Outliner;
@@ -53,6 +54,7 @@ class ADVANCED_RAY_TRACER_EXPORT MainController : public QObject {
   Q_PROPERTY(ART::Controllers::DrawToolbar2DController *drawToolbar2DController READ drawToolbar2DController CONSTANT)
   Q_PROPERTY(ART::Logic::Scene3D *scene3D READ scene3D CONSTANT)
   Q_PROPERTY(ART::Logic::Scene2D *scene2D READ scene2D CONSTANT)
+  // Q_PROPERTY(ART::Logic::Entity *test READ test CONSTANT)
 
 public:
   explicit MainController(QObject *parent = nullptr);
@@ -78,6 +80,8 @@ public Q_SLOTS:
 
   // Todo: just for test, change to an other controller
   Modules::ZIndex *zIndex();
+
+  Logic::Entity* test();
 
 private:
   DrawToolbar3DController *_drawToolbar3DController;

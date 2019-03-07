@@ -5,6 +5,7 @@ QtObject {
   id: style
 
   //General used by many properties
+  // property color mainColor: Universal.Orange
   property color mainColor: "orange"
 
   property color mainContainerColor: "#1B1E2B"
@@ -19,4 +20,6 @@ QtObject {
   // Toolbar properties
   property int toolbarIconSize: 16
   property color toolbarIconColor: "#497EBE"
+
+  // property int boutonFontSize: 14
 }
