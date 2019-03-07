@@ -62,7 +62,9 @@ UiMainBorder {
           visible : false;
           Layout.fillWidth: true
           Layout.fillHeight: true
+
           RowLayout {
+            anchors.fill: parent.fill
             Layout.fillWidth: true
             Layout.fillHeight: true
             Text {
@@ -72,6 +74,11 @@ UiMainBorder {
             TextInput {
               text: "0"
               Layout.rightMargin: 5
+              wrapMode: TextInput.Wrap
+              onAccepted: {
+                // console.log("asdasd" (MainController) mainController)
+                // mainController.test.setzIndex(8)
+              }
             }
           }
         }        

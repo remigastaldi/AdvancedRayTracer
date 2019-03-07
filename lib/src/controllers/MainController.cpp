@@ -7,6 +7,7 @@
 #include "Scene2D.hpp"
 #include "ZIndex.hpp"
 #include "Outliner.hpp"
+#include "Entity.hpp"
 
 namespace ART {
 namespace Controllers {
@@ -117,12 +118,17 @@ Modules::ZIndex *MainController::zIndex() {
   return nullptr;
 }
 
+
 QVariantList MainController::loadTree() {
   QVariantList list;
   for (const auto &shape : _currentScene->selectedEntity()->childrens()) {
     list.push_back(QString::fromStdString(shape.second->id()));
   }
   return list;
+}
+
+Logic::Entity *MainController::test() {
+    return _currentScene->selectedEntity();
 }
 
 

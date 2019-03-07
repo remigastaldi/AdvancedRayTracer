@@ -42,7 +42,7 @@ int QmlOutliner::rowCount(const QModelIndex &parent) const
 void QmlOutliner::updateData() noexcept {
   // if (entitiesHierarchy().empty() && !_entityId.empty()) {
   if (!_entityId.empty()) {
-    beginRemoveRows(QModelIndex(), 0, _entityId.size()-1);
+    beginRemoveRows(QModelIndex(), 0, _entityId.size() - 1);
     _entityId.clear();
     endRemoveRows();
   }
