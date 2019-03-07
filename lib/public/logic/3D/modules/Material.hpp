@@ -16,13 +16,13 @@ class Material : public Entity {
 public:
   Material(Shape3D &parent, std::string id, T *material = new T)
       : Entity{std::move(id)}, _material{material}, _parent{parent} {
-    _material->setParent(&parent);
-    _parent.addComponent(_material);
+    _material->setParent(parent.getQEntity());
+    _parent.getQEntity()->addComponent(_material);
     _parent.addChildren(Entity::id(), std::unique_ptr<Entity>(this));
   };
 
   virtual ~Material() {
-    _parent.removeComponent(_material);
+    _parent.getQEntity()->removeComponent(_material);
     delete _material;
   }
 

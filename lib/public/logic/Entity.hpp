@@ -6,11 +6,11 @@
 #include <vector>
 #include <unordered_map>
 #include <iostream>
-
+#include <QObject>
 namespace ART {
 namespace Logic {
 
-class Entity {
+class Entity: public QObject {
 public:
   explicit Entity(std::string id);
   virtual ~Entity() = default;

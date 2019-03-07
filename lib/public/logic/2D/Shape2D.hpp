@@ -13,6 +13,7 @@ namespace ART {
 namespace Models {} // nameSpace Models
 
 namespace Logic {
+class Scene2D;
 
 class Shape2D : public Entity {
 public:

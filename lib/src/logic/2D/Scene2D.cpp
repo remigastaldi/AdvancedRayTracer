@@ -6,6 +6,7 @@
 #include "Triangle.hpp"
 #include "Image.hpp"
 #include "PaintedItem.hpp"
+#include "ZIndex.hpp"
 
 #include <QPainter>
 
@@ -17,23 +18,25 @@ Scene2D::Scene2D(PaintedItem *painter) : _painter{painter} {
   _painter->setFillColor("black");
   _painter->setAcceptedMouseButtons(Qt::AllButtons);
   _painter->setAcceptHoverEvents(true);
-
 }
 
 void Scene2D::paint(QPainter *painter) {
-  for (auto & [ key, value ] : _entities) {
-    value->draw(painter);
+  for (auto &elems : _zIndex) {
+		for(auto &entity : elems.second) {
+    	entity.second.get()->draw(painter);
+		}
   }
 }
 
 void Scene2D::createLine() noexcept {
 	userIsDrawing = true;
 	drawingLine = true;
-	std::string objId = "Line [" + std::to_string(id) + "]";
+	std::string objId = "Line [" + std::to_string(_id) + "]";
 	std::unique_ptr<Line> line = std::make_unique<Line>(objId);
 	_entities.emplace(objId, std::move(line));
-	selectedShape = _entities.find(objId)->second.get();
-	id++;
+	selectedShape = _entities.at(objId).get();
+	new Modules::ZIndex(*this, *selectedShape, "zIndex");
+	_id++;
 
 	// Q_EMIT sceneUpdate();
 }
@@ -41,24 +44,26 @@ void Scene2D::createLine() noexcept {
 void Scene2D::createRectangle() noexcept {
 	userIsDrawing = true;
 	drawingRectangle = true;
-	std::string objId = "Rectangle [" + std::to_string(id) + "]";
+	std::string objId = "Rectangle [" + std::to_string(_id) + "]";
+	
 	std::unique_ptr<Rectangle> rect = std::make_unique<Rectangle>(objId);
 	_entities.emplace(objId, std::move(rect));
-	selectedShape = _entities.find(objId)->second.get();
-	id++;
+	selectedShape = _entities.at(objId).get();
+	new Modules::ZIndex(*this, *selectedShape, "zIndex");
+	_id++;
 	_painter->QQuickItem::update();
-	
 	// Q_EMIT sceneUpdate();
 }
 
 void Scene2D::createCircle() noexcept {
 	userIsDrawing = true;
 	drawingCircle = true;
-	std::string objId = "Circle [" + std::to_string(id) + "]";
+	std::string objId = "Circle [" + std::to_string(_id) + "]";
 	std::unique_ptr<Circle> circle = std::make_unique<Circle>(objId);
 	_entities.emplace(objId, std::move(circle));
-	selectedShape = _entities.find(objId)->second.get();
-	id++;
+	selectedShape = _entities.at(objId).get();
+	new Modules::ZIndex(*this, *selectedShape, "zIndex");
+	_id++;
 
 	// Q_EMIT sceneUpdate();
 }
@@ -66,21 +71,23 @@ void Scene2D::createCircle() noexcept {
 void Scene2D::createTriangle() noexcept {
 	userIsDrawing = true;
 	drawingTriangle = true;
-	std::string objId = "Triangle [" + std::to_string(id) + "]";
+	std::string objId = "Triangle [" + std::to_string(_id) + "]";
 	std::unique_ptr<Triangle> triangle = std::make_unique<Triangle>(objId);
 	_entities.emplace(objId, std::move(triangle));
-	selectedShape = _entities.find(objId)->second.get();
+	selectedShape = _entities.at(objId).get();
+	new Modules::ZIndex(*this, *selectedShape, "zIndex");
 	_painter->update();
-	id++;
+	_id++;
 
 	// Q_EMIT sceneUpdate();
 }
 
 void Scene2D::importImg(const QUrl &url) noexcept {
-	std::string objId = "Image [" + std::to_string(id) + "]";
+	std::string objId = "Image [" + std::to_string(_id) + "]";
 	std::unique_ptr<Logic::Image> img = std::make_unique<Logic::Image>(url, objId);
 	_entities.emplace(objId, std::move(img));
-	id++;
+	new Modules::ZIndex(*this, *_entities.at(objId), "zIndex");
+	_id++;
 	_painter->update();
 
 	Q_EMIT sceneUpdate();
@@ -214,8 +221,18 @@ void Scene2D::mouseReleaseEvent(QMouseEvent *event) {
 }
 
 const std::unordered_map<std::string, std::unique_ptr<Entity>> &Scene2D::entities() const noexcept {
-	// TODO : Change this ulgy think
+	// TODO : Change this ulgy thing
   return reinterpret_cast<const std::unordered_map<std::string, std::unique_ptr<Entity>>&>(_entities);
+}
+
+void Scene2D::zIndexUpdate(const std::string &id) {
+	size_t index = _entities.at(id)->getChildren<Modules::ZIndex>("zIndex").zIndex();
+	_zIndex[index].emplace(id, std::cref<std::unique_ptr<Shape2D>>(_entities.at(id)));
+}
+
+void Scene2D::zIndexDelete(const std::string &id) {
+	size_t index = _entities.at(id)->getChildren<Modules::ZIndex>("zIndex").zIndex();
+	_zIndex.at(index).erase(id);
 }
 
 } // namespace Logic

@@ -72,6 +72,8 @@ add_library(${PROJECT_NAME} SHARED
   public/logic/2D/Triangle.hpp
   public/logic/2D/Image.hpp
   public/logic/2D/PaintedItem.hpp
+  ### Modules
+  public/logic/2D/modules/ZIndex.hpp
 
   ## Models
   public/models/ToolbarModel.hpp
@@ -89,6 +91,7 @@ target_include_directories(${PROJECT_NAME}
       public/models
       public/logic
       public/logic/2D
+      public/logic/2D/modules
       public/logic/3D
       public/logic/3D/modules
      >
@@ -99,6 +102,7 @@ target_include_directories(${PROJECT_NAME}
       ${CMAKE_CURRENT_SOURCE_DIR}/public/logic
       ${CMAKE_CURRENT_SOURCE_DIR}/public/logic/3D
       ${CMAKE_CURRENT_SOURCE_DIR}/public/logic/2D
+      ${CMAKE_CURRENT_SOURCE_DIR}/public/logic/2D/modules
       ${CMAKE_CURRENT_SOURCE_DIR}/public/logic/3D/modules
      >
   PRIVATE
@@ -108,6 +112,7 @@ target_include_directories(${PROJECT_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/src/logic
     ${CMAKE_CURRENT_SOURCE_DIR}/src/logic/3D
     ${CMAKE_CURRENT_SOURCE_DIR}/src/logic/2D
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/logic/2D/modules
     ${CMAKE_CURRENT_SOURCE_DIR}/src/logic/3D/modules
 )
 

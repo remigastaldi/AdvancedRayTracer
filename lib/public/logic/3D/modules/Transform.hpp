@@ -15,13 +15,13 @@ public:
   Transform(Shape3D &parent, std::string id,
             Qt3DCore::QTransform *transform = new Qt3DCore::QTransform)
       : Entity{std::move(id)}, _transform{transform}, _parent{parent} {
-    _transform->setParent(&parent);
-    parent.addComponent(_transform);
+    _transform->setParent(parent.getQEntity());
+    parent.getQEntity()->addComponent(_transform);
     parent.addChildren(Entity::id(), std::unique_ptr<Entity>(this));
   }
 
   virtual ~Transform() {
-    _parent.removeComponent(_transform);
+    _parent.getQEntity()->removeComponent(_transform);
     delete _transform;
   }
 

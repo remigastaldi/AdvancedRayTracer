@@ -29,7 +29,6 @@ public Q_SLOTS:
   void removeSphere() noexcept;
 
   const std::unordered_map<std::string, std::unique_ptr<Entity>> &entities() const noexcept;
-
 private:
   std::unordered_map<std::string, std::unique_ptr<Entity>> _entities;
   // Qt3DRender::QSceneLoader *sceneLoader;

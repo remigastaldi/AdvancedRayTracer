@@ -14,13 +14,13 @@ template <typename T = Qt3DExtras::QSphereMesh>
 class Mesh : public Entity {
 public:
   Mesh(Shape3D &parent, std::string id, T *mesh = new T) : Entity{std::move(id)}, _mesh{mesh}, _parent{parent} {
-    _mesh->setParent(&parent);
-    parent.addComponent(_mesh);
+    _mesh->setParent(parent.getQEntity());
+    parent.getQEntity()->addComponent(_mesh);
     parent.addChildren(Entity::id(), std::unique_ptr<Entity>(this));
   };
 
   virtual ~Mesh() {
-    _parent.removeComponent(_mesh);
+    _parent.getQEntity()->removeComponent(_mesh);
     delete _mesh;
   }
 
