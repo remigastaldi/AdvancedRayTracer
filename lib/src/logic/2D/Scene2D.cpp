@@ -141,6 +141,8 @@ void Scene2D::mousePressEvent(QMouseEvent *event) {
 					selectedShape = it.second.get();
 					decalx = event->x() - selectedShape->x1;
 					decaly = event->y() - selectedShape->y1;
+					lastMouseX = event->x();
+					lastMouseY = event->y();
 					shapePressed = true;
 					break;
 				}
@@ -163,12 +165,13 @@ void Scene2D::mouseMoveEvent(QMouseEvent *event) {
 		// Move item
 		if (event->buttons() == Qt::LeftButton) {
 			_painter->setCursor(QCursor(Qt::ClosedHandCursor));
+			// If we're moving a line, we also have to change the x2 and y2
+			if (!selectedShape->line.isNull()) {
+				selectedShape->x2 = selectedShape->x2 + (event->x() - decalx - selectedShape->x1);
+				selectedShape->y2 = selectedShape->y2 + (event->y() - decaly - selectedShape->y1);
+			}
 			selectedShape->x1 = event->x() - decalx;
 			selectedShape->y1 = event->y() - decaly;
-			if (!selectedShape->line.isNull()) {
-				selectedShape->x2 = selectedShape->x1 + event->x() - decalx;
-				selectedShape->y2 = selectedShape->y1 + event->y() - decaly;
-			}
 		// Resize item
 		} else if (event->buttons() == Qt::RightButton) {
 			_painter->setCursor(QCursor(Qt::SizeAllCursor));
@@ -178,6 +181,7 @@ void Scene2D::mouseMoveEvent(QMouseEvent *event) {
 				// bigger
 				if (lastMouseX < event->x()) {
 					selectedShape->x2 += (event->x() - lastMouseX);
+					decalx = 0;
 				// smaller
 				} else if (selectedShape->x2 >= SizeMinX) {
 					selectedShape->x2 -= (lastMouseX - event->x());
