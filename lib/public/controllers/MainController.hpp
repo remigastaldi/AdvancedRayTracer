@@ -87,7 +87,6 @@ private:
   RightSidebarController *_rightSidebarController;
   Logic::Scene3D *_scene3D;
   Logic::Scene2D *_scene2D;
-  // Logic::
   ART::Models::Outliner *_outliner;
   Logic::Scene *_currentScene;  
 
@@ -96,6 +95,12 @@ private Q_SLOTS:
   void handleSaveAsFileClicked(const QUrl &url);
   void handleNewFileClicked();
   void handleimportImageClicked(const QUrl &url);
+  void select3DScene();
+  void select2DScene();
+
+Q_SIGNALS:
+  void scene3DSelected();
+  void scene2DSelected();
 };
 
 } // namespace Controllers

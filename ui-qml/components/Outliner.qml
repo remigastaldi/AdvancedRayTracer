@@ -16,7 +16,6 @@ ScrollView {
       anchors.right: parent.right
       height: 20
 
-      // color: ListView.isCurrentItem ? "#2F343F" : Style.mainContainerColor
       color : lineColor
 
       Text {

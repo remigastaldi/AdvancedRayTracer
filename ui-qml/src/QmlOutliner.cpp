@@ -3,8 +3,6 @@
 
 #include <QColor>
 
-#include <iostream>
-
 namespace ART {
 namespace UI {
 
@@ -25,7 +23,7 @@ QVariant QmlOutliner::data(const QModelIndex &index, int role) const {
     // case RoleType::ENT_TYPE:
     //   return QVariant::fromValue(QString("Cube"));
     case RoleType::ID:
-      return _shapesId[index.row()];
+      return _entityId[index.row()];
     case RoleType::LINE_COLOR:
       return QColor((index.row() + 1) % 2 == 0 ? "#292D3E" : "#1B1E2B");
     default:
@@ -38,7 +36,44 @@ QVariant QmlOutliner::data(const QModelIndex &index, int role) const {
 int QmlOutliner::rowCount(const QModelIndex &parent) const 
 { 
   Q_UNUSED(parent);
-  return _shapesId.size();
+  return _entityId.size();
+}
+
+void QmlOutliner::updateData() noexcept {
+  if (entitiesHierarchy().empty()) {
+    beginRemoveRows(QModelIndex(), 0, _entityId.size());
+    endRemoveRows();
+    _entityId.clear();
+  }
+
+  if (_entityId.size() > entitiesHierarchy().size()) {
+    beginRemoveRows(QModelIndex(), entitiesHierarchy().size(), _entityId.size());
+    endRemoveRows();
+    _entityId.reserve(_entityId.size());
+    for (int i = static_cast<int>(entitiesHierarchy().size()); i < _entityId.size(); ++i) {
+      _entityId.removeAt(i);
+    }
+  }
+  int i{0};
+  for (const auto &shapeId : entitiesHierarchy()) {
+    QString qshapeId{QString::fromStdString(shapeId)};
+    if (_entityId.size() > i && _entityId[i] != qshapeId) {
+      beginRemoveRows(QModelIndex(), i, i);
+      endRemoveRows();
+      beginInsertRows(QModelIndex(), i, i);
+      _entityId[i] = qshapeId;
+      endInsertRows();
+    } else if (_entityId.empty()) {
+      beginInsertRows(QModelIndex(), 0, 0);
+      _entityId.push_back(qshapeId);
+      endInsertRows();
+    } else {
+      beginInsertRows(QModelIndex(), _entityId.size(), _entityId.size());
+      _entityId.push_back(qshapeId);
+      endInsertRows();
+    }
+    ++i;
+  }
 }
 
 } // namespace UI

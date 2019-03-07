@@ -37,16 +37,10 @@ public Q_SLOTS:
 
   virtual QHash<int, QByteArray> roleNames() const override;
 
-  void updateData() noexcept override {
-    for (const auto &shapeId : entitiesHierarchy()) {
-      beginInsertRows(QModelIndex(), _shapesId.size(), _shapesId.size());
-      _shapesId.push_back(QString::fromStdString(shapeId));
-      endInsertRows();
-    }
-  }
+  void updateData() noexcept override;
 
 private:
-  QVariantList _shapesId;
+  QVariantList _entityId;
 };
 
 } // namespace UI

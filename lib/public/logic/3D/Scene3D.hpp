@@ -30,9 +30,6 @@ public Q_SLOTS:
 
   const std::unordered_map<std::string, std::unique_ptr<Entity>> &entities() const noexcept;
 
-Q_SIGNALS:
-  void sceneUpdate();
-
 private:
   std::unordered_map<std::string, std::unique_ptr<Entity>> _entities;
   // Qt3DRender::QSceneLoader *sceneLoader;

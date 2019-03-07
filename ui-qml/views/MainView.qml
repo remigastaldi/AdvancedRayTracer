@@ -96,11 +96,11 @@ ApplicationWindow {
         id: tabBar
         TabButton {
           text: qsTr("3D")
-          onPressed: checked != true ? console.log("3D") : 0
+          onPressed: checked != true ? mainController.scene3DSelected() : 0
         }
         TabButton {
           text: qsTr("2D")
-          onPressed: checked != true ? console.log("2D") : 0
+          onPressed: checked != true ? mainController.scene2DSelected() : 0
         }
       }
 

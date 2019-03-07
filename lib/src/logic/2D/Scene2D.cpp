@@ -18,7 +18,6 @@ Scene2D::Scene2D(PaintedItem *painter) : _painter{painter} {
   _painter->setAcceptedMouseButtons(Qt::AllButtons);
   _painter->setAcceptHoverEvents(true);
 
-	// connect(_painter, &PaintedItem::paint, this, &Scene2D::paint);
 }
 
 void Scene2D::paint(QPainter *painter) {
@@ -35,6 +34,8 @@ void Scene2D::createLine() noexcept {
 	_entities.emplace(objId, std::move(line));
 	selectedShape = _entities.find(objId)->second.get();
 	id++;
+
+	// Q_EMIT sceneUpdate();
 }
 
 void Scene2D::createRectangle() noexcept {
@@ -46,6 +47,8 @@ void Scene2D::createRectangle() noexcept {
 	selectedShape = _entities.find(objId)->second.get();
 	id++;
 	_painter->QQuickItem::update();
+	
+	// Q_EMIT sceneUpdate();
 }
 
 void Scene2D::createCircle() noexcept {
@@ -56,6 +59,8 @@ void Scene2D::createCircle() noexcept {
 	_entities.emplace(objId, std::move(circle));
 	selectedShape = _entities.find(objId)->second.get();
 	id++;
+
+	// Q_EMIT sceneUpdate();
 }
 
 void Scene2D::createTriangle() noexcept {
@@ -65,8 +70,10 @@ void Scene2D::createTriangle() noexcept {
 	std::unique_ptr<Triangle> triangle = std::make_unique<Triangle>(objId);
 	_entities.emplace(objId, std::move(triangle));
 	selectedShape = _entities.find(objId)->second.get();
-	id++;
 	_painter->update();
+	id++;
+
+	// Q_EMIT sceneUpdate();
 }
 
 void Scene2D::importImg(const QUrl &url) noexcept {
@@ -75,6 +82,8 @@ void Scene2D::importImg(const QUrl &url) noexcept {
 	_entities.emplace(objId, std::move(img));
 	id++;
 	_painter->update();
+
+	Q_EMIT sceneUpdate();
 }
 
 bool Scene2D::isCloseEnough(const QLineF& line, const QPointF& point) {
@@ -200,10 +209,12 @@ void Scene2D::mouseReleaseEvent(QMouseEvent *event) {
 		drawingLine = false;
 		drawingCircle = false;
 		drawingTriangle = false;
+		Q_EMIT sceneUpdate();
 	}
 }
 
 const std::unordered_map<std::string, std::unique_ptr<Entity>> &Scene2D::entities() const noexcept {
+	// TODO : Change this ulgy think
   return reinterpret_cast<const std::unordered_map<std::string, std::unique_ptr<Entity>>&>(_entities);
 }
 

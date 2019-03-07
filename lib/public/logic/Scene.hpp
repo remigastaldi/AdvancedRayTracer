@@ -8,9 +8,14 @@ namespace ART {
 namespace Logic {
 
 class Scene : public QObject {
+  Q_OBJECT
+
 public:
-virtual ~Scene() {};
+  virtual ~Scene() {};
 	virtual const std::unordered_map<std::string, std::unique_ptr<Entity>> &entities() const noexcept = 0;
+
+Q_SIGNALS:
+  void sceneUpdate();
 };
 
 } // namespace Logic

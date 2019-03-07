@@ -22,10 +22,10 @@ void Outliner::setEntities(const std::unordered_map<std::string, std::unique_ptr
   for (const auto & [ key, value ] : shapes) {
     if (!value->childrens().empty()) {
       setEntities(value, "");
+    } else {
+      _entitiesId.push_back(key);
     }
   }
-
-  updateData();
 }
 
 const std::vector<std::string> &Outliner::entitiesHierarchy() const noexcept {

@@ -24,17 +24,25 @@ MainController::MainController(QObject* parent) :
   connect(_toolbarController, &ToolbarController::saveAsFileClicked, this, &MainController::handleSaveAsFileClicked);
   connect(_toolbarController, &ToolbarController::newFileClicked, this, &MainController::handleNewFileClicked);
   connect(_toolbarController, &ToolbarController::importImageClicked, this, &MainController::handleimportImageClicked);
+
+  connect(this, &MainController::scene2DSelected, this, &MainController::select2DScene);
+  connect(this, &MainController::scene3DSelected, this, &MainController::select3DScene);
+
+  connect(this, &MainController::scene2DSelected, this, &MainController::sceneUpdate);
+  connect(this, &MainController::scene3DSelected, this, &MainController::sceneUpdate);
 }
 
 void  MainController::setScene3D(Logic::Scene3D *scene) noexcept {
   _scene3D = scene;
+  _currentScene = scene;
   connect(_drawToolbar3DController, &DrawToolbar3DController::createSphere, _scene3D, &Logic::Scene3D::createSphere);
-  connect(_scene3D, &Logic::Scene3D::sceneUpdate, this, &MainController::sceneUpdate);
+  connect(_scene3D, &Logic::Scene::sceneUpdate, this, &MainController::sceneUpdate);
   // connect(_rightSidebarController, &RightSidebarController::test, _scene3D, &Logic::Scene3D::test);
 }
 
 void  MainController::setScene2D(Logic::Scene2D *scene) noexcept {
   _scene2D = scene;
+  connect(_scene2D, &Logic::Scene::sceneUpdate, this, &MainController::sceneUpdate);
   connect(_drawToolbar2DController, &DrawToolbar2DController::createLine, _scene2D, &Logic::Scene2D::createLine);
   connect(_drawToolbar2DController, &DrawToolbar2DController::createRectangle, _scene2D, &Logic::Scene2D::createRectangle);
   connect(_drawToolbar2DController, &DrawToolbar2DController::createCircle, _scene2D, &Logic::Scene2D::createCircle);
@@ -48,7 +56,8 @@ void  MainController::setOutliner(ART::Models::Outliner *outliner) noexcept {
 }
 
 void MainController::sceneUpdate() noexcept {
-  _outliner->setEntities(_scene3D->entities());
+  _outliner->setEntities(_currentScene->entities());
+  _outliner->updateData();
 }
 
 ToolbarController* MainController::toolbarController() const noexcept {
@@ -87,6 +96,14 @@ void MainController::handleNewFileClicked() {
 
 void MainController::handleimportImageClicked(const QUrl& url) {
 	// qInfo() << url.path();
+}
+
+void MainController::select3DScene() {
+  _currentScene = _scene3D;
+}
+
+void MainController::select2DScene() {
+  _currentScene = _scene2D;
 }
 
 } // namespace Controllers
