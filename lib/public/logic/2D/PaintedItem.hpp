@@ -19,10 +19,10 @@ public:
 
   void setScene2D(Scene2D *scene2D);
 
-// public Q_SLOTS:
   virtual void paint(QPainter *painter) override;
-// Q_SIGNALS:
-  // void paintEvent(QPainter *painter);
+  virtual void mousePressEvent(QMouseEvent *event) override;
+  virtual void mouseMoveEvent(QMouseEvent *event) override;
+  virtual void mouseReleaseEvent(QMouseEvent *event) override;
 
 private :
   Scene2D *_scene2D;
