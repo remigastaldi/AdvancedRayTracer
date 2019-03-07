@@ -1,5 +1,6 @@
 pragma Singleton
 import QtQuick 2.0
+// import QtQuick.Controls.Universal 2.1
 
 QtObject {
   id: style
@@ -8,7 +9,8 @@ QtObject {
   // property color mainColor: Universal.Orange
   property color mainColor: "orange"
 
-  property color mainContainerColor: "#1B1E2B"
+  // property int mainContainerBackground: Universal.Steel
+  property color mainContainerColor: "#1A1C20"
   // property color containerColor: "#292D3E"
   // property color mainContainerSecondaryColor: "#1B1E2B"
   // property color containerBorderColor: "#D3DAE3"

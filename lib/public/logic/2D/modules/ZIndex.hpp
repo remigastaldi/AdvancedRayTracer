@@ -20,7 +20,7 @@ public:
     connect(this, &ZIndex::zIndexUpdate, &scene, &Scene2D::zIndexUpdate);
     connect(this, &ZIndex::zIndexDelete, &scene, &Scene2D::zIndexDelete);
     parent.addChildren(Entity::id(), std::unique_ptr<Entity>(this));
-    scene.zIndexUpdate(parent.id());
+    scene.zIndexUpdate(0, parent.id());
   };
 
   virtual ~ZIndex() {
@@ -31,7 +31,7 @@ public:
 
   void setIndex(size_t zIndex) noexcept {
     _zIndex = zIndex;
-    Q_EMIT zIndexUpdate(_parent.id());
+    Q_EMIT zIndexUpdate(_zIndex, _parent.id());
   }
 
   size_t zIndex() const noexcept { return _zIndex; }
@@ -42,7 +42,7 @@ private:
   Shape2D &_parent;
 
 Q_SIGNALS:
-  void zIndexUpdate(const std::string &id);
+  void zIndexUpdate(size_t zIndex, const std::string &id);
   void zIndexDelete(size_t zIndex, const std::string &id);
 };
 
