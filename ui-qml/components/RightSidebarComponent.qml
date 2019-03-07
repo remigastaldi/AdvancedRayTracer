@@ -17,10 +17,11 @@ UiMainBorder {
   // Layout.maximumHeight: column.implicitHeight
 
   GroupBox {
+    id: outLiner
     title: qsTr("Outliner")
     anchors.top: root.top
-    anchors.left: root.left
     anchors.right: root.right
+    anchors.left: root.left
     anchors.margins: 10
     height: 200
     Outliner {
@@ -30,21 +31,50 @@ UiMainBorder {
  
   ColumnLayout {
     id: column
-    anchors.fill: parent
-    spacing: 10
-
-    Button {
-      Layout.topMargin: 10
-      Layout.alignment: Qt.AlignHCenter
-      text: "Nothin"
-      onClicked: {
-        // qmlOutliner.add()
-        // mainController.scene3D.removeSphere()
-        // var arr = mainController.loadTree()
-        // for (var module in arr) {
-          // if (arr[module] == "Mesh")
-            // console.log(arr[module]);
-        // }
+    anchors.top: outLiner.bottom
+    anchors.right: root.right
+    anchors.left: root.left
+    anchors.topMargin: 10
+  
+    GroupBox {
+      Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+      Layout.fillWidth: true
+      Layout.rightMargin: 10
+      Layout.leftMargin: 10
+      // Layout.fillHeight: true
+      Component.onCompleted: {
+        mainController.selectedShapeUpdate.connect(selectedShapeUpdate);
+        function selectedShapeUpdate()  {
+          var arr = mainController.loadTree()
+          for (var module in arr) {
+            if (arr[module] == "zIndex") {
+              zIndex.visible = true;
+              console.log("activate" + arr[module]);
+              // console.log("==> " mainController);
+            }
+          }
+        }
+      }
+      ColumnLayout {
+        Layout.fillWidth: true
+        GroupBox {
+          id: zIndex
+          visible : false;
+          Layout.fillWidth: true
+          Layout.fillHeight: true
+          RowLayout {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            Text {
+              text: "zIndex: "
+              Layout.leftMargin: 5
+            }
+            TextInput {
+              text: "0"
+              Layout.rightMargin: 5
+            }
+          }
+        }        
       }
     }
 

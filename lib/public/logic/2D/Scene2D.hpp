@@ -47,11 +47,11 @@ public Q_SLOTS:
   void mouseReleaseEvent(QMouseEvent *event);
 
   const std::unordered_map<std::string, std::unique_ptr<Entity>> &entities() const noexcept;
+  Entity *selectedEntity() const noexcept override { return selectedShape; }
 
   virtual void paint(QPainter *painter);
 
   void zIndexUpdate(const std::string &id);
-  
   void zIndexDelete(const std::string &id);
 
 private:

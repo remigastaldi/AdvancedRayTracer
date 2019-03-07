@@ -5,7 +5,8 @@
 #include "DrawToolbar2DController.hpp"
 #include "Scene3D.hpp"
 #include "Scene2D.hpp"
-// #include "Outliner.hpp"
+#include "ZIndex.hpp"
+#include "Outliner.hpp"
 
 namespace ART {
 namespace Controllers {
@@ -43,6 +44,7 @@ void  MainController::setScene3D(Logic::Scene3D *scene) noexcept {
 void  MainController::setScene2D(Logic::Scene2D *scene) noexcept {
   _scene2D = scene;
   connect(_scene2D, &Logic::Scene::sceneUpdate, this, &MainController::sceneUpdate);
+  connect(_scene2D, &Logic::Scene::selectedShapeUpdate, this, &MainController::selectedShapeUpdate);
   connect(_drawToolbar2DController, &DrawToolbar2DController::createLine, _scene2D, &Logic::Scene2D::createLine);
   connect(_drawToolbar2DController, &DrawToolbar2DController::createRectangle, _scene2D, &Logic::Scene2D::createRectangle);
   connect(_drawToolbar2DController, &DrawToolbar2DController::createCircle, _scene2D, &Logic::Scene2D::createCircle);
@@ -105,6 +107,25 @@ void MainController::select3DScene() {
 void MainController::select2DScene() {
   _currentScene = _scene2D;
 }
+
+Modules::ZIndex *MainController::zIndex() {
+  Logic::Entity *entity = _currentScene->selectedEntity();
+  if (entity != nullptr) {
+    // auto &test = static_cast<Modules::ZIndex*>(entity)->getChildren<Modules::ZIndex>("zIndex");
+    // return &test;
+  }
+  return nullptr;
+}
+
+QVariantList MainController::loadTree() {
+  QVariantList list;
+  for (const auto &shape : _currentScene->selectedEntity()->childrens()) {
+    list.push_back(QString::fromStdString(shape.second->id()));
+  }
+  return list;
+}
+
+
 
 } // namespace Controllers
 } // namespace ART

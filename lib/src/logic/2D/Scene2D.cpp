@@ -53,6 +53,7 @@ void Scene2D::createRectangle() noexcept {
 	_id++;
 	_painter->QQuickItem::update();
 	// Q_EMIT sceneUpdate();
+	Q_EMIT selectedShapeUpdate(objId);
 }
 
 void Scene2D::createCircle() noexcept {

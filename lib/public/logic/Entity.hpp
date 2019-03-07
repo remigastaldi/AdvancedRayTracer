@@ -1,12 +1,14 @@
 #pragma once
 
+#include <QObject>
+
 #include <algorithm>
 #include <memory>
 #include <string>
 #include <vector>
 #include <unordered_map>
 #include <iostream>
-#include <QObject>
+
 namespace ART {
 namespace Logic {
 
@@ -21,8 +23,13 @@ public:
 
   template <typename T>
   T &getChildren(const std::string &id) const {
-    return dynamic_cast<T &>(*(_childrens.at(id).get()));
+    return static_cast<T &>(*(_childrens.at(id).get()));
+    // return static_cast<T &>(*(_childrens.at(id).get()));
   }
+  // template <typename T>
+  // T *getChildren(const std::string &id) const {
+  //   return static_cast<T *>(_childrens.at(id).get());
+  // }
 
   const std::string &id() const noexcept;
   void setId(std::string id) noexcept;

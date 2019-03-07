@@ -21,16 +21,20 @@
 #include <Qt3DRender/QRenderAspect>
 
 
-#include "Outliner.hpp"
-#include "Scene3D.hpp"
+// #include "Outliner.hpp"
+// #include "Scene3D.hpp"
 namespace ART {
 namespace Logic {
 class Scene3D;
-class Scene2D;;
+class Scene2D;
+class Scene;
 } // namespace Logic
-// namespace Models {
-// class Outliner;
-// } // namespace Models
+namespace Models {
+class Outliner;
+} // namespace Models
+namespace Modules {
+class ZIndex;
+}
 
 namespace Controllers {
 
@@ -69,16 +73,11 @@ public Q_SLOTS:
   Logic::Scene2D *scene2D() const noexcept;
 
   void sceneUpdate() noexcept;
-  // QVariantList loadTree() {
-  //   QVariantList list;
-  //   _outliner->setShapesHierarchy(_scene3D->shapes());
-  //   const std::vector<std::string> &hier = _outliner->shapesHierarchy();
+  // TODO : Change to cppf
+  QVariantList loadTree();
 
-  //   for (const auto &shape : hier) {
-  //     list.push_back(QString::fromStdString(shape));
-  //   }
-  //   return list;
-  // }
+  // Todo: just for test, change to an other controller
+  Modules::ZIndex *zIndex();
 
 private:
   DrawToolbar3DController *_drawToolbar3DController;
@@ -101,6 +100,7 @@ private Q_SLOTS:
 Q_SIGNALS:
   void scene3DSelected();
   void scene2DSelected();
+  void selectedShapeUpdate();
 };
 
 } // namespace Controllers
