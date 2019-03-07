@@ -2,17 +2,15 @@
 
 #include "globals.h"
 #include "Shape2D.hpp"
+#include "Scene.hpp"
+#include "PaintedItem.hpp"
 
-#include  <QQuickPaintedItem>
 #include <unordered_map>
-#include <QCursor>
-#include <QQuickItemGrabResult>
 
 namespace ART {
-
 namespace Logic {
 
-class ADVANCED_RAY_TRACER_EXPORT Scene2D : public QQuickPaintedItem {
+class ADVANCED_RAY_TRACER_EXPORT Scene2D : public Scene {
   Q_OBJECT
   Q_DISABLE_COPY(Scene2D)
 
@@ -33,9 +31,9 @@ public:
 	bool drawingTriangle = false;
     Shape2D *selectedShape;
 
-    Scene2D();
-    virtual void paint(QPainter *painter) override;
+    explicit Scene2D(PaintedItem *painter);
 
+public Q_SLOTS:
 	void createLine() noexcept;
     void createRectangle() noexcept;
 	void createCircle() noexcept;
@@ -47,11 +45,14 @@ public:
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
+	
+	const std::unordered_map<std::string, std::unique_ptr<Entity>> &entities() const noexcept;
 
-public Q_SLOTS:
+    virtual void paint(QPainter *painter);
 
 private:
-    std::map<std::string, std::unique_ptr<Shape2D>> _entities;
+    std::unordered_map<std::string, std::unique_ptr<Shape2D>> _entities;
+	PaintedItem *_painter;
 };
 } // namespace Logic
 } // namespace ART

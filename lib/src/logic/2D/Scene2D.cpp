@@ -5,16 +5,20 @@
 #include "Circle.hpp"
 #include "Triangle.hpp"
 #include "Image.hpp"
+#include "PaintedItem.hpp"
 
 #include <QPainter>
 
 namespace ART {
 namespace Logic {
 
-Scene2D::Scene2D() {
-  setFillColor("black");
-  setAcceptedMouseButtons(Qt::AllButtons);
-  setAcceptHoverEvents(true);
+Scene2D::Scene2D(PaintedItem *painter) : _painter{painter} {
+	_painter->setScene2D(this);
+  _painter->setFillColor("black");
+  _painter->setAcceptedMouseButtons(Qt::AllButtons);
+  _painter->setAcceptHoverEvents(true);
+
+	// connect(_painter, &PaintedItem::paint, this, &Scene2D::paint);
 }
 
 void Scene2D::paint(QPainter *painter) {
@@ -41,6 +45,7 @@ void Scene2D::createRectangle() noexcept {
 	_entities.emplace(objId, std::move(rect));
 	selectedShape = _entities.find(objId)->second.get();
 	id++;
+	_painter->QQuickItem::update();
 }
 
 void Scene2D::createCircle() noexcept {
@@ -61,6 +66,7 @@ void Scene2D::createTriangle() noexcept {
 	_entities.emplace(objId, std::move(triangle));
 	selectedShape = _entities.find(objId)->second.get();
 	id++;
+	_painter->update();
 }
 
 void Scene2D::importImg(const QUrl &url) noexcept {
@@ -68,7 +74,7 @@ void Scene2D::importImg(const QUrl &url) noexcept {
 	std::unique_ptr<Logic::Image> img = std::make_unique<Logic::Image>(url, objId);
 	_entities.emplace(objId, std::move(img));
 	id++;
-	QQuickPaintedItem::update();
+	_painter->update();
 }
 
 bool Scene2D::isCloseEnough(const QLineF& line, const QPointF& point) {
@@ -91,7 +97,7 @@ void Scene2D::saveScene(const QUrl &url) noexcept {
 		path = path.mid(1);
 	}
 
-	auto imgResult = this->grabToImage();
+	auto imgResult = _painter->grabToImage();
 	connect(imgResult.data(), &QQuickItemGrabResult::ready, [=]() {
 		imgResult->saveToFile(path);
 		//imgResult->image() for a QImage instance of the output
@@ -106,11 +112,14 @@ void Scene2D::mousePressEvent(QMouseEvent *event) {
 		}
 	} else {
 		// Backward iteration into the map
-		for (auto it = _entities.rbegin(); it != _entities.rend(); ++it) {
-			selectedShape = it->second.get();
+		for (auto &it : _entities) {
+
+		// }
+		// for (auto it = _entities.rbegin(); it != _entities.rend(); ++it) {
 
 			// Did the user click on a shape?
-			if (selectedShape->imgRect.contains(event->x(), event->y()) || selectedShape->shapeRect.contains(QPointF(event->x(), event->y())) || isCloseEnough(selectedShape->line, QPointF(event->x(), event->y()))) {
+			if (it.second->imgRect.contains(event->x(), event->y()) || selectedShape->shapeRect.contains(QPointF(event->x(), event->y())) || isCloseEnough(selectedShape->line, QPointF(event->x(), event->y()))) {
+				selectedShape = it.second.get();
 				decalx = event->x() - selectedShape->x1;
 				decaly = event->y() - selectedShape->y1;
 				shapePressed = true;
@@ -122,7 +131,7 @@ void Scene2D::mousePressEvent(QMouseEvent *event) {
 
 void Scene2D::mouseMoveEvent(QMouseEvent *event) {
 	if (userIsDrawing) {
-		this->setCursor(QCursor(Qt::CrossCursor));
+		_painter->setCursor(QCursor(Qt::CrossCursor));
 		if (drawingRectangle || drawingCircle || drawingTriangle) {
 			selectedShape->x2 = event->x() - selectedShape->x1;
 			selectedShape->y2 = event->y() - selectedShape->y1;
@@ -133,7 +142,7 @@ void Scene2D::mouseMoveEvent(QMouseEvent *event) {
 	} else if (shapePressed) {
 		// Move item
 		if (event->buttons() == Qt::LeftButton) {
-			this->setCursor(QCursor(Qt::ClosedHandCursor));
+			_painter->setCursor(QCursor(Qt::ClosedHandCursor));
 			selectedShape->x1 = event->x() - decalx;
 			selectedShape->y1 = event->y() - decaly;
 			if (!selectedShape->line.isNull()) {
@@ -142,7 +151,7 @@ void Scene2D::mouseMoveEvent(QMouseEvent *event) {
 			}
 		// Resize item
 		} else if (event->buttons() == Qt::RightButton) {
-			this->setCursor(QCursor(Qt::SizeAllCursor));
+			_painter->setCursor(QCursor(Qt::SizeAllCursor));
 
 			// x resize
 			if (lastMouseX != event->x()) {
@@ -171,12 +180,12 @@ void Scene2D::mouseMoveEvent(QMouseEvent *event) {
 		}
 	}
 
-	QQuickPaintedItem::update();
+	_painter->update();
 }
 
 void Scene2D::mouseReleaseEvent(QMouseEvent *event) {
 	shapePressed = false;
-	this->setCursor(QCursor(Qt::ArrowCursor));
+	_painter->setCursor(QCursor(Qt::ArrowCursor));
 
 	if (userIsDrawing) {
 		userIsDrawing = false;
@@ -185,6 +194,10 @@ void Scene2D::mouseReleaseEvent(QMouseEvent *event) {
 		drawingCircle = false;
 		drawingTriangle = false;
 	}
+}
+
+const std::unordered_map<std::string, std::unique_ptr<Entity>> &Scene2D::entities() const noexcept {
+  return reinterpret_cast<const std::unordered_map<std::string, std::unique_ptr<Entity>>&>(_entities);
 }
 
 } // namespace Logic

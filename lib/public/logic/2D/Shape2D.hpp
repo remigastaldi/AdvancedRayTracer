@@ -25,6 +25,7 @@ public:
   QLine line;
 
   Shape2D(std::string id);
+  virtual ~Shape2D() = default;
 
   virtual void draw(QPainter *painter) noexcept {};
 };

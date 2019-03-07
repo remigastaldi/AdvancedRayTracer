@@ -15,9 +15,9 @@ Scene3D {
   aspects: ["input", "logic"]
   cameraAspectRatioMode: Scene3D.AutomaticAspectRatio
 
-  CustomScene3D {
+  RootEntity {
     id: sceneRoot
-    objectName: "customScene3D"
+    objectName: "rootEntity"
 
     components: [
       RenderSettings {

@@ -87,7 +87,9 @@ private:
   RightSidebarController *_rightSidebarController;
   Logic::Scene3D *_scene3D;
   Logic::Scene2D *_scene2D;
+  // Logic::
   ART::Models::Outliner *_outliner;
+  Logic::Scene *_currentScene;  
 
 private Q_SLOTS:
   void handleSaveFileClicked();

@@ -20,7 +20,7 @@ public:
   Entity& operator=(Entity&& other) = delete;
 
   template <typename T>
-  T &module(const std::string &id) const {
+  T &getChildren(const std::string &id) const {
     return dynamic_cast<T &>(*(_childrens.at(id).get()));
   }
 

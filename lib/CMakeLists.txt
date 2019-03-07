@@ -30,6 +30,7 @@ add_library(${PROJECT_NAME} SHARED
   src/logic/3D/Scene3D.cpp
   src/logic/3D/Sphere.cpp
   src/logic/3D/Shape3D.cpp
+  src/logic/3D/RootEntity.cpp
   ### Modules
   src/logic/3D/modules/Material.cpp
   src/logic/3D/modules/Mesh.cpp
@@ -41,6 +42,7 @@ add_library(${PROJECT_NAME} SHARED
   src/logic/2D/Circle.cpp
   src/logic/2D/Triangle.cpp
   src/logic/2D/Image.cpp
+  src/logic/2D/PaintedItem.cpp
 
   # Public
   ## Controllers
@@ -52,10 +54,12 @@ add_library(${PROJECT_NAME} SHARED
 
   ## Logic
   public/logic/Entity.hpp
+  public/logic/Scene.hpp
   ## 3D
   public/logic/3D/Scene3D.hpp
   public/logic/3D/Sphere.hpp
   public/logic/3D/Shape3D.hpp
+  public/logic/3D/RootEntity.hpp
   ### Modules
   public/logic/3D/modules/Material.hpp
   public/logic/3D/modules/Mesh.hpp
@@ -67,6 +71,7 @@ add_library(${PROJECT_NAME} SHARED
   public/logic/2D/Circle.hpp
   public/logic/2D/Triangle.hpp
   public/logic/2D/Image.hpp
+  public/logic/2D/PaintedItem.hpp
 
   ## Models
   public/models/ToolbarModel.hpp

@@ -8,11 +8,11 @@
 namespace ART {
 namespace Logic {
 
-Scene3D::Scene3D(Qt3DCore::QEntity *parent) : Qt3DCore::QEntity{parent} {
+Scene3D::Scene3D(Qt3DCore::QEntity *root) : _root{root} {
 
   // QString resPath{"../../ui-qml/mesh/powerup/"};
 
-  // Qt3DCore::QEntity * powerUp = new Qt3DCore::QEntity(this);
+  // Qt3DCore::QEntity * powerUp = new Qt3DCore::QEntity(_root);
   // Qt3DRender::QMesh * modelMesh = new Qt3DRender::QMesh();
   // modelMesh->setSource(QUrl::fromLocalFile(resPath + "powerup.obj"));
 
@@ -29,7 +29,7 @@ Scene3D::Scene3D(Qt3DCore::QEntity *parent) : Qt3DCore::QEntity{parent} {
   // Qt3DRender::QTextureLoader *normalLoader = new Qt3DRender::QTextureLoader(powerUp);
   // normalLoader->setSource(QUrl::fromLocalFile(resPath + "normal.png"));
 
-  // Qt3DRender::QTextureLoader *ambientOcclusionLoader = new Qt3DRender::QTextureLoader(this);
+  // Qt3DRender::QTextureLoader *ambientOcclusionLoader = new Qt3DRender::QTextureLoader(_root);
   // ambientOcclusionLoader->setSource(QUrl::fromLocalFile(resPath + "ambientocclusion.png"));
 
   // Qt3DExtras::QMetalRoughMaterial *material = new Qt3DExtras::QMetalRoughMaterial();
@@ -43,12 +43,12 @@ Scene3D::Scene3D(Qt3DCore::QEntity *parent) : Qt3DCore::QEntity{parent} {
   // powerUp->addComponent(modelMesh);
   // powerUp->addComponent(material);
 
-  Qt3DExtras::QSkyboxEntity * skybox = new Qt3DExtras::QSkyboxEntity(this);
+  Qt3DExtras::QSkyboxEntity * skybox = new Qt3DExtras::QSkyboxEntity(_root);
   skybox->setBaseName("qrc:/skybox/wobbly_bridge_4k_cube_radiance");
   skybox->setExtension(".dds");
   skybox->setGammaCorrectEnabled(true);
 
-  Qt3DCore::QEntity * envLightEntity = new Qt3DCore::QEntity(this);
+  Qt3DCore::QEntity * envLightEntity = new Qt3DCore::QEntity(_root);
   Qt3DRender::QTextureLoader *envIrradiance = new Qt3DRender::QTextureLoader(envLightEntity);
   envIrradiance->setSource(QUrl::fromLocalFile(":/skybox/wobbly_bridge_4k_cube_irradiance.dds"));
   envIrradiance->setMinificationFilter(Qt3DRender::QAbstractTexture::LinearMipMapLinear);
@@ -70,8 +70,8 @@ Scene3D::Scene3D(Qt3DCore::QEntity *parent) : Qt3DCore::QEntity{parent} {
   envLight->setSpecular(envSpecular);
   envLightEntity->addComponent(envLight);
 
-  Qt3DCore::QEntity *lightEntity = new Qt3DCore::QEntity(this);
-  Qt3DRender::QPointLight *light = new Qt3DRender::QPointLight(this);
+  Qt3DCore::QEntity *lightEntity = new Qt3DCore::QEntity(_root);
+  Qt3DRender::QPointLight *light = new Qt3DRender::QPointLight(_root);
   light->setColor("red");
   light->setIntensity(2.0);
   lightEntity->addComponent(light);
@@ -79,8 +79,8 @@ Scene3D::Scene3D(Qt3DCore::QEntity *parent) : Qt3DCore::QEntity{parent} {
   tr->setTranslation({20, -10, 9});
   lightEntity->addComponent(tr);
 
-  Qt3DCore::QEntity *lightEntity2 = new Qt3DCore::QEntity(this);
-  Qt3DRender::QPointLight *light2 = new Qt3DRender::QPointLight(this);
+  Qt3DCore::QEntity *lightEntity2 = new Qt3DCore::QEntity(_root);
+  Qt3DRender::QPointLight *light2 = new Qt3DRender::QPointLight(_root);
   light2->setColor("white");
   light2->setIntensity(2.0);
   lightEntity2->addComponent(light2);
@@ -90,16 +90,16 @@ Scene3D::Scene3D(Qt3DCore::QEntity *parent) : Qt3DCore::QEntity{parent} {
 }
 
 void Scene3D::createSphere() noexcept {
-  // Qt3DCore::QEntity *sceneLoaderEntity = new Qt3DCore::QEntity(this);
+  // Qt3DCore::QEntity *sceneLoaderEntity = new Qt3DCore::QEntity(_root);
   // sceneLoader = new Qt3DRender::QSceneLoader(sceneLoaderEntity);
   // // SceneWalker sceneWalker(sceneLoader);
-  // QObject::connect(sceneLoader, &Qt3DRender::QSceneLoader::statusChanged, this, &Scene3D::status);
+  // QObject::connect(sceneLoader, &Qt3DRender::QSceneLoader::statusChanged, _root, &Scene3D::status);
   // sceneLoaderEntity->addComponent(sceneLoader);
 
   // sceneLoader->setSource(QUrl::fromLocalFile(":/mesh/earth/Earth 2K.fbx"));
 
-  std::unique_ptr<Sphere> sphere{std::make_unique<Sphere>("Sphere[0]", this)};
-  auto &mesh = sphere->module<Modules::Mesh<Qt3DExtras::QSphereMesh>>("Mesh");
+  std::unique_ptr<Sphere> sphere{std::make_unique<Sphere>("Sphere[0]", _root)};
+  auto &mesh = sphere->getChildren<Modules::Mesh<Qt3DExtras::QSphereMesh>>("Mesh");
   mesh->setRadius(5);
   mesh->setSlices(100);
   mesh->setRings(100);

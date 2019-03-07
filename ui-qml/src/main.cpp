@@ -8,6 +8,8 @@
 #include "RightSidebarModel.hpp"
 #include "Scene3D.hpp"
 #include "Scene2D.hpp"
+#include "RootEntity.hpp"
+#include "PaintedItem.hpp"
 
 #include "QmlOutliner.hpp"
 
@@ -40,8 +42,8 @@ int main(int argc, char *argv[])
   qmlRegisterType<ART::Controllers::RightSidebarController>("AdvancedRayTracer", 1, 0, "RightSidebarController");
   qmlRegisterType<ART::Controllers::DrawToolbar3DController>("DrawToolbar3DController", 1, 0, "DrawToolbar3DController");
   qmlRegisterType<ART::Controllers::DrawToolbar2DController>("DrawToolbar2DController", 1, 0, "DrawToolbar2DController");
-  qmlRegisterType<ART::Logic::Scene3D>("AdvancedRayTracer", 1, 0, "CustomScene3D");
-  qmlRegisterType<ART::Logic::Scene2D>("AdvancedRayTracer", 1, 0, "CustomScene2D");
+  qmlRegisterType<ART::Logic::RootEntity>("AdvancedRayTracer", 1, 0, "RootEntity");
+  qmlRegisterType<ART::Logic::PaintedItem>("AdvancedRayTracer", 1, 0, "CustomPaintedItem");
 
   QSurfaceFormat format;
   if (QOpenGLContext::openGLModuleType() == QOpenGLContext::LibGL) {
@@ -56,10 +58,10 @@ int main(int argc, char *argv[])
   QQmlApplicationEngine engine;
   ART::Controllers::MainController mainController;
 
-  auto toolBarModel = new ART::Models::ToolbarModel;
+  auto *toolBarModel = new ART::Models::ToolbarModel;
   mainController.toolbarController()->setModel(toolBarModel);
 
-  auto rightSidebarModel = new ART::Models::RightSidebarModel;
+  auto *rightSidebarModel = new ART::Models::RightSidebarModel;
   mainController.rightSidebarController()->setModel(rightSidebarModel);
 
   auto *qmlOutliner = new ART::UI::QmlOutliner;
@@ -76,11 +78,11 @@ int main(int argc, char *argv[])
     return -1;
   }
 
-  auto *scene3D =  engine.rootObjects().first()->findChild<ART::Logic::Scene3D*>("customScene3D");
-  mainController.setScene3D(scene3D);
+  auto *rootEntity =  engine.rootObjects().first()->findChild<ART::Logic::RootEntity*>("rootEntity");
+  mainController.setScene3D(new ART::Logic::Scene3D(rootEntity));
 
-  auto *scene2D =  engine.rootObjects().first()->findChild<ART::Logic::Scene2D*>("customScene2D");
-  mainController.setScene2D(scene2D);
+  auto *paintedItem =  engine.rootObjects().first()->findChild<ART::Logic::PaintedItem*>("paintedItem");
+  mainController.setScene2D(new ART::Logic::Scene2D(paintedItem));
   
   mainController.dumpObjectTree();
   return QApplication::exec();
