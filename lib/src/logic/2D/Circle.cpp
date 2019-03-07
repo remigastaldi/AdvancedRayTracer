@@ -9,6 +9,8 @@ Circle::Circle(std::string id) : Shape2D{std::move(id)} {}
 
 void Circle::draw(QPainter *painter) noexcept {
   painter->setBrush(Qt::blue);
+  shapeRect = QPainterPath();
+  shapeRect.addEllipse(x1, y1, x2, y2);
   painter->drawEllipse(x1, y1, x2, y2);
 }
 
