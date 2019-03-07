@@ -118,12 +118,19 @@ void Scene2D::mousePressEvent(QMouseEvent *event) {
 		// for (auto it = _entities.rbegin(); it != _entities.rend(); ++it) {
 
 			// Did the user click on a shape?
-			if (it.second->imgRect.contains(event->x(), event->y()) || selectedShape->shapeRect.contains(QPointF(event->x(), event->y())) || isCloseEnough(selectedShape->line, QPointF(event->x(), event->y()))) {
-				selectedShape = it.second.get();
-				decalx = event->x() - selectedShape->x1;
-				decaly = event->y() - selectedShape->y1;
-				shapePressed = true;
-				break;
+			if (selectedShape->imgRect.contains(event->x(), event->y()) || selectedShape->shapeRect.contains(QPointF(event->x(), event->y())) || isCloseEnough(selectedShape->line, QPointF(event->x(), event->y()))) {
+				// Delete the shape
+				if (event->buttons() == Qt::MiddleButton) {
+					_entities.erase(selectedShape->id());
+					_painter->update();
+					break;
+				} else {
+					selectedShape = it.second.get();
+					decalx = event->x() - selectedShape->x1;
+					decaly = event->y() - selectedShape->y1;
+					shapePressed = true;
+					break;
+				}
 			}
 		}
 	}
