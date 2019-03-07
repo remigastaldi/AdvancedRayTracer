@@ -130,12 +130,8 @@ void Scene2D::mousePressEvent(QMouseEvent *event) {
 	} else {
 		// Backward iteration into the map
 		for (auto &it : _entities) {
-
-		// }
-		// for (auto it = _entities.rbegin(); it != _entities.rend(); ++it) {
-
 			// Did the user click on a shape?
-			if (selectedShape->imgRect.contains(event->x(), event->y()) || selectedShape->shapeRect.contains(QPointF(event->x(), event->y())) || isCloseEnough(selectedShape->line, QPointF(event->x(), event->y()))) {
+			if (it.second->imgRect.contains(event->x(), event->y()) || it.second->shapeRect.contains(QPointF(event->x(), event->y())) || isCloseEnough(it.second->line, QPointF(event->x(), event->y()))) {
 				// Delete the shape
 				if (event->buttons() == Qt::MiddleButton) {
 					_entities.erase(selectedShape->id());
