@@ -10,7 +10,7 @@ public:
 	Polygon(std::string id);
 
   virtual void draw(QPainter *painter) noexcept override;
-  virtual bool contains(int x, int y) const noexcept override {}
+  virtual bool contains(int x, int y) const noexcept override;
 };
 
 } // namespace Logic

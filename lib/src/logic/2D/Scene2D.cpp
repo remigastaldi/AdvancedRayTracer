@@ -99,7 +99,7 @@ void Scene2D::importImg(const QUrl &url) noexcept {
   std::string objId = "Image [" + std::to_string(_id) + "]";
   std::unique_ptr<Logic::Image> img = std::make_unique<Logic::Image>(url, objId);
   _entities.emplace(objId, std::move(img));
-	_selectedShape = _entities.at(objId).get();
+  _selectedShape = _entities.at(objId).get();
   new Modules::ZIndex(*this, *_entities.at(objId), "zIndex");
   _id++;
   // _painter->update();
@@ -123,10 +123,10 @@ void Scene2D::saveScene(const QUrl &url) noexcept {
 
 void Scene2D::mousePressEvent(QMouseEvent *event) {
   if (userIsDrawing) {
-			lastMouseX = event->x();
-			lastMouseY = event->y();
-			auto &trans = _selectedShape->getChildren<Modules::Transform2D>("Transform");
-			trans.move(event->x(), event->y());
+	lastMouseX = event->x();
+	lastMouseY = event->y();
+	auto &trans = _selectedShape->getChildren<Modules::Transform2D>("Transform");
+	trans.move(event->x(), event->y());
   } else {
     _selectedShape = nullptr;
     // Backward iteration into the map

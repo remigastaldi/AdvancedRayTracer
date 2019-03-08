@@ -11,7 +11,7 @@ void Polygon::draw(QPainter *painter) noexcept {
 	painter->setBrush(Qt::blue);
 
 	QPolygon polygon;
-	double pi = 3.1415926535897;
+	const double pi = 3.1415926535897;
 	//int size = 50;
 	int nb = 5;
 	float theta = (2 * pi / nb);
@@ -27,6 +27,8 @@ void Polygon::draw(QPainter *painter) noexcept {
 
 	painter->drawPolygon(polygon);
 }
+
+bool Polygon::contains(int x, int y) const noexcept { return false; }
 
 } // namespace Logic
 } // namespace ART
