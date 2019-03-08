@@ -122,27 +122,24 @@ void Scene2D::saveScene(const QUrl &url) noexcept {
 }
 
 void Scene2D::mousePressEvent(QMouseEvent *event) {
-  shapePressed = false;
-	for (auto & it : selectedShape->childrens()) {
-		std::cout << it.first << std::endl;
-	}
+  // shapePressed = false;
   if (userIsDrawing) {
 			lastMouseX = event->x();
 			lastMouseY = event->y();
 			auto &trans = selectedShape->getChildren<Modules::Transform2D>("Transform");
 			trans.move(event->x(), event->y());
   } else {
+    selectedShape = nullptr;
     // Backward iteration into the map
-    for (auto &it : _entities) {
+    for (auto it = _entities.cbegin(); it != _entities.cend();) {
       // Did the user click on a shape?
-      if (it.second->contains(event->x(), event->y())) {
+      if (it->second->contains(event->x(), event->y())) {
         // Delete the shape
         if (event->buttons() == Qt::MiddleButton) {
-          _entities.erase(selectedShape->id());
+          it = _entities.erase(it);
           _painter->update();
-          break;
         } else {
-          selectedShape = it.second.get();
+          selectedShape = it->second.get();
           Q_EMIT selectedShapeUpdate();
 					auto &trans = selectedShape->getChildren<Modules::Transform2D>("Transform");
 					std::vector<QPointF> points{trans.getPoints()};
@@ -150,14 +147,11 @@ void Scene2D::mousePressEvent(QMouseEvent *event) {
           decaly = event->y() - points[0].y();
           lastMouseX = event->x();
           lastMouseY = event->y();
-          shapePressed = true;
-          break;
+          ++it;
         }
+      } else {
+        ++it;
       }
-    }
-    if (!shapePressed) {
-      selectedShape = nullptr;
-      Q_EMIT selectedShapeUpdate();
     }
   }
 }
@@ -167,7 +161,7 @@ void Scene2D::mouseMoveEvent(QMouseEvent *event) {
   if (userIsDrawing) {
     _painter->setCursor(QCursor(Qt::CrossCursor));
 		trans.scale(event->x() - lastMouseX, event->y() - lastMouseY);
-  } else if (shapePressed) {
+  } else if (selectedShape != nullptr) {
     // Move item
     if (event->buttons() == Qt::LeftButton) {
       _painter->setCursor(QCursor(Qt::ClosedHandCursor));
