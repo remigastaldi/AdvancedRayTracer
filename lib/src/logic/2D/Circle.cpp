@@ -1,4 +1,5 @@
 #include "Circle.hpp"
+#include "Transform2D.hpp"
 
 #include <QPainter>
 
@@ -8,10 +9,16 @@ namespace Logic {
 Circle::Circle(std::string id) : Shape2D{std::move(id)} {}
 
 void Circle::draw(QPainter *painter) noexcept {
+  _path = QPainterPath();
+
   painter->setBrush(Qt::blue);
-  shapeRect = QPainterPath();
-  shapeRect.addEllipse(x1, y1, x2, y2);
-  painter->drawEllipse(x1, y1, x2, y2);
+	auto &trans = getChildren<Modules::Transform2D>("Transform");  
+  _path.addEllipse(trans.x(), trans.y(), trans.width(), trans.height());
+  painter->drawPath(_path);
+}
+
+bool Circle::contains(int x, int y) const noexcept {
+  return _path.contains(QPoint(x, y));
 }
 
 } // namespace Logic

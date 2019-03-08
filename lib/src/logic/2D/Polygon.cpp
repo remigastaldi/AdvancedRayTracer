@@ -19,10 +19,10 @@ void Polygon::draw(QPainter *painter) noexcept {
 
 	for (int i = 1; i <= nb; i++) {
 		theta += dtheta;
-		double pointX = (x1 + size * cos(theta));
-		double pointY = (y1 + size * sin(theta));
+		// double pointX = (x1 + size * cos(theta));
+		// double pointY = (y1 + size * sin(theta));
 		//qInfo() << pointX << " " << pointY;
-		polygon << QPoint(pointX, pointY);
+		// polygon << QPoint(pointX, pointY);
 	}
 
 	painter->drawPolygon(polygon);

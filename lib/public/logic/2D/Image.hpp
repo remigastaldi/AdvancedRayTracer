@@ -14,10 +14,12 @@ public:
   //Image(std::string id, const QUrl& imgUrl);
 
   virtual void draw(QPainter *painter) noexcept override;
+  virtual bool contains(int x, int y) const noexcept override;
 
 private:
   QUrl _url;
   QImage _img;
+  QRect _rect;
 };
 
 } // namespace Logic

@@ -46,6 +46,7 @@ add_library(${PROJECT_NAME} SHARED
   src/logic/2D/PaintedItem.cpp
   ## 2D
   src/logic/2D/modules/ZIndex.cpp
+  src/logic/2D/modules/Transform2D.cpp
 
   # Public
   ## Controllers
@@ -78,6 +79,7 @@ add_library(${PROJECT_NAME} SHARED
   public/logic/2D/PaintedItem.hpp
   ### Modules
   public/logic/2D/modules/ZIndex.hpp
+  public/logic/2D/modules/Transform2D.hpp
 
   ## Models
   public/models/ToolbarModel.hpp

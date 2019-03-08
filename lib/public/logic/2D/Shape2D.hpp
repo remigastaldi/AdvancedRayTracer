@@ -17,19 +17,11 @@ class Scene2D;
 
 class Shape2D : public Entity {
 public:
-	int x1 = 0,
-		x2 = 0,
-		y1 = 0,
-		y2 = 0,
-		size = 50;
-    QRect imgRect;
-    QPainterPath shapeRect;
-    QLine line;
+  Shape2D(std::string id);
+  virtual ~Shape2D() = default;
 
-    Shape2D(std::string id);
-    virtual ~Shape2D() = default;
-
-    virtual void draw(QPainter *painter) noexcept {};
+  virtual void draw(QPainter *painter) noexcept {};
+  virtual bool contains(int x, int y) const noexcept { return false; };
 };
 
 } // namespace Logic
