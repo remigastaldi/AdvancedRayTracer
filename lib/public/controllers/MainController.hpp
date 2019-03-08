@@ -19,7 +19,10 @@
 #include <Qt3DExtras/QSphereMesh>
 #include <Qt3DExtras/QTorusMesh>
 #include <Qt3DRender/QRenderAspect>
+#include <QQmlApplicationEngine>
+#include <QQmlContext>
 
+class QQmlApplicationEngine;
 
 // #include "Outliner.hpp"
 // #include "Scene3D.hpp"
@@ -29,13 +32,13 @@ class Scene3D;
 class Scene2D;
 class Scene;
 class Entity;
+namespace Modules {
+class ZIndex;
+}
 } // namespace Logic
 namespace Models {
 class Outliner;
 } // namespace Models
-namespace Modules {
-class ZIndex;
-}
 
 namespace Controllers {
 
@@ -65,6 +68,7 @@ public:
   void setScene3D(Logic::Scene3D *scene) noexcept;
   void setScene2D(Logic::Scene2D *scene) noexcept;
   void setOutliner(ART::Models::Outliner *outliner) noexcept;
+  void setEngine(QQmlApplicationEngine *engine) noexcept;
 
 public Q_SLOTS:
   ToolbarController *toolbarController() const noexcept;
@@ -75,13 +79,12 @@ public Q_SLOTS:
   Logic::Scene2D *scene2D() const noexcept;
 
   void sceneUpdate() noexcept;
-  // TODO : Change to cppf
   QVariantList loadTree();
 
   // Todo: just for test, change to an other controller
-  Modules::ZIndex *zIndex();
+  Logic::Modules::ZIndex *zIndex();
 
-  Logic::Entity* test();
+  void test();
 
 private:
   DrawToolbar3DController *_drawToolbar3DController;
@@ -91,7 +94,8 @@ private:
   Logic::Scene3D *_scene3D;
   Logic::Scene2D *_scene2D;
   ART::Models::Outliner *_outliner;
-  Logic::Scene *_currentScene;  
+  Logic::Scene *_currentScene;
+  QQmlApplicationEngine *_engine;
 
 private Q_SLOTS:
   void handleSaveFileClicked();

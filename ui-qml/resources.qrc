@@ -14,6 +14,7 @@
         <file alias="DrawToolbar3DComponent.qml">components/DrawToolbar3DComponent.qml</file>
         <file alias="DrawToolbar2DComponent.qml">components/DrawToolbar2DComponent.qml</file>
         <file alias="Outliner.qml">components/Outliner.qml</file>
+        <file alias="ZIndexModuleComponent.qml">components/ZIndexModuleComponent.qml</file>
     </qresource>
     <qresource prefix="/fonts">
         <file alias="fontello.ttf">fonts/fontello.ttf</file>

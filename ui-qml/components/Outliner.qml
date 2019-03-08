@@ -21,7 +21,7 @@ ScrollView {
       Text {
         text: id
         anchors.verticalCenter: wrapper.verticalCenter
-        color: wrapper.ListView.isCurrentItem ? Style.mainColor : "white"
+        color: wrapper.ListView.isCurrentItem ? Style.mainColor : Style.likeWhite
         font.pointSize: 12
       }
 

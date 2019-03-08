@@ -19,7 +19,7 @@ public:
 
 Q_SIGNALS:
   void sceneUpdate();
-  void selectedShapeUpdate(const std::string &id);
+  void selectedShapeUpdate();
 };
 
 } // namespace Logic

@@ -5,9 +5,11 @@
 #include "DrawToolbar2DController.hpp"
 #include "Scene3D.hpp"
 #include "Scene2D.hpp"
-#include "ZIndex.hpp"
 #include "Outliner.hpp"
-#include "Entity.hpp"
+// #include "Entity.hpp"
+// #include "Mesh.hpp"
+
+#include "ZIndex.hpp"
 
 namespace ART {
 namespace Controllers {
@@ -56,6 +58,10 @@ void  MainController::setScene2D(Logic::Scene2D *scene) noexcept {
 
 void  MainController::setOutliner(ART::Models::Outliner *outliner) noexcept {
   _outliner = outliner;
+}
+
+void MainController::setEngine(QQmlApplicationEngine *engine) noexcept {
+  _engine = engine;
 }
 
 void MainController::sceneUpdate() noexcept {
@@ -109,7 +115,7 @@ void MainController::select2DScene() {
   _currentScene = _scene2D;
 }
 
-Modules::ZIndex *MainController::zIndex() {
+Logic::Modules::ZIndex *MainController::zIndex() {
   Logic::Entity *entity = _currentScene->selectedEntity();
   if (entity != nullptr) {
     // auto &test = static_cast<Modules::ZIndex*>(entity)->getChildren<Modules::ZIndex>("zIndex");
@@ -121,14 +127,22 @@ Modules::ZIndex *MainController::zIndex() {
 
 QVariantList MainController::loadTree() {
   QVariantList list;
-  for (const auto &shape : _currentScene->selectedEntity()->childrens()) {
-    list.push_back(QString::fromStdString(shape.second->id()));
+  if (_currentScene->selectedEntity() != nullptr) {
+    for (const auto &shape : _currentScene->selectedEntity()->childrens()) {
+      list.push_back(QString::fromStdString(shape.second->id()));
+    }
   }
   return list;
 }
 
-Logic::Entity *MainController::test() {
-    return _currentScene->selectedEntity();
+void MainController::test() {
+  auto &index = _currentScene->selectedEntity()->getChildren<Logic::Modules::ZIndex>("zIndex");
+  // auto &mesh = _currentScene->selectedEntity()->getChildren<Logic::Modules::Mesh<Qt3DExtras::QSphereMesh>>("Mesh");
+  // auto &index = _currentScene->selectedEntity()->getChildren<Modules::ZIndex>("zIndex");
+  // ART::Modules::ZIndex *ent = _currentScene->selectedEntity()->getChildrenPtr<Modules::ZIndex>("zIndex");
+  // Modules::ZIndex &zIndex = static_cast<Modules::ZIndex>(ent);
+  _engine->rootContext()->setContextProperty("zIndexModel", &index);
+  // return &index;
 }
 
 

@@ -11,7 +11,7 @@
 #include "RootEntity.hpp"
 #include "PaintedItem.hpp"
 // #include "Entity.hpp"
-// #include "ZIndex.hpp"
+#include "ZIndex.hpp"
 
 #include "QmlOutliner.hpp"
 
@@ -46,8 +46,7 @@ int main(int argc, char *argv[])
   qmlRegisterType<ART::Controllers::DrawToolbar2DController>("DrawToolbar2DController", 1, 0, "DrawToolbar2DController");
   qmlRegisterType<ART::Logic::RootEntity>("AdvancedRayTracer", 1, 0, "RootEntity");
   qmlRegisterType<ART::Logic::PaintedItem>("AdvancedRayTracer", 1, 0, "CustomPaintedItem");
-  // qmlRegisterType<ART::Logic::Entity>("AdvancedRayTracer", 1, 0, "Entity");
-  // qmlRegisterType<ART::Modules::ZIndex>("AdvancedRayTracer", 1, 0, "ZIndex");
+  // qmlRegisterType<ART::Logic::ZIndex>("AdvancedRayTracer", 1, 0, "ZIndex");
 
   QSurfaceFormat format;
   if (QOpenGLContext::openGLModuleType() == QOpenGLContext::LibGL) {
@@ -61,21 +60,22 @@ int main(int argc, char *argv[])
 
   QQmlApplicationEngine engine;
   ART::Controllers::MainController mainController;
+  mainController.setEngine(&engine);
 
-  auto *toolBarModel = new ART::Models::ToolbarModel;
-  mainController.toolbarController()->setModel(toolBarModel);
+  ART::Models::ToolbarModel toolbarModel;
+  mainController.toolbarController()->setModel(&toolbarModel);
 
-  auto *rightSidebarModel = new ART::Models::RightSidebarModel;
-  mainController.rightSidebarController()->setModel(rightSidebarModel);
+  ART::Models::RightSidebarModel rightSidebarModel;
+  mainController.rightSidebarController()->setModel(&rightSidebarModel);
 
-  auto *qmlOutliner = new ART::UI::QmlOutliner;
-  mainController.setOutliner(qmlOutliner);
+  ART::UI::QmlOutliner qmlOutliner;
+  mainController.setOutliner(&qmlOutliner);
   
   engine.rootContext()->setContextProperty("mainController", &mainController);
-  engine.rootContext()->setContextProperty("menuModel", toolBarModel);
-  engine.rootContext()->setContextProperty("rightSidebarModel", rightSidebarModel);
+  engine.rootContext()->setContextProperty("menuModel", &toolbarModel);
+  engine.rootContext()->setContextProperty("rightSidebarModel", &rightSidebarModel);
   
-  engine.rootContext()->setContextProperty("qmlOutliner", qmlOutliner);
+  engine.rootContext()->setContextProperty("qmlOutliner", &qmlOutliner);
   engine.load(QUrl(QStringLiteral("qrc:/views/MainView.qml")));
 
   if (engine.rootObjects().isEmpty()) {

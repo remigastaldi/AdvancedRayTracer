@@ -22,14 +22,9 @@ public:
   Entity& operator=(Entity&& other) = delete;
 
   template <typename T>
-  T &getChildren(const std::string &id) const {
-    return static_cast<T &>(*(_childrens.at(id).get()));
-    // return static_cast<T &>(*(_childrens.at(id).get()));
+  T &getChildren(const std::string &id)  {
+    return static_cast<T &>(*_childrens.at(id));
   }
-  // template <typename T>
-  // T *getChildren(const std::string &id) const {
-  //   return static_cast<T *>(_childrens.at(id).get());
-  // }
 
   const std::string &id() const noexcept;
   void setId(std::string id) noexcept;

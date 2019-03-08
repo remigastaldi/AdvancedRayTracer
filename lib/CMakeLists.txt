@@ -43,6 +43,8 @@ add_library(${PROJECT_NAME} SHARED
   src/logic/2D/Triangle.cpp
   src/logic/2D/Image.cpp
   src/logic/2D/PaintedItem.cpp
+  ## 2D
+  src/logic/2D/modules/ZIndex.cpp
 
   # Public
   ## Controllers
@@ -101,9 +103,9 @@ target_include_directories(${PROJECT_NAME}
       ${CMAKE_CURRENT_SOURCE_DIR}/public/models
       ${CMAKE_CURRENT_SOURCE_DIR}/public/logic
       ${CMAKE_CURRENT_SOURCE_DIR}/public/logic/3D
+      ${CMAKE_CURRENT_SOURCE_DIR}/public/logic/3D/modules
       ${CMAKE_CURRENT_SOURCE_DIR}/public/logic/2D
       ${CMAKE_CURRENT_SOURCE_DIR}/public/logic/2D/modules
-      ${CMAKE_CURRENT_SOURCE_DIR}/public/logic/3D/modules
      >
   PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/src
@@ -111,9 +113,9 @@ target_include_directories(${PROJECT_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/src/models
     ${CMAKE_CURRENT_SOURCE_DIR}/src/logic
     ${CMAKE_CURRENT_SOURCE_DIR}/src/logic/3D
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/logic/3D/modules
     ${CMAKE_CURRENT_SOURCE_DIR}/src/logic/2D
     ${CMAKE_CURRENT_SOURCE_DIR}/src/logic/2D/modules
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/logic/3D/modules
 )
 
 target_compile_definitions(${PROJECT_NAME}

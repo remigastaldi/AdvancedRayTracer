@@ -51,9 +51,9 @@ void Scene2D::createRectangle() noexcept {
 	selectedShape = _entities.at(objId).get();
 	new Modules::ZIndex(*this, *selectedShape, "zIndex");
 	_id++;
-	_painter->QQuickItem::update();
+	// _painter->QQuickItem::update();
 	// Q_EMIT sceneUpdate();
-	Q_EMIT selectedShapeUpdate(objId);
+	// Q_EMIT selectedShapeUpdate();
 }
 
 void Scene2D::createCircle() noexcept {
@@ -77,7 +77,7 @@ void Scene2D::createTriangle() noexcept {
 	_entities.emplace(objId, std::move(triangle));
 	selectedShape = _entities.at(objId).get();
 	new Modules::ZIndex(*this, *selectedShape, "zIndex");
-	_painter->update();
+	// _painter->update();
 	_id++;
 
 	// Q_EMIT sceneUpdate();
@@ -89,7 +89,7 @@ void Scene2D::importImg(const QUrl &url) noexcept {
 	_entities.emplace(objId, std::move(img));
 	new Modules::ZIndex(*this, *_entities.at(objId), "zIndex");
 	_id++;
-	_painter->update();
+	// _painter->update();
 
 	Q_EMIT sceneUpdate();
 }
@@ -122,6 +122,7 @@ void Scene2D::saveScene(const QUrl &url) noexcept {
 }
 
 void Scene2D::mousePressEvent(QMouseEvent *event) {
+	shapePressed = false;
 	if (userIsDrawing) {
 		if (drawingRectangle || drawingLine || drawingCircle || drawingTriangle) {
 			selectedShape->x1 = event->x();
@@ -139,6 +140,7 @@ void Scene2D::mousePressEvent(QMouseEvent *event) {
 					break;
 				} else {
 					selectedShape = it.second.get();
+					Q_EMIT selectedShapeUpdate();
 					decalx = event->x() - selectedShape->x1;
 					decaly = event->y() - selectedShape->y1;
 					lastMouseX = event->x();
@@ -147,6 +149,10 @@ void Scene2D::mousePressEvent(QMouseEvent *event) {
 					break;
 				}
 			}
+		}
+		if (!shapePressed) {
+			selectedShape = nullptr;
+			Q_EMIT selectedShapeUpdate();
 		}
 	}
 }
@@ -218,17 +224,18 @@ void Scene2D::mouseReleaseEvent(QMouseEvent *event) {
 		drawingCircle = false;
 		drawingTriangle = false;
 		Q_EMIT sceneUpdate();
+		Q_EMIT selectedShapeUpdate();
 	}
 }
 
 const std::unordered_map<std::string, std::unique_ptr<Entity>> &Scene2D::entities() const noexcept {
-	// TODO : Change this ulgy thing
+	// TODO : Change this crap cast
   return reinterpret_cast<const std::unordered_map<std::string, std::unique_ptr<Entity>>&>(_entities);
 }
 
 void Scene2D::zIndexUpdate(size_t zIndex, const std::string &id) {
-	// size_t index = _entities.at(id)->getChildren<Modules::ZIndex>("zIndex").zIndex();
 	_zIndex[zIndex].emplace(id, std::ref<std::unique_ptr<Shape2D>>(_entities.at(id)));
+	_painter->QQuickItem::update();
 	Q_EMIT sceneUpdate();
 }
 

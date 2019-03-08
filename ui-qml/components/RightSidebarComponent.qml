@@ -1,8 +1,8 @@
 import "../styles"
+import AdvancedRayTracer 1.0
 import QtQuick 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
-import AdvancedRayTracer 1.0
 
 UiMainBorder {
   id: root
@@ -45,43 +45,22 @@ UiMainBorder {
       Component.onCompleted: {
         mainController.selectedShapeUpdate.connect(selectedShapeUpdate);
         function selectedShapeUpdate()  {
+          zIndexModuleComponent.visible = false;
           var arr = mainController.loadTree()
           for (var module in arr) {
             if (arr[module] == "zIndex") {
-              zIndex.visible = true;
-              console.log("activate" + arr[module]);
+              mainController.test()
+              zIndexModuleComponent.visible = true;
+              // console.log("activate" + arr[module]);
               // console.log("==> " mainController);
             }
           }
         }
       }
-      ColumnLayout {
+      ZIndexModuleComponent {
         Layout.fillWidth: true
-        GroupBox {
-          id: zIndex
-          visible : false;
-          Layout.fillWidth: true
-          Layout.fillHeight: true
-
-          RowLayout {
-            anchors.fill: parent.fill
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            Text {
-              text: "zIndex: "
-              Layout.leftMargin: 5
-            }
-            TextInput {
-              text: "0"
-              Layout.rightMargin: 5
-              wrapMode: TextInput.Wrap
-              onAccepted: {
-                // console.log("asdasd" (MainController) mainController)
-                // mainController.test.setzIndex(8)
-              }
-            }
-          }
-        }        
+        visible : false;
+        id: zIndexModuleComponent
       }
     }
 

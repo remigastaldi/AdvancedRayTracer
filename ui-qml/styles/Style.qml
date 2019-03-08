@@ -8,6 +8,7 @@ QtObject {
   //General used by many properties
   // property color mainColor: Universal.Orange
   property color mainColor: "orange"
+  property color likeWhite: "#D3DAE3"
 
   // property int mainContainerBackground: Universal.Steel
   property color mainContainerColor: "#1A1C20"
