@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Transform2D.hpp"
 #include "Shape2D.hpp"
 
 namespace ART {
@@ -11,6 +11,8 @@ public:
 
   virtual void draw(QPainter *painter) noexcept override;
   virtual bool contains(int x, int y) const noexcept override;
+
+  QPainterPath _path;
 };
 
 } // namespace Logic
