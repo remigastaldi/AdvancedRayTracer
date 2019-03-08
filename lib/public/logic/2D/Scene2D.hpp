@@ -47,6 +47,8 @@ public Q_SLOTS:
   void zIndexUpdate(size_t zIndex, const std::string &id);
   void zIndexDelete(size_t zIndex, const std::string &id);
 
+  void update() noexcept override;
+
 private:
   std::map<size_t, std::unordered_map<std::string, std::reference_wrapper<std::unique_ptr<Shape2D>>>> _zIndex;
   std::unordered_map<std::string, std::unique_ptr<Shape2D>> _entities;

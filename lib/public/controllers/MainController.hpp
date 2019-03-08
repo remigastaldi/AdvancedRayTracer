@@ -84,7 +84,8 @@ public Q_SLOTS:
   // Todo: just for test, change to an other controller
   Logic::Modules::ZIndex *zIndex();
 
-  void test();
+  void initEntityModulesModels();
+  void updateCurrentScene();
 
 private:
   DrawToolbar3DController *_drawToolbar3DController;

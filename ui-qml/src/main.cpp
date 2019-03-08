@@ -10,8 +10,6 @@
 #include "Scene2D.hpp"
 #include "RootEntity.hpp"
 #include "PaintedItem.hpp"
-// #include "Entity.hpp"
-#include "ZIndex.hpp"
 
 #include "QmlOutliner.hpp"
 
@@ -46,7 +44,6 @@ int main(int argc, char *argv[])
   qmlRegisterType<ART::Controllers::DrawToolbar2DController>("DrawToolbar2DController", 1, 0, "DrawToolbar2DController");
   qmlRegisterType<ART::Logic::RootEntity>("AdvancedRayTracer", 1, 0, "RootEntity");
   qmlRegisterType<ART::Logic::PaintedItem>("AdvancedRayTracer", 1, 0, "CustomPaintedItem");
-  // qmlRegisterType<ART::Logic::ZIndex>("AdvancedRayTracer", 1, 0, "ZIndex");
 
   QSurfaceFormat format;
   if (QOpenGLContext::openGLModuleType() == QOpenGLContext::LibGL) {

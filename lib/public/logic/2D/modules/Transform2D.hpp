@@ -22,6 +22,7 @@ class ADVANCED_RAY_TRACER_EXPORT Transform2D : public Entity {
 public:
   Transform2D(Shape2D &parent, std::string id);
 
+public Q_SLOTS:
   double x() const noexcept;
   double y() const noexcept;
   double width() const noexcept;

@@ -15,6 +15,7 @@
         <file alias="DrawToolbar2DComponent.qml">components/DrawToolbar2DComponent.qml</file>
         <file alias="Outliner.qml">components/Outliner.qml</file>
         <file alias="ZIndexModuleComponent.qml">components/ZIndexModuleComponent.qml</file>
+        <file alias="Transform2DModuleComponent.qml">components/Transform2DModuleComponent.qml</file>
     </qresource>
     <qresource prefix="/fonts">
         <file alias="fontello.ttf">fonts/fontello.ttf</file>
@@ -33,5 +34,7 @@
         <file alias="ToolbarButton.qml">styles/ToolbarButton.qml</file>
         <file alias="UiMainBorder.qml">styles/UiMainBorder.qml</file>
         <file alias="CustomButton.qml">styles/CustomButton.qml</file>
+        <file alias="CustomIntInput.qml">styles/CustomIntInput.qml</file>
+        <file alias="CustomDoubleInput.qml">styles/CustomDoubleInput.qml</file>
     </qresource>
 </RCC>

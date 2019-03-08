@@ -47,21 +47,40 @@ UiMainBorder {
         mainController.selectedShapeUpdate.connect(selectedShapeUpdate);
         function selectedShapeUpdate()  {
           zIndexModuleComponent.visible = false;
+          transform2DModuleComponent.visible = false;
+
+          mainController.initEntityModulesModels()
           var arr = mainController.loadTree()
           for (var module in arr) {
-            if (arr[module] == "zIndex") {
-              mainController.test()
-              zIndexModuleComponent.visible = true;
-              // console.log("activate" + arr[module]);
-              // console.log("==> " mainController);
+            console.log("activate ==> " + arr[module]);
+            switch (arr[module]) {
+              case "zIndex":
+                zIndexModuleComponent.visible = true;
+                break;
+              case "Transform":
+                transform2DModuleComponent.visible = true;
+                break;
             }
+            // if (arr[module] == "zIndex") {
+              // console.log("==> " mainController);
+            // }
           }
         }
       }
-      ZIndexModuleComponent {
+      ColumnLayout {
+      // Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
         Layout.fillWidth: true
-        visible : false;
-        id: zIndexModuleComponent
+        Layout.fillHeight: true
+        ZIndexModuleComponent {
+          Layout.fillWidth: true
+          visible : false;
+          id: zIndexModuleComponent
+        }
+        Transform2DModuleComponent {
+          Layout.fillWidth: true
+          visible : false;
+          id: transform2DModuleComponent
+        }
       }
     }
 

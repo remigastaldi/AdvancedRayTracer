@@ -20,22 +20,12 @@ ColumnLayout {
         Layout.leftMargin: 5
       }
     
-      TextInput {
+      CustomIntInput {
         id: inpuText
-        color: Style.likeWhite
         text: zIndexModel.zIndex()
-        Layout.preferredWidth: 30
-        wrapMode: TextInput.Wrap
-        validator: IntValidator { bottom:0; top: 20000}
 
         onEditingFinished: {
           zIndexModel.setIndex(parseInt(text))
-        }
-    
-        onActiveFocusChanged: {
-        if (activeFocus) {
-            selectAll()
-          }
         }
       }
     }

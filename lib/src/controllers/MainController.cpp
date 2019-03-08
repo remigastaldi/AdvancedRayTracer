@@ -136,16 +136,20 @@ QVariantList MainController::loadTree() {
   return list;
 }
 
-void MainController::test() {
-  auto &index = _currentScene->selectedEntity()->getChildren<Logic::Modules::ZIndex>("zIndex");
-  // auto &mesh = _currentScene->selectedEntity()->getChildren<Logic::Modules::Mesh<Qt3DExtras::QSphereMesh>>("Mesh");
-  // auto &index = _currentScene->selectedEntity()->getChildren<Modules::ZIndex>("zIndex");
-  // ART::Modules::ZIndex *ent = _currentScene->selectedEntity()->getChildrenPtr<Modules::ZIndex>("zIndex");
-  // Modules::ZIndex &zIndex = static_cast<Modules::ZIndex>(ent);
-  _engine->rootContext()->setContextProperty("zIndexModel", &index);
-  // return &index;
+void MainController::initEntityModulesModels() {
+  if (_currentScene->selectedEntity() == nullptr)
+    return;
+  for (auto &module : _currentScene->selectedEntity()->childrens()) {
+    std::cout << module.first << std::endl;
+    _engine->rootContext()->setContextProperty(QString::fromStdString(module.first + "Model"), module.second.get());
+  }
 }
 
+void MainController::updateCurrentScene() {
+  if (_currentScene != nullptr) {
+    _currentScene->update();
+  }
+}
 
 
 } // namespace Controllers

@@ -207,5 +207,9 @@ void Scene2D::zIndexDelete(size_t zIndex, const std::string &id) {
   Q_EMIT sceneUpdate();
 }
 
+void Scene2D::update() noexcept {
+  _painter->QQuickItem::update();
+}
+
 } // namespace Logic
 } // namespace ART

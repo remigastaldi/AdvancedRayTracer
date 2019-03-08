@@ -14,8 +14,10 @@ class ADVANCED_RAY_TRACER_EXPORT Scene : public QObject {
 
 public:
   virtual ~Scene() {};
+
 	virtual const std::unordered_map<std::string, std::unique_ptr<Entity>> &entities() const noexcept = 0;
 	virtual Entity *selectedEntity() const noexcept = 0;
+  virtual void update() noexcept {};
 
 Q_SIGNALS:
   void sceneUpdate();
