@@ -17,8 +17,8 @@ class ADVANCED_RAY_TRACER_EXPORT Scene2D : public Scene {
 public:
 
   int _id = 0;
-  int decalx = 0;
-  int decaly = 0;
+  double decalx = 0;
+  double decaly = 0;
   int lastMouseX = 0;
   int lastMouseY = 0;
   bool userIsDrawing = false;

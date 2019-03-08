@@ -11,7 +11,7 @@ namespace Logic {
 Line::Line(std::string id) : Shape2D{std::move(id)} {}
 
 void Line::draw(QPainter *painter) noexcept {
-	auto &trans = getChildren<Modules::Transform2D>("Transform");
+	auto &trans = getChildren<Modules::Transform2D>("Transform2D");
   _line = QLineF(trans.x(), trans.y(), trans.x() + trans.width(), trans.y() + trans.height());
   painter->setPen(QPen{Qt::blue, 10});
   painter->drawLine(_line);

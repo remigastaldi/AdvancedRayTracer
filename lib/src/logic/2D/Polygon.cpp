@@ -9,7 +9,7 @@ Polygon::Polygon(std::string id) : Shape2D{std::move(id)} {}
 
 void Polygon::draw(QPainter *painter) noexcept {
 	painter->setBrush(Qt::blue);
-	auto &trans = getChildren<Modules::Transform2D>("Transform");
+	auto &trans = getChildren<Modules::Transform2D>("Transform2D");
 	QPolygon polygon;
 	const double pi = 3.1415926535897;
 	int size = 50;

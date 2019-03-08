@@ -21,10 +21,10 @@ ColumnLayout {
       }
     
       CustomDoubleInput {
-        text: TransformModel.x()
+        text: Transform2DModel.x()
 
         onEditingFinished: {
-          TransformModel.setX(parseFloat(text))
+          Transform2DModel.setX(parseFloat(text))
           mainController.updateCurrentScene();
         }    
       }
@@ -35,10 +35,10 @@ ColumnLayout {
       }
     
       CustomDoubleInput {
-        text: TransformModel.y()
+        text: Transform2DModel.y()
 
         onEditingFinished: {
-          TransformModel.setY(parseFloat(text))
+          Transform2DModel.setY(parseFloat(text))
           mainController.updateCurrentScene();
         }    
       }
@@ -54,10 +54,10 @@ ColumnLayout {
       }
     
       CustomDoubleInput {
-        text: TransformModel.width()
+        text: Transform2DModel.width()
 
         onEditingFinished: {
-          TransformModel.setWidth(parseFloat(text))
+          Transform2DModel.setWidth(parseFloat(text))
           mainController.updateCurrentScene();
         }    
       }
@@ -67,10 +67,10 @@ ColumnLayout {
       }
     
       CustomDoubleInput {
-        text: TransformModel.height()
+        text: Transform2DModel.height()
 
         onEditingFinished: {
-          TransformModel.setHeight(parseFloat(text))
+          Transform2DModel.setHeight(parseFloat(text))
           mainController.updateCurrentScene();
         }    
       }

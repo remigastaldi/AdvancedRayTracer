@@ -45,7 +45,7 @@ UiMainBorder {
       // Layout.fillHeight: true
       Component.onCompleted: {
         mainController.selectedShapeUpdate.connect(selectedShapeUpdate);
-        function selectedShapeUpdate()  {
+        function selectedShapeUpdate() {
           zIndexModuleComponent.visible = false;
           transform2DModuleComponent.visible = false;
 
@@ -57,7 +57,7 @@ UiMainBorder {
               case "zIndex":
                 zIndexModuleComponent.visible = true;
                 break;
-              case "Transform":
+              case "Transform2D":
                 transform2DModuleComponent.visible = true;
                 break;
             }

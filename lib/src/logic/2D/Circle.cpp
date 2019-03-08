@@ -12,7 +12,7 @@ void Circle::draw(QPainter *painter) noexcept {
   _path = QPainterPath();
 
   painter->setBrush(Qt::blue);
-	auto &trans = getChildren<Modules::Transform2D>("Transform");  
+	auto &trans = getChildren<Modules::Transform2D>("Transform2D");  
   _path.addEllipse(trans.x(), trans.y(), trans.width(), trans.height());
   painter->drawPath(_path);
 }

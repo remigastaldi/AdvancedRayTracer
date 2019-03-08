@@ -125,7 +125,7 @@ void Scene2D::mousePressEvent(QMouseEvent *event) {
   if (userIsDrawing) {
 	lastMouseX = event->x();
 	lastMouseY = event->y();
-	auto &trans = _selectedShape->getChildren<Modules::Transform2D>("Transform");
+	auto &trans = _selectedShape->getChildren<Modules::Transform2D>("Transform2D");
 	trans.move(event->x(), event->y());
   } else {
     _selectedShape = nullptr;
@@ -140,10 +140,10 @@ void Scene2D::mousePressEvent(QMouseEvent *event) {
         } else {
           _selectedShape = it->second.get();
           Q_EMIT selectedShapeUpdate();
-					auto &trans = _selectedShape->getChildren<Modules::Transform2D>("Transform");
+					auto &trans = _selectedShape->getChildren<Modules::Transform2D>("Transform2D");
 					std::vector<QPointF> points{trans.getPoints()};
-          decalx = event->x() - points[0].x();
-          decaly = event->y() - points[0].y();
+          decalx = event->x() - static_cast<int>(points[0].x());
+          decaly = event->y() - static_cast<int>(points[0].y());
           lastMouseX = event->x();
           lastMouseY = event->y();
           ++it;
@@ -160,7 +160,7 @@ void Scene2D::mousePressEvent(QMouseEvent *event) {
 
 void Scene2D::mouseMoveEvent(QMouseEvent *event) {
   if (_selectedShape != nullptr) {
-    auto &trans = _selectedShape->getChildren<Modules::Transform2D>("Transform");
+    auto &trans = _selectedShape->getChildren<Modules::Transform2D>("Transform2D");
     if (userIsDrawing) {
       _painter->setCursor(QCursor(Qt::CrossCursor));
       trans.scale(event->x() - lastMouseX, event->y() - lastMouseY);

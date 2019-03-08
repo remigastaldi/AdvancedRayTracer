@@ -19,7 +19,7 @@ Image::Image(QUrl imgUrl, std::string id) : Shape2D{std::move(id)}, _url{std::mo
 	} else {
 		_img = QImage(_url.path());
 	}
-	auto &trans = getChildren<Modules::Transform2D>("Transform");
+	auto &trans = getChildren<Modules::Transform2D>("Transform2D");
 	trans.setWidth(_img.width());
 	trans.setHeight(_img.height());
 }
@@ -34,7 +34,7 @@ Image::Image(QUrl imgUrl, std::string id) : Shape2D{std::move(id)}, _url{std::mo
 */
 
 void Image::draw(QPainter *painter) noexcept {
-	auto &trans = getChildren<Modules::Transform2D>("Transform");  
+	auto &trans = getChildren<Modules::Transform2D>("Transform2D");
 	_rect.setCoords(trans.x(), trans.y(), trans.width() + trans.x(), trans.height() + trans.y());
 	painter->drawImage(_rect, _img);
 }
