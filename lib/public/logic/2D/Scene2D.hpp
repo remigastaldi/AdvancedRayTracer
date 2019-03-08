@@ -15,17 +15,14 @@ class ADVANCED_RAY_TRACER_EXPORT Scene2D : public Scene {
   Q_DISABLE_COPY(Scene2D)
 
 public:
-  // const int SizeMinX = 50;
-  const int SizeMinY = 50;
 
   int _id = 0;
   int decalx = 0;
   int decaly = 0;
   int lastMouseX = 0;
   int lastMouseY = 0;
-  bool shapePressed = false;
   bool userIsDrawing = false;
-  Shape2D *selectedShape;
+  Shape2D *_selectedShape;
 
   explicit Scene2D(PaintedItem *painter);
 
@@ -43,7 +40,7 @@ public Q_SLOTS:
   void mouseReleaseEvent(QMouseEvent *event);
 
   const std::unordered_map<std::string, std::unique_ptr<Entity>> &entities() const noexcept override;
-  Entity *selectedEntity() const noexcept override { return selectedShape; }
+  Entity *selectedEntity() const noexcept override { return _selectedShape; }
 
   virtual void paint(QPainter *painter);
 

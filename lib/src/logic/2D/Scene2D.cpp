@@ -16,7 +16,7 @@
 namespace ART {
 namespace Logic {
 
-Scene2D::Scene2D(PaintedItem *painter) : _painter{painter}, selectedShape{nullptr} {
+Scene2D::Scene2D(PaintedItem *painter) : _painter{painter}, _selectedShape{nullptr} {
   _painter->setScene2D(this);
   _painter->setFillColor("black");
   _painter->setAcceptedMouseButtons(Qt::AllButtons);
@@ -36,8 +36,8 @@ void Scene2D::createLine() noexcept {
   std::string objId = "Line [" + std::to_string(_id) + "]";
   std::unique_ptr<Line> line = std::make_unique<Line>(objId);
   _entities.emplace(objId, std::move(line));
-  selectedShape = _entities.at(objId).get();
-  new Modules::ZIndex(*this, *selectedShape, "zIndex");
+  _selectedShape = _entities.at(objId).get();
+  new Modules::ZIndex(*this, *_selectedShape, "zIndex");
   _id++;
 
   // Q_EMIT sceneUpdate();
@@ -49,8 +49,8 @@ void Scene2D::createRectangle() noexcept {
 
   std::unique_ptr<Rectangle> rect = std::make_unique<Rectangle>(objId);
   _entities.emplace(objId, std::move(rect));
-  selectedShape = _entities.at(objId).get();
-  new Modules::ZIndex(*this, *selectedShape, "zIndex");
+  _selectedShape = _entities.at(objId).get();
+  new Modules::ZIndex(*this, *_selectedShape, "zIndex");
   _id++;
   // _painter->QQuickItem::update();
   // Q_EMIT sceneUpdate();
@@ -62,8 +62,8 @@ void Scene2D::createCircle() noexcept {
   std::string objId = "Circle [" + std::to_string(_id) + "]";
   std::unique_ptr<Circle> circle = std::make_unique<Circle>(objId);
   _entities.emplace(objId, std::move(circle));
-  selectedShape = _entities.at(objId).get();
-  new Modules::ZIndex(*this, *selectedShape, "zIndex");
+  _selectedShape = _entities.at(objId).get();
+  new Modules::ZIndex(*this, *_selectedShape, "zIndex");
   _id++;
 
   // Q_EMIT sceneUpdate();
@@ -74,8 +74,8 @@ void Scene2D::createTriangle() noexcept {
   std::string objId = "Triangle [" + std::to_string(_id) + "]";
   std::unique_ptr<Triangle> triangle = std::make_unique<Triangle>(objId);
   _entities.emplace(objId, std::move(triangle));
-  selectedShape = _entities.at(objId).get();
-  new Modules::ZIndex(*this, *selectedShape, "zIndex");
+  _selectedShape = _entities.at(objId).get();
+  new Modules::ZIndex(*this, *_selectedShape, "zIndex");
   // _painter->update();
   _id++;
 
@@ -87,8 +87,8 @@ void Scene2D::createPolygon() noexcept {
 	std::string objId = "Polygon [" + std::to_string(_id) + "]";
 	std::unique_ptr<Polygon> polygon = std::make_unique<Polygon>(objId);
 	_entities.emplace(objId, std::move(polygon));
-	selectedShape = _entities.at(objId).get();
-	new Modules::ZIndex(*this, *selectedShape, "zIndex");
+	_selectedShape = _entities.at(objId).get();
+	new Modules::ZIndex(*this, *_selectedShape, "zIndex");
 	// _painter->update();
 	_id++;
 
@@ -99,7 +99,7 @@ void Scene2D::importImg(const QUrl &url) noexcept {
   std::string objId = "Image [" + std::to_string(_id) + "]";
   std::unique_ptr<Logic::Image> img = std::make_unique<Logic::Image>(url, objId);
   _entities.emplace(objId, std::move(img));
-	selectedShape = _entities.at(objId).get();
+	_selectedShape = _entities.at(objId).get();
   new Modules::ZIndex(*this, *_entities.at(objId), "zIndex");
   _id++;
   // _painter->update();
@@ -122,14 +122,13 @@ void Scene2D::saveScene(const QUrl &url) noexcept {
 }
 
 void Scene2D::mousePressEvent(QMouseEvent *event) {
-  // shapePressed = false;
   if (userIsDrawing) {
 			lastMouseX = event->x();
 			lastMouseY = event->y();
-			auto &trans = selectedShape->getChildren<Modules::Transform2D>("Transform");
+			auto &trans = _selectedShape->getChildren<Modules::Transform2D>("Transform");
 			trans.move(event->x(), event->y());
   } else {
-    selectedShape = nullptr;
+    _selectedShape = nullptr;
     // Backward iteration into the map
     for (auto it = _entities.cbegin(); it != _entities.cend();) {
       // Did the user click on a shape?
@@ -139,9 +138,9 @@ void Scene2D::mousePressEvent(QMouseEvent *event) {
           it = _entities.erase(it);
           _painter->update();
         } else {
-          selectedShape = it->second.get();
+          _selectedShape = it->second.get();
           Q_EMIT selectedShapeUpdate();
-					auto &trans = selectedShape->getChildren<Modules::Transform2D>("Transform");
+					auto &trans = _selectedShape->getChildren<Modules::Transform2D>("Transform");
 					std::vector<QPointF> points{trans.getPoints()};
           decalx = event->x() - points[0].x();
           decaly = event->y() - points[0].y();
@@ -153,33 +152,36 @@ void Scene2D::mousePressEvent(QMouseEvent *event) {
         ++it;
       }
     }
+    if (_selectedShape == nullptr) {
+      Q_EMIT selectedShapeUpdate();
+    }
   }
 }
 
 void Scene2D::mouseMoveEvent(QMouseEvent *event) {
-	auto &trans = selectedShape->getChildren<Modules::Transform2D>("Transform");
-  if (userIsDrawing) {
-    _painter->setCursor(QCursor(Qt::CrossCursor));
-		trans.scale(event->x() - lastMouseX, event->y() - lastMouseY);
-  } else if (selectedShape != nullptr) {
-    // Move item
-    if (event->buttons() == Qt::LeftButton) {
-      _painter->setCursor(QCursor(Qt::ClosedHandCursor));
-			trans.move(event->x() - decalx, event->y() - decaly);
-      // Resize item
-    } else if (event->buttons() == Qt::RightButton) {
-      _painter->setCursor(QCursor(Qt::SizeAllCursor));
-			trans.scale(event->x() - lastMouseX, event->y() - lastMouseY);
+  if (_selectedShape != nullptr) {
+    auto &trans = _selectedShape->getChildren<Modules::Transform2D>("Transform");
+    if (userIsDrawing) {
+      _painter->setCursor(QCursor(Qt::CrossCursor));
+      trans.scale(event->x() - lastMouseX, event->y() - lastMouseY);
+    } else if (_selectedShape != nullptr) {
+      // Move item
+      if (event->buttons() == Qt::LeftButton) {
+        _painter->setCursor(QCursor(Qt::ClosedHandCursor));
+        trans.move(event->x() - decalx, event->y() - decaly);
+        // Resize item
+      } else if (event->buttons() == Qt::RightButton) {
+        _painter->setCursor(QCursor(Qt::SizeAllCursor));
+        trans.scale(event->x() - lastMouseX, event->y() - lastMouseY);
+      }
     }
+    _painter->update();
   }
 	lastMouseX = event->x();
 	lastMouseY = event->y();
-
-  _painter->update();
 }
 
 void Scene2D::mouseReleaseEvent(QMouseEvent *event) {
-  shapePressed = false;
   _painter->setCursor(QCursor(Qt::ArrowCursor));
 
   if (userIsDrawing) {
