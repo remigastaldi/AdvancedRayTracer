@@ -1,13 +1,15 @@
 pragma Singleton
 import QtQuick 2.0
-// import QtQuick.Controls.Universal 2.1
+import QtQuick.Controls.Universal 2.1
 
 QtObject {
   id: style
 
   //General used by many properties
   // property color mainColor: Universal.Orange
-  property color mainColor: "orange"
+  // property color mainColor: "orange"
+
+  property color mainColor: Universal.accent
   property color likeWhite: "#D3DAE3"
 
   // property int mainContainerBackground: Universal.Steel
@@ -20,6 +22,7 @@ QtObject {
   // property int containerBorderWidth: 1
   // property int containerBorderRadius: 5
 
+  property int buttonFontSize: 13
   // Toolbar properties
   property int toolbarIconSize: 16
   property color toolbarIconColor: "#497EBE"

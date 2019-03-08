@@ -1,8 +1,8 @@
 import "../styles"
+import AdvancedRayTracer 1.0
 import QtQuick 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
-import AdvancedRayTracer 1.0
 
 UiMainBorder {
   GroupBox {
@@ -17,18 +17,18 @@ UiMainBorder {
       anchors.fill: parent
       spacing: 10
 
-      Button {
+      CustomButton {
         Layout.alignment: Qt.AlignHCenter
         text: "Sphere"
         onClicked: mainController.drawToolbar3DController.createSphere()
       }
 
-      Button {
+      CustomButton {
         Layout.alignment: Qt.AlignHCenter
         text: "Not bind"
       }
 
-      Button {
+      CustomButton {
         Layout.alignment: Qt.AlignHCenter
         text: "Not bind"
       }

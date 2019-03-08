@@ -32,5 +32,6 @@
         <file alias="qmldir">styles/qmldir</file>
         <file alias="ToolbarButton.qml">styles/ToolbarButton.qml</file>
         <file alias="UiMainBorder.qml">styles/UiMainBorder.qml</file>
+        <file alias="CustomButton.qml">styles/CustomButton.qml</file>
     </qresource>
 </RCC>

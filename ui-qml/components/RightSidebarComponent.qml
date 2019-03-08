@@ -24,6 +24,7 @@ UiMainBorder {
     anchors.left: root.left
     anchors.margins: 10
     height: 200
+
     Outliner {
       anchors.fill: parent
     }

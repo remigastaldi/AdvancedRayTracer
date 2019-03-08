@@ -20,70 +20,70 @@ UiMainBorder {
       anchors.fill: parent
       spacing: 10
 
-      Button {
+      CustomButton {
         Layout.alignment: Qt.AlignHCenter
         text: "Import image"
-		onClicked: importImgDialog.open()
+    		onClicked: importImgDialog.open()
       }
 
-	  Button {
-        Layout.alignment: Qt.AlignHCenter
-        text: "Line"
-        onClicked: mainController.drawToolbar2DController.createLine()
+      CustomButton {
+          Layout.alignment: Qt.AlignHCenter
+          text: "Line"
+          onClicked: mainController.drawToolbar2DController.createLine()
+        }
+
+      CustomButton {
+          Layout.alignment: Qt.AlignHCenter
+          id: rectangleButton
+          text: "Rectangle/Square"
+          highlighted: false
+          onClicked: {
+            mainController.drawToolbar2DController.createRectangle()
+          }
+        }
+
+      CustomButton {
+          Layout.alignment: Qt.AlignHCenter
+          text: "Ellipse/Circle"
+          onClicked: mainController.drawToolbar2DController.createCircle()
+        }
+
+      CustomButton {
+          Layout.alignment: Qt.AlignHCenter
+          text: "Triangle"
+          onClicked: mainController.drawToolbar2DController.createTriangle()
+        }
+
+      CustomButton {
+          Layout.alignment: Qt.AlignHCenter
+          text: "Arc"
+          onClicked: mainController.drawToolbar2DController.createRectangle()
+        }
+
+      CustomButton {
+          Layout.alignment: Qt.AlignHCenter
+          text: "Save scene"
+          onClicked: saveSceneDialog.open()
+        }
+
+      FileDialog {
+        id: importImgDialog
+        title: "Please choose an image"
+        folder: shortcuts.home
+        nameFilters: [ "Image files (*.jpg *.png)", "All files (*)" ]
+        onAccepted: {
+          mainController.drawToolbar2DController.importImg(file)
+        }
       }
 
-	  Button {
-        Layout.alignment: Qt.AlignHCenter
-		id: rectangleButton
-        text: "Rectangle/Square"
-		highlighted: false
-        onClicked: {
-			mainController.drawToolbar2DController.createRectangle()
-		}
+      FileDialog {
+          id: saveSceneDialog
+      fileMode: FileDialog.SaveFile
+      title: "Please choose a location"
+          nameFilters: ["*"]
+          folder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation)
+          onAccepted: mainController.drawToolbar2DController.saveScene(file);
       }
-
-	  Button {
-        Layout.alignment: Qt.AlignHCenter
-        text: "Ellipse/Circle"
-        onClicked: mainController.drawToolbar2DController.createCircle()
-      }
-
-	  Button {
-        Layout.alignment: Qt.AlignHCenter
-        text: "Triangle"
-        onClicked: mainController.drawToolbar2DController.createTriangle()
-      }
-
-	  Button {
-        Layout.alignment: Qt.AlignHCenter
-        text: "Arc"
-        onClicked: mainController.drawToolbar2DController.createRectangle()
-      }
-
-	  Button {
-        Layout.alignment: Qt.AlignHCenter
-        text: "Save scene"
-        onClicked: saveSceneDialog.open()
-      }
-
-	  FileDialog {
-		id: importImgDialog
-		title: "Please choose an image"
-		folder: shortcuts.home
-		nameFilters: [ "Image files (*.jpg *.png)", "All files (*)" ]
-		onAccepted: {
-			mainController.drawToolbar2DController.importImg(file)
-		}
-	  }
-
-	  FileDialog {
-        id: saveSceneDialog
-		fileMode: FileDialog.SaveFile
-		title: "Please choose a location"
-        nameFilters: ["*"]
-        folder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation)
-        onAccepted: mainController.drawToolbar2DController.saveScene(file);
-	  }
-	}
+  	}
   }
 }
