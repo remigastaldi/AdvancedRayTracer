@@ -29,6 +29,7 @@ public:
   bool drawingLine = false;
   bool drawingCircle = false;
   bool drawingTriangle = false;
+  bool drawingPolygon = false;
   Shape2D *selectedShape;
 
   explicit Scene2D(PaintedItem *painter);
@@ -38,6 +39,7 @@ public Q_SLOTS:
   void createRectangle() noexcept;
   void createCircle() noexcept;
   void createTriangle() noexcept;
+  void createPolygon() noexcept;
   bool isCloseEnough(const QLineF &line, const QPointF &point);
   void importImg(const QUrl &url) noexcept;
   void saveScene(const QUrl &url) noexcept;

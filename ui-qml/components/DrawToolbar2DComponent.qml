@@ -56,8 +56,8 @@ UiMainBorder {
 
       CustomButton {
           Layout.alignment: Qt.AlignHCenter
-          text: "Arc"
-          onClicked: mainController.drawToolbar2DController.createRectangle()
+          text: "Polygon"
+          onClicked: mainController.drawToolbar2DController.createPolygon()
         }
 
       CustomButton {

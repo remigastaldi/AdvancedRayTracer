@@ -4,6 +4,7 @@
 #include "Rectangle.hpp"
 #include "Circle.hpp"
 #include "Triangle.hpp"
+#include "Polygon.hpp"
 #include "Image.hpp"
 #include "PaintedItem.hpp"
 #include "ZIndex.hpp"
@@ -83,6 +84,20 @@ void Scene2D::createTriangle() noexcept {
 	// Q_EMIT sceneUpdate();
 }
 
+void Scene2D::createPolygon() noexcept {
+	userIsDrawing = true;
+	drawingPolygon = true;
+	std::string objId = "Polygon [" + std::to_string(_id) + "]";
+	std::unique_ptr<Polygon> polygon = std::make_unique<Polygon>(objId);
+	_entities.emplace(objId, std::move(polygon));
+	selectedShape = _entities.at(objId).get();
+	new Modules::ZIndex(*this, *selectedShape, "zIndex");
+	// _painter->update();
+	_id++;
+
+	// Q_EMIT sceneUpdate();
+}
+
 void Scene2D::importImg(const QUrl &url) noexcept {
 	std::string objId = "Image [" + std::to_string(_id) + "]";
 	std::unique_ptr<Logic::Image> img = std::make_unique<Logic::Image>(url, objId);
@@ -124,7 +139,7 @@ void Scene2D::saveScene(const QUrl &url) noexcept {
 void Scene2D::mousePressEvent(QMouseEvent *event) {
 	shapePressed = false;
 	if (userIsDrawing) {
-		if (drawingRectangle || drawingLine || drawingCircle || drawingTriangle) {
+		if (drawingRectangle || drawingLine || drawingCircle || drawingTriangle || drawingPolygon) {
 			selectedShape->x1 = event->x();
 			selectedShape->y1 = event->y();
 		}
@@ -160,7 +175,15 @@ void Scene2D::mousePressEvent(QMouseEvent *event) {
 void Scene2D::mouseMoveEvent(QMouseEvent *event) {
 	if (userIsDrawing) {
 		_painter->setCursor(QCursor(Qt::CrossCursor));
-		if (drawingRectangle || drawingCircle || drawingTriangle) {
+		if (drawingPolygon) {
+			// bigger
+			if (lastMouseX < event->x() || lastMouseY < event->y()) {
+				selectedShape->size += 1;
+			// smaller
+			} else {
+				selectedShape->size -= 1;
+			}
+		} else if (drawingRectangle || drawingCircle || drawingTriangle) {
 			selectedShape->x2 = event->x() - selectedShape->x1;
 			selectedShape->y2 = event->y() - selectedShape->y1;
 		} else if (drawingLine) {
@@ -197,7 +220,7 @@ void Scene2D::mouseMoveEvent(QMouseEvent *event) {
 			// y resize
 			if (lastMouseY != event->y()) {
 				// bigger
-				if (lastMouseX < event->x()) {
+				if (lastMouseY < event->y()) {
 					selectedShape->y2 += (event->y() - lastMouseY);
 				// smaller
 				} else if (selectedShape->y2 >= SizeMinY) {
@@ -223,6 +246,7 @@ void Scene2D::mouseReleaseEvent(QMouseEvent *event) {
 		drawingLine = false;
 		drawingCircle = false;
 		drawingTriangle = false;
+		drawingPolygon = false;
 		Q_EMIT sceneUpdate();
 		Q_EMIT selectedShapeUpdate();
 	}
