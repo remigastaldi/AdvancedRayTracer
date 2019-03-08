@@ -25,7 +25,7 @@ QVariant QmlOutliner::data(const QModelIndex &index, int role) const {
     case RoleType::ID:
       return _entityId[index.row()];
     case RoleType::LINE_COLOR:
-      return QColor((index.row() + 1) % 2 == 0 ? "#292D3E" : "#1B1E2B");
+      return QColor((index.row() + 1) % 2 == 0 ? QString("#1A1C20") : QString("#1F1F1F"));
     default:
       break;
   }

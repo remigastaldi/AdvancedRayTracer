@@ -5,15 +5,18 @@ import QtQuick.Controls 2.12
 import AdvancedRayTracer 1.0
 
 ScrollView {
+  clip: true
   ListView {
     id: listview
     model: qmlOutliner
     anchors.fill: parent
+    anchors.topMargin: 8
+    anchors.bottomMargin: 10
 
     delegate: Rectangle {
       id: wrapper
-      anchors.left: parent.left
       anchors.right: parent.right
+      anchors.left: parent.left
       height: 20
 
       color : lineColor
