@@ -123,38 +123,38 @@ void Scene2D::saveScene(const QUrl &url) noexcept {
 
 void Scene2D::mousePressEvent(QMouseEvent *event) {
   if (userIsDrawing) {
-	lastMouseX = event->x();
-	lastMouseY = event->y();
-	auto &trans = _selectedShape->getChildren<Modules::Transform2D>("Transform2D");
-	trans.move(event->x(), event->y());
+    lastMouseX = event->x();
+    lastMouseY = event->y();
+    auto &trans = _selectedShape->getChildren<Modules::Transform2D>("Transform2D");
+    trans.move(event->x(), event->y());
   } else {
-    _selectedShape = nullptr;
-    // Backward iteration into the map
-    for (auto it = _entities.cbegin(); it != _entities.cend();) {
+    auto it = _zIndex.rbegin();
+    while (it != _zIndex.rend()) {
+      for (auto &entity : it->second) {
       // Did the user click on a shape?
-      if (it->second->contains(event->x(), event->y())) {
-        // Delete the shape
-        if (event->buttons() == Qt::MiddleButton) {
-          it = _entities.erase(it);
-          _painter->update();
-        } else {
-          _selectedShape = it->second.get();
+        if (entity.second.get()->contains(event->x(), event->y())) {
+          // Delete the shape
+          if (event->buttons() == Qt::MiddleButton) {
+            // it = _entities.erase(it);
+            _entities.erase(entity.first);
+            _painter->update();
+            return;
+          }
+          _selectedShape = entity.second.get().get();
           Q_EMIT selectedShapeUpdate();
-					auto &trans = _selectedShape->getChildren<Modules::Transform2D>("Transform2D");
-					std::vector<QPointF> points{trans.getPoints()};
+          auto &trans = _selectedShape->getChildren<Modules::Transform2D>("Transform2D");
+          std::vector<QPointF> points{trans.getPoints()};
           decalx = event->x() - static_cast<int>(points[0].x());
           decaly = event->y() - static_cast<int>(points[0].y());
           lastMouseX = event->x();
           lastMouseY = event->y();
-          ++it;
+          return;
         }
-      } else {
-        ++it;
       }
+      ++it;
     }
-    if (_selectedShape == nullptr) {
-      Q_EMIT selectedShapeUpdate();
-    }
+    _selectedShape = nullptr;
+    Q_EMIT selectedShapeUpdate();
   }
 }
 

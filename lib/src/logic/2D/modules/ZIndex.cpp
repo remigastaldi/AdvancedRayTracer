@@ -26,7 +26,6 @@ void ZIndex::setIndex(int zIndex) noexcept {
   Q_EMIT zIndexDelete(_zIndex, _parent.id());
   _zIndex = zIndex;
   Q_EMIT zIndexUpdate(_zIndex, _parent.id());
-  std::cout << "set zIndex" << std::endl;
 }
 
 int ZIndex::zIndex() const noexcept {
