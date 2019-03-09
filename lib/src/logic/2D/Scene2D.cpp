@@ -196,6 +196,20 @@ const std::unordered_map<std::string, std::unique_ptr<Entity>> &Scene2D::entitie
   return reinterpret_cast<const std::unordered_map<std::string, std::unique_ptr<Entity>> &>(_entities);
 }
 
+Entity *Scene2D::selectedEntity() const noexcept {
+  return _selectedShape;
+}
+
+void Scene2D::selectEntity(const std::string & id) noexcept {
+  // auto shapeIt = std::find(_entities.begin(), _entities.end(), id);
+  auto shape = _entities.find(id);
+
+  if (shape != _entities.cend()) {
+    _selectedShape = shape->second.get();
+  }
+  Q_EMIT selectedShapeUpdate();
+}
+
 void Scene2D::zIndexUpdate(size_t zIndex, const std::string &id) {
   _zIndex[zIndex].emplace(id, std::ref<std::unique_ptr<Shape2D>>(_entities.at(id)));
   _painter->QQuickItem::update();

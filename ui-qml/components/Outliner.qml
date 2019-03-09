@@ -7,7 +7,7 @@ import AdvancedRayTracer 1.0
 ScrollView {
   clip: true
   ListView {
-    id: listview
+    id: listView
     model: qmlOutliner
     anchors.fill: parent
     anchors.topMargin: 8
@@ -31,9 +31,18 @@ ScrollView {
       MouseArea {
         anchors.fill: parent
         onClicked:  {
-          wrapper.ListView.view.currentIndex = index
-          listview.focus = true
+          mainController.selectEntityByIndex(index)
+          // qmlOutliner.setSelectionIndex(index)
+          listView.currentIndex = index
+          listView.focus = true
+          
         }
+      }
+    }
+    Component.onCompleted: {
+      qmlOutliner.selectionIndexChanged.connect(selectionIndexChanged);
+      function selectionIndexChanged() {
+          listView.currentIndex = qmlOutliner.selectionIndex()
       }
     }
   }

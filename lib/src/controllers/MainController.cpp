@@ -57,6 +57,10 @@ void  MainController::setScene2D(Logic::Scene2D *scene) noexcept {
   connect(_drawToolbar2DController, &DrawToolbar2DController::saveScene, _scene2D, &Logic::Scene2D::saveScene);
 }
 
+ART::Models::Outliner *MainController::outliner() const noexcept {
+  return _outliner;
+}
+
 void  MainController::setOutliner(ART::Models::Outliner *outliner) noexcept {
   _outliner = outliner;
 }
@@ -67,7 +71,7 @@ void MainController::setEngine(QQmlApplicationEngine *engine) noexcept {
 
 void MainController::sceneUpdate() noexcept {
   _outliner->setEntities(_currentScene->entities());
-  _outliner->updateData();
+  _outliner->dataUpdate();
 }
 
 ToolbarController* MainController::toolbarController() const noexcept {
@@ -151,6 +155,20 @@ void MainController::updateCurrentScene() {
   }
 }
 
+void MainController::selectedShapeUpdate() {
+  if (_currentScene != nullptr && _currentScene->selectedEntity() != nullptr) {
+    _outliner->setSelectionEntity(_currentScene->selectedEntity()->id());
+  }
+
+  Q_EMIT updateUiModules();
+}
+
+// TODO: Remove this crappy function, bad dataflow
+void MainController::selectEntityByIndex(int index) {
+  if (_currentScene != nullptr) {
+    _currentScene->selectEntity(_outliner->entitiesHierarchy()[static_cast<size_t>(index)]);
+  }
+}
 
 } // namespace Controllers
 } // namespace ART

@@ -57,7 +57,7 @@ class ADVANCED_RAY_TRACER_EXPORT MainController : public QObject {
   Q_PROPERTY(ART::Controllers::DrawToolbar2DController *drawToolbar2DController READ drawToolbar2DController CONSTANT)
   Q_PROPERTY(ART::Logic::Scene3D *scene3D READ scene3D CONSTANT)
   Q_PROPERTY(ART::Logic::Scene2D *scene2D READ scene2D CONSTANT)
-  // Q_PROPERTY(ART::Logic::Entity *test READ test CONSTANT)
+  Q_PROPERTY(ART::Models::Outliner *outliner READ outliner CONSTANT)
 
 public:
   explicit MainController(QObject *parent = nullptr);
@@ -70,14 +70,15 @@ public:
   void setOutliner(ART::Models::Outliner *outliner) noexcept;
   void setEngine(QQmlApplicationEngine *engine) noexcept;
 
-public Q_SLOTS:
   ToolbarController *toolbarController() const noexcept;
   DrawToolbar3DController *drawToolbar3DController() const noexcept;
   DrawToolbar2DController *drawToolbar2DController() const noexcept;
   RightSidebarController *rightSidebarController() const noexcept;
   Logic::Scene3D *scene3D() const noexcept;
   Logic::Scene2D *scene2D() const noexcept;
+  ART::Models::Outliner *outliner() const noexcept;
 
+public Q_SLOTS:
   void sceneUpdate() noexcept;
   QVariantList loadTree();
 
@@ -86,6 +87,10 @@ public Q_SLOTS:
 
   void initEntityModulesModels();
   void updateCurrentScene();
+  void selectedShapeUpdate();
+
+  // DELETE THIS
+  void selectEntityByIndex(int index);
 
 private:
   DrawToolbar3DController *_drawToolbar3DController;
@@ -109,7 +114,7 @@ private Q_SLOTS:
 Q_SIGNALS:
   void scene3DSelected();
   void scene2DSelected();
-  void selectedShapeUpdate();
+  void updateUiModules();
 };
 
 } // namespace Controllers
