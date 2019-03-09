@@ -35,6 +35,7 @@ add_library(${PROJECT_NAME} SHARED
   ### Modules
   src/logic/3D/modules/Material.cpp
   src/logic/3D/modules/Mesh.cpp
+  src/logic/3D/modules/Transform3D.cpp
   ## 2D
   src/logic/2D/Scene2D.cpp
   src/logic/2D/Shape2D.cpp
