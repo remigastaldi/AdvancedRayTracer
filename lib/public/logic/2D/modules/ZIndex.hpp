@@ -15,14 +15,15 @@ namespace Modules {
 
 class ADVANCED_RAY_TRACER_EXPORT ZIndex : public Entity {
   Q_OBJECT
+  Q_PROPERTY(int zIndex READ zIndex NOTIFY zIndexUpdate)
 
 public:
   ZIndex(Scene2D &scene, Shape2D &parent, std::string id);
 
   virtual ~ZIndex();
+  int zIndex() const noexcept;
 public Q_SLOTS:
   void setIndex(int zIndex) noexcept;
-  int zIndex() const noexcept;
 
 private:
   int _zIndex;

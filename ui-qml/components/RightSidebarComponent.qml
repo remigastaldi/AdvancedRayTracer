@@ -69,14 +69,11 @@ UiMainBorder {
         }
       }
       ColumnLayout {
-      // Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
         Layout.fillWidth: true
         Layout.fillHeight: true
         spacing: 20
 
         Item {
-          // Layout.fillWidth: true
-          // Layout.fillHeight: true
           width:250
           height: 30
           id: zIndexModuleComponent
@@ -88,8 +85,6 @@ UiMainBorder {
         Item {
           width:250
           height: 200
-          // Layout.fillHeight: true
-          // Layout.fillWidth: true
           id: transform2DModuleComponent
           property var instance : null
           function createObject(qml) {

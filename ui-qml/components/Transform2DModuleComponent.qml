@@ -7,8 +7,6 @@ import QtQuick.Controls 2.12
 GroupBox {
     Layout.fillWidth: true
     Layout.fillHeight: true
-    // width: 250
-    // height: 100
 
   ColumnLayout {
     Layout.fillWidth: true
@@ -25,7 +23,7 @@ GroupBox {
         Layout.leftMargin: 5
       }
       CustomDoubleInput {
-        text: Transform2DModel.x()
+        text: Transform2DModel.x
 
         onEditingFinished: {
           Transform2DModel.setX(parseFloat(text))
@@ -37,7 +35,7 @@ GroupBox {
         Layout.leftMargin: 5
       }
       CustomDoubleInput {
-        text: Transform2DModel.y()
+        text: Transform2DModel.y
 
         onEditingFinished: {
           Transform2DModel.setY(parseFloat(text))
@@ -54,7 +52,7 @@ GroupBox {
         Layout.leftMargin: 5
       }
       CustomDoubleInput {
-        text: Transform2DModel.width()
+        text: Transform2DModel.width
 
         onEditingFinished: {
           Transform2DModel.setWidth(parseFloat(text))
@@ -67,7 +65,7 @@ GroupBox {
         Layout.leftMargin: 5
       }    
       CustomDoubleInput {
-        text: Transform2DModel.height()
+        text: Transform2DModel.height
 
         onEditingFinished: {
           Transform2DModel.setHeight(parseFloat(text))

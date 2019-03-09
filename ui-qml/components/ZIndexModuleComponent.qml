@@ -21,10 +21,14 @@ import QtQuick.Controls 2.12
         text: "zIndex: "
         Layout.leftMargin: 5
       }
-    
+
+// Connections {
+    // target: qmlNote
+    // onNoteChanged: console.info(qmlNote.title)
+// }
       CustomIntInput {
         id: inpuText
-        text: ZIndexModel.zIndex()
+        text: ZIndexModel.zIndex
 
         onEditingFinished: {
           ZIndexModel.setIndex(parseInt(text))
