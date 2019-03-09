@@ -27,6 +27,7 @@ add_library(${PROJECT_NAME} SHARED
   ## Logic
   src/logic/Entity.cpp
   ## 3D
+  src/logic/3D/Object3D.cpp
   src/logic/3D/Scene3D.cpp
   src/logic/3D/Sphere.cpp
   src/logic/3D/Shape3D.cpp

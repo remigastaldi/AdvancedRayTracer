@@ -2,6 +2,7 @@
 #include "Scene3D.hpp"
 #include "Material.hpp"
 #include "Mesh.hpp"
+#include "Object3D.hpp"
 #include "Transform.hpp"
 
 #include <Qt3DExtras/QSkyboxEntity>
@@ -44,12 +45,12 @@ Scene3D::Scene3D(Qt3DCore::QEntity *root) : _root{root} {
   // powerUp->addComponent(modelMesh);
   // powerUp->addComponent(material);
 
-  Qt3DExtras::QSkyboxEntity * skybox = new Qt3DExtras::QSkyboxEntity(_root);
+  Qt3DExtras::QSkyboxEntity *skybox = new Qt3DExtras::QSkyboxEntity(_root);
   skybox->setBaseName("qrc:/skybox/wobbly_bridge_4k_cube_radiance");
   skybox->setExtension(".dds");
   skybox->setGammaCorrectEnabled(true);
 
-  Qt3DCore::QEntity * envLightEntity = new Qt3DCore::QEntity(_root);
+  Qt3DCore::QEntity *envLightEntity = new Qt3DCore::QEntity(_root);
   Qt3DRender::QTextureLoader *envIrradiance = new Qt3DRender::QTextureLoader(envLightEntity);
   envIrradiance->setSource(QUrl::fromLocalFile(":/skybox/wobbly_bridge_4k_cube_irradiance.dds"));
   envIrradiance->setMinificationFilter(Qt3DRender::QAbstractTexture::LinearMipMapLinear);
@@ -66,7 +67,7 @@ Scene3D::Scene3D(Qt3DCore::QEntity *root) : _root{root} {
   envSpecular->setWrapMode(wrap);
   envSpecular->setGenerateMipMaps(false);
 
-  Qt3DRender::QEnvironmentLight * envLight = new Qt3DRender::QEnvironmentLight(envLightEntity);
+  Qt3DRender::QEnvironmentLight *envLight = new Qt3DRender::QEnvironmentLight(envLightEntity);
   envLight->setIrradiance(envIrradiance);
   envLight->setSpecular(envSpecular);
   envLightEntity->addComponent(envLight);
@@ -114,12 +115,10 @@ void Scene3D::createSphere() noexcept {
 
   auto &transform = sphere->getChildren<Modules::Transform>("Transform");
   transform->setTranslation({0.0, 0.0, 0.0});
-  
 
-  // std::unique_ptr<Sphere> sphere2{std::make_unique<Sphere>("Sphere[1]", static_cast<Qt3DCore::QEntity*>(sphere->getQEntity()))};
-  // auto &mesh2 = sphere2->getChildren<Modules::Mesh<Qt3DExtras::QSphereMesh>>("Mesh");
-  // mesh2->setRadius(5);
-  // mesh2->setSlices(100);
+  // std::unique_ptr<Sphere> sphere2{std::make_unique<Sphere>("Sphere[1]",
+  // static_cast<Qt3DCore::QEntity*>(sphere->getQEntity()))}; auto &mesh2 =
+  // sphere2->getChildren<Modules::Mesh<Qt3DExtras::QSphereMesh>>("Mesh"); mesh2->setRadius(5); mesh2->setSlices(100);
   // mesh2->setRings(100);
 
   // auto *material2 = new Modules::Material<Qt3DExtras::QMetalRoughMaterial>(*sphere2, "MetalMaterial");
@@ -131,7 +130,7 @@ void Scene3D::createSphere() noexcept {
   // auto &transform2 = sphere2->getChildren<Modules::Transform>("Transform");
   // transform2->setTranslation({15.0, 0.0, 0.0});
   // sphere->addChildren("Sphere[1]", std::move(sphere2));
-  // _entities.emplace("Sphere[0]", std::move(sphere));
+  _entities.emplace("Sphere[0]", std::move(sphere));
 
   Q_EMIT sceneUpdate();
 }
@@ -142,9 +141,27 @@ void Scene3D::removeSphere() noexcept {
   _entities.erase("Sphere[0]");
 }
 
-const std::unordered_map<std::string, std::unique_ptr<Entity>> &Scene3D::entities() const noexcept {
-  return _entities;
+void Scene3D::import3DModel(const QUrl &url) {
+
+  std::unique_ptr<Object3D> object3D{std::make_unique<Object3D>("Object3D[0]", _root)};
+  auto &mesh = object3D->getChildren<Modules::Mesh<Qt3DRender::QMesh>>("Mesh");
+  QString resPath{url.path()};
+  Qt3DCore::QEntity *powerUp = new Qt3DCore::QEntity(_root);
+  Qt3DRender::QMesh *modelMesh = new Qt3DRender::QMesh();
+  mesh->setSource(QUrl::fromLocalFile(resPath));
+
+  object3D->removeChildren("Material");
+  auto *material = new Modules::Material<Qt3DExtras::QMetalRoughMaterial>(*object3D, "MetalMaterial");
+  auto *metal = material->get();
+  metal->setBaseColor(QColor(125, 125, 125));
+  metal->setRoughness(0.10);
+  metal->setMetalness(0.95);
+
+  _entities.emplace("Object3D[0]", std::move(object3D));
+   Q_EMIT sceneUpdate();
 }
+
+const std::unordered_map<std::string, std::unique_ptr<Entity>> &Scene3D::entities() const noexcept { return _entities; }
 
 } // namespace Logic
 } // namespace ART

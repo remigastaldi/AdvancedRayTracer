@@ -27,6 +27,7 @@ public:
 public Q_SLOTS:
   void createSphere() noexcept;
   void removeSphere() noexcept;
+  void import3DModel(const QUrl &);
 
   const std::unordered_map<std::string, std::unique_ptr<Entity>> &entities() const noexcept;
   Entity *selectedEntity() const noexcept override { return nullptr;}

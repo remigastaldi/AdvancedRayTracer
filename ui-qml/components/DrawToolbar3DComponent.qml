@@ -3,6 +3,7 @@ import AdvancedRayTracer 1.0
 import QtQuick 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
+import QtQuick.Dialogs 1.3
 
 UiMainBorder {
   GroupBox {
@@ -25,7 +26,8 @@ UiMainBorder {
 
       CustomButton {
         Layout.alignment: Qt.AlignHCenter
-        text: "Not bind"
+        text: "Import 3D Model"
+        onClicked: open3dModelFileDialog.open()
       }
 
       CustomButton {
@@ -34,4 +36,15 @@ UiMainBorder {
       }
     }
   }
+
+  FileDialog {
+    id: open3dModelFileDialog
+    title: "Choose your 3D model file"
+    nameFilters: ["3D Model files (*.obj)"]
+    folder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation)
+    onAccepted: {
+      mainController.drawToolbar3DController.import3DModel(fileUrl)
+    }
+  }
 }
+
