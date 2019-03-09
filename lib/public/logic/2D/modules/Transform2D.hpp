@@ -18,16 +18,20 @@ namespace Modules {
 
 class ADVANCED_RAY_TRACER_EXPORT Transform2D : public Entity {
   Q_OBJECT
+  Q_PROPERTY(int x READ x NOTIFY dataUpdate)
+  Q_PROPERTY(int y READ y NOTIFY dataUpdate)
+  Q_PROPERTY(int width READ width NOTIFY dataUpdate)
+  Q_PROPERTY(int height READ height NOTIFY dataUpdate)
 
 public:
   Transform2D(Shape2D &parent, std::string id);
 
-public Q_SLOTS:
   double x() const noexcept;
   double y() const noexcept;
   double width() const noexcept;
   double height() const noexcept;
 
+public Q_SLOTS:
   void setX(double x) noexcept;
   void setY(double y) noexcept;
   void setWidth(double width) noexcept;
@@ -36,6 +40,9 @@ public Q_SLOTS:
   virtual void move(double x, double y) noexcept;
   virtual void scale(double x, double y) noexcept;
   virtual std::vector<QPointF> getPoints() const noexcept;
+
+Q_SIGNALS:
+  void dataUpdate();
 
 private:
   double _x;

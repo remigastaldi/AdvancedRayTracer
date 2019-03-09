@@ -16,102 +16,82 @@ UiMainBorder {
 
   // Layout.maximumHeight: column.implicitHeight
 
-  GroupBox {
-    id: outLiner
-    title: qsTr("Outliner")
-    anchors.top: root.top
-    anchors.right: root.right
-    anchors.left: root.left
-    anchors.margins: 10
-    height: 200
-
-    Outliner {
-      anchors.fill: parent
-    }
-  }
- 
   ColumnLayout {
     id: column
     anchors.top: outLiner.bottom
     anchors.right: root.right
     anchors.left: root.left
     anchors.topMargin: 10
+ 
+    GroupBox {      
+      id: outLiner
+      title: qsTr("Outliner")
+
+      Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+      Layout.fillWidth: true
+      Layout.rightMargin: 10
+      Layout.leftMargin: 10
+      Layout.preferredHeight: 200
+
+      Outliner {
+        anchors.fill: parent
+      }
+    }
   
     GroupBox {
-      Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+      title: qsTr("Components")
+      Layout.alignment: Qt.AlignHCenter | Qt.AlignTop | Qt.AlignBottom
       Layout.fillWidth: true
       Layout.rightMargin: 10
       Layout.leftMargin: 10
       // Layout.fillHeight: true
       Component.onCompleted: {
-        mainController.selectedShapeUpdate.connect(selectedShapeUpdate);
-        function selectedShapeUpdate() {
-          zIndexModuleComponent.visible = false;
-          transform2DModuleComponent.visible = false;
-
+        mainController.updateUiModules.connect(updateModules);
+        function updateModules() {
           mainController.initEntityModulesModels()
           var arr = mainController.loadTree()
+
+          if (zIndexModuleComponent.instance != null)
+            zIndexModuleComponent.instance.destroy()
+          if (transform2DModuleComponent.instance != null)
+            transform2DModuleComponent.instance.destroy()
           for (var module in arr) {
             console.log("activate ==> " + arr[module]);
             switch (arr[module]) {
-              case "zIndex":
-                zIndexModuleComponent.visible = true;
+              case "ZIndex":
+                zIndexModuleComponent.createObject("ZIndexModuleComponent.qml");
                 break;
               case "Transform2D":
-                transform2DModuleComponent.visible = true;
+                transform2DModuleComponent.createObject("Transform2DModuleComponent.qml");
                 break;
             }
-            // if (arr[module] == "zIndex") {
-              // console.log("==> " mainController);
-            // }
           }
         }
       }
       ColumnLayout {
-      // Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
         Layout.fillWidth: true
         Layout.fillHeight: true
-        ZIndexModuleComponent {
-          Layout.fillWidth: true
-          visible : false;
+        // spacing: 20
+
+        Item {
+          width:250
+          height: 45
           id: zIndexModuleComponent
+          property var instance : null
+          function createObject(qml) {
+            instance = Qt.createComponent(qml).createObject(zIndexModuleComponent);
+          }
         }
-        Transform2DModuleComponent {
-          Layout.fillWidth: true
-          visible : false;
+        Item {
+          width:250
+          height: 200
           id: transform2DModuleComponent
+          property var instance : null
+          function createObject(qml) {
+            instance = Qt.createComponent(qml).createObject(transform2DModuleComponent);
+          }
         }
       }
     }
-
-    // Button {
-    //   Layout.alignment: Qt.AlignHCenter
-    //   text: "Add cube"
-    //   onClicked: mainController.rightSidebarController.createCube();
-    // }
-
-    // Button {
-    //   Layout.alignment: Qt.AlignHCenter
-    //   text: "Delete cube"
-    //   onClicked: mainController.rightSidebarController .deleteShape()
-    // }
-
-    // RowLayout {
-    //   Layout.bottomMargin: 10
-    //   Layout.leftMargin: 10
-    //   spacing: 10
-
-    //   Text {
-    //     text: "Render per second"
-    //   }
-    //   TextInput {
-    //     Layout.preferredWidth: 70
-    //     Layout.alignment: Qt.AlignHCenter
-    //     text: "0"
-    //     renderType: TextInput.NativeRendering
-    //     validator: IntValidator{bottom: 0; top: 2000000;}
-    //     onTextEdited: mainController.rightSidebarController.setAutoRenderRate(parseInt(text))
-    //   }
-    // }
   }
 }

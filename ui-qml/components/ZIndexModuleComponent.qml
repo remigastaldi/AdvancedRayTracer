@@ -4,30 +4,33 @@ import QtQuick 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 
-ColumnLayout {
+// ColumnLayout {
+  // Layout.prefferedWidth: 300
+  // Layout.prefferedHeight: 30
   GroupBox {
-    Layout.fillWidth: true
-    Layout.fillHeight: true
-
     RowLayout {
-      anchors.fill: parent.fill
+      anchors.fill: parent
       Layout.fillWidth: true
       Layout.fillHeight: true
     
-      Text {
+      CustomText {
         color: Style.likeWhite
         text: "zIndex: "
         Layout.leftMargin: 5
       }
-    
+
+// Connections {
+    // target: qmlNote
+    // onNoteChanged: console.info(qmlNote.title)
+// }
       CustomIntInput {
         id: inpuText
-        text: zIndexModel.zIndex()
+        text: ZIndexModel.zIndex
 
         onEditingFinished: {
-          zIndexModel.setIndex(parseInt(text))
+          ZIndexModel.setIndex(parseInt(text))
         }
       }
     }
   }        
-}
+// }

@@ -39,7 +39,7 @@ int QmlOutliner::rowCount(const QModelIndex &parent) const
   return _entityId.size();
 }
 
-void QmlOutliner::updateData() noexcept {
+void QmlOutliner::dataUpdate() noexcept {
   // if (entitiesHierarchy().empty() && !_entityId.empty()) {
   if (!_entityId.empty()) {
     beginRemoveRows(QModelIndex(), 0, _entityId.size() - 1);
@@ -85,6 +85,21 @@ void QmlOutliner::updateData() noexcept {
   //   ++i;
   // }
 }
+
+void QmlOutliner::selectionIndexUpdate() noexcept {
+  Q_EMIT selectionIndexChanged();
+  // setSelectionIndex(selectionIndex());
+}
+
+
+int QmlOutliner::selectionIndex() {
+  return static_cast<int>(Outliner::selectionIndex());
+}
+
+// void QmlOutliner::setSelectionIndex(int index) {
+//   Outliner::setSelectionIndex(static_cast<size_t>(index));
+//   Q_EMIT selectionIndexChanged();
+// }
 
 } // namespace UI
 } // namespace ART

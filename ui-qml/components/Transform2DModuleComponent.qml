@@ -4,38 +4,36 @@ import QtQuick 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 
-ColumnLayout {
-  GroupBox {
+GroupBox {
+  ColumnLayout {
     Layout.fillWidth: true
     Layout.fillHeight: true
+    // spacing: 10
 
     RowLayout {
-      anchors.fill: parent.fill
       Layout.fillWidth: true
       Layout.fillHeight: true
-    
-      Text {
+      // spacing: 4
+
+      CustomText {
         color: Style.likeWhite
         text: "x: "
         Layout.leftMargin: 5
       }
-    
       CustomDoubleInput {
-        text: Transform2DModel.x()
+        text: Transform2DModel.x
 
         onEditingFinished: {
           Transform2DModel.setX(parseFloat(text))
           mainController.updateCurrentScene();
         }    
       }
-  
-      Text {
+      CustomText {
         text: "y: "
         Layout.leftMargin: 5
       }
-    
       CustomDoubleInput {
-        text: Transform2DModel.y()
+        text: Transform2DModel.y
 
         onEditingFinished: {
           Transform2DModel.setY(parseFloat(text))
@@ -44,30 +42,29 @@ ColumnLayout {
       }
     }
     RowLayout {
-      anchors.fill: parent.fill
       Layout.fillWidth: true
       Layout.fillHeight: true
+      // spacing: 4
     
-      Text {
+      CustomText {
         text: "width: "
         Layout.leftMargin: 5
       }
-    
       CustomDoubleInput {
-        text: Transform2DModel.width()
+        text: Transform2DModel.width
 
         onEditingFinished: {
           Transform2DModel.setWidth(parseFloat(text))
           mainController.updateCurrentScene();
         }    
       }
-      Text {
+
+      CustomText {
         text: "height: "
         Layout.leftMargin: 5
-      }
-    
+      }    
       CustomDoubleInput {
-        text: Transform2DModel.height()
+        text: Transform2DModel.height
 
         onEditingFinished: {
           Transform2DModel.setHeight(parseFloat(text))

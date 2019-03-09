@@ -24,20 +24,19 @@ enum RoleType {
 public:
   QmlOutliner(QObject *parent = 0);
 
-public Q_SLOTS:
-  // void add() {
-    // beginInsertRows(QModelIndex(), _shapesId.size(), _shapesId.size());
-    // // ++_test;
-    // endInsertRows();
-  // }
-
-
   virtual QVariant data(const QModelIndex &index, int role) const override;
   virtual int rowCount(const QModelIndex &parent) const override;
-
   virtual QHash<int, QByteArray> roleNames() const override;
 
-  void updateData() noexcept override;
+  virtual void dataUpdate() noexcept override;
+  virtual void selectionIndexUpdate() noexcept override;
+
+public Q_SLOTS:
+  // void setSelectionIndex(int index);
+  int selectionIndex();
+
+Q_SIGNALS:
+  void selectionIndexChanged();
 
 private:
   QVariantList _entityId;

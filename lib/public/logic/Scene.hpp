@@ -17,6 +17,7 @@ public:
 
 	virtual const std::unordered_map<std::string, std::unique_ptr<Entity>> &entities() const noexcept = 0;
 	virtual Entity *selectedEntity() const noexcept = 0;
+  virtual void selectEntity(const std::string & id) noexcept {};
   virtual void update() noexcept {};
 
 Q_SIGNALS:

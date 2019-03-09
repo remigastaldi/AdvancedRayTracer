@@ -37,7 +37,7 @@ void Scene2D::createLine() noexcept {
   std::unique_ptr<Line> line = std::make_unique<Line>(objId);
   _entities.emplace(objId, std::move(line));
   _selectedShape = _entities.at(objId).get();
-  new Modules::ZIndex(*this, *_selectedShape, "zIndex");
+  new Modules::ZIndex(*this, *_selectedShape, "ZIndex");
   _id++;
 
   // Q_EMIT sceneUpdate();
@@ -50,7 +50,7 @@ void Scene2D::createRectangle() noexcept {
   std::unique_ptr<Rectangle> rect = std::make_unique<Rectangle>(objId);
   _entities.emplace(objId, std::move(rect));
   _selectedShape = _entities.at(objId).get();
-  new Modules::ZIndex(*this, *_selectedShape, "zIndex");
+  new Modules::ZIndex(*this, *_selectedShape, "ZIndex");
   _id++;
   // _painter->QQuickItem::update();
   // Q_EMIT sceneUpdate();
@@ -63,7 +63,7 @@ void Scene2D::createCircle() noexcept {
   std::unique_ptr<Circle> circle = std::make_unique<Circle>(objId);
   _entities.emplace(objId, std::move(circle));
   _selectedShape = _entities.at(objId).get();
-  new Modules::ZIndex(*this, *_selectedShape, "zIndex");
+  new Modules::ZIndex(*this, *_selectedShape, "ZIndex");
   _id++;
 
   // Q_EMIT sceneUpdate();
@@ -75,7 +75,7 @@ void Scene2D::createTriangle() noexcept {
   std::unique_ptr<Triangle> triangle = std::make_unique<Triangle>(objId);
   _entities.emplace(objId, std::move(triangle));
   _selectedShape = _entities.at(objId).get();
-  new Modules::ZIndex(*this, *_selectedShape, "zIndex");
+  new Modules::ZIndex(*this, *_selectedShape, "ZIndex");
   // _painter->update();
   _id++;
 
@@ -88,7 +88,7 @@ void Scene2D::createPolygon() noexcept {
 	std::unique_ptr<Polygon> polygon = std::make_unique<Polygon>(objId);
 	_entities.emplace(objId, std::move(polygon));
 	_selectedShape = _entities.at(objId).get();
-	new Modules::ZIndex(*this, *_selectedShape, "zIndex");
+	new Modules::ZIndex(*this, *_selectedShape, "ZIndex");
 	// _painter->update();
 	_id++;
 
@@ -104,7 +104,7 @@ void Scene2D::importImg(const QUrl &url) noexcept {
   std::unique_ptr<Logic::Image> img = std::make_unique<Logic::Image>(url, objId);
   _entities.emplace(objId, std::move(img));
   _selectedShape = _entities.at(objId).get();
-  new Modules::ZIndex(*this, *_entities.at(objId), "zIndex");
+  new Modules::ZIndex(*this, *_entities.at(objId), "ZIndex");
   _id++;
   // _painter->update();
 
@@ -127,38 +127,37 @@ void Scene2D::saveScene(const QUrl &url) noexcept {
 
 void Scene2D::mousePressEvent(QMouseEvent *event) {
   if (userIsDrawing) {
-	lastMouseX = event->x();
-	lastMouseY = event->y();
-	auto &trans = _selectedShape->getChildren<Modules::Transform2D>("Transform2D");
-	trans.move(event->x(), event->y());
+    lastMouseX = event->x();
+    lastMouseY = event->y();
+    auto &trans = _selectedShape->getChildren<Modules::Transform2D>("Transform2D");
+    trans.move(event->x(), event->y());
   } else {
-    _selectedShape = nullptr;
-    // Backward iteration into the map
-    for (auto it = _entities.cbegin(); it != _entities.cend();) {
+    auto it = _zIndex.rbegin();
+    while (it != _zIndex.rend()) {
+      for (auto &entity : it->second) {
       // Did the user click on a shape?
-      if (it->second->contains(event->x(), event->y())) {
-        // Delete the shape
-        if (event->buttons() == Qt::MiddleButton) {
-          it = _entities.erase(it);
-          _painter->update();
-        } else {
-			_selectedShape = it->second.get();
-			Q_EMIT selectedShapeUpdate();
-			auto &trans = _selectedShape->getChildren<Modules::Transform2D>("Transform2D");
-			std::vector<QPointF> points{ trans.getPoints() };
-			decalx = event->x() - static_cast<int>(points[0].x());
-			decaly = event->y() - static_cast<int>(points[0].y());
-			lastMouseX = event->x();
-			lastMouseY = event->y();
-			++it;
+        if (entity.second.get()->contains(event->x(), event->y())) {
+          // Delete the shape
+          if (event->buttons() == Qt::MiddleButton) {
+            _entities.erase(entity.first);
+            _painter->update();
+            return;
+          }
+          _selectedShape = entity.second.get().get();
+          Q_EMIT selectedShapeUpdate();
+          auto &trans = _selectedShape->getChildren<Modules::Transform2D>("Transform2D");
+          std::vector<QPointF> points{trans.getPoints()};
+          decalx = event->x() - static_cast<int>(points[0].x());
+          decaly = event->y() - static_cast<int>(points[0].y());
+          lastMouseX = event->x();
+          lastMouseY = event->y();
+          return;
         }
-      } else {
-        ++it;
       }
+      ++it;
     }
-    if (_selectedShape == nullptr) {
-      Q_EMIT selectedShapeUpdate();
-    }
+    _selectedShape = nullptr;
+    Q_EMIT selectedShapeUpdate();
   }
 }
 
@@ -215,9 +214,42 @@ void Scene2D::mouseReleaseEvent(QMouseEvent *event) {
   }
 }
 
+void Scene2D::keyPressedEvent(Qt::Key event) {
+  switch (event) {
+    case Qt::Key_Delete:
+        deleteSelectedEntity();
+      break;
+    default:
+      break;
+  }
+}
+
+
 const std::unordered_map<std::string, std::unique_ptr<Entity>> &Scene2D::entities() const noexcept {
   // TODO : Change this crap cast
   return reinterpret_cast<const std::unordered_map<std::string, std::unique_ptr<Entity>> &>(_entities);
+}
+
+Entity *Scene2D::selectedEntity() const noexcept {
+  return _selectedShape;
+}
+
+void Scene2D::selectEntity(const std::string & id) noexcept {
+  auto shape = _entities.find(id);
+
+  if (shape != _entities.cend()) {
+    _selectedShape = shape->second.get();
+  }
+  Q_EMIT selectedShapeUpdate();
+}
+
+void Scene2D::deleteSelectedEntity() noexcept {
+  if (_selectedShape != nullptr) {
+    _entities.erase(_selectedShape->id());
+    _selectedShape = nullptr;
+    _painter->QQuickItem::update();
+    Q_EMIT sceneUpdate();
+  }
 }
 
 void Scene2D::zIndexUpdate(size_t zIndex, const std::string &id) {

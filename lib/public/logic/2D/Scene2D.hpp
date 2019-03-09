@@ -23,7 +23,6 @@ public:
   int lastMouseY = 0;
   bool userIsDrawing = false;
   bool cutImg = false;
-  Shape2D *_selectedShape;
 
   explicit Scene2D(PaintedItem *painter);
 
@@ -40,9 +39,12 @@ public Q_SLOTS:
   void mousePressEvent(QMouseEvent *event);
   void mouseMoveEvent(QMouseEvent *event);
   void mouseReleaseEvent(QMouseEvent *event);
+  void keyPressedEvent(Qt::Key event);
 
   const std::unordered_map<std::string, std::unique_ptr<Entity>> &entities() const noexcept override;
-  Entity *selectedEntity() const noexcept override { return _selectedShape; }
+  Entity *selectedEntity() const noexcept override;
+  void selectEntity(const std::string & id) noexcept override;
+  void deleteSelectedEntity() noexcept;
 
   virtual void paint(QPainter *painter);
 
@@ -55,6 +57,8 @@ private:
   std::map<size_t, std::unordered_map<std::string, std::reference_wrapper<std::unique_ptr<Shape2D>>>> _zIndex;
   std::unordered_map<std::string, std::unique_ptr<Shape2D>> _entities;
   PaintedItem *_painter;
+  Shape2D *_selectedShape;
 };
+
 } // namespace Logic
 } // namespace ART

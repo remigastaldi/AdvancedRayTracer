@@ -28,12 +28,6 @@ MainController::MainController(QObject* parent) :
   connect(_toolbarController, &ToolbarController::saveAsFileClicked, this, &MainController::handleSaveAsFileClicked);
   connect(_toolbarController, &ToolbarController::newFileClicked, this, &MainController::handleNewFileClicked);
   connect(_toolbarController, &ToolbarController::importImageClicked, this, &MainController::handleimportImageClicked);
-
-  connect(this, &MainController::scene2DSelected, this, &MainController::select2DScene);
-  connect(this, &MainController::scene3DSelected, this, &MainController::select3DScene);
-
-  connect(this, &MainController::scene2DSelected, this, &MainController::sceneUpdate);
-  connect(this, &MainController::scene3DSelected, this, &MainController::sceneUpdate);
 }
 
 void  MainController::setScene3D(Logic::Scene3D *scene) noexcept {
@@ -41,7 +35,6 @@ void  MainController::setScene3D(Logic::Scene3D *scene) noexcept {
   _currentScene = scene;
   connect(_drawToolbar3DController, &DrawToolbar3DController::createSphere, _scene3D, &Logic::Scene3D::createSphere);
   connect(_scene3D, &Logic::Scene::sceneUpdate, this, &MainController::sceneUpdate);
-  // connect(_rightSidebarController, &RightSidebarController::test, _scene3D, &Logic::Scene3D::test);
 }
 
 void  MainController::setScene2D(Logic::Scene2D *scene) noexcept {
@@ -58,6 +51,10 @@ void  MainController::setScene2D(Logic::Scene2D *scene) noexcept {
   connect(_drawToolbar2DController, &DrawToolbar2DController::saveScene, _scene2D, &Logic::Scene2D::saveScene);
 }
 
+ART::Models::Outliner *MainController::outliner() const noexcept {
+  return _outliner;
+}
+
 void  MainController::setOutliner(ART::Models::Outliner *outliner) noexcept {
   _outliner = outliner;
 }
@@ -68,7 +65,7 @@ void MainController::setEngine(QQmlApplicationEngine *engine) noexcept {
 
 void MainController::sceneUpdate() noexcept {
   _outliner->setEntities(_currentScene->entities());
-  _outliner->updateData();
+  _outliner->dataUpdate();
 }
 
 ToolbarController* MainController::toolbarController() const noexcept {
@@ -109,23 +106,17 @@ void MainController::handleimportImageClicked(const QUrl& url) {
 	// qInfo() << url.path();
 }
 
-void MainController::select3DScene() {
+void MainController::selectScene3D() {
   _currentScene = _scene3D;
+  sceneUpdate();
+  Q_EMIT updateUiModules();
 }
 
-void MainController::select2DScene() {
+void MainController::selectScene2D() {
   _currentScene = _scene2D;
+  sceneUpdate();
+  Q_EMIT updateUiModules();
 }
-
-Logic::Modules::ZIndex *MainController::zIndex() {
-  Logic::Entity *entity = _currentScene->selectedEntity();
-  if (entity != nullptr) {
-    // auto &test = static_cast<Modules::ZIndex*>(entity)->getChildren<Modules::ZIndex>("zIndex");
-    // return &test;
-  }
-  return nullptr;
-}
-
 
 QVariantList MainController::loadTree() {
   QVariantList list;
@@ -141,7 +132,6 @@ void MainController::initEntityModulesModels() {
   if (_currentScene->selectedEntity() == nullptr)
     return;
   for (auto &module : _currentScene->selectedEntity()->childrens()) {
-    std::cout << module.first << std::endl;
     _engine->rootContext()->setContextProperty(QString::fromStdString(module.first + "Model"), module.second.get());
   }
 }
@@ -152,6 +142,20 @@ void MainController::updateCurrentScene() {
   }
 }
 
+void MainController::selectedShapeUpdate() {
+  if (_currentScene != nullptr && _currentScene->selectedEntity() != nullptr) {
+    _outliner->setSelectionEntity(_currentScene->selectedEntity()->id());
+  }
+
+  Q_EMIT updateUiModules();
+}
+
+// TODO: Remove this crappy function, bad dataflow
+void MainController::selectEntityByIndex(int index) {
+  if (_currentScene != nullptr) {
+    _currentScene->selectEntity(_outliner->entitiesHierarchy()[static_cast<size_t>(index)]);
+  }
+}
 
 } // namespace Controllers
 } // namespace ART
