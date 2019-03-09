@@ -22,6 +22,7 @@ public:
   int lastMouseX = 0;
   int lastMouseY = 0;
   bool userIsDrawing = false;
+  bool cutImg = false;
   Shape2D *_selectedShape;
 
   explicit Scene2D(PaintedItem *painter);
@@ -32,6 +33,7 @@ public Q_SLOTS:
   void createCircle() noexcept;
   void createTriangle() noexcept;
   void createPolygon() noexcept;
+  void cutImage() noexcept;
   void importImg(const QUrl &url) noexcept;
   void saveScene(const QUrl &url) noexcept;
 

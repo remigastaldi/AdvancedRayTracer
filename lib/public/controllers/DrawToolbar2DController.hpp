@@ -33,6 +33,7 @@ Q_SIGNALS:
   void createCircle();
   void createTriangle();
   void createPolygon();
+  void cutImage();
   void importImg(const QUrl& file_url);
   void saveScene(const QUrl& file_url);
 

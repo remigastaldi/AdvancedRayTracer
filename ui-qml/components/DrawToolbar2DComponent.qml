@@ -60,6 +60,12 @@ UiMainBorder {
           onClicked: mainController.drawToolbar2DController.createPolygon()
         }
 
+		CustomButton {
+          Layout.alignment: Qt.AlignHCenter
+          text: "Cut image"
+          onClicked: mainController.drawToolbar2DController.cutImage()
+        }
+
       CustomButton {
           Layout.alignment: Qt.AlignHCenter
           text: "Save scene"

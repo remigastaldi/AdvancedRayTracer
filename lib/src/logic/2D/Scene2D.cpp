@@ -95,6 +95,10 @@ void Scene2D::createPolygon() noexcept {
 	// Q_EMIT sceneUpdate();
 }
 
+void Scene2D::cutImage() noexcept {
+	cutImg = true;
+}
+
 void Scene2D::importImg(const QUrl &url) noexcept {
   std::string objId = "Image [" + std::to_string(_id) + "]";
   std::unique_ptr<Logic::Image> img = std::make_unique<Logic::Image>(url, objId);
@@ -138,15 +142,15 @@ void Scene2D::mousePressEvent(QMouseEvent *event) {
           it = _entities.erase(it);
           _painter->update();
         } else {
-          _selectedShape = it->second.get();
-          Q_EMIT selectedShapeUpdate();
-					auto &trans = _selectedShape->getChildren<Modules::Transform2D>("Transform2D");
-					std::vector<QPointF> points{trans.getPoints()};
-          decalx = event->x() - static_cast<int>(points[0].x());
-          decaly = event->y() - static_cast<int>(points[0].y());
-          lastMouseX = event->x();
-          lastMouseY = event->y();
-          ++it;
+			_selectedShape = it->second.get();
+			Q_EMIT selectedShapeUpdate();
+			auto &trans = _selectedShape->getChildren<Modules::Transform2D>("Transform2D");
+			std::vector<QPointF> points{ trans.getPoints() };
+			decalx = event->x() - static_cast<int>(points[0].x());
+			decaly = event->y() - static_cast<int>(points[0].y());
+			lastMouseX = event->x();
+			lastMouseY = event->y();
+			++it;
         }
       } else {
         ++it;
@@ -159,7 +163,7 @@ void Scene2D::mousePressEvent(QMouseEvent *event) {
 }
 
 void Scene2D::mouseMoveEvent(QMouseEvent *event) {
-  if (_selectedShape != nullptr) {
+  if (_selectedShape != nullptr && !cutImg) {
     auto &trans = _selectedShape->getChildren<Modules::Transform2D>("Transform2D");
     if (userIsDrawing) {
       _painter->setCursor(QCursor(Qt::CrossCursor));
@@ -177,12 +181,32 @@ void Scene2D::mouseMoveEvent(QMouseEvent *event) {
     }
     _painter->update();
   }
-	lastMouseX = event->x();
-	lastMouseY = event->y();
+
+  // Only update the last mouse position if we're not cropping an image
+  if (!cutImg) {
+	  lastMouseX = event->x();
+	  lastMouseY = event->y();
+  }
 }
 
 void Scene2D::mouseReleaseEvent(QMouseEvent *event) {
   _painter->setCursor(QCursor(Qt::ArrowCursor));
+
+  // Image crop
+  if (_selectedShape != nullptr && cutImg) {
+	  //qInfo() << "lastX " + lastMouseX << " lastY " << lastMouseY << " eventX " << (event->x() - lastMouseX) << " eventY " << (event->y() - lastMouseY);
+	  QImage crpImg = _selectedShape->crop(lastMouseX, lastMouseY, event->x() - lastMouseX, event->y() - lastMouseY);
+	  if (!crpImg.isNull()) {
+		  std::string objId = "Image [" + std::to_string(_id) + "]";
+		  std::unique_ptr<Logic::Image> img = std::make_unique<Logic::Image>(crpImg, objId);
+		  _entities.emplace(objId, std::move(img));
+		  _selectedShape = _entities.at(objId).get();
+		  new Modules::ZIndex(*this, *_entities.at(objId), "zIndex");
+		  _id++;
+	  }
+
+	  cutImg = false;
+  }
 
   if (userIsDrawing) {
     userIsDrawing = false;

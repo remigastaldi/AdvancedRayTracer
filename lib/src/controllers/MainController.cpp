@@ -53,6 +53,7 @@ void  MainController::setScene2D(Logic::Scene2D *scene) noexcept {
   connect(_drawToolbar2DController, &DrawToolbar2DController::createCircle, _scene2D, &Logic::Scene2D::createCircle);
   connect(_drawToolbar2DController, &DrawToolbar2DController::createTriangle, _scene2D, &Logic::Scene2D::createTriangle);
   connect(_drawToolbar2DController, &DrawToolbar2DController::createPolygon, _scene2D, &Logic::Scene2D::createPolygon);
+  connect(_drawToolbar2DController, &DrawToolbar2DController::cutImage, _scene2D, &Logic::Scene2D::cutImage);
   connect(_drawToolbar2DController, &DrawToolbar2DController::importImg, _scene2D, &Logic::Scene2D::importImg);
   connect(_drawToolbar2DController, &DrawToolbar2DController::saveScene, _scene2D, &Logic::Scene2D::saveScene);
 }

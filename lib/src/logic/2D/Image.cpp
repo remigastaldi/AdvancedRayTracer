@@ -8,6 +8,12 @@ namespace Logic {
 
 Image::Image(std::string id) : Shape2D{std::move(id)}{}
 
+Image::Image(QImage img, std::string id) : Shape2D{ std::move(id) }, _img{ std::move(img) }, _rect{ 0,0,0,0 } {
+	auto &trans = getChildren<Modules::Transform2D>("Transform2D");
+	trans.setWidth(_img.width());
+	trans.setHeight(_img.height());
+}
+
 Image::Image(QUrl imgUrl, std::string id) : Shape2D{std::move(id)}, _url{std::move(imgUrl)}, _rect{0,0,0,0} {
 	// The path has to be different for the Windows os
 	if (QSysInfo::kernelType().compare("winnt") == 0) {
@@ -41,6 +47,13 @@ void Image::draw(QPainter *painter) noexcept {
 
 bool Image::contains(int x, int y) const noexcept {
 	return _rect.contains(QPoint(x, y));
+}
+
+QImage Image::crop(int x1, int y1, int x2, int y2) noexcept {
+	QRect rect(x1, y1, x2, y2);
+	QImage cropped = _img.copy(rect);
+
+	return cropped;
 }
 
 } // namespace Logic
