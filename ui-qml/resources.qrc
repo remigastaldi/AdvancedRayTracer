@@ -16,6 +16,7 @@
         <file alias="Outliner.qml">components/Outliner.qml</file>
         <file alias="ZIndexModuleComponent.qml">components/ZIndexModuleComponent.qml</file>
         <file alias="Transform2DModuleComponent.qml">components/Transform2DModuleComponent.qml</file>
+        <file alias="Transform3DModuleComponent.qml">components/Transform3DModuleComponent.qml</file>
     </qresource>
     <qresource prefix="/fonts">
         <file alias="fontello.ttf">fonts/fontello.ttf</file>

@@ -58,11 +58,16 @@ UiMainBorder {
           for (var module in arr) {
             console.log("activate ==> " + arr[module]);
             switch (arr[module]) {
+              // 2D
               case "ZIndex":
                 zIndexModuleComponent.createObject("ZIndexModuleComponent.qml");
                 break;
               case "Transform2D":
                 transform2DModuleComponent.createObject("Transform2DModuleComponent.qml");
+                break;
+              // 3D
+              case "Transform3D":
+                transform3DModuleComponent.createObject("Transform3DModuleComponent.qml");
                 break;
             }
           }
@@ -89,6 +94,15 @@ UiMainBorder {
           property var instance : null
           function createObject(qml) {
             instance = Qt.createComponent(qml).createObject(transform2DModuleComponent);
+          }
+        }
+        Item {
+          width:250
+          height: 200
+          id: transform3DModuleComponent
+          property var instance : null
+          function createObject(qml) {
+            instance = Qt.createComponent(qml).createObject(transform3DModuleComponent);
           }
         }
       }

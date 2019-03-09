@@ -21,6 +21,12 @@ public:
   Qt3DCore::QEntity *_qEntity;
 
   Qt3DCore::QEntity *getQEntity() const noexcept;
+
+public Q_SLOTS:
+  void _mouseClicked(Qt3DRender::QPickEvent *pick);
+
+Q_SIGNALS:
+  void entitySelectedChanged(const std::string &id);
 };
 
 } // namespace Logic

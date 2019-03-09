@@ -29,13 +29,15 @@ public Q_SLOTS:
   void removeSphere() noexcept;
   void import3DModel(const QUrl &);
 
-  const std::unordered_map<std::string, std::unique_ptr<Entity>> &entities() const noexcept;
-  Entity *selectedEntity() const noexcept override { return nullptr;}
+  const std::unordered_map<std::string, std::unique_ptr<Entity>> &entities() const noexcept override;
+  Entity *selectedEntity() const noexcept override;
+  void selectEntity(const std::string & id) noexcept override;
 
 private:
   std::unordered_map<std::string, std::unique_ptr<Entity>> _entities;
-  // Qt3DRender::QSceneLoader *sceneLoader;
   Qt3DCore::QEntity *_root;
+  std::string _selectedEntity;
 };
+
 } // namespace Logic
 } // namespace ART

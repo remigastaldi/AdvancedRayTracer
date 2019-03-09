@@ -68,6 +68,7 @@ add_library(${PROJECT_NAME} SHARED
   ### Modules
   public/logic/3D/modules/Material.hpp
   public/logic/3D/modules/Mesh.hpp
+  public/logic/3D/modules/Transform3D.hpp
   ## 2D
   public/logic/2D/Scene2D.hpp
   public/logic/2D/Shape2D.hpp

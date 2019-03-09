@@ -3,7 +3,7 @@
 #include "Material.hpp"
 #include "Mesh.hpp"
 #include "Object3D.hpp"
-#include "Transform.hpp"
+#include "Transform3D.hpp"
 
 #include <Qt3DExtras/QSkyboxEntity>
 
@@ -113,8 +113,12 @@ void Scene3D::createSphere() noexcept {
   metal->setRoughness(0.10);
   metal->setMetalness(0.95);
 
-  auto &transform = sphere->getChildren<Modules::Transform>("Transform");
-  transform->setTranslation({0.0, 0.0, 0.0});
+  connect(sphere.get(), &Shape3D::entitySelectedChanged, this, &Scene3D::selectEntity);
+
+  // auto &transform = sphere->getChildren<Modules::Transform3D>("Transform3D");
+  // transform->setTranslation({10.0, 0.0, 0.0});
+  _entities.emplace("Sphere[0]", std::move(sphere));
+
 
   // std::unique_ptr<Sphere> sphere2{std::make_unique<Sphere>("Sphere[1]",
   // static_cast<Qt3DCore::QEntity*>(sphere->getQEntity()))}; auto &mesh2 =
@@ -127,10 +131,9 @@ void Scene3D::createSphere() noexcept {
   // metal2->setRoughness(0.10);
   // metal2->setMetalness(0.95);
 
-  // auto &transform2 = sphere2->getChildren<Modules::Transform>("Transform");
+  // auto &transform2 = sphere2->getChildren<Modules::Transform3D>("Transform3D");
   // transform2->setTranslation({15.0, 0.0, 0.0});
   // sphere->addChildren("Sphere[1]", std::move(sphere2));
-  _entities.emplace("Sphere[0]", std::move(sphere));
 
   Q_EMIT sceneUpdate();
 }
@@ -162,6 +165,18 @@ void Scene3D::import3DModel(const QUrl &url) {
 }
 
 const std::unordered_map<std::string, std::unique_ptr<Entity>> &Scene3D::entities() const noexcept { return _entities; }
+
+Entity *Scene3D::selectedEntity() const noexcept {
+  if (_selectedEntity.empty()) {
+    return nullptr;
+  }
+  return _entities.at(_selectedEntity).get();
+}
+
+void Scene3D::selectEntity(const std::string & id) noexcept {
+  _selectedEntity = id;
+  Q_EMIT selectedShapeUpdate();
+}
 
 } // namespace Logic
 } // namespace ART

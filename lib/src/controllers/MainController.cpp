@@ -22,7 +22,9 @@ MainController::MainController(QObject* parent) :
   _rightSidebarController{new RightSidebarController{this}},
   _scene3D{nullptr},
   _scene2D{nullptr},
-  _outliner{nullptr}
+  _outliner{nullptr},
+  _currentScene{nullptr},
+  _engine{nullptr}
 {
   connect(_toolbarController, &ToolbarController::saveFileClicked, this, &MainController::handleSaveFileClicked);
   connect(_toolbarController, &ToolbarController::saveAsFileClicked, this, &MainController::handleSaveAsFileClicked);
@@ -33,9 +35,10 @@ MainController::MainController(QObject* parent) :
 void  MainController::setScene3D(Logic::Scene3D *scene) noexcept {
   _scene3D = scene;
   _currentScene = scene;
+  connect(_scene3D, &Logic::Scene::sceneUpdate, this, &MainController::sceneUpdate);
+  connect(_scene3D, &Logic::Scene::selectedShapeUpdate, this, &MainController::selectedShapeUpdate);
   connect(_drawToolbar3DController, &DrawToolbar3DController::createSphere, _scene3D, &Logic::Scene3D::createSphere);
   connect(_drawToolbar3DController, &DrawToolbar3DController::import3DModel, _scene3D, &Logic::Scene3D::import3DModel);
-  connect(_scene3D, &Logic::Scene::sceneUpdate, this, &MainController::sceneUpdate);
 }
 
 void  MainController::setScene2D(Logic::Scene2D *scene) noexcept {
