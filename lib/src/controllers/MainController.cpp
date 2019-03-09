@@ -119,7 +119,7 @@ void MainController::select2DScene() {
 Logic::Modules::ZIndex *MainController::zIndex() {
   Logic::Entity *entity = _currentScene->selectedEntity();
   if (entity != nullptr) {
-    // auto &test = static_cast<Modules::ZIndex*>(entity)->getChildren<Modules::ZIndex>("zIndex");
+    // auto &test = static_cast<Modules::ZIndex*>(entity)->getChildren<Modules::ZIndex>("ZIndex");
     // return &test;
   }
   return nullptr;

@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
   engine.rootContext()->setContextProperty("mainController", &mainController);
   engine.rootContext()->setContextProperty("menuModel", &toolbarModel);
   engine.rootContext()->setContextProperty("rightSidebarModel", &rightSidebarModel);
-  
+
   engine.rootContext()->setContextProperty("qmlOutliner", &qmlOutliner);
   engine.load(QUrl(QStringLiteral("qrc:/views/MainView.qml")));
 

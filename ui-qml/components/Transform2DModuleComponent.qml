@@ -4,22 +4,26 @@ import QtQuick 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 
-ColumnLayout {
-  GroupBox {
+GroupBox {
     Layout.fillWidth: true
     Layout.fillHeight: true
+    // width: 250
+    // height: 100
 
+  ColumnLayout {
+    Layout.fillWidth: true
+    Layout.fillHeight: true
+    spacing: 10
+  
     RowLayout {
-      anchors.fill: parent.fill
       Layout.fillWidth: true
       Layout.fillHeight: true
     
-      Text {
+      CustomText {
         color: Style.likeWhite
         text: "x: "
         Layout.leftMargin: 5
       }
-    
       CustomDoubleInput {
         text: Transform2DModel.x()
 
@@ -28,12 +32,10 @@ ColumnLayout {
           mainController.updateCurrentScene();
         }    
       }
-  
-      Text {
+      CustomText {
         text: "y: "
         Layout.leftMargin: 5
       }
-    
       CustomDoubleInput {
         text: Transform2DModel.y()
 
@@ -44,15 +46,13 @@ ColumnLayout {
       }
     }
     RowLayout {
-      anchors.fill: parent.fill
       Layout.fillWidth: true
       Layout.fillHeight: true
     
-      Text {
+      CustomText {
         text: "width: "
         Layout.leftMargin: 5
       }
-    
       CustomDoubleInput {
         text: Transform2DModel.width()
 
@@ -61,11 +61,11 @@ ColumnLayout {
           mainController.updateCurrentScene();
         }    
       }
-      Text {
+
+      CustomText {
         text: "height: "
         Layout.leftMargin: 5
-      }
-    
+      }    
       CustomDoubleInput {
         text: Transform2DModel.height()
 

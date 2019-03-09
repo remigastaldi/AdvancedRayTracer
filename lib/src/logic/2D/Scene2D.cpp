@@ -37,7 +37,7 @@ void Scene2D::createLine() noexcept {
   std::unique_ptr<Line> line = std::make_unique<Line>(objId);
   _entities.emplace(objId, std::move(line));
   _selectedShape = _entities.at(objId).get();
-  new Modules::ZIndex(*this, *_selectedShape, "zIndex");
+  new Modules::ZIndex(*this, *_selectedShape, "ZIndex");
   _id++;
 
   // Q_EMIT sceneUpdate();
@@ -50,7 +50,7 @@ void Scene2D::createRectangle() noexcept {
   std::unique_ptr<Rectangle> rect = std::make_unique<Rectangle>(objId);
   _entities.emplace(objId, std::move(rect));
   _selectedShape = _entities.at(objId).get();
-  new Modules::ZIndex(*this, *_selectedShape, "zIndex");
+  new Modules::ZIndex(*this, *_selectedShape, "ZIndex");
   _id++;
   // _painter->QQuickItem::update();
   // Q_EMIT sceneUpdate();
@@ -63,7 +63,7 @@ void Scene2D::createCircle() noexcept {
   std::unique_ptr<Circle> circle = std::make_unique<Circle>(objId);
   _entities.emplace(objId, std::move(circle));
   _selectedShape = _entities.at(objId).get();
-  new Modules::ZIndex(*this, *_selectedShape, "zIndex");
+  new Modules::ZIndex(*this, *_selectedShape, "ZIndex");
   _id++;
 
   // Q_EMIT sceneUpdate();
@@ -75,7 +75,7 @@ void Scene2D::createTriangle() noexcept {
   std::unique_ptr<Triangle> triangle = std::make_unique<Triangle>(objId);
   _entities.emplace(objId, std::move(triangle));
   _selectedShape = _entities.at(objId).get();
-  new Modules::ZIndex(*this, *_selectedShape, "zIndex");
+  new Modules::ZIndex(*this, *_selectedShape, "ZIndex");
   // _painter->update();
   _id++;
 
@@ -88,7 +88,7 @@ void Scene2D::createPolygon() noexcept {
 	std::unique_ptr<Polygon> polygon = std::make_unique<Polygon>(objId);
 	_entities.emplace(objId, std::move(polygon));
 	_selectedShape = _entities.at(objId).get();
-	new Modules::ZIndex(*this, *_selectedShape, "zIndex");
+	new Modules::ZIndex(*this, *_selectedShape, "ZIndex");
 	// _painter->update();
 	_id++;
 
@@ -100,7 +100,7 @@ void Scene2D::importImg(const QUrl &url) noexcept {
   std::unique_ptr<Logic::Image> img = std::make_unique<Logic::Image>(url, objId);
   _entities.emplace(objId, std::move(img));
   _selectedShape = _entities.at(objId).get();
-  new Modules::ZIndex(*this, *_entities.at(objId), "zIndex");
+  new Modules::ZIndex(*this, *_entities.at(objId), "ZIndex");
   _id++;
   // _painter->update();
 

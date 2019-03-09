@@ -25,7 +25,7 @@ ScrollView {
         text: id
         anchors.verticalCenter: wrapper.verticalCenter
         color: wrapper.ListView.isCurrentItem ? Style.mainColor : Style.likeWhite
-        font.pointSize: 12
+        font.pointSize: 10
       }
 
       MouseArea {

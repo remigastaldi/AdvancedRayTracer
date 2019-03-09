@@ -10,7 +10,7 @@ void Outliner::setEntities(const std::unique_ptr<Logic::Entity> &shape, std::str
   _entitiesId.emplace_back(offsetString + shape->id());
   offsetString += "|   ";
   for (auto &ent : shape->childrens()) {
-    if (ent.first == "zIndex")
+    if (ent.first == "ZIndex")
       continue;
     _entitiesId.emplace_back(offsetString + ent.first);
     if (!ent.second->childrens().empty()) {
@@ -22,7 +22,7 @@ void Outliner::setEntities(const std::unique_ptr<Logic::Entity> &shape, std::str
 void Outliner::setEntities(const std::unordered_map<std::string, std::unique_ptr<Logic::Entity>> &shapes) noexcept {
   _entitiesId.clear();
   for (const auto & [ key, value ] : shapes) {
-    if (key == "zIndex")
+    if (key == "ZIndex")
       continue;
     if (!value->childrens().empty()) {
       setEntities(value, "");

@@ -36,5 +36,6 @@
         <file alias="CustomButton.qml">styles/CustomButton.qml</file>
         <file alias="CustomIntInput.qml">styles/CustomIntInput.qml</file>
         <file alias="CustomDoubleInput.qml">styles/CustomDoubleInput.qml</file>
+        <file alias="CustomText.qml">styles/CustomText.qml</file>
     </qresource>
 </RCC>

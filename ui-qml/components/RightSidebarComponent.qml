@@ -16,28 +16,30 @@ UiMainBorder {
 
   // Layout.maximumHeight: column.implicitHeight
 
-  GroupBox {
-    id: outLiner
-    title: qsTr("Outliner")
-    anchors.top: root.top
-    anchors.right: root.right
-    anchors.left: root.left
-    anchors.margins: 10
-    height: 200
-
-    Outliner {
-      anchors.fill: parent
-    }
-  }
- 
   ColumnLayout {
     id: column
     anchors.top: outLiner.bottom
     anchors.right: root.right
     anchors.left: root.left
     anchors.topMargin: 10
+ 
+    GroupBox {      
+      id: outLiner
+      title: qsTr("Outliner")
+
+      Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+      Layout.fillWidth: true
+      Layout.rightMargin: 10
+      Layout.leftMargin: 10
+      Layout.preferredHeight: 200
+
+      Outliner {
+        anchors.fill: parent
+      }
+    }
   
     GroupBox {
+      title: qsTr("Components")
       Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
       Layout.fillWidth: true
       Layout.rightMargin: 10
@@ -46,24 +48,23 @@ UiMainBorder {
       Component.onCompleted: {
         mainController.selectedShapeUpdate.connect(selectedShapeUpdate);
         function selectedShapeUpdate() {
-          zIndexModuleComponent.visible = false;
-          transform2DModuleComponent.visible = false;
-
           mainController.initEntityModulesModels()
           var arr = mainController.loadTree()
+
+          if (zIndexModuleComponent.instance != null)
+            zIndexModuleComponent.instance.destroy()
+          if (transform2DModuleComponent.instance != null)
+            transform2DModuleComponent.instance.destroy()
           for (var module in arr) {
             console.log("activate ==> " + arr[module]);
             switch (arr[module]) {
-              case "zIndex":
-                zIndexModuleComponent.visible = true;
+              case "ZIndex":
+                zIndexModuleComponent.createObject("ZIndexModuleComponent.qml");
                 break;
               case "Transform2D":
-                transform2DModuleComponent.visible = true;
+                transform2DModuleComponent.createObject("Transform2DModuleComponent.qml");
                 break;
             }
-            // if (arr[module] == "zIndex") {
-              // console.log("==> " mainController);
-            // }
           }
         }
       }
@@ -71,15 +72,29 @@ UiMainBorder {
       // Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
         Layout.fillWidth: true
         Layout.fillHeight: true
-        ZIndexModuleComponent {
-          Layout.fillWidth: true
-          visible : false;
+        spacing: 20
+
+        Item {
+          // Layout.fillWidth: true
+          // Layout.fillHeight: true
+          width:250
+          height: 30
           id: zIndexModuleComponent
+          property var instance : null
+          function createObject(qml) {
+            instance = Qt.createComponent(qml).createObject(zIndexModuleComponent);
+          }
         }
-        Transform2DModuleComponent {
-          Layout.fillWidth: true
-          visible : false;
+        Item {
+          width:250
+          height: 200
+          // Layout.fillHeight: true
+          // Layout.fillWidth: true
           id: transform2DModuleComponent
+          property var instance : null
+          function createObject(qml) {
+            instance = Qt.createComponent(qml).createObject(transform2DModuleComponent);
+          }
         }
       }
     }
