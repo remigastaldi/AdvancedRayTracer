@@ -28,12 +28,6 @@ MainController::MainController(QObject* parent) :
   connect(_toolbarController, &ToolbarController::saveAsFileClicked, this, &MainController::handleSaveAsFileClicked);
   connect(_toolbarController, &ToolbarController::newFileClicked, this, &MainController::handleNewFileClicked);
   connect(_toolbarController, &ToolbarController::importImageClicked, this, &MainController::handleimportImageClicked);
-
-  connect(this, &MainController::scene2DSelected, this, &MainController::select2DScene);
-  connect(this, &MainController::scene3DSelected, this, &MainController::select3DScene);
-
-  connect(this, &MainController::scene2DSelected, this, &MainController::sceneUpdate);
-  connect(this, &MainController::scene3DSelected, this, &MainController::sceneUpdate);
 }
 
 void  MainController::setScene3D(Logic::Scene3D *scene) noexcept {
@@ -41,7 +35,6 @@ void  MainController::setScene3D(Logic::Scene3D *scene) noexcept {
   _currentScene = scene;
   connect(_drawToolbar3DController, &DrawToolbar3DController::createSphere, _scene3D, &Logic::Scene3D::createSphere);
   connect(_scene3D, &Logic::Scene::sceneUpdate, this, &MainController::sceneUpdate);
-  // connect(_rightSidebarController, &RightSidebarController::test, _scene3D, &Logic::Scene3D::test);
 }
 
 void  MainController::setScene2D(Logic::Scene2D *scene) noexcept {
@@ -112,23 +105,17 @@ void MainController::handleimportImageClicked(const QUrl& url) {
 	// qInfo() << url.path();
 }
 
-void MainController::select3DScene() {
+void MainController::selectScene3D() {
   _currentScene = _scene3D;
+  sceneUpdate();
+  Q_EMIT updateUiModules();
 }
 
-void MainController::select2DScene() {
+void MainController::selectScene2D() {
   _currentScene = _scene2D;
+  sceneUpdate();
+  Q_EMIT updateUiModules();
 }
-
-Logic::Modules::ZIndex *MainController::zIndex() {
-  Logic::Entity *entity = _currentScene->selectedEntity();
-  if (entity != nullptr) {
-    // auto &test = static_cast<Modules::ZIndex*>(entity)->getChildren<Modules::ZIndex>("ZIndex");
-    // return &test;
-  }
-  return nullptr;
-}
-
 
 QVariantList MainController::loadTree() {
   QVariantList list;

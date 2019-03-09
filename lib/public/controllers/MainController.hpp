@@ -82,9 +82,6 @@ public Q_SLOTS:
   void sceneUpdate() noexcept;
   QVariantList loadTree();
 
-  // Todo: just for test, change to an other controller
-  Logic::Modules::ZIndex *zIndex();
-
   void initEntityModulesModels();
   void updateCurrentScene();
   void selectedShapeUpdate();
@@ -103,17 +100,17 @@ private:
   Logic::Scene *_currentScene;
   QQmlApplicationEngine *_engine;
 
-private Q_SLOTS:
+public Q_SLOTS:
   void handleSaveFileClicked();
   void handleSaveAsFileClicked(const QUrl &url);
   void handleNewFileClicked();
   void handleimportImageClicked(const QUrl &url);
-  void select3DScene();
-  void select2DScene();
+  void selectScene3D();
+  void selectScene2D();
 
 Q_SIGNALS:
-  void scene3DSelected();
-  void scene2DSelected();
+  // void scene3DSelected();
+  // void scene2DSelected();
   void updateUiModules();
 };
 

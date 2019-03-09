@@ -32,7 +32,6 @@ ScrollView {
         anchors.fill: parent
         onClicked:  {
           mainController.selectEntityByIndex(index)
-          // qmlOutliner.setSelectionIndex(index)
           listView.currentIndex = index
           listView.focus = true
           
