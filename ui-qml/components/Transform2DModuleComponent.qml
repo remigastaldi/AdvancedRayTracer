@@ -5,18 +5,16 @@ import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 
 GroupBox {
-    Layout.fillWidth: true
-    Layout.fillHeight: true
-
   ColumnLayout {
     Layout.fillWidth: true
     Layout.fillHeight: true
-    spacing: 10
-  
+    // spacing: 10
+
     RowLayout {
       Layout.fillWidth: true
       Layout.fillHeight: true
-    
+      // spacing: 4
+
       CustomText {
         color: Style.likeWhite
         text: "x: "
@@ -46,6 +44,7 @@ GroupBox {
     RowLayout {
       Layout.fillWidth: true
       Layout.fillHeight: true
+      // spacing: 4
     
       CustomText {
         text: "width: "

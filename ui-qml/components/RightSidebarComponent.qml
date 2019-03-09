@@ -40,7 +40,7 @@ UiMainBorder {
   
     GroupBox {
       title: qsTr("Components")
-      Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+      Layout.alignment: Qt.AlignHCenter | Qt.AlignTop | Qt.AlignBottom
       Layout.fillWidth: true
       Layout.rightMargin: 10
       Layout.leftMargin: 10
@@ -71,11 +71,11 @@ UiMainBorder {
       ColumnLayout {
         Layout.fillWidth: true
         Layout.fillHeight: true
-        spacing: 20
+        // spacing: 20
 
         Item {
           width:250
-          height: 30
+          height: 45
           id: zIndexModuleComponent
           property var instance : null
           function createObject(qml) {

@@ -8,9 +8,6 @@ import QtQuick.Controls 2.12
   // Layout.prefferedWidth: 300
   // Layout.prefferedHeight: 30
   GroupBox {
-    Layout.fillWidth: true
-    Layout.fillHeight: true
-
     RowLayout {
       anchors.fill: parent
       Layout.fillWidth: true
