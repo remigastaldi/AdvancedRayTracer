@@ -135,7 +135,6 @@ void Scene2D::mousePressEvent(QMouseEvent *event) {
         if (entity.second.get()->contains(event->x(), event->y())) {
           // Delete the shape
           if (event->buttons() == Qt::MiddleButton) {
-            // it = _entities.erase(it);
             _entities.erase(entity.first);
             _painter->update();
             return;
@@ -191,6 +190,17 @@ void Scene2D::mouseReleaseEvent(QMouseEvent *event) {
   }
 }
 
+void Scene2D::keyPressedEvent(Qt::Key event) {
+  switch (event) {
+    case Qt::Key_Delete:
+        deleteSelectedEntity();
+      break;
+    default:
+      break;
+  }
+}
+
+
 const std::unordered_map<std::string, std::unique_ptr<Entity>> &Scene2D::entities() const noexcept {
   // TODO : Change this crap cast
   return reinterpret_cast<const std::unordered_map<std::string, std::unique_ptr<Entity>> &>(_entities);
@@ -201,13 +211,21 @@ Entity *Scene2D::selectedEntity() const noexcept {
 }
 
 void Scene2D::selectEntity(const std::string & id) noexcept {
-  // auto shapeIt = std::find(_entities.begin(), _entities.end(), id);
   auto shape = _entities.find(id);
 
   if (shape != _entities.cend()) {
     _selectedShape = shape->second.get();
   }
   Q_EMIT selectedShapeUpdate();
+}
+
+void Scene2D::deleteSelectedEntity() noexcept {
+  if (_selectedShape != nullptr) {
+    _entities.erase(_selectedShape->id());
+    _selectedShape = nullptr;
+    _painter->QQuickItem::update();
+    Q_EMIT sceneUpdate();
+  }
 }
 
 void Scene2D::zIndexUpdate(size_t zIndex, const std::string &id) {

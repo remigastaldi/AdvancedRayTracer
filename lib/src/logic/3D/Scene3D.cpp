@@ -112,12 +112,12 @@ void Scene3D::createSphere() noexcept {
   metal->setRoughness(0.10);
   metal->setMetalness(0.95);
 
-  // auto &transform = sphere->module<Modules::Transform>("Transform");
-  // transform->setTranslation({0.0, 0.0, 0.0});
+  auto &transform = sphere->getChildren<Modules::Transform>("Transform");
+  transform->setTranslation({0.0, 0.0, 0.0});
   
 
-  // std::unique_ptr<Sphere> sphere2{std::make_unique<Sphere>("Sphere[1]", sphere.get())};
-  // auto &mesh2 = sphere2->module<Modules::Mesh<Qt3DExtras::QSphereMesh>>("Mesh");
+  // std::unique_ptr<Sphere> sphere2{std::make_unique<Sphere>("Sphere[1]", static_cast<Qt3DCore::QEntity*>(sphere->getQEntity()))};
+  // auto &mesh2 = sphere2->getChildren<Modules::Mesh<Qt3DExtras::QSphereMesh>>("Mesh");
   // mesh2->setRadius(5);
   // mesh2->setSlices(100);
   // mesh2->setRings(100);
@@ -128,10 +128,10 @@ void Scene3D::createSphere() noexcept {
   // metal2->setRoughness(0.10);
   // metal2->setMetalness(0.95);
 
-  // auto &transform = sphere2->module<Modules::Transform>("Transform");
-  // transform->setTranslation({15.0, 0.0, 0.0});
+  // auto &transform2 = sphere2->getChildren<Modules::Transform>("Transform");
+  // transform2->setTranslation({15.0, 0.0, 0.0});
   // sphere->addChildren("Sphere[1]", std::move(sphere2));
-  _entities.emplace("Sphere[0]", std::move(sphere));
+  // _entities.emplace("Sphere[0]", std::move(sphere));
 
   Q_EMIT sceneUpdate();
 }

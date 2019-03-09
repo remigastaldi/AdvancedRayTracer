@@ -17,18 +17,28 @@ void PaintedItem::paint(QPainter *painter) {
 }
 
 void PaintedItem::mousePressEvent(QMouseEvent *event) { 
-  if (_scene2D != nullptr)
+  if (_scene2D != nullptr) {
     _scene2D->mousePressEvent(event);
+  }
+  setFocus(true);
 }
 
 void PaintedItem::mouseMoveEvent(QMouseEvent *event) { 
-  if (_scene2D != nullptr)
+  if (_scene2D != nullptr) {
     _scene2D->mouseMoveEvent(event);
+  }
 }
 
 void PaintedItem::mouseReleaseEvent(QMouseEvent *event) { 
-  if (_scene2D != nullptr)
+  if (_scene2D != nullptr) {
     _scene2D->mouseReleaseEvent(event);
+  }
+}
+
+void PaintedItem::keyPressedEvent(Qt::Key key) {
+  if (_scene2D != nullptr) {
+    _scene2D->keyPressedEvent(key);
+  }
 }
 
 } // namespace Logic

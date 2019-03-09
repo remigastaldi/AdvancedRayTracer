@@ -24,6 +24,9 @@ public:
   virtual void mouseMoveEvent(QMouseEvent *event) override;
   virtual void mouseReleaseEvent(QMouseEvent *event) override;
 
+public Q_SLOTS:
+  virtual void keyPressedEvent(Qt::Key);
+
 private :
   Scene2D *_scene2D;
 };

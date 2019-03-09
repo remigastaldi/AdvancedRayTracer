@@ -37,10 +37,12 @@ public Q_SLOTS:
   void mousePressEvent(QMouseEvent *event);
   void mouseMoveEvent(QMouseEvent *event);
   void mouseReleaseEvent(QMouseEvent *event);
+  void keyPressedEvent(Qt::Key event);
 
   const std::unordered_map<std::string, std::unique_ptr<Entity>> &entities() const noexcept override;
   Entity *selectedEntity() const noexcept override;
   void selectEntity(const std::string & id) noexcept override;
+  void deleteSelectedEntity() noexcept;
 
   virtual void paint(QPainter *painter);
 
@@ -55,5 +57,6 @@ private:
   PaintedItem *_painter;
   Shape2D *_selectedShape;
 };
+
 } // namespace Logic
 } // namespace ART

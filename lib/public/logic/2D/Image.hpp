@@ -19,7 +19,7 @@ public:
 private:
   QUrl _url;
   QImage _img;
-  QRect _rect;
+  QRectF _rect;
 };
 
 } // namespace Logic

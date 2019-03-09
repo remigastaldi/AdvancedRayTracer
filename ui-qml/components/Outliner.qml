@@ -30,7 +30,7 @@ ScrollView {
 
       MouseArea {
         anchors.fill: parent
-        onClicked:  {
+        onClicked: {
           mainController.selectEntityByIndex(index)
           listView.currentIndex = index
           listView.focus = true
@@ -41,7 +41,7 @@ ScrollView {
     Component.onCompleted: {
       qmlOutliner.selectionIndexChanged.connect(selectionIndexChanged);
       function selectionIndexChanged() {
-          listView.currentIndex = qmlOutliner.selectionIndex()
+        listView.currentIndex = qmlOutliner.selectionIndex()
       }
     }
   }

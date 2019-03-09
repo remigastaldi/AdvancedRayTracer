@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
 
   ART::UI::QmlOutliner qmlOutliner;
   mainController.setOutliner(&qmlOutliner);
-  
+
   engine.rootContext()->setContextProperty("mainController", &mainController);
   engine.rootContext()->setContextProperty("menuModel", &toolbarModel);
   engine.rootContext()->setContextProperty("rightSidebarModel", &rightSidebarModel);
