@@ -27,6 +27,7 @@ public:
 
 public Q_SLOTS:
   void createSphere() noexcept;
+  void createSquare() noexcept;
   void removeSphere() noexcept;
   void import3DModel(const QUrl &);
   void import3DScene(const QUrl &);

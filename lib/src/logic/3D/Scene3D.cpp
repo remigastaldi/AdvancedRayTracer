@@ -3,6 +3,7 @@
 #include "Material.hpp"
 #include "Mesh.hpp"
 #include "Object3D.hpp"
+#include "Square.hpp"
 #include "SceneLoader.hpp"
 #include "Transform3D.hpp"
 
@@ -140,6 +141,35 @@ void Scene3D::removeSphere() noexcept {
   qInfo() << "Remove sphere";
 
   _entities.erase("Sphere[0]");
+}
+
+void Scene3D::createSquare() noexcept {
+  std::unique_ptr<Square> square{std::make_unique<Square>("Square[0]", _root)};
+  auto &mesh = square->getChildren<Modules::Mesh<Qt3DExtras::QCuboidMesh>>("Mesh");
+  mesh->setXExtent(2);
+  mesh->setYExtent(2);
+  mesh->setZExtent(2);
+
+     Qt3DCore::QTransform *cuboidTransform = new Qt3DCore::QTransform();
+    cuboidTransform->setScale(4.0f);
+    cuboidTransform->setTranslation(QVector3D(5.0f, -4.0f, 0.0f));
+
+      Qt3DExtras::QPhongMaterial *cuboidMaterial = new Qt3DExtras::QPhongMaterial();
+    cuboidMaterial->setDiffuse(QColor(QRgb(0x665423)));
+
+
+  square->removeChildren("Material");
+  auto *material = new Modules::Material<Qt3DExtras::QMetalRoughMaterial>(*square, "MetalMaterial");
+  auto *metal = material->get();
+  metal->setBaseColor(QColor(125, 125, 125));
+  metal->setRoughness(0.10);
+  metal->setMetalness(0.95);
+
+  connect(square.get(), &Shape3D::entitySelectedChanged, this, &Scene3D::selectEntity);
+
+  _entities.emplace("Square[0]", std::move(square));
+
+  Q_EMIT sceneUpdate();
 }
 
 void Scene3D::import3DModel(const QUrl &url) {
