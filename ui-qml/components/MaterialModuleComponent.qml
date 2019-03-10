@@ -12,6 +12,36 @@ GroupBox {
     Layout.fillHeight: true
     // spacing: 10
 
+    CustomText {
+      color: Style.likeWhite
+      text: "Metalness"
+      Layout.bottomMargin: 5
+    }
+    Slider {  
+      Layout.maximumWidth: parent.width
+      from: 0
+      value: MaterialModel.metalness()
+      to: 1
+      onMoved: {
+        MaterialModel.setMetalness(value)
+      }
+    }
+    CustomText {
+      color: Style.likeWhite
+      text: "Roughness"
+      Layout.bottomMargin: 5
+    }
+
+    Slider {
+      Layout.maximumWidth: parent.width
+      from: 0
+      value: MaterialModel.roughness()
+      to: 1
+      onMoved: {
+        MaterialModel.setRoughness(value)
+      }
+    }
+
     CustomButton {
       Layout.alignment: Qt.AlignHCenter
       text: "Set BaseColor Texture"
@@ -36,7 +66,7 @@ GroupBox {
       onClicked: normalDialog.open()
     }
 
-     CustomButton {
+    CustomButton {
       Layout.alignment: Qt.AlignHCenter
       text: "Set AmbientOcclusion Texture"
       onClicked: ambientOcclusionDialog.open()

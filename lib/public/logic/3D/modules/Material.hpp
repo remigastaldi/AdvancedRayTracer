@@ -57,6 +57,14 @@ public:
     _material->setAmbientOcclusion(QVariant::fromValue(ambientOcclusionLoader));
   }
 
+  void setMetalness(const float value) override { _material->setMetalness(value); }
+
+  void setRoughness(const float value) override { _material->setRoughness(value); }
+
+  QVariant metalness() const override { return _material->metalness(); }
+
+  QVariant roughness() const override { return _material->roughness(); }
+
   T *get() noexcept { return _material; }
   T *operator->();
 

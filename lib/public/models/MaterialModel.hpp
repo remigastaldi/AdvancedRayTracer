@@ -2,6 +2,7 @@
 
 #include "Entity.hpp"
 #include <QObject>
+#include <QVariant>
 
 namespace ART {
 namespace Logic {
@@ -13,12 +14,17 @@ class MaterialModel : public Entity {
 public:
   MaterialModel(std::string name) : Entity{std::move(name)} {}
 
+
 public Q_SLOTS:
+  virtual QVariant metalness() const { return 0;}
+  virtual QVariant roughness() const { return 0;}
   virtual void setBaseColorTexture(const QUrl &) {}
   virtual void setMetalnessTexture(const QUrl &) {}
   virtual void setRoughnessTexture(const QUrl &) {}
   virtual void setNormalTexture(const QUrl &) {}
   virtual void setAmbientOcclusionTexture(const QUrl &) {}
+  virtual void setMetalness(float) {}
+  virtual void setRoughness(float) {}
 };
 
 } // namespace Modules
