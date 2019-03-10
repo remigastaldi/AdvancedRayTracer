@@ -39,6 +39,7 @@ void  MainController::setScene3D(Logic::Scene3D *scene) noexcept {
   connect(_scene3D, &Logic::Scene::selectedShapeUpdate, this, &MainController::selectedShapeUpdate);
   connect(_drawToolbar3DController, &DrawToolbar3DController::createSphere, _scene3D, &Logic::Scene3D::createSphere);
   connect(_drawToolbar3DController, &DrawToolbar3DController::import3DModel, _scene3D, &Logic::Scene3D::import3DModel);
+  connect(_drawToolbar3DController, &DrawToolbar3DController::import3DScene, _scene3D, &Logic::Scene3D::import3DScene);
 }
 
 void  MainController::setScene2D(Logic::Scene2D *scene) noexcept {
