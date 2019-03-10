@@ -23,8 +23,8 @@ public:
   virtual void mouseReleaseEvent(QMouseEvent *event) override ;
 
 
-public: void test(Scene2D *scene) { _scene = scene; }
-Scene2D *_scene;
+// public: void test(Scene2D *scene) { _scene = scene; }
+// Scene2D *_scene;
 
 
 Q_SIGNALS:
