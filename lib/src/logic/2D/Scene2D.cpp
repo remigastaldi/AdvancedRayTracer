@@ -193,7 +193,6 @@ void Scene2D::mouseReleaseEvent(QMouseEvent *event) {
 
   // Image crop
   if (_selectedShape != nullptr && cutImg) {
-	  //qInfo() << "lastX " + lastMouseX << " lastY " << lastMouseY << " eventX " << (event->x() - lastMouseX) << " eventY " << (event->y() - lastMouseY);
 	  QImage crpImg = _selectedShape->crop(lastMouseX, lastMouseY, event->x() - lastMouseX, event->y() - lastMouseY);
 	  if (!crpImg.isNull()) {
 		  std::string objId = "Image [" + std::to_string(_id) + "]";
@@ -203,9 +202,9 @@ void Scene2D::mouseReleaseEvent(QMouseEvent *event) {
 		  new Modules::ZIndex(*this, *_entities.at(objId), "zIndex");
 		  _id++;
 	  }
-
-	  cutImg = false;
   }
+
+  cutImg = false;
 
   if (userIsDrawing) {
     userIsDrawing = false;

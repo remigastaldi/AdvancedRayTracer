@@ -62,7 +62,7 @@ UiMainBorder {
 
 		CustomButton {
           Layout.alignment: Qt.AlignHCenter
-          text: "Cut image"
+          text: "Copy image"
           onClicked: mainController.drawToolbar2DController.cutImage()
         }
 

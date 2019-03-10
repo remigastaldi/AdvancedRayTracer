@@ -49,11 +49,8 @@ bool Image::contains(int x, int y) const noexcept {
 	return _rect.contains(QPoint(x, y));
 }
 
-QImage Image::crop(int x1, int y1, int x2, int y2) noexcept {
-	QRect rect(x1, y1, x2, y2);
-	QImage cropped = _img.copy(rect);
-
-	return cropped;
+QImage Image::crop(int x1, int y1, int width, int height) noexcept {
+	return QImage(_img.copy(QRect(x1 - _rect.x(), y1 - _rect.y(), width, height)));
 }
 
 } // namespace Logic
