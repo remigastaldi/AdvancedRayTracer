@@ -20,11 +20,17 @@ public:
     _parent.getQEntity()->addComponent(_material);
     _parent.addChildren(Entity::id(), std::unique_ptr<Entity>(this));
   };
-
+  
   virtual ~Material() {
     _parent.getQEntity()->removeComponent(_material);
     delete _material;
   }
+
+  void setBaseColorTexture(const QUrl &);
+  void setMetalnessTexture(const QUrl &);
+  void setRoughnessTexture(const QUrl &);
+  void setNormalTexture(const QUrl &);
+  void setAmbientOcclusionTexture(const QUrl &);
 
   T *get() noexcept { return _material; }
   T * operator->();
