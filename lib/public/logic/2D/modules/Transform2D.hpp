@@ -22,6 +22,7 @@ class ADVANCED_RAY_TRACER_EXPORT Transform2D : public Entity {
   Q_PROPERTY(int y READ y NOTIFY dataUpdate)
   Q_PROPERTY(int width READ width NOTIFY dataUpdate)
   Q_PROPERTY(int height READ height NOTIFY dataUpdate)
+  Q_PROPERTY(int angle READ angle NOTIFY dataUpdate)
 
 public:
   Transform2D(Shape2D &parent, std::string id);
@@ -30,12 +31,14 @@ public:
   double y() const noexcept;
   double width() const noexcept;
   double height() const noexcept;
+  int angle() const noexcept;
 
 public Q_SLOTS:
   void setX(double x) noexcept;
   void setY(double y) noexcept;
   void setWidth(double width) noexcept;
   void setHeight(double height) noexcept;
+  void setAngle(int angle) noexcept;
 
   virtual void move(double x, double y) noexcept;
   virtual void scale(double x, double y) noexcept;
@@ -49,6 +52,7 @@ private:
   double _y;
   double _width;
   double _height;
+  int _angle;
 };
 
 } // namespace Modules

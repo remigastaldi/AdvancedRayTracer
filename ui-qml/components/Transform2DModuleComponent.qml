@@ -72,6 +72,20 @@ GroupBox {
           mainController.updateCurrentScene();
         }    
       }
+	}
+	RowLayout {
+	  CustomText {
+        text: "angle: "
+        Layout.leftMargin: 5
+      }    
+      CustomDoubleInput {
+        text: Transform2DModel.angle
+
+        onEditingFinished: {
+          Transform2DModel.setAngle(parseInt(text))
+          mainController.updateCurrentScene();
+        }    
+      }
     }
   }        
 }
