@@ -50,7 +50,7 @@ GroupBox {
         text: Transform3DModel.z
 
         onEditingFinished: {
-          Transform3DModel.setX(parseFloat(text))
+          Transform3DModel.setZ(parseFloat(text))
           mainController.updateCurrentScene();
         }    
       }

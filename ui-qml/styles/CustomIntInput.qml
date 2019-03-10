@@ -14,7 +14,7 @@ TextInput {
   id: textInput
   color: Style.likeWhite
   wrapMode: TextInput.Wrap
-  validator: IntValidator { bottom:0; top: 20000}
+  validator: IntValidator { bottom:-200000; top: 200000}
 
   onActiveFocusChanged: {
   if (activeFocus) {

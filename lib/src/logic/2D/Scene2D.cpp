@@ -162,7 +162,7 @@ void Scene2D::mousePressEvent(QMouseEvent *event) {
         if (entity.second.get()->contains(event->x(), event->y())) {
           // Delete the shape
           if (event->buttons() == Qt::MiddleButton) {
-			_painter->setCursor(QCursor(Qt::ForbiddenCursor));
+			      _painter->setCursor(QCursor(Qt::ForbiddenCursor));
             _entities.erase(entity.first);
             _painter->update();
             return;
@@ -273,6 +273,7 @@ void Scene2D::deleteSelectedEntity() noexcept {
     _selectedShape = nullptr;
     _painter->QQuickItem::update();
     Q_EMIT sceneUpdate();
+    Q_EMIT selectedShapeUpdate();
   }
 }
 

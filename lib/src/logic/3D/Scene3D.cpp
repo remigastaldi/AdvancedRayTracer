@@ -271,6 +271,14 @@ void Scene3D::keyPressedEvent(Qt::Key event) {
       transform.setY(transform.y() - 1);
     }
     break;
+  case Qt::Key_Delete:
+    if (selectedEntity() != nullptr) {
+      _entities.erase(_selectedEntity);
+      _selectedEntity = "";
+      Q_EMIT sceneUpdate();
+      Q_EMIT selectedShapeUpdate();
+    }
+    break;
   default:
     break;
   }
