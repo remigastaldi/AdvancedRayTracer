@@ -3,8 +3,8 @@
 #include "Material.hpp"
 #include "Mesh.hpp"
 #include "Object3D.hpp"
-#include "Square.hpp"
 #include "SceneLoader.hpp"
+#include "Square.hpp"
 #include "Transform3D.hpp"
 
 #include <Qt3DExtras/QSkyboxEntity>
@@ -150,13 +150,6 @@ void Scene3D::createSquare() noexcept {
   mesh->setYExtent(2);
   mesh->setZExtent(2);
 
-     Qt3DCore::QTransform *cuboidTransform = new Qt3DCore::QTransform();
-    cuboidTransform->setScale(4.0f);
-    cuboidTransform->setTranslation(QVector3D(5.0f, -4.0f, 0.0f));
-
-      Qt3DExtras::QPhongMaterial *cuboidMaterial = new Qt3DExtras::QPhongMaterial();
-    cuboidMaterial->setDiffuse(QColor(QRgb(0x665423)));
-
 
   square->removeChildren("Material");
   auto *material = new Modules::Material<Qt3DExtras::QMetalRoughMaterial>(*square, "MetalMaterial");
@@ -218,44 +211,44 @@ void Scene3D::selectEntity(const std::string &id) noexcept {
 
 void Scene3D::keyPressedEvent(Qt::Key event) {
   switch (event) {
-    case Qt::Key_W:
-      if (selectedEntity() != nullptr) {
-        auto &transform = selectedEntity()->getChildren<Modules::Transform3D>("Transform3D");
-        transform.setZ(transform.z() + 1);
-      }
-      break;
-    case Qt::Key_A:
-      if (selectedEntity() != nullptr) {
-        auto &transform = selectedEntity()->getChildren<Modules::Transform3D>("Transform3D");
-        transform.setX(transform.x() - 1);
-      }
-      break;
-    case Qt::Key_S:
-      if (selectedEntity() != nullptr) {
-        auto &transform = selectedEntity()->getChildren<Modules::Transform3D>("Transform3D");
-        transform.setZ(transform.z() - 1);
-      }
-      break;
-    case Qt::Key_D:
-      if (selectedEntity() != nullptr) {
-        auto &transform = selectedEntity()->getChildren<Modules::Transform3D>("Transform3D");
-        transform.setX(transform.x() + 1);
-      }
-      break;
-    case Qt::Key_E:
-      if (selectedEntity() != nullptr) {
-        auto &transform = selectedEntity()->getChildren<Modules::Transform3D>("Transform3D");
-        transform.setY(transform.y() + 1);
-      }
-      break;
-    case Qt::Key_R:
-      if (selectedEntity() != nullptr) {
-        auto &transform = selectedEntity()->getChildren<Modules::Transform3D>("Transform3D");
-        transform.setY(transform.y() - 1);
-      }
-      break;
-    default:
-      break;
+  case Qt::Key_W:
+    if (selectedEntity() != nullptr) {
+      auto &transform = selectedEntity()->getChildren<Modules::Transform3D>("Transform3D");
+      transform.setZ(transform.z() + 1);
+    }
+    break;
+  case Qt::Key_A:
+    if (selectedEntity() != nullptr) {
+      auto &transform = selectedEntity()->getChildren<Modules::Transform3D>("Transform3D");
+      transform.setX(transform.x() - 1);
+    }
+    break;
+  case Qt::Key_S:
+    if (selectedEntity() != nullptr) {
+      auto &transform = selectedEntity()->getChildren<Modules::Transform3D>("Transform3D");
+      transform.setZ(transform.z() - 1);
+    }
+    break;
+  case Qt::Key_D:
+    if (selectedEntity() != nullptr) {
+      auto &transform = selectedEntity()->getChildren<Modules::Transform3D>("Transform3D");
+      transform.setX(transform.x() + 1);
+    }
+    break;
+  case Qt::Key_E:
+    if (selectedEntity() != nullptr) {
+      auto &transform = selectedEntity()->getChildren<Modules::Transform3D>("Transform3D");
+      transform.setY(transform.y() + 1);
+    }
+    break;
+  case Qt::Key_R:
+    if (selectedEntity() != nullptr) {
+      auto &transform = selectedEntity()->getChildren<Modules::Transform3D>("Transform3D");
+      transform.setY(transform.y() - 1);
+    }
+    break;
+  default:
+    break;
   }
 }
 
