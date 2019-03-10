@@ -7,7 +7,7 @@ void Outliner::setEntities(const std::unique_ptr<Logic::Entity> &shape, std::str
   _entitiesId.emplace_back(offsetString + shape->id());
   offsetString += "|   ";
   for (auto &ent : shape->childrens()) {
-    if (ent.first == "ZIndex" || ent.first == "Transform2D")
+    if (ent.first == "ZIndex" || ent.first == "Transform2D" || ent.first == "Brush" || ent.first == "Pen")
       continue;
     _entitiesId.emplace_back(offsetString + ent.first);
     if (!ent.second->childrens().empty()) {
@@ -19,7 +19,7 @@ void Outliner::setEntities(const std::unique_ptr<Logic::Entity> &shape, std::str
 void Outliner::setEntities(const std::unordered_map<std::string, std::unique_ptr<Logic::Entity>> &shapes) noexcept {
   _entitiesId.clear();
   for (const auto &[key, value] : shapes) {
-    if (key == "ZIndex" || key == "Transform2D")
+    if (key == "ZIndex" || key == "Transform2D" || key == "Brush" || key == "Pen")
       continue;
     if (!value->childrens().empty()) {
       setEntities(value, "");
@@ -33,7 +33,7 @@ void Outliner::setEntities(const std::unordered_map<std::string, std::unique_ptr
 //   _selectionEntity = _entitiesId.at(index);
 // }
 
-size_t  Outliner::selectionIndex() const noexcept {
+size_t Outliner::selectionIndex() const noexcept {
   for (size_t i = 0; i < _entitiesId.size(); ++i) {
     if (_entitiesId[i] == _selectionEntity) {
       return i;
