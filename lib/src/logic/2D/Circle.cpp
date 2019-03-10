@@ -23,8 +23,12 @@ void Circle::draw(QPainter *painter) noexcept {
   auto &pen = getChildren<Modules::Pen>("Pen");
   painter->setPen(pen.get());
   auto &trans = getChildren<Modules::Transform2D>("Transform2D");
-  _path.addEllipse(trans.x(), trans.y(), trans.width(), trans.height());
-  painter->drawPath(_path);
+  QRectF ellipse(trans.x(), trans.y(), trans.width(), trans.height());
+  QPoint center(ellipse.center().x(), ellipse.center().y());
+  QTransform t = QTransform().translate(center.x(), center.y()).rotate(trans.angle()).translate(-center.x(), -center.y());
+  QRectF rotatedRect = t.mapRect(ellipse);
+  _path.addPolygon(ellipse);
+  painter->drawEllipse(rotatedRect);
 }
 
 bool Circle::contains(int x, int y) const noexcept { return _path.contains(QPoint(x, y)); }

@@ -19,7 +19,7 @@ Q_SIGNALS:
   void dataUpdate();
 
 private:
-  // QPainterPath _path;
+  QPainterPath _path;
   QLineF _line;
 };
 
