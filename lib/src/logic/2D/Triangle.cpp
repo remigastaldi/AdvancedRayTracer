@@ -5,6 +5,8 @@
 
 #include <QPainter>
 
+#include <cmath>
+
 namespace ART {
 namespace Logic {
 
