@@ -27,7 +27,7 @@ void Polygon::draw(QPainter *painter) noexcept {
 
 	QPolygon polygon;
 	const double pi = 3.1415926535897;
-	int size = 50;
+	int size = trans.width();
 	int nb = 5;
 	float theta = (2 * pi / nb);
 	float dtheta = (2 * pi / nb);

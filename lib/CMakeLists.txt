@@ -51,6 +51,8 @@ add_library(${PROJECT_NAME} SHARED
   ## 2D
   src/logic/2D/modules/ZIndex.cpp
   src/logic/2D/modules/Transform2D.cpp
+  src/logic/2D/modules/Brush.cpp
+  src/logic/2D/modules/Pen.cpp
 
   # Public
   ## Controllers

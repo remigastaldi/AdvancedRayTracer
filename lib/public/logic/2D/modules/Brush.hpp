@@ -19,23 +19,14 @@ class ADVANCED_RAY_TRACER_EXPORT Brush : public Entity {
 
 
 public:
-  Brush(Shape2D &parent, std::string id) : Entity{std::move(id)}, _brush{Qt::white} {
-    parent.addChildren(Entity::id(), std::unique_ptr<Entity>(this));
-  }
+  Brush(Shape2D &parent, std::string id);
 
-  QString color() {
-    return _brush.color().name();
-  }
+  QString color();
 
-  QBrush get() {
-    return _brush;
-  }
+  QBrush get();
 
 public Q_SLOTS:
-  void setColor(QString color) {
-    _brush.setColor(color);
-    Q_EMIT dataUpdate();
-  }
+  void setColor(QString color);
 
 private:
   QBrush _brush;

@@ -44,6 +44,7 @@ void Scene2D::createLine() noexcept {
   userIsDrawing = true;
   std::string objId = "Line [" + std::to_string(_id) + "]";
   std::unique_ptr<Line> line = std::make_unique<Line>(objId);
+  connect(line.get(), &Line::dataUpdate, _painter, &PaintedItem::QQuickItem::update);
   _entities.emplace(objId, std::move(line));
   _selectedShape = _entities.at(objId).get();
   new Modules::ZIndex(*this, *_selectedShape, "ZIndex");
@@ -56,6 +57,7 @@ void Scene2D::createRectangle() noexcept {
   std::string objId = "Rectangle [" + std::to_string(_id) + "]";
 
   std::unique_ptr<Rectangle> rect = std::make_unique<Rectangle>(objId);
+  connect(rect.get(), &Rectangle::dataUpdate, _painter, &PaintedItem::QQuickItem::update);
   _entities.emplace(objId, std::move(rect));
   _selectedShape = _entities.at(objId).get();
   new Modules::ZIndex(*this, *_selectedShape, "ZIndex");
@@ -82,6 +84,7 @@ void Scene2D::createTriangle() noexcept {
   userIsDrawing = true;
   std::string objId = "Triangle [" + std::to_string(_id) + "]";
   std::unique_ptr<Triangle> triangle = std::make_unique<Triangle>(objId);
+  connect(triangle.get(), &Triangle::dataUpdate, _painter, &PaintedItem::QQuickItem::update);
   _entities.emplace(objId, std::move(triangle));
   _selectedShape = _entities.at(objId).get();
   new Modules::ZIndex(*this, *_selectedShape, "ZIndex");
@@ -95,6 +98,7 @@ void Scene2D::createPolygon() noexcept {
 	userIsDrawing = true;
 	std::string objId = "Polygon [" + std::to_string(_id) + "]";
 	std::unique_ptr<Polygon> polygon = std::make_unique<Polygon>(objId);
+  connect(polygon.get(), &Polygon::dataUpdate, _painter, &PaintedItem::QQuickItem::update);
 	_entities.emplace(objId, std::move(polygon));
 	_selectedShape = _entities.at(objId).get();
 	new Modules::ZIndex(*this, *_selectedShape, "ZIndex");

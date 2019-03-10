@@ -18,25 +18,13 @@ class ADVANCED_RAY_TRACER_EXPORT Pen : public Entity {
   Q_PROPERTY(QString color READ color NOTIFY dataUpdate)
 
 public:
-  Pen(Shape2D &parent, std::string id) : Entity{std::move(id)}, _pen{Qt::white, 5} {
-	  _pen.setWidth(5);
-	  parent.addChildren(Entity::id(), std::unique_ptr<Entity>(this));
-  }
+  Pen(Shape2D &parent, std::string id);
 
-  QString color() {
-    return _pen.color().name();
-  }
-
-  QPen get() {
-    return _pen;
-  }
+  QString color();
+  QPen get();
 
 public Q_SLOTS:
-  void setColor(QString color) {
-    _pen.setColor(color);
-    Q_EMIT dataUpdate();
-  }
-
+  void setColor(QString color);
 
 Q_SIGNALS:
   void dataUpdate();
