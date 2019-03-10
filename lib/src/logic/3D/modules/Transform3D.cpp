@@ -38,9 +38,9 @@ void Transform3D::setY(float y) noexcept {
   Q_EMIT dataUpdate();
 }
 
-void Transform3D::setZ(float y) noexcept {
+void Transform3D::setZ(float z) noexcept {
   QVector3D trans{_transform->translation()};
-  trans.setZ(y);
+  trans.setZ(z);
   _transform->setTranslation(std::move(trans));
   Q_EMIT dataUpdate();
 }

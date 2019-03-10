@@ -9,12 +9,21 @@ import QtGraphicalEffects 1.12
 
 UiMainBorder {
   GroupBox {
+    id: tools
     title: qsTr("2D Tools")
     font.pointSize: 10
     anchors.right: parent.right
     anchors.left: parent.left
     anchors.top: parent.top
     anchors.margins: 10
+    property variant drawing: null
+
+    Component.onCompleted: {
+      mainController.drawToolbar2DController.isDrawingChanged.connect(isDrawingChanged);
+      function isDrawingChanged(val) {
+        tools.drawing.textColor = Style.likeWhite
+      }
+    }
 
     ColumnLayout {
       id: column
@@ -30,41 +39,62 @@ UiMainBorder {
       CustomButton {
           Layout.alignment: Qt.AlignHCenter
           text: "Line"
-          onClicked: mainController.drawToolbar2DController.createLine()
+          onClicked: {
+            mainController.drawToolbar2DController.createLine()
+            this.textColor =  Style.mainColor
+            tools.drawing = this
+          }
         }
 
       CustomButton {
           Layout.alignment: Qt.AlignHCenter
-          id: rectangleButton
           text: "Square"
           highlighted: false
           onClicked: {
             mainController.drawToolbar2DController.createRectangle()
+            this.textColor =  Style.mainColor
+            tools.drawing = this
           }
         }
 
       CustomButton {
           Layout.alignment: Qt.AlignHCenter
           text: "Ellipse"
-          onClicked: mainController.drawToolbar2DController.createCircle()
+          onClicked: {
+            mainController.drawToolbar2DController.createCircle()
+            this.textColor =  Style.mainColor
+            tools.drawing = this
+          }
         }
 
       CustomButton {
           Layout.alignment: Qt.AlignHCenter
           text: "Triangle"
-          onClicked: mainController.drawToolbar2DController.createTriangle()
+          onClicked: {
+            mainController.drawToolbar2DController.createTriangle()
+            this.textColor =  Style.mainColor
+            tools.drawing = this
+          }
         }
 
       CustomButton {
           Layout.alignment: Qt.AlignHCenter
           text: "Polygon"
-          onClicked: mainController.drawToolbar2DController.createPolygon()
+          onClicked: {
+            mainController.drawToolbar2DController.createPolygon()
+            this.textColor =  Style.mainColor
+            tools.drawing = this
+          }
         }
 
 		CustomButton {
           Layout.alignment: Qt.AlignHCenter
           text: "Copy image"
-          onClicked: mainController.drawToolbar2DController.cutImage()
+          onClicked: {
+            mainController.drawToolbar2DController.cutImage()
+            this.textColor =  Style.mainColor
+            tools.drawing = this
+          }
         }
 
       CustomButton {

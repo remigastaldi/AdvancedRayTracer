@@ -14,6 +14,7 @@ namespace Controllers {
 class ADVANCED_RAY_TRACER_EXPORT DrawToolbar2DController : public QObject {
   Q_OBJECT
   Q_DISABLE_COPY(DrawToolbar2DController)
+  // Q_PROPERTY(bool isDrawing READ isDrawing NOTIFY isDrawingChanged);
 
 public:
   explicit DrawToolbar2DController(QObject* parent = nullptr);
@@ -21,11 +22,7 @@ public:
 
   // void setModel(ART::Models::DrawToolbar2DModel* model);
 
-private:
-  // ART::Models::DrawToolbar2DModel *_model{nullptr};
-
-// public Q_SLOTS:
-  // void createSphere() noexcept;
+  // bool isDrawing();
 
 Q_SIGNALS:
   void createLine();
@@ -37,7 +34,10 @@ Q_SIGNALS:
   void importImg(const QUrl& file_url);
   void saveScene(const QUrl& file_url);
 
-  // void createSphereEvent() noexcept;
+  void isDrawingChanged(bool isDrawing);
+
+private:
+  // ART::Models::DrawToolbar2DModel *_model{nullptr};
 };
 
 } // namespace Controllers
