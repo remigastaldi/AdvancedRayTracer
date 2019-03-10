@@ -29,8 +29,8 @@ private:
 
 Q_SIGNALS:
   void createSphere();
-
   void import3DModel(const QUrl &);
+  void import3DScene(const QUrl &);
 
   // void createSphereEvent() noexcept;
 };

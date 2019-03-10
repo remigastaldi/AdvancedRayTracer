@@ -3,6 +3,7 @@
 #include "Material.hpp"
 #include "Mesh.hpp"
 #include "Object3D.hpp"
+#include "SceneLoader.hpp"
 #include "Transform3D.hpp"
 
 #include <Qt3DExtras/QSkyboxEntity>
@@ -119,7 +120,6 @@ void Scene3D::createSphere() noexcept {
   // transform->setTranslation({10.0, 0.0, 0.0});
   _entities.emplace("Sphere[0]", std::move(sphere));
 
-
   // std::unique_ptr<Sphere> sphere2{std::make_unique<Sphere>("Sphere[1]",
   // static_cast<Qt3DCore::QEntity*>(sphere->getQEntity()))}; auto &mesh2 =
   // sphere2->getChildren<Modules::Mesh<Qt3DExtras::QSphereMesh>>("Mesh"); mesh2->setRadius(5); mesh2->setSlices(100);
@@ -148,10 +148,9 @@ void Scene3D::import3DModel(const QUrl &url) {
 
   std::unique_ptr<Object3D> object3D{std::make_unique<Object3D>("Object3D[0]", _root)};
   auto &mesh = object3D->getChildren<Modules::Mesh<Qt3DRender::QMesh>>("Mesh");
-  QString resPath{url.path()};
-  Qt3DCore::QEntity *powerUp = new Qt3DCore::QEntity(_root);
-  Qt3DRender::QMesh *modelMesh = new Qt3DRender::QMesh();
-  mesh->setSource(QUrl::fromLocalFile(resPath));
+  // Qt3DCore::QEntity *model3D = new Qt3DCore::QEntity(_root);
+  // Qt3DRender::QMesh *modelMesh = new Qt3DRender::QMesh();
+  mesh->setSource(QUrl::fromLocalFile(url.path()));
 
   object3D->removeChildren("Material");
   auto *material = new Modules::Material<Qt3DExtras::QMetalRoughMaterial>(*object3D, "MetalMaterial");
@@ -161,7 +160,18 @@ void Scene3D::import3DModel(const QUrl &url) {
   metal->setMetalness(0.95);
 
   _entities.emplace("Object3D[0]", std::move(object3D));
-   Q_EMIT sceneUpdate();
+  Q_EMIT sceneUpdate();
+}
+
+void Scene3D::import3DScene(const QUrl &url) {
+  qInfo() << url;
+  std::unique_ptr<SceneLoader> sceneLoader{std::make_unique<SceneLoader>("Scene3D[0]", _root)};
+  // QObject::connect(sceneLoader, &Qt3DRender::QSceneLoader::statusChanged, _root, &Scene3D::status);
+  auto &scene = sceneLoader->getChildren<Modules::Mesh<Qt3DRender::QSceneLoader>>("Mesh");
+  scene->setSource(QUrl::fromLocalFile(url.path()));
+  _entities.emplace("Scene3D[0]", std::move(sceneLoader));
+
+  Q_EMIT sceneUpdate();
 }
 
 const std::unordered_map<std::string, std::unique_ptr<Entity>> &Scene3D::entities() const noexcept { return _entities; }
@@ -173,7 +183,7 @@ Entity *Scene3D::selectedEntity() const noexcept {
   return _entities.at(_selectedEntity).get();
 }
 
-void Scene3D::selectEntity(const std::string & id) noexcept {
+void Scene3D::selectEntity(const std::string &id) noexcept {
   _selectedEntity = id;
   Q_EMIT selectedShapeUpdate();
 }

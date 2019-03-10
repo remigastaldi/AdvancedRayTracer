@@ -32,18 +32,27 @@ UiMainBorder {
 
       CustomButton {
         Layout.alignment: Qt.AlignHCenter
-        text: "Not bind"
+        text: "Import 3D Scene"
+        onClicked: open3dSceneFileDialog.open()
       }
     }
   }
 
   FileDialog {
     id: open3dModelFileDialog
-    title: "Choose your 3D model file"
-    nameFilters: ["3D Model files (*.obj)"]
-    folder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation)
+    title: "Choose your 3D Model file"
+    nameFilters: ["3D Model files (*.obj *.fbx *.stl *.ply)"]
     onAccepted: {
       mainController.drawToolbar3DController.import3DModel(fileUrl)
+    }
+  }
+
+  FileDialog {
+    id: open3dSceneFileDialog
+    title: "Choose your 3D Scene file"
+    nameFilters: ["3D Scene files (*.obj *.3ds *.blend *.md5)", "All Files (*)"]
+    onAccepted: {
+      mainController.drawToolbar3DController.import3DScene(fileUrl)
     }
   }
 }
