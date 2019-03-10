@@ -9,7 +9,8 @@ import QtGraphicalEffects 1.12
 
 UiMainBorder {
   GroupBox {
-    title: qsTr("Shapes")
+    title: qsTr("2D Tools")
+    font.pointSize: 10
     anchors.right: parent.right
     anchors.left: parent.left
     anchors.top: parent.top
@@ -35,7 +36,7 @@ UiMainBorder {
       CustomButton {
           Layout.alignment: Qt.AlignHCenter
           id: rectangleButton
-          text: "Rectangle/Square"
+          text: "Square"
           highlighted: false
           onClicked: {
             mainController.drawToolbar2DController.createRectangle()
@@ -44,7 +45,7 @@ UiMainBorder {
 
       CustomButton {
           Layout.alignment: Qt.AlignHCenter
-          text: "Ellipse/Circle"
+          text: "Ellipse"
           onClicked: mainController.drawToolbar2DController.createCircle()
         }
 

@@ -7,7 +7,8 @@ import QtQuick.Dialogs 1.3
 
 UiMainBorder {
   GroupBox {
-    title: qsTr("Mesh")
+    font.pointSize: 10
+    title: qsTr("3D Tools")
     anchors.right: parent.right
     anchors.left: parent.left
     anchors.top: parent.top

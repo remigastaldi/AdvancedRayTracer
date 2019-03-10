@@ -26,8 +26,8 @@ UiMainBorder {
  
     GroupBox {      
       id: outLiner
+      font.pointSize: 10
       title: qsTr("Outliner")
-
       Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
       Layout.fillWidth: true
       Layout.rightMargin: 10
@@ -41,6 +41,7 @@ UiMainBorder {
   
     GroupBox {
       title: qsTr("Components")
+      font.pointSize: 10
       Layout.alignment: Qt.AlignHCenter | Qt.AlignTop | Qt.AlignBottom
       Layout.fillWidth: true
       Layout.rightMargin: 10

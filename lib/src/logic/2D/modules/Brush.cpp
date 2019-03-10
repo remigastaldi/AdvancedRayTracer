@@ -16,7 +16,7 @@ QBrush Brush::get() {
   return _brush;
 }
 
-void Brush::setColor(QString color) {
+void Brush::setColor(const QString &color) {
   _brush.setColor(color);
   Q_EMIT dataUpdate();
 }

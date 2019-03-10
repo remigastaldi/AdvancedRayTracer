@@ -22,7 +22,7 @@ QtObject {
   // property int containerBorderWidth: 1
   // property int containerBorderRadius: 5
 
-  property int buttonFontSize: 12
+  property int buttonFontSize: 10
   // Toolbar properties
   property int toolbarIconSize: 16
   property color toolbarIconColor: "#497EBE"

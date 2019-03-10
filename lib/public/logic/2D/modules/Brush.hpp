@@ -22,11 +22,10 @@ public:
   Brush(Shape2D &parent, std::string id);
 
   QString color();
-
   QBrush get();
 
 public Q_SLOTS:
-  void setColor(QString color);
+  void setColor(const QString &color);
 
 private:
   QBrush _brush;
