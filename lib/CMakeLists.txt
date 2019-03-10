@@ -27,6 +27,7 @@ add_library(${PROJECT_NAME} SHARED
   ## Logic
   src/logic/Entity.cpp
   ## 3D
+  src/logic/3D/Torus.cpp
   src/logic/3D/Square.cpp
   src/logic/3D/Object3D.cpp
   src/logic/3D/SceneLoader.cpp
@@ -66,6 +67,7 @@ add_library(${PROJECT_NAME} SHARED
   public/logic/Entity.hpp
   public/logic/Scene.hpp
   ## 3D
+  public/logic/3D/Torus.hpp
   public/logic/3D/Square.hpp
   public/logic/3D/SceneLoader.hpp
   public/logic/3D/Object3D.hpp
@@ -94,6 +96,7 @@ add_library(${PROJECT_NAME} SHARED
   public/logic/2D/modules/Pen.hpp
 
   ## Models
+  public/models/MaterialModel.hpp
   public/models/ToolbarModel.hpp
   public/models/RightSidebarModel.hpp
   public/models/Outliner.hpp

@@ -17,6 +17,7 @@
         <file alias="ZIndexModuleComponent.qml">components/ZIndexModuleComponent.qml</file>
         <file alias="Transform2DModuleComponent.qml">components/Transform2DModuleComponent.qml</file>
         <file alias="Transform3DModuleComponent.qml">components/Transform3DModuleComponent.qml</file>
+        <file alias="MaterialModuleComponent.qml">components/MaterialModuleComponent.qml</file>
         <file alias="BrushModuleComponent.qml">components/BrushModuleComponent.qml</file>
         <file alias="PenModuleComponent.qml">components/PenModuleComponent.qml</file>
     </qresource>

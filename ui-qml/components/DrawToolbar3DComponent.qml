@@ -57,7 +57,7 @@ UiMainBorder {
   FileDialog {
     id: open3dSceneFileDialog
     title: "Choose your 3D Scene file"
-    nameFilters: ["3D Scene files (*.obj *.3ds *.blend *.md5)", "All Files (*)"]
+    nameFilters: ["3D Scene files (*.obj *.3ds *.dae *.md5)", "All Files (*)"]
     onAccepted: {
       mainController.drawToolbar3DController.import3DScene(fileUrl)
     }

@@ -57,6 +57,7 @@ UiMainBorder {
           transform2DModuleComponent.visible = false
           transform2DModuleComponent.visible = false
           transform3DModuleComponent.visible = false
+          materialModuleComponent.visible = false
           brushModuleComponent.visible = false
           penModuleComponent.visible = false
           for (var module in arr) {
@@ -72,6 +73,9 @@ UiMainBorder {
               // 3D
               case "Transform3D":
                 transform3DModuleComponent.visible = true
+                break;
+              case "Material":
+                materialModuleComponent.visible = true
                 break;
               case "Brush":
                 brushModuleComponent.visible = true
@@ -110,6 +114,14 @@ UiMainBorder {
           Layout.maximumWidth: 200
           // height: 45
           id: transform3DModuleComponent
+            visible: false
+        }
+        MaterialModuleComponent {
+          Layout.fillWidth: true
+          Layout.fillHeight: true
+          Layout.maximumWidth: 200
+          // height: 45
+          id: materialModuleComponent
             visible: false
         }
         BrushModuleComponent {

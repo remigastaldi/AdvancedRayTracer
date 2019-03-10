@@ -57,7 +57,6 @@ Scene3D::Scene3D(RootEntity *root) : _root{root} {
   // _skyboxPos->setTranslation({0,0,10});
   // test->addComponent(_skyboxPos);
 
-
   Qt3DCore::QEntity *envLightEntity = new Qt3DCore::QEntity(_root);
   Qt3DRender::QTextureLoader *envIrradiance = new Qt3DRender::QTextureLoader(envLightEntity);
   envIrradiance->setSource(QUrl::fromLocalFile(":/skybox/wobbly_bridge_4k_cube_irradiance.dds"));
@@ -115,7 +114,7 @@ void Scene3D::createSphere() noexcept {
   mesh->setRings(100);
 
   sphere->removeChildren("Material");
-  auto *material = new Modules::Material<Qt3DExtras::QMetalRoughMaterial>(*sphere, "MetalMaterial");
+  auto *material = new Modules::Material<Qt3DExtras::QMetalRoughMaterial>(*sphere, "Material");
   auto *metal = material->get();
   metal->setBaseColor(QColor(125, 125, 125));
   metal->setRoughness(0.10);
@@ -156,9 +155,8 @@ void Scene3D::createSquare() noexcept {
   mesh->setYExtent(2);
   mesh->setZExtent(2);
 
-
   square->removeChildren("Material");
-  auto *material = new Modules::Material<Qt3DExtras::QMetalRoughMaterial>(*square, "MetalMaterial");
+  auto *material = new Modules::Material<Qt3DExtras::QMetalRoughMaterial>(*square, "Material");
   auto *metal = material->get();
   metal->setBaseColor(QColor(125, 125, 125));
   metal->setRoughness(0.10);
@@ -180,11 +178,14 @@ void Scene3D::import3DModel(const QUrl &url) {
   mesh->setSource(QUrl::fromLocalFile(url.path()));
 
   object3D->removeChildren("Material");
-  auto *material = new Modules::Material<Qt3DExtras::QMetalRoughMaterial>(*object3D, "MetalMaterial");
+  auto *material = new Modules::Material<Qt3DExtras::QMetalRoughMaterial>(*object3D, "Material");
   auto *metal = material->get();
   metal->setBaseColor(QColor(125, 125, 125));
   metal->setRoughness(0.10);
   metal->setMetalness(0.95);
+
+  connect(object3D.get(), &Shape3D::entitySelectedChanged, this, &Scene3D::selectEntity);
+
 
   _entities.emplace("Object3D[0]", std::move(object3D));
   Q_EMIT sceneUpdate();
@@ -197,6 +198,8 @@ void Scene3D::import3DScene(const QUrl &url) {
   auto &scene = sceneLoader->getChildren<Modules::Mesh<Qt3DRender::QSceneLoader>>("Mesh");
   scene->setSource(QUrl::fromLocalFile(url.path()));
   _entities.emplace("Scene3D[0]", std::move(sceneLoader));
+
+  connect(sceneLoader.get(), &Shape3D::entitySelectedChanged, this, &Scene3D::selectEntity);
 
   Q_EMIT sceneUpdate();
 }
