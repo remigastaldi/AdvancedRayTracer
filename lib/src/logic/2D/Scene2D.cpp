@@ -46,9 +46,9 @@ void Scene2D::createLine() noexcept {
   std::string objId = "Line [" + std::to_string(_id) + "]";
   std::unique_ptr<Line> line = std::make_unique<Line>(objId);
   connect(line.get(), &Line::dataUpdate, _painter, &PaintedItem::QQuickItem::update);
+  new Modules::ZIndex(*this, *_selectedShape, "ZIndex");
   _entities.emplace(objId, std::move(line));
   _selectedShape = _entities.at(objId).get();
-  new Modules::ZIndex(*this, *_selectedShape, "ZIndex");
   _id++;
   // Q_EMIT sceneUpdate();
 }
@@ -60,9 +60,9 @@ void Scene2D::createRectangle() noexcept {
 
   std::unique_ptr<Rectangle> rect = std::make_unique<Rectangle>(objId);
   connect(rect.get(), &Rectangle::dataUpdate, _painter, &PaintedItem::QQuickItem::update);
+  new Modules::ZIndex(*this, *_selectedShape, "ZIndex");
   _entities.emplace(objId, std::move(rect));
   _selectedShape = _entities.at(objId).get();
-  new Modules::ZIndex(*this, *_selectedShape, "ZIndex");
   _id++;
   // _painter->QQuickItem::update();
   // Q_EMIT sceneUpdate();
@@ -75,9 +75,9 @@ void Scene2D::createCircle() noexcept {
   std::string objId = "Circle [" + std::to_string(_id) + "]";
   std::unique_ptr<Circle> circle = std::make_unique<Circle>(objId);
   connect(circle.get(), &Circle::dataUpdate, _painter, &PaintedItem::QQuickItem::update);
+  new Modules::ZIndex(*this, *_selectedShape, "ZIndex");
   _entities.emplace(objId, std::move(circle));
   _selectedShape = _entities.at(objId).get();
-  new Modules::ZIndex(*this, *_selectedShape, "ZIndex");
   _id++;
 
   // Q_EMIT sceneUpdate();
@@ -89,9 +89,9 @@ void Scene2D::createTriangle() noexcept {
   std::string objId = "Triangle [" + std::to_string(_id) + "]";
   std::unique_ptr<Triangle> triangle = std::make_unique<Triangle>(objId);
   connect(triangle.get(), &Triangle::dataUpdate, _painter, &PaintedItem::QQuickItem::update);
+  new Modules::ZIndex(*this, *_selectedShape, "ZIndex");
   _entities.emplace(objId, std::move(triangle));
   _selectedShape = _entities.at(objId).get();
-  new Modules::ZIndex(*this, *_selectedShape, "ZIndex");
   // _painter->update();
   _id++;
 
@@ -103,10 +103,10 @@ void Scene2D::createPolygon() noexcept {
 	userIsDrawing = true;
 	std::string objId = "Polygon [" + std::to_string(_id) + "]";
 	std::unique_ptr<Polygon> polygon = std::make_unique<Polygon>(objId);
-    connect(polygon.get(), &Polygon::dataUpdate, _painter, &PaintedItem::QQuickItem::update);
+  connect(polygon.get(), &Polygon::dataUpdate, _painter, &PaintedItem::QQuickItem::update);
+	new Modules::ZIndex(*this, *_selectedShape, "ZIndex");
 	_entities.emplace(objId, std::move(polygon));
 	_selectedShape = _entities.at(objId).get();
-	new Modules::ZIndex(*this, *_selectedShape, "ZIndex");
 	// _painter->update();
 	_id++;
 
@@ -121,9 +121,9 @@ void Scene2D::cutImage() noexcept {
 void Scene2D::importImg(const QUrl &url) noexcept {
   std::string objId = "Image [" + std::to_string(_id) + "]";
   std::unique_ptr<Logic::Image> img = std::make_unique<Logic::Image>(url, objId);
+  new Modules::ZIndex(*this, *_entities.at(objId), "ZIndex");
   _entities.emplace(objId, std::move(img));
   _selectedShape = _entities.at(objId).get();
-  new Modules::ZIndex(*this, *_entities.at(objId), "ZIndex");
   _id++;
   // _painter->update();
 
@@ -221,9 +221,9 @@ void Scene2D::mouseReleaseEvent(QMouseEvent *event) {
 	  if (!crpImg.isNull()) {
 		  std::string objId = "Image [" + std::to_string(_id) + "]";
 		  std::unique_ptr<Logic::Image> img = std::make_unique<Logic::Image>(crpImg, objId);
+		  new Modules::ZIndex(*this, *_entities.at(objId), "zIndex");
 		  _entities.emplace(objId, std::move(img));
 		  _selectedShape = _entities.at(objId).get();
-		  new Modules::ZIndex(*this, *_entities.at(objId), "zIndex");
 		  _id++;
 	  }
   }
