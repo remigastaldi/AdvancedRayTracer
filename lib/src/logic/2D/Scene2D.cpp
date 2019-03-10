@@ -41,6 +41,7 @@ void Scene2D::paint(QPainter *painter) {
 }
 
 void Scene2D::createLine() noexcept {
+  _painter->setCursor(QCursor(Qt::PointingHandCursor));
   userIsDrawing = true;
   std::string objId = "Line [" + std::to_string(_id) + "]";
   std::unique_ptr<Line> line = std::make_unique<Line>(objId);
@@ -53,6 +54,7 @@ void Scene2D::createLine() noexcept {
 }
 
 void Scene2D::createRectangle() noexcept {
+  _painter->setCursor(QCursor(Qt::PointingHandCursor));
   userIsDrawing = true;
   std::string objId = "Rectangle [" + std::to_string(_id) + "]";
 
@@ -68,6 +70,7 @@ void Scene2D::createRectangle() noexcept {
 }
 
 void Scene2D::createCircle() noexcept {
+  _painter->setCursor(QCursor(Qt::PointingHandCursor));
   userIsDrawing = true;
   std::string objId = "Circle [" + std::to_string(_id) + "]";
   std::unique_ptr<Circle> circle = std::make_unique<Circle>(objId);
@@ -81,6 +84,7 @@ void Scene2D::createCircle() noexcept {
 }
 
 void Scene2D::createTriangle() noexcept {
+  _painter->setCursor(QCursor(Qt::PointingHandCursor));
   userIsDrawing = true;
   std::string objId = "Triangle [" + std::to_string(_id) + "]";
   std::unique_ptr<Triangle> triangle = std::make_unique<Triangle>(objId);
@@ -95,10 +99,11 @@ void Scene2D::createTriangle() noexcept {
 }
 
 void Scene2D::createPolygon() noexcept {
+	_painter->setCursor(QCursor(Qt::PointingHandCursor));
 	userIsDrawing = true;
 	std::string objId = "Polygon [" + std::to_string(_id) + "]";
 	std::unique_ptr<Polygon> polygon = std::make_unique<Polygon>(objId);
-  connect(polygon.get(), &Polygon::dataUpdate, _painter, &PaintedItem::QQuickItem::update);
+    connect(polygon.get(), &Polygon::dataUpdate, _painter, &PaintedItem::QQuickItem::update);
 	_entities.emplace(objId, std::move(polygon));
 	_selectedShape = _entities.at(objId).get();
 	new Modules::ZIndex(*this, *_selectedShape, "ZIndex");
@@ -109,6 +114,7 @@ void Scene2D::createPolygon() noexcept {
 }
 
 void Scene2D::cutImage() noexcept {
+	_painter->setCursor(QCursor(Qt::CrossCursor));
 	cutImg = true;
 }
 
@@ -140,10 +146,14 @@ void Scene2D::saveScene(const QUrl &url) noexcept {
 
 void Scene2D::mousePressEvent(QMouseEvent *event) {
   if (userIsDrawing) {
-    lastMouseX = event->x();
-    lastMouseY = event->y();
-    auto &trans = _selectedShape->getChildren<Modules::Transform2D>("Transform2D");
-    trans.move(event->x(), event->y());
+	  if (event->buttons() == Qt::RightButton) {
+		  userIsDrawing = false;
+	  } else {
+		lastMouseX = event->x();
+		lastMouseY = event->y();
+		auto &trans = _selectedShape->getChildren<Modules::Transform2D>("Transform2D");
+		trans.move(event->x(), event->y());
+	  }
   } else {
     auto it = _zIndex.rbegin();
     while (it != _zIndex.rend()) {
@@ -152,6 +162,7 @@ void Scene2D::mousePressEvent(QMouseEvent *event) {
         if (entity.second.get()->contains(event->x(), event->y())) {
           // Delete the shape
           if (event->buttons() == Qt::MiddleButton) {
+			_painter->setCursor(QCursor(Qt::ForbiddenCursor));
             _entities.erase(entity.first);
             _painter->update();
             return;

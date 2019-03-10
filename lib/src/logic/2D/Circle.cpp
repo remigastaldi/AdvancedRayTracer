@@ -26,9 +26,9 @@ void Circle::draw(QPainter *painter) noexcept {
   QRectF ellipse(trans.x(), trans.y(), trans.width(), trans.height());
   QPoint center(ellipse.center().x(), ellipse.center().y());
   QTransform t = QTransform().translate(center.x(), center.y()).rotate(trans.angle()).translate(-center.x(), -center.y());
-  QRectF rotatedRect = t.mapRect(ellipse);
-  _path.addPolygon(ellipse);
-  painter->drawEllipse(rotatedRect);
+  QRectF rotatedEllipse = t.mapRect(ellipse);
+  _path.addEllipse(rotatedEllipse);
+  painter->drawEllipse(rotatedEllipse);
 }
 
 bool Circle::contains(int x, int y) const noexcept { return _path.contains(QPoint(x, y)); }

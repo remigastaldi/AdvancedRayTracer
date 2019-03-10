@@ -22,7 +22,7 @@ void Triangle::draw(QPainter *painter) noexcept {
   painter->setBrush(brush.get());
   auto &pen = getChildren<Modules::Pen>("Pen");
   painter->setPen(pen.get());
-	auto &trans = getChildren<Modules::Transform2D>("Transform2D");  
+  auto &trans = getChildren<Modules::Transform2D>("Transform2D");  
   QRectF rect = QRectF(trans.x(), trans.y(), trans.width(), trans.height());
 
   _path.moveTo(rect.left() + (rect.width() / 2), rect.top());
