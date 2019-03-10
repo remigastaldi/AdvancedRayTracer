@@ -22,7 +22,7 @@ UiMainBorder {
     anchors.top: outLiner.bottom
     anchors.right: root.right
     anchors.left: root.left
-    anchors.topMargin: 10
+    // anchors.topMargin: 10
  
     GroupBox {      
       id: outLiner
@@ -30,8 +30,8 @@ UiMainBorder {
       title: qsTr("Outliner")
       Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
       Layout.fillWidth: true
-      Layout.rightMargin: 10
-      Layout.leftMargin: 10
+      Layout.rightMargin: 5
+      Layout.leftMargin: 5
       Layout.preferredHeight: 200
 
       Outliner {
@@ -44,8 +44,8 @@ UiMainBorder {
       font.pointSize: 10
       Layout.alignment: Qt.AlignHCenter | Qt.AlignTop | Qt.AlignBottom
       Layout.fillWidth: true
-      Layout.rightMargin: 10
-      Layout.leftMargin: 10
+      Layout.rightMargin: 5
+      Layout.leftMargin: 5
       // Layout.fillHeight: true
       Component.onCompleted: {
         mainController.updateUiModules.connect(updateModules);
@@ -95,42 +95,42 @@ UiMainBorder {
         ZIndexModuleComponent {
           Layout.fillWidth: true
           Layout.fillHeight: true
-          Layout.maximumWidth: 200
+          Layout.maximumWidth: 350
           id: zIndexModuleComponent
           visible: false
         }
         Transform2DModuleComponent {
           Layout.fillWidth: true
           Layout.fillHeight: true
-          Layout.maximumWidth: 200
+          Layout.maximumWidth: 350
           id: transform2DModuleComponent
           visible: false
         }
         Transform3DModuleComponent {
           Layout.fillWidth: true
           Layout.fillHeight: true
-          Layout.maximumWidth: 200
+          Layout.maximumWidth: 350
           id: transform3DModuleComponent
             visible: false
         }
         MaterialModuleComponent {
           Layout.fillWidth: true
           Layout.fillHeight: true
-          Layout.maximumWidth: 200
+          Layout.maximumWidth: 350
           id: materialModuleComponent
             visible: false
         }
         BrushModuleComponent {
           Layout.fillWidth: true
           Layout.fillHeight: true
-          Layout.maximumWidth: 200
+          Layout.maximumWidth: 350
           id: brushModuleComponent
           visible: false
         }
         PenModuleComponent {
           Layout.fillWidth: true
           Layout.fillHeight: true
-          Layout.maximumWidth: 200
+          Layout.maximumWidth: 350
           id: penModuleComponent
           visible: false
         }

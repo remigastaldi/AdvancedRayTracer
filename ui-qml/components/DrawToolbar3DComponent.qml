@@ -12,7 +12,7 @@ UiMainBorder {
     anchors.right: parent.right
     anchors.left: parent.left
     anchors.top: parent.top
-    anchors.margins: 10
+    anchors.margins: 5
 
     ColumnLayout {
       id: column

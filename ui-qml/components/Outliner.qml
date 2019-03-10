@@ -11,7 +11,7 @@ ScrollView {
     model: qmlOutliner
     anchors.fill: parent
     anchors.topMargin: 8
-    anchors.bottomMargin: 10
+    // anchors.bottomMargin: 10
 
     delegate: Rectangle {
       id: wrapper
