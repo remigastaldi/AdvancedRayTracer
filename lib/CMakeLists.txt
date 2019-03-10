@@ -27,6 +27,7 @@ add_library(${PROJECT_NAME} SHARED
   ## Logic
   src/logic/Entity.cpp
   ## 3D
+  src/logic/3D/Square.cpp
   src/logic/3D/Object3D.cpp
   src/logic/3D/SceneLoader.cpp
   src/logic/3D/Scene3D.cpp
@@ -63,6 +64,7 @@ add_library(${PROJECT_NAME} SHARED
   public/logic/Entity.hpp
   public/logic/Scene.hpp
   ## 3D
+  public/logic/3D/Square.hpp
   public/logic/3D/SceneLoader.hpp
   public/logic/3D/Object3D.hpp
   public/logic/3D/Scene3D.hpp

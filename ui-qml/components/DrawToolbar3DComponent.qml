@@ -26,6 +26,12 @@ UiMainBorder {
 
       CustomButton {
         Layout.alignment: Qt.AlignHCenter
+        text: "Square"
+        onClicked: mainController.drawToolbar3DController.createSquare()
+      }
+
+      CustomButton {
+        Layout.alignment: Qt.AlignHCenter
         text: "Import 3D Model"
         onClicked: open3dModelFileDialog.open()
       }
