@@ -6,6 +6,10 @@
 namespace ART {
 namespace Logic {
 
+PaintedItem::PaintedItem() {
+  QQuickItem::setAntialiasing(true);
+}
+
 void PaintedItem::paint(QPainter *painter) {
   Q_EMIT paintUpdate(painter);
 }

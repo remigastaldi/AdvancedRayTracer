@@ -59,7 +59,7 @@ UiMainBorder {
           brushModuleComponent.visible = false
           penModuleComponent.visible = false
           for (var module in arr) {
-            console.log("activate ==> " + arr[module]);
+            // console.log("activate ==> " + arr[module]);
             switch (arr[module]) {
               // 2D
               case "ZIndex":

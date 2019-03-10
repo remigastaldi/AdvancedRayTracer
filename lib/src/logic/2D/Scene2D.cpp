@@ -29,6 +29,7 @@ Scene2D::Scene2D(PaintedItem *painter) : _painter{painter}, _selectedShape{nullp
 }
 
 void Scene2D::paint(QPainter *painter) {
+  painter->setRenderHint(QPainter::Antialiasing);
   for (auto &elems : _zIndex) {
     for (auto &entity : elems.second) {
       entity.second.get()->draw(painter);

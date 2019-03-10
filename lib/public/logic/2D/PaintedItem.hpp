@@ -15,7 +15,7 @@ class ADVANCED_RAY_TRACER_EXPORT PaintedItem : public QQuickPaintedItem {
   Q_DISABLE_COPY(PaintedItem)
 
 public:
-  PaintedItem(){};
+  PaintedItem();
 
   virtual void paint(QPainter *painter) override ;
   virtual void mousePressEvent(QMouseEvent *event) override;
