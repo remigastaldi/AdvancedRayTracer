@@ -47,6 +47,7 @@ void  MainController::setScene2D(Logic::Scene2D *scene) noexcept {
   _scene2D = scene;
   connect(_scene2D, &Logic::Scene::sceneUpdate, this, &MainController::sceneUpdate);
   connect(_scene2D, &Logic::Scene::selectedShapeUpdate, this, &MainController::selectedShapeUpdate);
+  connect(_scene2D, &Logic::Scene2D::isDrawingChanged, _drawToolbar2DController, &DrawToolbar2DController::isDrawingChanged);
   connect(_drawToolbar2DController, &DrawToolbar2DController::createLine, _scene2D, &Logic::Scene2D::createLine);
   connect(_drawToolbar2DController, &DrawToolbar2DController::createRectangle, _scene2D, &Logic::Scene2D::createRectangle);
   connect(_drawToolbar2DController, &DrawToolbar2DController::createCircle, _scene2D, &Logic::Scene2D::createCircle);

@@ -232,6 +232,7 @@ void Scene2D::mouseReleaseEvent(QMouseEvent *event) {
 
   if (userIsDrawing) {
     userIsDrawing = false;
+    Q_EMIT isDrawingChanged(false);
     Q_EMIT sceneUpdate();
     Q_EMIT selectedShapeUpdate();
   }
