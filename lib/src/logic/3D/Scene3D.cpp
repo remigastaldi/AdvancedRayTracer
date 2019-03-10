@@ -10,7 +10,7 @@
 namespace ART {
 namespace Logic {
 
-Scene3D::Scene3D(Qt3DCore::QEntity *root) : _root{root} {
+Scene3D::Scene3D(RootEntity *root) : _root{root} {
 
   // QString resPath{"../../ui-qml/mesh/powerup/"};
 
@@ -115,10 +115,7 @@ void Scene3D::createSphere() noexcept {
 
   connect(sphere.get(), &Shape3D::entitySelectedChanged, this, &Scene3D::selectEntity);
 
-  // auto &transform = sphere->getChildren<Modules::Transform3D>("Transform3D");
-  // transform->setTranslation({10.0, 0.0, 0.0});
   _entities.emplace("Sphere[0]", std::move(sphere));
-
 
   // std::unique_ptr<Sphere> sphere2{std::make_unique<Sphere>("Sphere[1]",
   // static_cast<Qt3DCore::QEntity*>(sphere->getQEntity()))}; auto &mesh2 =
@@ -176,6 +173,10 @@ Entity *Scene3D::selectedEntity() const noexcept {
 void Scene3D::selectEntity(const std::string & id) noexcept {
   _selectedEntity = id;
   Q_EMIT selectedShapeUpdate();
+}
+
+void Scene3D::keyPressedEvent(Qt::Key event) {
+  std::cout << "asdads" << std::endl;
 }
 
 } // namespace Logic

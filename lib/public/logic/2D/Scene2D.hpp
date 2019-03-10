@@ -39,7 +39,7 @@ public Q_SLOTS:
   void mousePressEvent(QMouseEvent *event);
   void mouseMoveEvent(QMouseEvent *event);
   void mouseReleaseEvent(QMouseEvent *event);
-  void keyPressedEvent(Qt::Key event);
+  void keyPressedEvent(Qt::Key event) override;
 
   const std::unordered_map<std::string, std::unique_ptr<Entity>> &entities() const noexcept override;
   Entity *selectedEntity() const noexcept override;
