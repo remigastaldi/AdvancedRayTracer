@@ -24,9 +24,13 @@ public:
 
 public Q_SLOTS:
   void _mouseClicked(Qt3DRender::QPickEvent *pick);
+  void _mouseMoved(Qt3DRender::QPickEvent *pick);
 
 Q_SIGNALS:
   void entitySelectedChanged(const std::string &id);
+
+private:
+  Qt3DRender::QObjectPicker *_mousePicker;
 };
 
 } // namespace Logic

@@ -18,29 +18,37 @@ Transform3D::~Transform3D() {
 
 float Transform3D::x() { return _transform->translation().x(); }
 
-float Transform3D::y() { return _transform->translation().x(); }
+float Transform3D::y() { return _transform->translation().y(); }
 
-float Transform3D::z() { return _transform->translation().x(); }
+float Transform3D::z() { return _transform->translation().z(); }
 
 Qt3DCore::QTransform *Transform3D::get() noexcept { return _transform; }
 
-  void Transform3D::setX(double x) noexcept {
+void Transform3D::setX(float x) noexcept {
   QVector3D trans{_transform->translation()};
   trans.setX(x);
-  qInfo() << trans;
   _transform->setTranslation(std::move(trans));
+  Q_EMIT dataUpdate();
 }
 
-void Transform3D::setY(double y) noexcept {
+void Transform3D::setY(float y) noexcept {
   QVector3D trans{_transform->translation()};
   trans.setY(y);
   _transform->setTranslation(std::move(trans));
+  Q_EMIT dataUpdate();
 }
 
-void Transform3D::setZ(double y) noexcept {
+void Transform3D::setZ(float y) noexcept {
   QVector3D trans{_transform->translation()};
   trans.setZ(y);
   _transform->setTranslation(std::move(trans));
+  Q_EMIT dataUpdate();
+}
+
+void Transform3D::setTranslation(Qt3DCore::QTransform *transform) noexcept {
+  transform->QObject::setParent(_parent.getQEntity());
+  _transform = transform;
+  Q_EMIT dataUpdate();
 }
 
 } // namespace Modules

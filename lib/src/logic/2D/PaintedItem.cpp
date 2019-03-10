@@ -6,39 +6,21 @@
 namespace ART {
 namespace Logic {
 
-void PaintedItem::setScene2D(Scene2D *scene2D) {
-  _scene2D = scene2D;
-}
-
 void PaintedItem::paint(QPainter *painter) {
-  if (_scene2D != nullptr) {
-    _scene2D->paint(painter);
-  }
+  Q_EMIT paintUpdate(painter);
 }
 
-void PaintedItem::mousePressEvent(QMouseEvent *event) { 
-  if (_scene2D != nullptr) {
-    _scene2D->mousePressEvent(event);
-  }
+void PaintedItem::mousePressEvent(QMouseEvent *event) {
   setFocus(true);
+  Q_EMIT mousePressUpdate(event);
 }
 
-void PaintedItem::mouseMoveEvent(QMouseEvent *event) { 
-  if (_scene2D != nullptr) {
-    _scene2D->mouseMoveEvent(event);
-  }
+void PaintedItem::mouseMoveEvent(QMouseEvent *event) {
+  Q_EMIT mouseMoveUpdate(event);
 }
 
-void PaintedItem::mouseReleaseEvent(QMouseEvent *event) { 
-  if (_scene2D != nullptr) {
-    _scene2D->mouseReleaseEvent(event);
-  }
-}
-
-void PaintedItem::keyPressedEvent(Qt::Key key) {
-  if (_scene2D != nullptr) {
-    _scene2D->keyPressedEvent(key);
-  }
+void PaintedItem::mouseReleaseEvent(QMouseEvent *event) {
+  Q_EMIT mouseReleaseUpdate(event);
 }
 
 } // namespace Logic

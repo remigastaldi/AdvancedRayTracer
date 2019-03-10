@@ -20,6 +20,9 @@ public:
   virtual void selectEntity(const std::string & id) noexcept = 0;
   virtual void update() noexcept {};
 
+public Q_SLOTS:
+  virtual void keyPressedEvent(Qt::Key event) {};
+
 Q_SIGNALS:
   void sceneUpdate();
   void selectedShapeUpdate();

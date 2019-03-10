@@ -30,9 +30,10 @@ public:
   Qt3DCore::QTransform *operator->() { return _transform; };
 
 public Q_SLOTS:
-  void setX(double x) noexcept;
-  void setY(double y) noexcept;
-  void setZ(double y) noexcept;
+  void setX(float x) noexcept;
+  void setY(float y) noexcept;
+  void setZ(float y) noexcept;
+  void setTranslation(Qt3DCore::QTransform *transform) noexcept;
 
 Q_SIGNALS:
   void dataUpdate();

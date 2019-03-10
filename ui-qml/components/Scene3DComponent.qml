@@ -10,7 +10,6 @@ import QtQuick 2.12
 
 Scene3D {
   id: scene3D
-  focus: true
   hoverEnabled: true
   aspects: ["input", "logic"]
   cameraAspectRatioMode: Scene3D.AutomaticAspectRatio
@@ -29,12 +28,22 @@ Scene3D {
       InputSettings { }
     ]
 
+    KeyboardDevice {
+		  id: keyboardDevice
+    }
+
+    KeyboardHandler {
+      sourceDevice : keyboardDevice
+      focus: true
+      onPressed : sceneRoot.keyPressedEvent(event.key)
+    }
+
     MouseDevice {
-      id:mouse1
+      id:mouse
     }
     
     MouseHandler {
-      sourceDevice: mouse1
+      sourceDevice: mouse
       onPressed: scene3D.focus = true
     }
 
@@ -49,7 +58,7 @@ Scene3D {
       viewCenter: Qt.vector3d( 0.0, 0.0, 0.0 )
     }
     
-    FirstPersonCameraController { 
+    FirstPersonCameraController {
       camera: mainCamera 
       linearSpeed: 50
       // lookSpeed: 3000

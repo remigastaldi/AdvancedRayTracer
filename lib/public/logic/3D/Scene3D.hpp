@@ -4,6 +4,7 @@
 
 #include "Scene.hpp"
 #include "Sphere.hpp"
+#include "RootEntity.hpp"
 
 #include <QPointLight>
 #include <QRenderSettings>
@@ -22,7 +23,7 @@ class ADVANCED_RAY_TRACER_EXPORT Scene3D : public Scene {
   Q_DISABLE_COPY(Scene3D)
 
 public:
-  explicit Scene3D(Qt3DCore::QEntity *root = 0);
+  explicit Scene3D(RootEntity *root = 0);
 
 public Q_SLOTS:
   void createSphere() noexcept;
@@ -34,9 +35,11 @@ public Q_SLOTS:
   Entity *selectedEntity() const noexcept override;
   void selectEntity(const std::string & id) noexcept override;
 
+  void keyPressedEvent(Qt::Key event) override;
+
 private:
   std::unordered_map<std::string, std::unique_ptr<Entity>> _entities;
-  Qt3DCore::QEntity *_root;
+  RootEntity *_root;
   std::string _selectedEntity;
 };
 

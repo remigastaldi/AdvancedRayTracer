@@ -2,9 +2,9 @@
 
 #include "globals.h"
 
-#include <QQuickPaintedItem>
 #include <QCursor>
 #include <QQuickItemGrabResult>
+#include <QQuickPaintedItem>
 
 namespace ART {
 namespace Logic {
@@ -15,21 +15,20 @@ class ADVANCED_RAY_TRACER_EXPORT PaintedItem : public QQuickPaintedItem {
   Q_DISABLE_COPY(PaintedItem)
 
 public:
-  PaintedItem() {};
+  PaintedItem(){};
 
-  void setScene2D(Scene2D *scene2D);
-
-  virtual void paint(QPainter *painter) override;
+  virtual void paint(QPainter *painter) override ;
   virtual void mousePressEvent(QMouseEvent *event) override;
-  virtual void mouseMoveEvent(QMouseEvent *event) override;
-  virtual void mouseReleaseEvent(QMouseEvent *event) override;
+  virtual void mouseMoveEvent(QMouseEvent *event) override ;
+  virtual void mouseReleaseEvent(QMouseEvent *event) override ;
 
-public Q_SLOTS:
-  virtual void keyPressedEvent(Qt::Key);
-
-private :
-  Scene2D *_scene2D;
+Q_SIGNALS:
+  void mousePressUpdate(QMouseEvent *event);
+  void mouseMoveUpdate(QMouseEvent *event);
+  void mouseReleaseUpdate(QMouseEvent *event);
+  void paintUpdate(QPainter *painter);
+  void keyPressedEvent(Qt::Key key);
 };
 
-}
-}
+} // namespace Logic
+} // namespace ART

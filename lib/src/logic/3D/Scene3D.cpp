@@ -11,8 +11,8 @@
 namespace ART {
 namespace Logic {
 
-Scene3D::Scene3D(Qt3DCore::QEntity *root) : _root{root} {
-
+Scene3D::Scene3D(RootEntity *root) : _root{root} {
+  connect(root, &RootEntity::keyPressedEvent, this, &Scene3D::keyPressedEvent);
   // QString resPath{"../../ui-qml/mesh/powerup/"};
 
   // Qt3DCore::QEntity * powerUp = new Qt3DCore::QEntity(_root);
@@ -76,7 +76,7 @@ Scene3D::Scene3D(Qt3DCore::QEntity *root) : _root{root} {
   Qt3DCore::QEntity *lightEntity = new Qt3DCore::QEntity(_root);
   Qt3DRender::QPointLight *light = new Qt3DRender::QPointLight(_root);
   light->setColor("red");
-  light->setIntensity(2.0);
+  light->setIntensity(2);
   lightEntity->addComponent(light);
   Qt3DCore::QTransform *tr = new Qt3DCore::QTransform(lightEntity);
   tr->setTranslation({20, -10, 9});
@@ -85,7 +85,7 @@ Scene3D::Scene3D(Qt3DCore::QEntity *root) : _root{root} {
   Qt3DCore::QEntity *lightEntity2 = new Qt3DCore::QEntity(_root);
   Qt3DRender::QPointLight *light2 = new Qt3DRender::QPointLight(_root);
   light2->setColor("white");
-  light2->setIntensity(2.0);
+  light2->setIntensity(2);
   lightEntity2->addComponent(light2);
   Qt3DCore::QTransform *tr2 = new Qt3DCore::QTransform(lightEntity2);
   tr2->setTranslation({-20, 10, 9});
@@ -116,8 +116,6 @@ void Scene3D::createSphere() noexcept {
 
   connect(sphere.get(), &Shape3D::entitySelectedChanged, this, &Scene3D::selectEntity);
 
-  // auto &transform = sphere->getChildren<Modules::Transform3D>("Transform3D");
-  // transform->setTranslation({10.0, 0.0, 0.0});
   _entities.emplace("Sphere[0]", std::move(sphere));
 
   // std::unique_ptr<Sphere> sphere2{std::make_unique<Sphere>("Sphere[1]",
@@ -132,7 +130,7 @@ void Scene3D::createSphere() noexcept {
   // metal2->setMetalness(0.95);
 
   // auto &transform2 = sphere2->getChildren<Modules::Transform3D>("Transform3D");
-  // transform2->setTranslation({15.0, 0.0, 0.0});
+  // transform2->setTranslation({15, 0, 0});
   // sphere->addChildren("Sphere[1]", std::move(sphere2));
 
   Q_EMIT sceneUpdate();
@@ -186,6 +184,49 @@ Entity *Scene3D::selectedEntity() const noexcept {
 void Scene3D::selectEntity(const std::string &id) noexcept {
   _selectedEntity = id;
   Q_EMIT selectedShapeUpdate();
+}
+
+void Scene3D::keyPressedEvent(Qt::Key event) {
+  switch (event) {
+    case Qt::Key_W:
+      if (selectedEntity() != nullptr) {
+        auto &transform = selectedEntity()->getChildren<Modules::Transform3D>("Transform3D");
+        transform.setZ(transform.z() + 1);
+      }
+      break;
+    case Qt::Key_A:
+      if (selectedEntity() != nullptr) {
+        auto &transform = selectedEntity()->getChildren<Modules::Transform3D>("Transform3D");
+        transform.setX(transform.x() - 1);
+      }
+      break;
+    case Qt::Key_S:
+      if (selectedEntity() != nullptr) {
+        auto &transform = selectedEntity()->getChildren<Modules::Transform3D>("Transform3D");
+        transform.setZ(transform.z() - 1);
+      }
+      break;
+    case Qt::Key_D:
+      if (selectedEntity() != nullptr) {
+        auto &transform = selectedEntity()->getChildren<Modules::Transform3D>("Transform3D");
+        transform.setX(transform.x() + 1);
+      }
+      break;
+    case Qt::Key_E:
+      if (selectedEntity() != nullptr) {
+        auto &transform = selectedEntity()->getChildren<Modules::Transform3D>("Transform3D");
+        transform.setY(transform.y() + 1);
+      }
+      break;
+    case Qt::Key_R:
+      if (selectedEntity() != nullptr) {
+        auto &transform = selectedEntity()->getChildren<Modules::Transform3D>("Transform3D");
+        transform.setY(transform.y() - 1);
+      }
+      break;
+    default:
+      break;
+  }
 }
 
 } // namespace Logic
