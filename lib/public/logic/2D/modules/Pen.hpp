@@ -20,7 +20,7 @@ class ADVANCED_RAY_TRACER_EXPORT Pen : public Entity {
 public:
   Pen(Shape2D &parent, std::string id) : Entity{std::move(id)}, _pen{Qt::white, 5} {
     parent.addChildren(Entity::id(), std::unique_ptr<Entity>(this));
-    _pen.setWidth(5);
+    //_pen.setWidth(5);
   }
 
   QString color() {
