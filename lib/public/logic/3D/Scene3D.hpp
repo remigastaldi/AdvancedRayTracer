@@ -37,9 +37,8 @@ public Q_SLOTS:
   void selectEntity(const std::string & id) noexcept override;
 
   void updateSkyboxPosition(QVector3D pos) noexcept {
-    qInfo() << "+> " << pos;
     // pos.setX(pos.x() *-1);
-    _skyboxPos->setTranslation(pos);
+    // _skyboxPos->setTranslation(pos);
   }
   void keyPressedEvent(Qt::Key event) override;
 

@@ -1,5 +1,7 @@
 #include "Line.hpp"
 #include "Transform2D.hpp"
+#include "Brush.hpp"
+#include "Pen.hpp"
 
 #include <QPainter>
 
@@ -8,14 +10,18 @@
 namespace ART {
 namespace Logic {
 
-Line::Line(std::string id) : Shape2D{std::move(id)} {}
+Line::Line(std::string id) : Shape2D{std::move(id)} {
+  auto *pen = new Modules::Pen(*this, "Pen");
+  connect(pen, &Modules::Pen::dataUpdate, this, &Line::dataUpdate);
+}
 
 void Line::draw(QPainter *painter) noexcept {
-	auto &trans = getChildren<Modules::Transform2D>("Transform2D");
+  auto &pen = getChildren<Modules::Pen>("Pen");
+  pen.get().setWidth(10);
+  painter->setPen(pen.get());
+  auto &trans = getChildren<Modules::Transform2D>("Transform2D");
   _line = QLineF(trans.x(), trans.y(), trans.x() + trans.width(), trans.y() + trans.height());
-  painter->setPen(QPen{Qt::blue, 10});
   painter->drawLine(_line);
-  painter->setPen(QPen{Qt::blue, 1});
 }
 
 bool Line::contains(int x, int y) const noexcept {

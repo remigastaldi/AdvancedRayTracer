@@ -48,15 +48,15 @@ Scene3D::Scene3D(RootEntity *root) : _root{root} {
   // powerUp->addComponent(modelMesh);
   // powerUp->addComponent(material);
 
-  Qt3DCore::QEntity *test = new Qt3DCore::QEntity{_root};
-  Qt3DExtras::QSkyboxEntity *skybox = new Qt3DExtras::QSkyboxEntity(test);
+  // Qt3DCore::QEntity *test = new Qt3DCore::QEntity{_root};
+  Qt3DExtras::QSkyboxEntity *skybox = new Qt3DExtras::QSkyboxEntity(_root);
   skybox->setBaseName("qrc:/skybox/wobbly_bridge_4k_cube_radiance");
   skybox->setExtension(".dds");
   skybox->setGammaCorrectEnabled(true);
-  _skyboxPos = new Qt3DCore::QTransform{test};
-  _skyboxPos->setTranslation({0,0,10});
+  // _skyboxPos = new Qt3DCore::QTransform{test};
+  // _skyboxPos->setTranslation({0,0,10});
+  // test->addComponent(_skyboxPos);
 
-  test->addComponent(_skyboxPos);
 
   Qt3DCore::QEntity *envLightEntity = new Qt3DCore::QEntity(_root);
   Qt3DRender::QTextureLoader *envIrradiance = new Qt3DRender::QTextureLoader(envLightEntity);
@@ -83,7 +83,7 @@ Scene3D::Scene3D(RootEntity *root) : _root{root} {
   Qt3DCore::QEntity *lightEntity = new Qt3DCore::QEntity(_root);
   Qt3DRender::QPointLight *light = new Qt3DRender::QPointLight(_root);
   light->setColor("red");
-  light->setIntensity(2);
+  light->setIntensity(1);
   lightEntity->addComponent(light);
   Qt3DCore::QTransform *tr = new Qt3DCore::QTransform(lightEntity);
   tr->setTranslation({20, -10, 9});
@@ -92,7 +92,7 @@ Scene3D::Scene3D(RootEntity *root) : _root{root} {
   Qt3DCore::QEntity *lightEntity2 = new Qt3DCore::QEntity(_root);
   Qt3DRender::QPointLight *light2 = new Qt3DRender::QPointLight(_root);
   light2->setColor("white");
-  light2->setIntensity(2);
+  light2->setIntensity(1);
   lightEntity2->addComponent(light2);
   Qt3DCore::QTransform *tr2 = new Qt3DCore::QTransform(lightEntity2);
   tr2->setTranslation({-20, 10, 9});
@@ -110,7 +110,7 @@ void Scene3D::createSphere() noexcept {
 
   std::unique_ptr<Sphere> sphere{std::make_unique<Sphere>("Sphere[0]", _root)};
   auto &mesh = sphere->getChildren<Modules::Mesh<Qt3DExtras::QSphereMesh>>("Mesh");
-  mesh->setRadius(5);
+  mesh->setRadius(2);
   mesh->setSlices(100);
   mesh->setRings(100);
 

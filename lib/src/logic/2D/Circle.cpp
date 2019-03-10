@@ -18,7 +18,6 @@ Circle::Circle(std::string id) : Shape2D{std::move(id)} {
 
 void Circle::draw(QPainter *painter) noexcept {
   _path = QPainterPath();
-
   auto &brush = getChildren<Modules::Brush>("Brush");
   painter->setBrush(brush.get());
   auto &pen = getChildren<Modules::Pen>("Pen");

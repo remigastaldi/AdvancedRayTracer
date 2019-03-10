@@ -52,10 +52,12 @@ UiMainBorder {
           mainController.initEntityModulesModels()
           var arr = mainController.loadTree()
 
-          if (zIndexModuleComponent.instance != null)
-            zIndexModuleComponent.visble = false
-          if (transform2DModuleComponent.instance != null)
-            transform2DModuleComponent.visble = false
+          zIndexModuleComponent.visible = false
+          transform2DModuleComponent.visible = false
+          transform2DModuleComponent.visible = false
+          transform3DModuleComponent.visible = false
+          brushModuleComponent.visible = false
+          penModuleComponent.visible = false
           for (var module in arr) {
             console.log("activate ==> " + arr[module]);
             switch (arr[module]) {
