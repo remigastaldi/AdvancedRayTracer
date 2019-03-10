@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 
 GroupBox {
+  title: qsTr("Transform2D")
   ColumnLayout {
     Layout.fillWidth: true
     Layout.fillHeight: true

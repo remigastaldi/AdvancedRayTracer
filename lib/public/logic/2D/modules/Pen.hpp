@@ -15,18 +15,31 @@ namespace Modules {
 
 class ADVANCED_RAY_TRACER_EXPORT Pen : public Entity {
   Q_OBJECT
-  // Q_PROPERTY(float colors READ colors NOTIFY dataUpdate)
-  // Q_PROPERTY(float y READ y NOTIFY dataUpdate)
-  // Q_PROPERTY(float z READ z NOTIFY dataUpdate)
-
+  Q_PROPERTY(QString color READ color NOTIFY dataUpdate)
 
 public:
   Pen(Shape2D &parent, std::string id) : Entity{std::move(id)} {
     parent.addChildren(Entity::id(), std::unique_ptr<Entity>(this));
+    _pen.setWidth(5);
+  }
+
+  QString color() {
+    return _pen.color().name();
+  }
+
+  QPen get() {
+    return _pen;
   }
 
 public Q_SLOTS:
-  // void setColor();
+  void setColor(QString color) {
+    _pen.setColor(color);
+    Q_EMIT dataUpdate();
+  }
+
+
+Q_SIGNALS:
+  void dataUpdate();
 
 private:
   QPen _pen;

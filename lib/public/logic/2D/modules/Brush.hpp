@@ -6,7 +6,6 @@
 #include "Shape2D.hpp"
 
 #include <QObject>
-#include <QVariantHash>
 #include <QBrush>
 
 namespace ART {
@@ -17,8 +16,6 @@ namespace Modules {
 class ADVANCED_RAY_TRACER_EXPORT Brush : public Entity {
   Q_OBJECT
   Q_PROPERTY(QString color READ color NOTIFY dataUpdate)
-  // Q_PROPERTY(float y READ y NOTIFY dataUpdate)
-  // Q_PROPERTY(float z READ z NOTIFY dataUpdate)
 
 
 public:

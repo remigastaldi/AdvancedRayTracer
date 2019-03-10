@@ -1,11 +1,14 @@
 #include "Rectangle.hpp"
 #include "Transform2D.hpp"
+// #include "B"
 #include <QPainter>
 
 namespace ART {
 namespace Logic {
 
 Rectangle::Rectangle(std::string id) : Shape2D{std::move(id)} {
+  // auto *brush = new Modules::Brush(*this, "Brush");
+  // connect(brush, &Modules::Brush::dataUpdate, this, &Rectangle::dataUpdate);
 }
 
 void Rectangle::draw(QPainter *painter) noexcept {

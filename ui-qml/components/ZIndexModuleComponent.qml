@@ -4,10 +4,8 @@ import QtQuick 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 
-// ColumnLayout {
-  // Layout.prefferedWidth: 300
-  // Layout.prefferedHeight: 30
-  GroupBox {
+GroupBox {
+  title: qsTr("ZIndex")
     RowLayout {
       anchors.fill: parent
       Layout.fillWidth: true

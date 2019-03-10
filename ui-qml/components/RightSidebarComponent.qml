@@ -53,9 +53,9 @@ UiMainBorder {
           var arr = mainController.loadTree()
 
           if (zIndexModuleComponent.instance != null)
-            zIndexModuleComponent.instance.destroy()
+            zIndexModuleComponent.visble = false
           if (transform2DModuleComponent.instance != null)
-            transform2DModuleComponent.instance.destroy()
+            transform2DModuleComponent.visble = false
           for (var module in arr) {
             console.log("activate ==> " + arr[module]);
             switch (arr[module]) {
@@ -73,9 +73,9 @@ UiMainBorder {
               case "Brush":
                 brushModuleComponent.visible = true
                 break;
-              // case "Pen":
-                // transform3DModuleComponent.createObject("PenModuleComponent.qml");
-                // break;
+              case "Pen":
+                penModuleComponent.visible = true
+                break;
             }
           }
         }
@@ -115,6 +115,14 @@ UiMainBorder {
           Layout.fillHeight: true
           Layout.maximumWidth: 200
           id: brushModuleComponent
+          visible: false
+        }
+        PenModuleComponent {
+          // height: 45
+          Layout.fillWidth: true
+          Layout.fillHeight: true
+          Layout.maximumWidth: 200
+          id: penModuleComponent
           visible: false
         }
       }

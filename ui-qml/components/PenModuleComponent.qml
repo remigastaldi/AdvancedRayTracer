@@ -6,7 +6,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Dialogs 1.3
 
 GroupBox {
-  title: qsTr("Brush")
+  title: qsTr("Pen")
   ColumnLayout {
     Layout.fillWidth: true
     Layout.fillHeight: true
@@ -19,12 +19,12 @@ GroupBox {
 
       CustomText {
         color: Style.likeWhite
-        text: "Brush: "
+        text: "Pen: "
         Layout.leftMargin: 5
       }
       CustomText {
         color: Style.likeWhite
-        text: BrushModel.color
+        text: PenModel.color
         Layout.leftMargin: 5
         MouseArea {
           anchors.fill: parent
@@ -37,7 +37,7 @@ GroupBox {
           id: colorDialog
           title: "Please choose a color"
           onAccepted: {
-            BrushModel.setColor(color)
+            PenModel.setColor(color)
             // console.log("You chose: " + colorDialog.color)
           }
           // Component.onCompleted: visible = true
@@ -47,10 +47,10 @@ GroupBox {
     //     Layout.leftMargin: 5
     //   }
     //   CustomDoubleInput {
-    //     text: BrushModel.y
+    //     text: PenModel.y
 
     //     onEditingFinished: {
-    //       BrushModel.setY(parseFloat(text))
+    //       PenModel.setY(parseFloat(text))
     //       mainController.updateCurrentScene();
     //     }    
     //   }
@@ -65,10 +65,10 @@ GroupBox {
     //     Layout.leftMargin: 5
     //   }
     //   CustomDoubleInput {
-    //     text: BrushModel.width
+    //     text: PenModel.width
 
     //     onEditingFinished: {
-    //       BrushModel.setWidth(parseFloat(text))
+    //       PenModel.setWidth(parseFloat(text))
     //       mainController.updateCurrentScene();
     //     }    
     //   }
@@ -78,10 +78,10 @@ GroupBox {
     //     Layout.leftMargin: 5
     //   }    
     //   CustomDoubleInput {
-    //     text: BrushModel.height
+    //     text: PenModel.height
 
     //     onEditingFinished: {
-    //       BrushModel.setHeight(parseFloat(text))
+    //       PenModel.setHeight(parseFloat(text))
     //       mainController.updateCurrentScene();
     //     }    
     //   }
