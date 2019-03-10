@@ -21,15 +21,12 @@ void Rectangle::draw(QPainter *painter) noexcept {
   auto &pen = getChildren<Modules::Pen>("Pen");
   painter->setPen(pen.get());
   auto &trans = getChildren<Modules::Transform2D>("Transform2D");  
-  //_path.addRect(trans.x(), trans.y(), trans.width(), trans.height());
-  //painter->drawPath(_path);
   QRect r(trans.x(), trans.y(), trans.width(), trans.height());
   QPoint center = r.center();
   QTransform t = QTransform().translate(center.x(), center.y()).rotate(trans.angle()).translate(-center.x(), -center.y());
-  QRect rotatedRect = t.mapRect(r);
-  _path.addRect(rotatedRect);
-  painter->drawRect(rotatedRect);
-
+  QPolygon rotatedRect = t.mapToPolygon(r);
+  _path.addPolygon(rotatedRect);
+  painter->drawPolygon(rotatedRect);
 }
 
 bool Rectangle::contains(int x, int y) const noexcept { return _path.contains(QPointF(x, y)); }
