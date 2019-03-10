@@ -17,6 +17,7 @@ namespace ART {
 namespace Logic {
 
 Scene2D::Scene2D(PaintedItem *painter) : _painter{painter}, _selectedShape{nullptr} {
+  _painter->test(this);
   _painter->setFillColor("black");
   _painter->setAcceptedMouseButtons(Qt::AllButtons);
   _painter->setAcceptHoverEvents(true);

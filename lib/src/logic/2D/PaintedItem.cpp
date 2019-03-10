@@ -11,7 +11,8 @@ PaintedItem::PaintedItem() {
 }
 
 void PaintedItem::paint(QPainter *painter) {
-  Q_EMIT paintUpdate(painter);
+  _scene->paint(painter);
+  // Q_EMIT paintUpdate(painter);
 }
 
 void PaintedItem::mousePressEvent(QMouseEvent *event) {

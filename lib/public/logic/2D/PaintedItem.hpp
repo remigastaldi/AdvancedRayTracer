@@ -22,6 +22,11 @@ public:
   virtual void mouseMoveEvent(QMouseEvent *event) override ;
   virtual void mouseReleaseEvent(QMouseEvent *event) override ;
 
+
+public: void test(Scene2D *scene) { _scene = scene; }
+Scene2D *_scene;
+
+
 Q_SIGNALS:
   void mousePressUpdate(QMouseEvent *event);
   void mouseMoveUpdate(QMouseEvent *event);
