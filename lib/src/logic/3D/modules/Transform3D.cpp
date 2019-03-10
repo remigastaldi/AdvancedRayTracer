@@ -28,18 +28,27 @@ void Transform3D::setX(float x) noexcept {
   QVector3D trans{_transform->translation()};
   trans.setX(x);
   _transform->setTranslation(std::move(trans));
+  Q_EMIT dataUpdate();
 }
 
 void Transform3D::setY(float y) noexcept {
   QVector3D trans{_transform->translation()};
   trans.setY(y);
   _transform->setTranslation(std::move(trans));
+  Q_EMIT dataUpdate();
 }
 
 void Transform3D::setZ(float y) noexcept {
   QVector3D trans{_transform->translation()};
   trans.setZ(y);
   _transform->setTranslation(std::move(trans));
+  Q_EMIT dataUpdate();
+}
+
+void Transform3D::setTranslation(Qt3DCore::QTransform *transform) noexcept {
+  transform->QObject::setParent(_parent.getQEntity());
+  _transform = transform;
+  Q_EMIT dataUpdate();
 }
 
 } // namespace Modules

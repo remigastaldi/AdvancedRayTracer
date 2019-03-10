@@ -33,6 +33,7 @@ public Q_SLOTS:
   void setX(float x) noexcept;
   void setY(float y) noexcept;
   void setZ(float y) noexcept;
+  void setTranslation(Qt3DCore::QTransform *transform) noexcept;
 
 Q_SIGNALS:
   void dataUpdate();
