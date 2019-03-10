@@ -86,6 +86,8 @@ add_library(${PROJECT_NAME} SHARED
   ### Modules
   public/logic/2D/modules/ZIndex.hpp
   public/logic/2D/modules/Transform2D.hpp
+  public/logic/2D/modules/Brush.hpp
+  public/logic/2D/modules/Pen.hpp
 
   ## Models
   public/models/ToolbarModel.hpp

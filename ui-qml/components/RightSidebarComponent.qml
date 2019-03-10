@@ -3,6 +3,7 @@ import AdvancedRayTracer 1.0
 import QtQuick 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
+import QtQuick.Dialogs 1.3
 
 UiMainBorder {
   id: root
@@ -60,15 +61,21 @@ UiMainBorder {
             switch (arr[module]) {
               // 2D
               case "ZIndex":
-                zIndexModuleComponent.createObject("ZIndexModuleComponent.qml");
+                zIndexModuleComponent.visible = true
                 break;
               case "Transform2D":
-                transform2DModuleComponent.createObject("Transform2DModuleComponent.qml");
+                transform2DModuleComponent.visible = true
                 break;
               // 3D
               case "Transform3D":
-                transform3DModuleComponent.createObject("Transform3DModuleComponent.qml");
+                transform3DModuleComponent.visible = true
                 break;
+              case "Brush":
+                brushModuleComponent.visible = true
+                break;
+              // case "Pen":
+                // transform3DModuleComponent.createObject("PenModuleComponent.qml");
+                // break;
             }
           }
         }
@@ -76,34 +83,39 @@ UiMainBorder {
       ColumnLayout {
         Layout.fillWidth: true
         Layout.fillHeight: true
-        // spacing: 20
+        spacing: 5
 
-        Item {
-          width:250
-          height: 45
+        ZIndexModuleComponent {
+          Layout.fillWidth: true
+          Layout.fillHeight: true
+          Layout.maximumWidth: 200
+          // height: 45
           id: zIndexModuleComponent
-          property var instance : null
-          function createObject(qml) {
-            instance = Qt.createComponent(qml).createObject(zIndexModuleComponent);
-          }
+          visible: false
         }
-        Item {
-          width:250
-          height: 200
+        Transform2DModuleComponent {
+          Layout.fillWidth: true
+          Layout.fillHeight: true
+          Layout.maximumWidth: 200
+          // height: 45
           id: transform2DModuleComponent
-          property var instance : null
-          function createObject(qml) {
-            instance = Qt.createComponent(qml).createObject(transform2DModuleComponent);
-          }
+          visible: false
         }
-        Item {
-          width:250
-          height: 200
+        Transform3DModuleComponent {
+          Layout.fillWidth: true
+          Layout.fillHeight: true
+          Layout.maximumWidth: 200
+          // height: 45
           id: transform3DModuleComponent
-          property var instance : null
-          function createObject(qml) {
-            instance = Qt.createComponent(qml).createObject(transform3DModuleComponent);
-          }
+            visible: false
+        }
+        BrushModuleComponent {
+          // height: 45
+          Layout.fillWidth: true
+          Layout.fillHeight: true
+          Layout.maximumWidth: 200
+          id: brushModuleComponent
+          visible: false
         }
       }
     }

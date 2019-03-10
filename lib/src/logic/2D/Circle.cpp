@@ -1,4 +1,6 @@
 #include "Circle.hpp"
+#include "Brush.hpp"
+#include "Pen.hpp"
 #include "Transform2D.hpp"
 
 #include <QPainter>
@@ -6,20 +8,23 @@
 namespace ART {
 namespace Logic {
 
-Circle::Circle(std::string id) : Shape2D{std::move(id)} {}
+Circle::Circle(std::string id) : Shape2D{std::move(id)} {
+  auto *brush = new Modules::Brush(*this, "Brush");
+  connect(brush, &Modules::Brush::dataUpdate, this, &Circle::dataUpdate);
+  new Modules::Pen(*this, "Pen");
+}
 
 void Circle::draw(QPainter *painter) noexcept {
   _path = QPainterPath();
 
-  painter->setBrush(Qt::blue);
-	auto &trans = getChildren<Modules::Transform2D>("Transform2D");  
+  auto &brush = getChildren<Modules::Brush>("Brush");
+  painter->setBrush(brush.get());
+  auto &trans = getChildren<Modules::Transform2D>("Transform2D");
   _path.addEllipse(trans.x(), trans.y(), trans.width(), trans.height());
   painter->drawPath(_path);
 }
 
-bool Circle::contains(int x, int y) const noexcept {
-  return _path.contains(QPoint(x, y));
-}
+bool Circle::contains(int x, int y) const noexcept { return _path.contains(QPoint(x, y)); }
 
 } // namespace Logic
 } // namespace ART

@@ -10,7 +10,7 @@
 #include <QRenderSettings>
 #include <Qt3DExtras>
 #include <Qt3DRender>
-
+#include <QVector3D>
 #include <unordered_map>
 
 namespace ART {
@@ -35,12 +35,18 @@ public Q_SLOTS:
   Entity *selectedEntity() const noexcept override;
   void selectEntity(const std::string & id) noexcept override;
 
+  void updateSkyboxPosition(QVector3D pos) noexcept {
+    qInfo() << "+> " << pos;
+    // pos.setX(pos.x() *-1);
+    _skyboxPos->setTranslation(pos);
+  }
   void keyPressedEvent(Qt::Key event) override;
 
 private:
   std::unordered_map<std::string, std::unique_ptr<Entity>> _entities;
   RootEntity *_root;
   std::string _selectedEntity;
+  Qt3DCore::QTransform *_skyboxPos;
 };
 
 } // namespace Logic

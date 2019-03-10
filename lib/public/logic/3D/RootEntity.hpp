@@ -3,6 +3,7 @@
 #include "globals.h"
 
 #include <QEntity>
+#include <QVector3D>
 
 namespace ART {
 namespace Logic {
@@ -16,6 +17,7 @@ public:
 
 Q_SIGNALS:
   void keyPressedEvent(Qt::Key event);
+  void cameraMoveEvent(QVector3D pos);
 };
 
 } // namespace Logic

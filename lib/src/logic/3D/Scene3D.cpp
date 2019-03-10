@@ -13,6 +13,7 @@ namespace Logic {
 
 Scene3D::Scene3D(RootEntity *root) : _root{root} {
   connect(root, &RootEntity::keyPressedEvent, this, &Scene3D::keyPressedEvent);
+  connect(root, &RootEntity::cameraMoveEvent, this, &Scene3D::updateSkyboxPosition);
   // QString resPath{"../../ui-qml/mesh/powerup/"};
 
   // Qt3DCore::QEntity * powerUp = new Qt3DCore::QEntity(_root);
@@ -46,10 +47,15 @@ Scene3D::Scene3D(RootEntity *root) : _root{root} {
   // powerUp->addComponent(modelMesh);
   // powerUp->addComponent(material);
 
-  Qt3DExtras::QSkyboxEntity *skybox = new Qt3DExtras::QSkyboxEntity(_root);
+  Qt3DCore::QEntity *test = new Qt3DCore::QEntity{_root};
+  Qt3DExtras::QSkyboxEntity *skybox = new Qt3DExtras::QSkyboxEntity(test);
   skybox->setBaseName("qrc:/skybox/wobbly_bridge_4k_cube_radiance");
   skybox->setExtension(".dds");
   skybox->setGammaCorrectEnabled(true);
+  _skyboxPos = new Qt3DCore::QTransform{test};
+  _skyboxPos->setTranslation({0,0,10});
+
+  test->addComponent(_skyboxPos);
 
   Qt3DCore::QEntity *envLightEntity = new Qt3DCore::QEntity(_root);
   Qt3DRender::QTextureLoader *envIrradiance = new Qt3DRender::QTextureLoader(envLightEntity);

@@ -18,8 +18,7 @@ class Transform3D : public Entity {
 
 public:
   Transform3D(Shape3D &parent, std::string id, Qt3DCore::QTransform *transform = new Qt3DCore::QTransform);
-
-      virtual ~Transform3D();
+  virtual ~Transform3D();
 
   float x();
   float y();

@@ -133,6 +133,7 @@ QVariantList MainController::loadTree() {
   return list;
 }
 
+// Init modules of entity to qml
 void MainController::initEntityModulesModels() {
   if (_currentScene->selectedEntity() == nullptr)
     return;

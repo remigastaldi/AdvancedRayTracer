@@ -44,7 +44,6 @@ void Scene2D::createLine() noexcept {
   _selectedShape = _entities.at(objId).get();
   new Modules::ZIndex(*this, *_selectedShape, "ZIndex");
   _id++;
-
   // Q_EMIT sceneUpdate();
 }
 
@@ -66,6 +65,7 @@ void Scene2D::createCircle() noexcept {
   userIsDrawing = true;
   std::string objId = "Circle [" + std::to_string(_id) + "]";
   std::unique_ptr<Circle> circle = std::make_unique<Circle>(objId);
+  connect(circle.get(), &Circle::dataUpdate, _painter, &PaintedItem::QQuickItem::update);
   _entities.emplace(objId, std::move(circle));
   _selectedShape = _entities.at(objId).get();
   new Modules::ZIndex(*this, *_selectedShape, "ZIndex");
