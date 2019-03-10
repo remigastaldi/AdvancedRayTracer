@@ -30,6 +30,7 @@ private:
 Q_SIGNALS:
   void createSphere();
   void createSquare();
+  void createTorus();
   void import3DModel(const QUrl &);
   void import3DScene(const QUrl &);
 

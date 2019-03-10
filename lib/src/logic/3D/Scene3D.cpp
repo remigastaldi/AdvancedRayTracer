@@ -5,6 +5,7 @@
 #include "Object3D.hpp"
 #include "SceneLoader.hpp"
 #include "Square.hpp"
+#include "Torus.hpp"
 #include "Transform3D.hpp"
 
 #include <Qt3DExtras/QSkyboxEntity>
@@ -142,10 +143,25 @@ void Scene3D::createSphere() noexcept {
   Q_EMIT sceneUpdate();
 }
 
-void Scene3D::removeSphere() noexcept {
-  qInfo() << "Remove sphere";
+void Scene3D::createTorus() noexcept {
+  std::unique_ptr<Torus> torus{std::make_unique<Torus>("Torus[0]", _root)};
+  auto &mesh = torus->getChildren<Modules::Mesh<Qt3DExtras::QTorusMesh>>("Mesh");
+  mesh->setRadius(2);
+  mesh->setSlices(100);
+  mesh->setRings(100);
 
-  _entities.erase("Sphere[0]");
+  torus->removeChildren("Material");
+  auto *material = new Modules::Material<Qt3DExtras::QMetalRoughMaterial>(*torus, "Material");
+  auto *metal = material->get();
+  metal->setBaseColor(QColor(125, 125, 125));
+  metal->setRoughness(0.10);
+  metal->setMetalness(0.95);
+
+  connect(torus.get(), &Shape3D::entitySelectedChanged, this, &Scene3D::selectEntity);
+
+  _entities.emplace("Torus[0]", std::move(torus));
+
+  Q_EMIT sceneUpdate();
 }
 
 void Scene3D::createSquare() noexcept {
@@ -185,7 +201,6 @@ void Scene3D::import3DModel(const QUrl &url) {
   metal->setMetalness(0.95);
 
   connect(object3D.get(), &Shape3D::entitySelectedChanged, this, &Scene3D::selectEntity);
-
 
   _entities.emplace("Object3D[0]", std::move(object3D));
   Q_EMIT sceneUpdate();

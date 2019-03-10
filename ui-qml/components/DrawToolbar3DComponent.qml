@@ -33,6 +33,12 @@ UiMainBorder {
 
       CustomButton {
         Layout.alignment: Qt.AlignHCenter
+        text: "Torus"
+        onClicked: mainController.drawToolbar3DController.createTorus()
+      }
+
+      CustomButton {
+        Layout.alignment: Qt.AlignHCenter
         text: "Import 3D Model"
         onClicked: open3dModelFileDialog.open()
       }
