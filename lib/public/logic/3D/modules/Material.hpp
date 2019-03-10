@@ -25,13 +25,14 @@ public:
     _parent.getQEntity()->removeComponent(_material);
     delete _material;
   }
-  void setBaseColorTexture(const QUrl &path) override {
+  void setBaseColor(const QUrl &path) override {
     qInfo() << path;
     Qt3DRender::QTextureLoader *baseColorLoader = new Qt3DRender::QTextureLoader(_parent.getQEntity());
     baseColorLoader->setSource(QUrl::fromLocalFile(path.path()));
     baseColorLoader->setFormat(Qt3DRender::QAbstractTexture::SRGB8_Alpha8);
     _material->setBaseColor(QVariant::fromValue(baseColorLoader));
   }
+  void setBaseColor(const QColor &color) override { _material->setBaseColor(color); }
 
   void setMetalnessTexture(const QUrl &path) override {
     Qt3DRender::QTextureLoader *metalnessLoader = new Qt3DRender::QTextureLoader(_parent.getQEntity());
@@ -64,6 +65,15 @@ public:
   QVariant metalness() const override { return _material->metalness(); }
 
   QVariant roughness() const override { return _material->roughness(); }
+
+  QVariant baseColor() const override { 
+    QVariant color = _material->baseColor();
+    if (color.type() == QVariant::Color) {
+      return color;
+    } else {
+      return "Not Color";
+    }
+   }
 
   T *get() noexcept { return _material; }
   T *operator->();

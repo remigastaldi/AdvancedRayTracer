@@ -42,6 +42,25 @@ GroupBox {
       }
     }
 
+    CustomText {
+      color: Style.likeWhite
+      text: "Color: " + MaterialModel.baseColor()
+      Layout.leftMargin: 5
+      MouseArea {
+        anchors.fill: parent
+          onClicked: {
+            colorDialog.open() 
+        }
+      }
+      ColorDialog {
+        id: colorDialog
+        title: "Please choose a color"
+        onAccepted: {
+          MaterialModel.setBaseColor(color)
+        }
+      }
+    }
+
     CustomButton {
       Layout.alignment: Qt.AlignHCenter
       text: "Set BaseColor Texture"
@@ -72,13 +91,12 @@ GroupBox {
       onClicked: ambientOcclusionDialog.open()
     }
   }
-
   FileDialog {
     id: baseColorDialog
     title: "Please choose an image"
     nameFilters: [ "Image files (*.jpg *.png)", "All files (*)" ]
     onAccepted: {
-      MaterialModel.setBaseColorTexture(fileUrl)
+      MaterialModel.setBaseColor(fileUrl)
       mainController.updateCurrentScene()
     }
   }
