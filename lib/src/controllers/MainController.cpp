@@ -161,6 +161,13 @@ void MainController::selectedShapeUpdate() {
 
 // TODO: Remove this crappy function, bad dataflow
 void MainController::selectEntityByIndex(int index) {
+  auto &vect = _outliner->entitiesHierarchy();
+  auto it = std::find(vect.cbegin(), vect.cend(), vect[static_cast<size_t>(index)]);
+  if (it == vect.cend() || *it == "|   Material" || *it == "|   Mesh" || *it == "|   Transform3D") {
+    qInfo() << "Not implemented yet, need outliner rework needed";
+    return;
+  }
+
   if (_currentScene != nullptr) {
     _currentScene->selectEntity(_outliner->entitiesHierarchy()[static_cast<size_t>(index)]);
   }

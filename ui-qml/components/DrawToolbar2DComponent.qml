@@ -21,7 +21,8 @@ UiMainBorder {
     Component.onCompleted: {
       mainController.drawToolbar2DController.isDrawingChanged.connect(isDrawingChanged);
       function isDrawingChanged(val) {
-        tools.drawing.textColor = Style.likeWhite
+        if (val == false)
+          tools.drawing.textColor = Style.likeWhite
       }
     }
 

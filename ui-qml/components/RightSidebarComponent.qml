@@ -96,7 +96,6 @@ UiMainBorder {
           Layout.fillWidth: true
           Layout.fillHeight: true
           Layout.maximumWidth: 200
-          // height: 45
           id: zIndexModuleComponent
           visible: false
         }
@@ -104,7 +103,6 @@ UiMainBorder {
           Layout.fillWidth: true
           Layout.fillHeight: true
           Layout.maximumWidth: 200
-          // height: 45
           id: transform2DModuleComponent
           visible: false
         }
@@ -112,7 +110,6 @@ UiMainBorder {
           Layout.fillWidth: true
           Layout.fillHeight: true
           Layout.maximumWidth: 200
-          // height: 45
           id: transform3DModuleComponent
             visible: false
         }
@@ -120,12 +117,10 @@ UiMainBorder {
           Layout.fillWidth: true
           Layout.fillHeight: true
           Layout.maximumWidth: 200
-          // height: 45
           id: materialModuleComponent
             visible: false
         }
         BrushModuleComponent {
-          // height: 45
           Layout.fillWidth: true
           Layout.fillHeight: true
           Layout.maximumWidth: 200
@@ -133,7 +128,6 @@ UiMainBorder {
           visible: false
         }
         PenModuleComponent {
-          // height: 45
           Layout.fillWidth: true
           Layout.fillHeight: true
           Layout.maximumWidth: 200
