@@ -17,15 +17,18 @@ void PaintedItem::paint(QPainter *painter) {
 
 void PaintedItem::mousePressEvent(QMouseEvent *event) {
   setFocus(true);
-  Q_EMIT mousePressUpdate(event);
+  // Q_EMIT mousePressUpdate(event);
+  _scene->mousePressEvent(event);
 }
 
 void PaintedItem::mouseMoveEvent(QMouseEvent *event) {
-  Q_EMIT mouseMoveUpdate(event);
+  // Q_EMIT mouseMoveUpdate(event);
+  _scene->mouseMoveEvent(event);
 }
 
 void PaintedItem::mouseReleaseEvent(QMouseEvent *event) {
-  Q_EMIT mouseReleaseUpdate(event);
+  // Q_EMIT mouseReleaseUpdate(event);
+  _scene->mouseReleaseEvent(event);
 }
 
 } // namespace Logic

@@ -22,11 +22,11 @@ Scene2D::Scene2D(PaintedItem *painter) : _painter{painter}, _selectedShape{nullp
   _painter->setAcceptedMouseButtons(Qt::AllButtons);
   _painter->setAcceptHoverEvents(true);
 
-  connect(_painter, &PaintedItem::paintUpdate, this, &Scene2D::paint);
-  connect(_painter, &PaintedItem::mousePressUpdate, this, &Scene2D::mousePressEvent);
-  connect(_painter, &PaintedItem::mouseMoveUpdate, this, &Scene2D::mouseMoveEvent);
-  connect(_painter, &PaintedItem::mouseReleaseUpdate, this, &Scene2D::mouseReleaseEvent);
-  connect(_painter, &PaintedItem::keyPressedEvent, this, &Scene2D::keyPressedEvent);
+  // connect(_painter, &PaintedItem::paintUpdate, this, &Scene2D::paint);
+  // connect(_painter, &PaintedItem::mousePressUpdate, this, &Scene2D::mousePressEvent);
+  // connect(_painter, &PaintedItem::mouseMoveUpdate, this, &Scene2D::mouseMoveEvent);
+  // connect(_painter, &PaintedItem::mouseReleaseUpdate, this, &Scene2D::mouseReleaseEvent);
+  // connect(_painter, &PaintedItem::keyPressedEvent, this, &Scene2D::keyPressedEvent);
 }
 
 void Scene2D::paint(QPainter *painter) {
