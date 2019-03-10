@@ -31,15 +31,25 @@ void Polygon::draw(QPainter *painter) noexcept {
 	int nb = 5;
 	float theta = (2 * pi / nb);
 	float dtheta = (2 * pi / nb);
+	QPoint center(0, 0);
 
 	for (int i = 1; i <= nb; i++) {
 		theta += dtheta;
 		double pointX = (trans.x() + size * cos(theta));
 		double pointY = (trans.y() + size * sin(theta));
 		polygon << QPoint(pointX, pointY);
+		center.setX(center.x() + pointX);
+		center.setY(center.y() + pointY);
 	}
-	_path.addPolygon(polygon);
-	painter->drawPolygon(polygon);
+
+	center.setX(center.x() / nb);
+	center.setY(center.y() / nb);
+
+	QTransform t = QTransform().translate(center.x(), center.y()).rotate(trans.angle()).translate(-center.x(), -center.y());
+	QPolygon rotatedPolygon = t.map(polygon);
+
+	_path.addPolygon(rotatedPolygon);
+	painter->drawPolygon(rotatedPolygon);
 }
 
 bool Polygon::contains(int x, int y) const noexcept { return _path.contains(QPointF(x, y)); }
