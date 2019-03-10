@@ -14,7 +14,7 @@ class ADVANCED_RAY_TRACER_EXPORT RootEntity : public Qt3DCore::QEntity {
 public:
   explicit RootEntity(Qt3DCore::QEntity *parent = 0);
 
-public Q_SLOTS:
+Q_SIGNALS:
   void keyPressedEvent(Qt::Key event);
 };
 
