@@ -23,8 +23,9 @@ public:
   virtual void mouseReleaseEvent(QMouseEvent *event) override ;
 
 
-// public: void test(Scene2D *scene) { _scene = scene; }
-// Scene2D *_scene;
+// Windows crash with signals, find why and remove this
+public: void setScene2D(Scene2D *scene) { _scene = scene; }
+Scene2D *_scene;
 
 
 Q_SIGNALS:
