@@ -144,6 +144,10 @@ void Scene2D::saveScene(const QUrl &url) noexcept {
   });
 }
 
+void Scene2D::setBackgroundColor(const QColor &color) noexcept {
+  _painter->setFillColor(color);
+}
+
 void Scene2D::mousePressEvent(QMouseEvent *event) {
   if (userIsDrawing) {
 	  if (event->buttons() == Qt::RightButton) {

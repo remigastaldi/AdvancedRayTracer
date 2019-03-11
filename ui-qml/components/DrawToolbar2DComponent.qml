@@ -88,7 +88,7 @@ UiMainBorder {
           }
         }
 
-		CustomButton {
+		  CustomButton {
           Layout.alignment: Qt.AlignHCenter
           text: "Copy image"
           onClicked: {
@@ -102,7 +102,21 @@ UiMainBorder {
           Layout.alignment: Qt.AlignHCenter
           text: "Save scene"
           onClicked: saveSceneDialog.open()
+      }
+
+      CustomButton {
+          Layout.alignment: Qt.AlignHCenter
+          text: "Background Color"
+          onClicked: colorDialog.open()
+      }
+
+      ColorDialog {
+        id: colorDialog
+        title: "Please choose a color"
+        onAccepted: {
+          mainController.drawToolbar2DController.setBackgroundColor(color)
         }
+      }
 
       FileDialog {
         id: importImgDialog

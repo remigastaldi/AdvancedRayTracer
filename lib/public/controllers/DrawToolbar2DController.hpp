@@ -35,6 +35,7 @@ Q_SIGNALS:
   void saveScene(const QUrl& file_url);
 
   void isDrawingChanged(bool isDrawing);
+  void setBackgroundColor(const QColor &color);
 
 private:
   // ART::Models::DrawToolbar2DModel *_model{nullptr};

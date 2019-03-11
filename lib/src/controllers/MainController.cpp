@@ -57,6 +57,7 @@ void  MainController::setScene2D(Logic::Scene2D *scene) noexcept {
   connect(_drawToolbar2DController, &DrawToolbar2DController::cutImage, _scene2D, &Logic::Scene2D::cutImage);
   connect(_drawToolbar2DController, &DrawToolbar2DController::importImg, _scene2D, &Logic::Scene2D::importImg);
   connect(_drawToolbar2DController, &DrawToolbar2DController::saveScene, _scene2D, &Logic::Scene2D::saveScene);
+  connect(_drawToolbar2DController, &DrawToolbar2DController::setBackgroundColor, _scene2D, &Logic::Scene2D::setBackgroundColor);
 }
 
 ART::Models::Outliner *MainController::outliner() const noexcept {

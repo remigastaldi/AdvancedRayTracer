@@ -35,6 +35,7 @@ public Q_SLOTS:
   void cutImage() noexcept;
   void importImg(const QUrl &url) noexcept;
   void saveScene(const QUrl &url) noexcept;
+  void setBackgroundColor(const QColor &color) noexcept;
 
   void mousePressEvent(QMouseEvent *event);
   void mouseMoveEvent(QMouseEvent *event);

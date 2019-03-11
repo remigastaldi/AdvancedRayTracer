@@ -18,19 +18,16 @@ GroupBox {
     // spacing: 4
 
     CustomText {
-      color: Style.likeWhite
       text: "Pen: "
       Layout.leftMargin: 5
     }
     CustomText {
-      color: Style.likeWhite
       text: PenModel.color
       Layout.leftMargin: 5
       MouseArea {
         anchors.fill: parent
           onClicked: {
             colorDialog.open()
-            // colorDialog.visible = true
           }
         }
       ColorDialog {
@@ -38,9 +35,7 @@ GroupBox {
         title: "Please choose a color"
         onAccepted: {
           PenModel.setColor(color)
-          // console.log("You chose: " + colorDialog.color)
         }
-        // Component.onCompleted: visible = true
       }
     }
     CustomText {
@@ -48,9 +43,7 @@ GroupBox {
       Layout.leftMargin: 5
     }
     CustomDoubleInput {
-      // text: parseFloat(PenModel.width)
       text: PenModel.width()
-      // text: PenModel.width
 
       onEditingFinished: {
         PenModel.setWidth(parseFloat(text))
