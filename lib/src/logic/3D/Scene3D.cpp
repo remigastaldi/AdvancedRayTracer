@@ -134,7 +134,7 @@ void Scene3D::createSquare() noexcept {
 }
 
 void Scene3D::import3DModel(const QUrl &url) {
-  std::string id = "Torus [" + std::to_string(_urrId++) + "]";
+  std::string id = "Model [" + std::to_string(_urrId++) + "]";
   std::unique_ptr<Object3D> object3D{std::make_unique<Object3D>(id, _root)};
   auto &mesh = object3D->getChildren<Modules::Mesh<Qt3DRender::QMesh>>("Mesh");
   // Qt3DCore::QEntity *model3D = new Qt3DCore::QEntity(_root);
