@@ -7,6 +7,7 @@
 #include <QEntity>
 #include <Qt3DExtras>
 #include <Qt3DRender>
+#include <QRect>
 
 namespace ART {
 namespace Logic {
@@ -26,7 +27,6 @@ public:
     delete _material;
   }
   void setBaseColor(const QUrl &path) override {
-    qInfo() << path;
     Qt3DRender::QTextureLoader *baseColorLoader = new Qt3DRender::QTextureLoader(_parent.getQEntity());
     baseColorLoader->setSource(QUrl::fromLocalFile(path.path()));
     baseColorLoader->setFormat(Qt3DRender::QAbstractTexture::SRGB8_Alpha8);
@@ -66,14 +66,14 @@ public:
 
   QVariant roughness() const override { return _material->roughness(); }
 
-  QVariant baseColor() const override { 
+  QVariant baseColor() const override {
     QVariant color = _material->baseColor();
     if (color.type() == QVariant::Color) {
       return color;
     } else {
       return "Not Color";
     }
-   }
+  }
 
   T *get() noexcept { return _material; }
   T *operator->();
