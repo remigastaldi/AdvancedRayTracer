@@ -13,41 +13,9 @@
 namespace ART {
 namespace Logic {
 
-Scene3D::Scene3D(RootEntity *root) : _root{root} {
+Scene3D::Scene3D(RootEntity *root) : _root{root}, _urrId{0} {
   connect(root, &RootEntity::keyPressedEvent, this, &Scene3D::keyPressedEvent);
   connect(root, &RootEntity::cameraMoveEvent, this, &Scene3D::updateSkyboxPosition);
-  // QString resPath{"../../ui-qml/mesh/powerup/"};
-
-  // Qt3DCore::QEntity * powerUp = new Qt3DCore::QEntity(_root);
-  // Qt3DRender::QMesh * modelMesh = new Qt3DRender::QMesh();
-  // modelMesh->setSource(QUrl::fromLocalFile(resPath + "powerup.obj"));
-
-  // Qt3DRender::QTextureLoader *loader = new Qt3DRender::QTextureLoader(powerUp);
-  // loader->setSource(QUrl::fromLocalFile(resPath + "basecolor.png"));
-  // loader->setFormat(Qt3DRender::QAbstractTexture::SRGB8_Alpha8);
-
-  // Qt3DRender::QTextureLoader *metalnessLoader = new Qt3DRender::QTextureLoader(powerUp);
-  // metalnessLoader->setSource(QUrl::fromLocalFile(resPath + "metalness.png"));
-
-  // Qt3DRender::QTextureLoader *roughnessLoader = new Qt3DRender::QTextureLoader(powerUp);
-  // roughnessLoader->setSource(QUrl::fromLocalFile(resPath + "roughness.png"));
-
-  // Qt3DRender::QTextureLoader *normalLoader = new Qt3DRender::QTextureLoader(powerUp);
-  // normalLoader->setSource(QUrl::fromLocalFile(resPath + "normal.png"));
-
-  // Qt3DRender::QTextureLoader *ambientOcclusionLoader = new Qt3DRender::QTextureLoader(_root);
-  // ambientOcclusionLoader->setSource(QUrl::fromLocalFile(resPath + "ambientocclusion.png"));
-
-  // Qt3DExtras::QMetalRoughMaterial *material = new Qt3DExtras::QMetalRoughMaterial();
-
-  // material->setBaseColor(QVariant::fromValue(loader));
-  // material->setMetalness(QVariant::fromValue(metalnessLoader));
-  // material->setRoughness(QVariant::fromValue(roughnessLoader));
-  // material->setNormal(QVariant::fromValue(normalLoader));
-  // material->setAmbientOcclusion(QVariant::fromValue(ambientOcclusionLoader));
-
-  // powerUp->addComponent(modelMesh);
-  // powerUp->addComponent(material);
 
   // Qt3DCore::QEntity *test = new Qt3DCore::QEntity{_root};
   Qt3DExtras::QSkyboxEntity *skybox = new Qt3DExtras::QSkyboxEntity(_root);
@@ -100,15 +68,8 @@ Scene3D::Scene3D(RootEntity *root) : _root{root} {
 }
 
 void Scene3D::createSphere() noexcept {
-  // Qt3DCore::QEntity *sceneLoaderEntity = new Qt3DCore::QEntity(_root);
-  // sceneLoader = new Qt3DRender::QSceneLoader(sceneLoaderEntity);
-  // // SceneWalker sceneWalker(sceneLoader);
-  // QObject::connect(sceneLoader, &Qt3DRender::QSceneLoader::statusChanged, _root, &Scene3D::status);
-  // sceneLoaderEntity->addComponent(sceneLoader);
-
-  // sceneLoader->setSource(QUrl::fromLocalFile(":/mesh/earth/Earth 2K.fbx"));
-
-  std::unique_ptr<Sphere> sphere{std::make_unique<Sphere>("Sphere[0]", _root)};
+  std::string id = "Sphere [" + std::to_string(_urrId++) + "]";
+  std::unique_ptr<Sphere> sphere{std::make_unique<Sphere>(id, _root)};
   auto &mesh = sphere->getChildren<Modules::Mesh<Qt3DExtras::QSphereMesh>>("Mesh");
   mesh->setRadius(2);
   mesh->setSlices(100);
@@ -123,28 +84,14 @@ void Scene3D::createSphere() noexcept {
 
   connect(sphere.get(), &Shape3D::entitySelectedChanged, this, &Scene3D::selectEntity);
 
-  _entities.emplace("Sphere[0]", std::move(sphere));
-
-  // std::unique_ptr<Sphere> sphere2{std::make_unique<Sphere>("Sphere[1]",
-  // static_cast<Qt3DCore::QEntity*>(sphere->getQEntity()))}; auto &mesh2 =
-  // sphere2->getChildren<Modules::Mesh<Qt3DExtras::QSphereMesh>>("Mesh"); mesh2->setRadius(5); mesh2->setSlices(100);
-  // mesh2->setRings(100);
-
-  // auto *material2 = new Modules::Material<Qt3DExtras::QMetalRoughMaterial>(*sphere2, "MetalMaterial");
-  // auto *metal2 = material2->get();
-  // metal2->setBaseColor(QColor(125, 125, 125));
-  // metal2->setRoughness(0.10);
-  // metal2->setMetalness(0.95);
-
-  // auto &transform2 = sphere2->getChildren<Modules::Transform3D>("Transform3D");
-  // transform2->setTranslation({15, 0, 0});
-  // sphere->addChildren("Sphere[1]", std::move(sphere2));
+  _entities.emplace(id, std::move(sphere));
 
   Q_EMIT sceneUpdate();
 }
 
 void Scene3D::createTorus() noexcept {
-  std::unique_ptr<Torus> torus{std::make_unique<Torus>("Torus[0]", _root)};
+  std::string id = "Torus [" + std::to_string(_urrId++) + "]";
+  std::unique_ptr<Torus> torus{std::make_unique<Torus>(id, _root)};
   auto &mesh = torus->getChildren<Modules::Mesh<Qt3DExtras::QTorusMesh>>("Mesh");
   mesh->setRadius(2);
   mesh->setSlices(100);
@@ -159,13 +106,14 @@ void Scene3D::createTorus() noexcept {
 
   connect(torus.get(), &Shape3D::entitySelectedChanged, this, &Scene3D::selectEntity);
 
-  _entities.emplace("Torus[0]", std::move(torus));
+  _entities.emplace(id, std::move(torus));
 
   Q_EMIT sceneUpdate();
 }
 
 void Scene3D::createSquare() noexcept {
-  std::unique_ptr<Square> square{std::make_unique<Square>("Square[0]", _root)};
+  std::string id = "Square [" + std::to_string(_urrId++) + "]";
+  std::unique_ptr<Square> square{std::make_unique<Square>(id, _root)};
   auto &mesh = square->getChildren<Modules::Mesh<Qt3DExtras::QCuboidMesh>>("Mesh");
   mesh->setXExtent(2);
   mesh->setYExtent(2);
@@ -180,14 +128,14 @@ void Scene3D::createSquare() noexcept {
 
   connect(square.get(), &Shape3D::entitySelectedChanged, this, &Scene3D::selectEntity);
 
-  _entities.emplace("Square[0]", std::move(square));
+  _entities.emplace(id, std::move(square));
 
   Q_EMIT sceneUpdate();
 }
 
 void Scene3D::import3DModel(const QUrl &url) {
-
-  std::unique_ptr<Object3D> object3D{std::make_unique<Object3D>("Object3D[0]", _root)};
+  std::string id = "Torus [" + std::to_string(_urrId++) + "]";
+  std::unique_ptr<Object3D> object3D{std::make_unique<Object3D>(id, _root)};
   auto &mesh = object3D->getChildren<Modules::Mesh<Qt3DRender::QMesh>>("Mesh");
   // Qt3DCore::QEntity *model3D = new Qt3DCore::QEntity(_root);
   // Qt3DRender::QMesh *modelMesh = new Qt3DRender::QMesh();
@@ -202,17 +150,17 @@ void Scene3D::import3DModel(const QUrl &url) {
 
   connect(object3D.get(), &Shape3D::entitySelectedChanged, this, &Scene3D::selectEntity);
 
-  _entities.emplace("Object3D[0]", std::move(object3D));
+  _entities.emplace(id, std::move(object3D));
   Q_EMIT sceneUpdate();
 }
 
 void Scene3D::import3DScene(const QUrl &url) {
-  qInfo() << url;
-  std::unique_ptr<SceneLoader> sceneLoader{std::make_unique<SceneLoader>("Scene3D[0]", _root)};
+  std::string id = "Scene3D [" + std::to_string(_urrId++) + "]";
+  std::unique_ptr<SceneLoader> sceneLoader{std::make_unique<SceneLoader>(id, _root)};
   // QObject::connect(sceneLoader, &Qt3DRender::QSceneLoader::statusChanged, _root, &Scene3D::status);
   auto &scene = sceneLoader->getChildren<Modules::Mesh<Qt3DRender::QSceneLoader>>("Mesh");
   scene->setSource(QUrl::fromLocalFile(url.path()));
-  _entities.emplace("Scene3D[0]", std::move(sceneLoader));
+  _entities.emplace(id, std::move(sceneLoader));
 
   connect(sceneLoader.get(), &Shape3D::entitySelectedChanged, this, &Scene3D::selectEntity);
 

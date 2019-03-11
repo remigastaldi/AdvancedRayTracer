@@ -47,6 +47,7 @@ private:
   RootEntity *_root;
   std::string _selectedEntity;
   Qt3DCore::QTransform *_skyboxPos;
+  size_t _urrId;
 };
 
 } // namespace Logic
