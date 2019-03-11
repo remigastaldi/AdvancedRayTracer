@@ -27,7 +27,7 @@ UiMainBorder {
 
       CustomButton {
         Layout.alignment: Qt.AlignHCenter
-        text: "Square"
+        text: "Cube"
         onClicked: mainController.drawToolbar3DController.createSquare()
       }
 

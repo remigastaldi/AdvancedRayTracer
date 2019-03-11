@@ -57,7 +57,7 @@ Q_SIGNALS:
   void isDrawingChanged(bool isDrawing);
 
 private:
-  std::map<size_t, std::unordered_map<std::string, std::reference_wrapper<std::unique_ptr<Shape2D>>>> _zIndex;
+  std::map<size_t, std::map<std::string, std::reference_wrapper<std::unique_ptr<Shape2D>>>> _zIndex;
   std::unordered_map<std::string, std::unique_ptr<Shape2D>> _entities;
   PaintedItem *_painter;
   Shape2D *_selectedShape;

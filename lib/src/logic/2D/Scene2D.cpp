@@ -155,19 +155,18 @@ void Scene2D::mousePressEvent(QMouseEvent *event) {
 		trans.move(event->x(), event->y());
 	  }
   } else {
-    auto it = _zIndex.rbegin();
-    while (it != _zIndex.rend()) {
-      for (auto &entity : it->second) {
+    for (auto it = _zIndex.rbegin(); it != _zIndex.rend(); ++it) {
+      for (auto entity = it->second.rbegin(); entity != it->second.rend(); ++ entity) {
       // Did the user click on a shape?
-        if (entity.second.get()->contains(event->x(), event->y())) {
+        if (entity->second.get()->contains(event->x(), event->y())) {
           // Delete the shape
           if (event->buttons() == Qt::MiddleButton) {
 			      _painter->setCursor(QCursor(Qt::ForbiddenCursor));
-            _entities.erase(entity.first);
+            _entities.erase(entity->first);
             _painter->update();
             return;
           }
-          _selectedShape = entity.second.get().get();
+          _selectedShape = entity->second.get().get();
           Q_EMIT selectedShapeUpdate();
           auto &trans = _selectedShape->getChildren<Modules::Transform2D>("Transform2D");
           std::vector<QPointF> points{trans.getPoints()};
@@ -178,7 +177,6 @@ void Scene2D::mousePressEvent(QMouseEvent *event) {
           return;
         }
       }
-      ++it;
     }
     _selectedShape = nullptr;
     Q_EMIT selectedShapeUpdate();
@@ -225,6 +223,8 @@ void Scene2D::mouseReleaseEvent(QMouseEvent *event) {
 		  _selectedShape = _entities.at(objId).get();
 		  new Modules::ZIndex(*this, *_selectedShape, "zIndex");
 		  _id++;
+      // For button color update
+      Q_EMIT isDrawingChanged(false);
 	  }
   }
 
