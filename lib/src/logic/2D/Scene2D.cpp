@@ -163,6 +163,7 @@ void Scene2D::mousePressEvent(QMouseEvent *event) {
           if (event->buttons() == Qt::MiddleButton) {
 			      _painter->setCursor(QCursor(Qt::ForbiddenCursor));
             _entities.erase(entity->first);
+            _selectedShape = nullptr;
             _painter->update();
             return;
           }
