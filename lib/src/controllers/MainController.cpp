@@ -8,11 +8,10 @@
 #include "Outliner.hpp"
 // #include "Entity.hpp"
 // #include "Mesh.hpp"
-
+#include "Camera.hpp"
 #include "ZIndex.hpp"
 
-namespace ART {
-namespace Controllers {
+namespace ART::Controllers {
 
 MainController::MainController(QObject* parent) :
   QObject{parent},
@@ -42,6 +41,7 @@ void  MainController::setScene3D(Logic::Scene3D *scene) noexcept {
   connect(_drawToolbar3DController, &DrawToolbar3DController::createSquare, _scene3D, &Logic::Scene3D::createSquare);
   connect(_drawToolbar3DController, &DrawToolbar3DController::import3DModel, _scene3D, &Logic::Scene3D::import3DModel);
   connect(_drawToolbar3DController, &DrawToolbar3DController::import3DScene, _scene3D, &Logic::Scene3D::import3DScene);
+  // _engine->rootContext()->setContextProperty("CameraModel", _scene3D->camera);
 }
 
 void  MainController::setScene2D(Logic::Scene2D *scene) noexcept {
@@ -165,7 +165,7 @@ void MainController::selectEntityByIndex(int index) {
   auto &vect = _outliner->entitiesHierarchy();
   auto it = std::find(vect.cbegin(), vect.cend(), vect[static_cast<size_t>(index)]);
   if (it == vect.cend() || *it == "|   Material" || *it == "|   Mesh" || *it == "|   Transform3D") {
-    qInfo() << "Not implemented yet, need outliner rework needed";
+    qInfo() << "Not implemented yet, outliner rework needed";
     return;
   }
 
@@ -174,5 +174,4 @@ void MainController::selectEntityByIndex(int index) {
   }
 }
 
-} // namespace Controllers
-} // namespace ART
+} // namespace ART::Controllers

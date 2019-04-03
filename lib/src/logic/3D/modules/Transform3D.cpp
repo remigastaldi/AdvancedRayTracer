@@ -45,9 +45,14 @@ void Transform3D::setZ(float z) noexcept {
   Q_EMIT dataUpdate();
 }
 
-void Transform3D::setTranslation(Qt3DCore::QTransform *transform) noexcept {
+void Transform3D::setTransform(Qt3DCore::QTransform *transform) noexcept {
   transform->QObject::setParent(_parent.getQEntity());
   _transform = transform;
+  Q_EMIT dataUpdate();
+}
+
+void Transform3D::setTranslation(QVector3D transform) noexcept {
+  _transform->setTranslation(std::move(transform));
   Q_EMIT dataUpdate();
 }
 

@@ -7,3 +7,7 @@
 #else
 #  define ADVANCED_RAY_TRACER_EXPORT Q_DECL_IMPORT
 #endif
+
+#define DISABLE_MOVE(Class) \
+    Class(Class &&) = delete;\
+    Class &operator=(Class &&) = delete;

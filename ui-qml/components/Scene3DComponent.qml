@@ -36,7 +36,7 @@ Scene3D {
       sourceDevice : keyboardDevice
       focus: true
       onPressed : { 
-        sceneRoot.cameraMoveEvent(mainCamera.position)
+        // sceneRoot.cameraMoveEvent(mainCamera.position)
         sceneRoot.keyPressedEvent(event.key)
       }
     }
@@ -56,15 +56,14 @@ Scene3D {
       fieldOfView: 60
       nearPlane : 0.1
       farPlane : 1000.0
-      position: Qt.vector3d( 0.0, 0, 10.0 )
-      upVector: Qt.vector3d( 0.0, 1.0, 0.0 )
-      viewCenter: Qt.vector3d( 0.0, 0.0, 0.0 )
+      position: CameraModel.position;
+      // upVector: Qt.vector3d( 0.0, 1.0, 0.0 )
+      viewCenter: Qt.vector3d( 0.0, 0.0, 1000.0 )
     }
     
     FirstPersonCameraController {
       camera: mainCamera 
       linearSpeed: 50
-      // lookSpeed: 3000
       lookSpeed: 100
     }
   }

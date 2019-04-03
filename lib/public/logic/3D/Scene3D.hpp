@@ -5,6 +5,7 @@
 #include "RootEntity.hpp"
 #include "Scene.hpp"
 #include "Sphere.hpp"
+#include "Camera.hpp"
 
 #include <QPointLight>
 #include <QRenderSettings>
@@ -21,9 +22,11 @@ namespace Logic {
 class ADVANCED_RAY_TRACER_EXPORT Scene3D : public Scene {
   Q_OBJECT
   Q_DISABLE_COPY(Scene3D)
+  DISABLE_MOVE(Scene3D)
 
 public:
   explicit Scene3D(RootEntity *root = 0);
+  ~Scene3D() override = default;
 
 public Q_SLOTS:
   void createSphere() noexcept;
@@ -42,9 +45,11 @@ public Q_SLOTS:
   }
   void keyPressedEvent(Qt::Key event) override;
 
+
 private:
   std::unordered_map<std::string, std::unique_ptr<Entity>> _entities;
   RootEntity *_root;
+  // Models::Camera *_camera;
   std::string _selectedEntity;
   Qt3DCore::QTransform *_skyboxPos;
   size_t _urrId;

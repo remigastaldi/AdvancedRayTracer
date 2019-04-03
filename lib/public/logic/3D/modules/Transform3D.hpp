@@ -6,19 +6,20 @@
 #include <Qt3DExtras>
 #include <Qt3DRender>
 
-namespace ART {
-namespace Logic {
-namespace Modules {
+namespace ART::Logic::Modules {
 
 class Transform3D : public Entity {
   Q_OBJECT
   Q_PROPERTY(float x READ x NOTIFY dataUpdate)
   Q_PROPERTY(float y READ y NOTIFY dataUpdate)
   Q_PROPERTY(float z READ z NOTIFY dataUpdate)
+  Q_DISABLE_COPY(Transform3D)
 
 public:
   Transform3D(Shape3D &parent, std::string id, Qt3DCore::QTransform *transform = new Qt3DCore::QTransform);
-  virtual ~Transform3D();
+  ~Transform3D() override;
+  Transform3D(Transform3D&& other) = delete;
+  Transform3D& operator=(Transform3D&& other) = delete;
 
   float x();
   float y();
@@ -26,13 +27,12 @@ public:
 
   Qt3DCore::QTransform *get() noexcept;
 
-  Qt3DCore::QTransform *operator->() { return _transform; };
-
 public Q_SLOTS:
   void setX(float x) noexcept;
   void setY(float y) noexcept;
   void setZ(float z) noexcept;
-  void setTranslation(Qt3DCore::QTransform *transform) noexcept;
+  void setTransform(Qt3DCore::QTransform *transform) noexcept;
+  void setTranslation(QVector3D transform) noexcept;
 
 Q_SIGNALS:
   void dataUpdate();
@@ -46,6 +46,4 @@ private:
 // return _transform;
 // }
 
-} // namespace Modules
-} // namespace Logic
-} // namespace ART
+} // namespace ART::Logic::Modules

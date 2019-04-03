@@ -7,11 +7,11 @@
 #include "Square.hpp"
 #include "Torus.hpp"
 #include "Transform3D.hpp"
-
+#include <QPropertyAnimation>
 #include <Qt3DExtras/QSkyboxEntity>
+#include <QtConcurrent>
 
-namespace ART {
-namespace Logic {
+namespace ART::Logic {
 
 Scene3D::Scene3D(RootEntity *root) : _root{root}, _urrId{0} {
   connect(root, &RootEntity::keyPressedEvent, this, &Scene3D::keyPressedEvent);
@@ -51,19 +51,20 @@ Scene3D::Scene3D(RootEntity *root) : _root{root}, _urrId{0} {
   Qt3DCore::QEntity *lightEntity = new Qt3DCore::QEntity(_root);
   Qt3DRender::QPointLight *light = new Qt3DRender::QPointLight(_root);
   light->setColor("red");
-  light->setIntensity(1);
+  light->setIntensity(0.8);
   lightEntity->addComponent(light);
   Qt3DCore::QTransform *tr = new Qt3DCore::QTransform(lightEntity);
-  tr->setTranslation({20, -10, 9});
+  tr->setTranslation({0, 0, 100});
   lightEntity->addComponent(tr);
 
   Qt3DCore::QEntity *lightEntity2 = new Qt3DCore::QEntity(_root);
-  Qt3DRender::QPointLight *light2 = new Qt3DRender::QPointLight(_root);
-  light2->setColor("white");
+  Qt3DRender::QSpotLight *light2 = new Qt3DRender::QSpotLight(_root);
+  light2->setColor("blue");
   light2->setIntensity(1);
+  light2->setLocalDirection({0, 0, 1});
   lightEntity2->addComponent(light2);
   Qt3DCore::QTransform *tr2 = new Qt3DCore::QTransform(lightEntity2);
-  tr2->setTranslation({-20, 10, 9});
+  tr2->setTranslation({0, 0, -20});
   lightEntity2->addComponent(tr2);
 }
 
@@ -93,7 +94,7 @@ void Scene3D::createTorus() noexcept {
   std::string id = "Torus [" + std::to_string(_urrId++) + "]";
   std::unique_ptr<Torus> torus{std::make_unique<Torus>(id, _root)};
   auto &mesh = torus->getChildren<Modules::Mesh<Qt3DExtras::QTorusMesh>>("Mesh");
-  mesh->setRadius(2);
+  mesh->setRadius(5);
   mesh->setSlices(100);
   mesh->setRings(100);
 
@@ -232,5 +233,4 @@ void Scene3D::keyPressedEvent(Qt::Key event) {
   }
 }
 
-} // namespace Logic
-} // namespace ART
+} // namespace ART::Logic

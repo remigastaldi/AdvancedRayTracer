@@ -6,7 +6,7 @@ set(LIBRARY_NAME advancedraytracer)
 ###########################
 # Dependencies
 find_package(OpenGL COMPONENTS OpenGL REQUIRED)
-find_package(Qt5 COMPONENTS QuickControls2 Widgets 3DCore 3DRender 3DInput 3DLogic 3DExtras 3DAnimation  REQUIRED)
+find_package(Qt5 COMPONENTS QuickControls2 Widgets 3DCore 3DRender 3DInput 3DLogic 3DExtras 3DAnimation Concurrent  REQUIRED)
 
 ###########################
 # Targets
@@ -100,6 +100,7 @@ add_library(${PROJECT_NAME} SHARED
   public/models/ToolbarModel.hpp
   public/models/RightSidebarModel.hpp
   public/models/Outliner.hpp
+  public/models/Camera.hpp
 
   public/globals.h
 )
@@ -152,6 +153,7 @@ target_link_libraries(${PROJECT_NAME}
     Qt5::3DLogic
     Qt5::3DExtras
     Qt5::3DAnimation
+    Qt5::Concurrent
 )
 
 target_compile_features(${PROJECT_NAME}
