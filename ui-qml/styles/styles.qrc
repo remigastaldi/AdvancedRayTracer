@@ -1,0 +1,12 @@
+<RCC>
+  <qresource prefix="/styles">
+      <file alias="Style.qml">Style.qml</file>
+      <file alias="qmldir">qmldir</file>
+      <file alias="ToolbarButton.qml">ToolbarButton.qml</file>
+      <file alias="UiMainBorder.qml">UiMainBorder.qml</file>
+      <file alias="CustomButton.qml">CustomButton.qml</file>
+      <file alias="CustomIntInput.qml">CustomIntInput.qml</file>
+      <file alias="CustomDoubleInput.qml">CustomDoubleInput.qml</file>
+      <file alias="CustomText.qml">CustomText.qml</file>
+  </qresource>
+</RCC>

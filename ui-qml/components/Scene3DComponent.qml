@@ -21,8 +21,9 @@ Scene3D {
     components: [
       RenderSettings {
         activeFrameGraph: ForwardRenderer {
-        clearColor: Qt.rgba(0, 0, 0, 0)
-        camera: mainCamera
+          clearColor: Qt.rgba(0, 0, 0, 0)
+          camera: mainCamera
+          frustumCulling: false
         }
       },
       InputSettings { }
@@ -56,15 +57,27 @@ Scene3D {
       fieldOfView: 60
       nearPlane : 0.1
       farPlane : 1000.0
-      position: CameraModel.position;
-      // upVector: Qt.vector3d( 0.0, 1.0, 0.0 )
-      viewCenter: Qt.vector3d( 0.0, 0.0, 1000.0 )
+      // position: CameraModel.position;
+      position: Qt.vector3d( -10.0, 0.0, 10.0 )
+      upVector: Qt.vector3d( 0.0, 1.0, 0.0 )
+      viewCenter: Qt.vector3d( 0.0, 0.0, 0.0 )
     }
     
     FirstPersonCameraController {
       camera: mainCamera 
       linearSpeed: 50
       lookSpeed: 100
+      // linearSpeed: 300
+      // lookSpeed: 3000
+    }
+
+    SkyboxEntity {
+      baseName: "qrc:/skybox/output_skybox"
+      extension: ".dds"
+      // gammaCorrect: true
+      // Transform {
+      //   translation: mainCamera.position
+      // }
     }
   }
 }

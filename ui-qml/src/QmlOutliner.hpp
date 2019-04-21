@@ -1,6 +1,6 @@
 #pragma once
 
-#include "globals.h"
+// #include "globals.h"
 #include "Outliner.hpp"
 
 #include <QAbstractListModel>
@@ -22,14 +22,14 @@ enum RoleType {
 };
 
 public:
-  QmlOutliner(QObject *parent = 0);
+  explicit QmlOutliner(QObject *parent = nullptr);
 
-  virtual QVariant data(const QModelIndex &index, int role) const override;
-  virtual int rowCount(const QModelIndex &parent) const override;
-  virtual QHash<int, QByteArray> roleNames() const override;
+  [[nodiscard]] QVariant data(const QModelIndex &index, int role) const override;
+  [[nodiscard]] int rowCount(const QModelIndex &parent) const override;
+  [[nodiscard]] QHash<int, QByteArray> roleNames() const override;
 
-  virtual void dataUpdate() noexcept override;
-  virtual void selectionIndexUpdate() noexcept override;
+  void dataUpdate() noexcept override;
+  void selectionIndexUpdate() noexcept override;
 
 public Q_SLOTS:
   // void setSelectionIndex(int index);

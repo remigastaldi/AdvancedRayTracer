@@ -7,6 +7,7 @@
 #include "Square.hpp"
 #include "Torus.hpp"
 #include "Transform3D.hpp"
+
 #include <QPropertyAnimation>
 #include <Qt3DExtras/QSkyboxEntity>
 #include <QtConcurrent>
@@ -17,36 +18,40 @@ Scene3D::Scene3D(RootEntity *root) : _root{root}, _urrId{0} {
   connect(root, &RootEntity::keyPressedEvent, this, &Scene3D::keyPressedEvent);
   connect(root, &RootEntity::cameraMoveEvent, this, &Scene3D::updateSkyboxPosition);
 
+
+  // camera
+
   // Qt3DCore::QEntity *test = new Qt3DCore::QEntity{_root};
-  Qt3DExtras::QSkyboxEntity *skybox = new Qt3DExtras::QSkyboxEntity(_root);
-  skybox->setBaseName("qrc:/skybox/wobbly_bridge_4k_cube_radiance");
-  skybox->setExtension(".dds");
-  skybox->setGammaCorrectEnabled(true);
+  // Qt3DExtras::QSkyboxEntity *skybox = new Qt3DExtras::QSkyboxEntity(_root);
+  // skybox->setBaseName("qrc:/skybox/wobbly_bridge_4k_cube_radiance");
+  // skybox->setExtension(".dds");
+  // skybox->setGammaCorrectEnabled(true);
   // _skyboxPos = new Qt3DCore::QTransform{test};
-  // _skyboxPos->setTranslation({0,0,10});
+  // _skyboxPos->setTranslation({0,0,0});
   // test->addComponent(_skyboxPos);
 
-  Qt3DCore::QEntity *envLightEntity = new Qt3DCore::QEntity(_root);
-  Qt3DRender::QTextureLoader *envIrradiance = new Qt3DRender::QTextureLoader(envLightEntity);
-  envIrradiance->setSource(QUrl::fromLocalFile(":/skybox/wobbly_bridge_4k_cube_irradiance.dds"));
+  // Qt3DCore::QEntity *envLightEntity = new Qt3DCore::QEntity(_root);
+  Qt3DRender::QTextureLoader *envIrradiance = new Qt3DRender::QTextureLoader(_root);
+  envIrradiance->setSource(QUrl::fromLocalFile(":/skybox/output_iem.dds"));
   envIrradiance->setMinificationFilter(Qt3DRender::QAbstractTexture::LinearMipMapLinear);
   envIrradiance->setMagnificationFilter(Qt3DRender::QAbstractTexture::Linear);
   Qt3DRender::QTextureWrapMode wrap(Qt3DRender::QTextureWrapMode::ClampToEdge, envIrradiance);
   envIrradiance->setWrapMode(wrap);
   envIrradiance->setGenerateMipMaps(false);
 
-  Qt3DRender::QTextureLoader *envSpecular = new Qt3DRender::QTextureLoader(envLightEntity);
-  envSpecular->setSource(QUrl::fromLocalFile(":/skybox/wobbly_bridge_4k_cube_specular.dds"));
+  Qt3DRender::QTextureLoader *envSpecular = new Qt3DRender::QTextureLoader(_root);
+  envSpecular->setSource(QUrl::fromLocalFile(":/skybox/output_pmrem.dds"));
   envSpecular->setMinificationFilter(Qt3DRender::QAbstractTexture::LinearMipMapLinear);
   envSpecular->setMagnificationFilter(Qt3DRender::QAbstractTexture::Linear);
-  Qt3DRender::QTextureWrapMode wrapSpecular(Qt3DRender::QTextureWrapMode::ClampToEdge, envIrradiance);
-  envSpecular->setWrapMode(wrap);
+  Qt3DRender::QTextureWrapMode wrapSpecular(Qt3DRender::QTextureWrapMode::ClampToEdge, envSpecular);
+  envSpecular->setWrapMode(wrapSpecular);
   envSpecular->setGenerateMipMaps(false);
 
-  Qt3DRender::QEnvironmentLight *envLight = new Qt3DRender::QEnvironmentLight(envLightEntity);
+  Qt3DRender::QEnvironmentLight *envLight = new Qt3DRender::QEnvironmentLight(_root);
   envLight->setIrradiance(envIrradiance);
   envLight->setSpecular(envSpecular);
-  envLightEntity->addComponent(envLight);
+  _root->addComponent(envLight);
+  // envLightEntity->addComponent(envLight);
 
   Qt3DCore::QEntity *lightEntity = new Qt3DCore::QEntity(_root);
   Qt3DRender::QPointLight *light = new Qt3DRender::QPointLight(_root);

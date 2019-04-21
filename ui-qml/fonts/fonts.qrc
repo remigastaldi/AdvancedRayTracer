@@ -1,0 +1,9 @@
+<RCC>
+  <qresource prefix="/fonts">
+      <file alias="fontello.ttf">fontello.ttf</file>
+      <file alias="Hack-Regular.ttf">Hack-Regular.ttf</file>
+      <file alias="Hack-Bold.ttf">Hack-Bold.ttf</file>
+      <file alias="Hack-BoldItalic.ttf">Hack-BoldItalic.ttf</file>
+      <file alias="Hack-Italic.ttf">Hack-Italic.ttf</file>
+  </qresource>
+</RCC>

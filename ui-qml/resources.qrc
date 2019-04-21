@@ -2,44 +2,4 @@
     <qresource prefix="/">
         <file>qtquickcontrols2.conf</file>
     </qresource>
-    <qresource prefix="/views">
-        <file alias="MainView.qml">views/MainView.qml</file>
-    </qresource>
-    <qresource prefix="/components">
-        <file alias="ToolbarComponent.qml">components/ToolbarComponent.qml</file>
-        <file alias="RightSidebarComponent.qml">components/RightSidebarComponent.qml</file>
-        <file alias="FbItemComponent.qml">components/FbItemComponent.qml</file>
-        <file alias="Scene3DComponent.qml">components/Scene3DComponent.qml</file>
-        <file alias="Scene2DComponent.qml">components/Scene2DComponent.qml</file>
-        <file alias="DrawToolbar3DComponent.qml">components/DrawToolbar3DComponent.qml</file>
-        <file alias="DrawToolbar2DComponent.qml">components/DrawToolbar2DComponent.qml</file>
-        <file alias="Outliner.qml">components/Outliner.qml</file>
-        <file alias="ZIndexModuleComponent.qml">components/ZIndexModuleComponent.qml</file>
-        <file alias="Transform2DModuleComponent.qml">components/Transform2DModuleComponent.qml</file>
-        <file alias="Transform3DModuleComponent.qml">components/Transform3DModuleComponent.qml</file>
-        <file alias="MaterialModuleComponent.qml">components/MaterialModuleComponent.qml</file>
-        <file alias="BrushModuleComponent.qml">components/BrushModuleComponent.qml</file>
-        <file alias="PenModuleComponent.qml">components/PenModuleComponent.qml</file>
-    </qresource>
-    <qresource prefix="/fonts">
-        <file alias="fontello.ttf">fonts/fontello.ttf</file>
-        <file alias="Hack-Regular.ttf">fonts/Hack-Regular.ttf</file>
-        <file alias="Hack-Bold.ttf">fonts/Hack-Bold.ttf</file>
-        <file alias="Hack-BoldItalic.ttf">fonts/Hack-BoldItalic.ttf</file>
-        <file alias="Hack-Italic.ttf">fonts/Hack-Italic.ttf</file>
-    </qresource>
-    <qresource prefix="/shaders">
-        <file alias="test.vert">shaders/test.vert</file>
-        <file alias="test.frag">shaders/test.frag</file>
-    </qresource>
-    <qresource prefix="/styles">
-        <file alias="Style.qml">styles/Style.qml</file>
-        <file alias="qmldir">styles/qmldir</file>
-        <file alias="ToolbarButton.qml">styles/ToolbarButton.qml</file>
-        <file alias="UiMainBorder.qml">styles/UiMainBorder.qml</file>
-        <file alias="CustomButton.qml">styles/CustomButton.qml</file>
-        <file alias="CustomIntInput.qml">styles/CustomIntInput.qml</file>
-        <file alias="CustomDoubleInput.qml">styles/CustomDoubleInput.qml</file>
-        <file alias="CustomText.qml">styles/CustomText.qml</file>
-    </qresource>
 </RCC>

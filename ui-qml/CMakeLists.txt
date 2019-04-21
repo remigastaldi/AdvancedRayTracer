@@ -14,22 +14,21 @@ find_package(Qt5 COMPONENTS Core Gui Qml 3DCore 3DRender 3DInput 3DLogic 3DExtra
 # file(GLOB_RECURSE QML_SRC "*.qml")
 # source_group("Qml Files" FILES ${QML_SRC})
 
-if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-  set(SKYBOX "skybox/skybox-osx.qrc")
-else()
-  set(SKYBOX "skybox/skybox.qrc")
-endif()
-
 add_executable(${PROJECT_NAME}
   src/main.cpp
   src/QmlOutliner.hpp
   src/QmlOutliner.cpp
+
   # TODO : FIND WHY WINDOWS NEED THIS / linkage dosen't work ?
   # ../lib/src/models/Outliner.cpp
 
   resources.qrc
-  ${SKYBOX}
-  # ${QML_SRC}
+  components/components.qrc
+  fonts/fonts.qrc
+  shaders/shaders.qrc
+  skybox/skybox.qrc
+  styles/styles.qrc
+  views/views.qrc
 )
 
 
