@@ -27,7 +27,7 @@ GroupBox {
         onEditingFinished: {
           Transform2DModel.setX(parseFloat(text))
           mainController.updateCurrentScene();
-        }    
+        }
       }
       CustomText {
         text: "y: "

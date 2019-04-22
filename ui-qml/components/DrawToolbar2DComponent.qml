@@ -1,11 +1,12 @@
+import AdvancedRayTracer 1.0
 import "../styles"
+
 import QtQuick 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
-import AdvancedRayTracer 1.0
 import QtQuick.Dialogs 1.3
-import Qt.labs.platform 1.1
 import QtGraphicalEffects 1.12
+import Qt.labs.platform 1.1
 
 UiMainBorder {
   GroupBox {
@@ -129,12 +130,12 @@ UiMainBorder {
       }
 
       FileDialog {
-          id: saveSceneDialog
-      fileMode: FileDialog.SaveFile
-      title: "Please choose a location"
-          nameFilters: ["*"]
-          folder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation)
-          onAccepted: mainController.drawToolbar2DController.saveScene(file);
+        id: saveSceneDialog
+        fileMode: FileDialog.SaveFile
+        title: "Please choose a location"
+        nameFilters: ["*"]
+        folder: StandardPaths.writableLocation(StandardPaths.DocumentsLocation)
+        onAccepted: mainController.drawToolbar2DController.saveScene(file);
       }
   	}
   }

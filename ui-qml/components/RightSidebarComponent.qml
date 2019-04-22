@@ -8,22 +8,12 @@ import QtQuick.Dialogs 1.3
 UiMainBorder {
   id: root
 
-  // Layout.fillWidth: true
-  // Layout.fillHeight: true
-
-  // Layout.minimumWidth: 250
-  // Layout.preferredWidth: 250
-  // Layout.maximumWidth: 300
-
-  // Layout.maximumHeight: column.implicitHeight
-
   ColumnLayout {
     id: column
-    anchors.top: outLiner.bottom
+    anchors.top: root.top
     anchors.right: root.right
     anchors.left: root.left
-    // anchors.topMargin: 10
- 
+
     GroupBox {      
       id: outLiner
       font.pointSize: 10
@@ -42,97 +32,45 @@ UiMainBorder {
     GroupBox {
       title: qsTr("Components")
       font.pointSize: 10
-      Layout.alignment: Qt.AlignHCenter | Qt.AlignTop | Qt.AlignBottom
+      id: componentsBox
       Layout.fillWidth: true
       Layout.rightMargin: 5
       Layout.leftMargin: 5
-      // Layout.fillHeight: true
+      Layout.maximumHeight: root.height - outLiner.height - 10
+
       Component.onCompleted: {
         mainController.updateUiModules.connect(updateModules);
         function updateModules() {
           mainController.initEntityModulesModels()
-          var arr = mainController.loadTree()
+          var modules = mainController.loadTree()
 
-          zIndexModuleComponent.visible = false
-          transform2DModuleComponent.visible = false
-          transform2DModuleComponent.visible = false
-          transform3DModuleComponent.visible = false
-          materialModuleComponent.visible = false
-          brushModuleComponent.visible = false
-          penModuleComponent.visible = false
-          for (var module in arr) {
-            // console.log("activate ==> " + arr[module]);
-            switch (arr[module]) {
-              // 2D
-              case "ZIndex":
-                zIndexModuleComponent.visible = true
-                break;
-              case "Transform2D":
-                transform2DModuleComponent.visible = true
-                break;
-              // 3D
-              case "Transform3D":
-                transform3DModuleComponent.visible = true
-                break;
-              case "Material":
-                materialModuleComponent.visible = true
-                break;
-              case "Brush":
-                brushModuleComponent.visible = true
-                break;
-              case "Pen":
-                penModuleComponent.visible = true
-                break;
-            }
+          moduleComponent.clear()
+          for (var module in modules) {
+            moduleComponent.append({moduleSource: modules[module] + "ModuleComponent.qml"})
           }
         }
       }
-      ColumnLayout {
-        Layout.fillWidth: true
-        Layout.fillHeight: true
-        spacing: 5
 
-        ZIndexModuleComponent {
+      ScrollView {
+        clip: true
+        anchors.fill: parent
+
+        ListView {
           Layout.fillWidth: true
           Layout.fillHeight: true
-          Layout.maximumWidth: 350
-          id: zIndexModuleComponent
-          visible: false
+          Layout.alignment: Qt.AlignHCenter
+          
+          model: moduleComponent
+          delegate: Component {
+            id: delegateComponent
+            Loader {
+              source: moduleSource
+            }
+          }
         }
-        Transform2DModuleComponent {
-          Layout.fillWidth: true
-          Layout.fillHeight: true
-          Layout.maximumWidth: 350
-          id: transform2DModuleComponent
-          visible: false
-        }
-        Transform3DModuleComponent {
-          Layout.fillWidth: true
-          Layout.fillHeight: true
-          Layout.maximumWidth: 350
-          id: transform3DModuleComponent
-            visible: false
-        }
-        MaterialModuleComponent {
-          Layout.fillWidth: true
-          Layout.fillHeight: true
-          Layout.maximumWidth: 350
-          id: materialModuleComponent
-            visible: false
-        }
-        BrushModuleComponent {
-          Layout.fillWidth: true
-          Layout.fillHeight: true
-          Layout.maximumWidth: 350
-          id: brushModuleComponent
-          visible: false
-        }
-        PenModuleComponent {
-          Layout.fillWidth: true
-          Layout.fillHeight: true
-          Layout.maximumWidth: 350
-          id: penModuleComponent
-          visible: false
+        ListModel {
+          id: moduleComponent
+          ListElement { moduleSource: "" }
         }
       }
     }

@@ -6,10 +6,10 @@ import QtQuick.Controls 2.12
 
 GroupBox {
   title: qsTr("Transform3D")
+
   ColumnLayout {
     Layout.fillWidth: true
     Layout.fillHeight: true
-    // spacing: 10
 
     RowLayout {
       Layout.fillWidth: true
