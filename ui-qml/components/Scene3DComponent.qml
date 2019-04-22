@@ -66,8 +66,8 @@ Scene3D {
     FirstPersonCameraController {
       camera: mainCamera 
       linearSpeed: 50
-      // linearSpeed: 300
-      lookSpeed: 3000
+      linearSpeed: 300
+      // lookSpeed: 3000
     }
 
     SkyboxEntity {
