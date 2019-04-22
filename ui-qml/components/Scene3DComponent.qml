@@ -66,7 +66,8 @@ Scene3D {
     FirstPersonCameraController {
       camera: mainCamera 
       linearSpeed: 50
-      linearSpeed: 300
+      // linearSpeed: 300
+      lookSpeed: 100
       // lookSpeed: 3000
     }
 
