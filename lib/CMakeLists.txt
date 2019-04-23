@@ -38,6 +38,7 @@ add_library(${PROJECT_NAME} SHARED
   ### Modules
   src/logic/3D/modules/Material.cpp
   src/logic/3D/modules/Mesh.cpp
+  src/logic/3D/modules/TorusMesh.cpp
   src/logic/3D/modules/Transform3D.cpp
   ## 2D
   src/logic/2D/Scene2D.cpp
@@ -78,6 +79,7 @@ add_library(${PROJECT_NAME} SHARED
   ### Modules
   public/logic/3D/modules/Material.hpp
   public/logic/3D/modules/Mesh.hpp
+  public/logic/3D/modules/TorusMesh.hpp
   public/logic/3D/modules/Transform3D.hpp
   ## 2D
   public/logic/2D/Scene2D.hpp

@@ -6,6 +6,7 @@
 #include "SceneLoader.hpp"
 #include "Square.hpp"
 #include "Torus.hpp"
+#include "TorusMesh.hpp"
 #include "Transform3D.hpp"
 
 #include <QPropertyAnimation>
@@ -76,7 +77,7 @@ Scene3D::Scene3D(RootEntity *root) : _root{root}, _urrId{0} {
 void Scene3D::createSphere() noexcept {
   std::string id = "Sphere [" + std::to_string(_urrId++) + "]";
   std::unique_ptr<Sphere> sphere{std::make_unique<Sphere>(id, _root)};
-  auto &mesh = sphere->getChildren<Modules::Mesh<Qt3DExtras::QSphereMesh>>("Mesh");
+  auto mesh = sphere->getChildren<Modules::Mesh<Qt3DExtras::QSphereMesh>>("Mesh").get();
   mesh->setRadius(2);
   mesh->setSlices(100);
   mesh->setRings(100);
@@ -98,7 +99,7 @@ void Scene3D::createSphere() noexcept {
 void Scene3D::createTorus() noexcept {
   std::string id = "Torus [" + std::to_string(_urrId++) + "]";
   std::unique_ptr<Torus> torus{std::make_unique<Torus>(id, _root)};
-  auto &mesh = torus->getChildren<Modules::Mesh<Qt3DExtras::QTorusMesh>>("Mesh");
+  auto mesh = torus->getChildren<Modules::TorusMesh>("TorusMesh").get();
   mesh->setRadius(5);
   mesh->setSlices(100);
   mesh->setRings(100);
@@ -120,7 +121,7 @@ void Scene3D::createTorus() noexcept {
 void Scene3D::createSquare() noexcept {
   std::string id = "Square [" + std::to_string(_urrId++) + "]";
   std::unique_ptr<Square> square{std::make_unique<Square>(id, _root)};
-  auto &mesh = square->getChildren<Modules::Mesh<Qt3DExtras::QCuboidMesh>>("Mesh");
+  auto mesh = square->getChildren<Modules::Mesh<Qt3DExtras::QCuboidMesh>>("Mesh").get();
   mesh->setXExtent(2);
   mesh->setYExtent(2);
   mesh->setZExtent(2);
@@ -142,7 +143,7 @@ void Scene3D::createSquare() noexcept {
 void Scene3D::import3DModel(const QUrl &url) {
   std::string id = "Model [" + std::to_string(_urrId++) + "]";
   std::unique_ptr<Object3D> object3D{std::make_unique<Object3D>(id, _root)};
-  auto &mesh = object3D->getChildren<Modules::Mesh<Qt3DRender::QMesh>>("Mesh");
+  auto mesh = object3D->getChildren<Modules::Mesh<Qt3DRender::QMesh>>("Mesh").get();
   // Qt3DCore::QEntity *model3D = new Qt3DCore::QEntity(_root);
   // Qt3DRender::QMesh *modelMesh = new Qt3DRender::QMesh();
   mesh->setSource(QUrl::fromLocalFile(url.path()));
@@ -164,7 +165,7 @@ void Scene3D::import3DScene(const QUrl &url) {
   std::string id = "Scene3D [" + std::to_string(_urrId++) + "]";
   std::unique_ptr<SceneLoader> sceneLoader{std::make_unique<SceneLoader>(id, _root)};
   // QObject::connect(sceneLoader, &Qt3DRender::QSceneLoader::statusChanged, _root, &Scene3D::status);
-  auto &scene = sceneLoader->getChildren<Modules::Mesh<Qt3DRender::QSceneLoader>>("Mesh");
+  auto scene = sceneLoader->getChildren<Modules::Mesh<Qt3DRender::QSceneLoader>>("Mesh").get();
   scene->setSource(QUrl::fromLocalFile(url.path()));
   _entities.emplace(id, std::move(sceneLoader));
 

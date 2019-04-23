@@ -13,6 +13,7 @@
       <file alias="Transform3DModuleComponent.qml">Transform3DModuleComponent.qml</file>
       <file alias="MaterialModuleComponent.qml">MaterialModuleComponent.qml</file>
       <file alias="BrushModuleComponent.qml">BrushModuleComponent.qml</file>
+      <file alias="TorusMeshModuleComponent.qml">TorusMeshModuleComponent.qml</file>
       <file alias="PenModuleComponent.qml">PenModuleComponent.qml</file>
   </qresource>
 </RCC>
