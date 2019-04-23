@@ -11,48 +11,62 @@ GroupBox {
     Layout.fillWidth: true
     Layout.fillHeight: true
 
-    RowLayout {
-      Layout.fillWidth: true
-      Layout.fillHeight: true
       // spacing: 4
-
+    RowLayout {
       CustomText {
         color: Style.likeWhite
-        text: "x: "
+        text: "Minor Radius: "
         Layout.leftMargin: 5
       }
       CustomDoubleInput {
-        text: TorusMeshModel.x
+        text: TorusMeshModel.minorRadius
 
         onEditingFinished: {
-          TorusMeshModel.setX(parseFloat(text))
-          mainController.updateCurrentScene();
+          TorusMeshModel.setMinorRadius(parseFloat(text))
         }
       }
+    }
+    RowLayout {
       CustomText {
-        text: "y: "
+        color: Style.likeWhite
+        text: "Radius: "
         Layout.leftMargin: 5
       }
       CustomDoubleInput {
-        text: TorusMeshModel.y
+        text: TorusMeshModel.radius
 
         onEditingFinished: {
-          TorusMeshModel.setY(parseFloat(text))
-          mainController.updateCurrentScene();
-        }    
+          TorusMeshModel.setRadius(parseFloat(text))
+        }
       }
-    
+    }
+    RowLayout {    
       CustomText {
-        text: "z: "
+        color: Style.likeWhite
+        text: "Rings: "
         Layout.leftMargin: 5
       }
       CustomDoubleInput {
-        text: TorusMeshModel.z
+        text: TorusMeshModel.rings
 
         onEditingFinished: {
-          TorusMeshModel.setZ(parseFloat(text))
-          mainController.updateCurrentScene();
-        }    
+          TorusMeshModel.setRings(parseInt(text))
+        }
+      }
+    }
+
+    RowLayout {
+      CustomText {
+        color: Style.likeWhite
+        text: "Slices: "
+        Layout.leftMargin: 5
+      }
+      CustomDoubleInput {
+        text: TorusMeshModel.slices
+
+        onEditingFinished: {
+          TorusMeshModel.setSlices(parseInt(text))
+        }
       }
     }
   }        

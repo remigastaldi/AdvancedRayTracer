@@ -26,7 +26,6 @@ GroupBox {
 
         onEditingFinished: {
           Transform3DModel.setX(parseFloat(text))
-          mainController.updateCurrentScene();
         }
       }
       CustomText {
@@ -38,7 +37,6 @@ GroupBox {
 
         onEditingFinished: {
           Transform3DModel.setY(parseFloat(text))
-          mainController.updateCurrentScene();
         }    
       }
     
@@ -51,7 +49,6 @@ GroupBox {
 
         onEditingFinished: {
           Transform3DModel.setZ(parseFloat(text))
-          mainController.updateCurrentScene();
         }    
       }
     }
