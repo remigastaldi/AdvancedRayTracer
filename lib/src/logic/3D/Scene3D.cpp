@@ -7,6 +7,7 @@
 #include "Square.hpp"
 #include "Torus.hpp"
 #include "TorusMesh.hpp"
+#include "SphereMesh.hpp"
 #include "Transform3D.hpp"
 
 #include <QPropertyAnimation>
@@ -77,7 +78,7 @@ Scene3D::Scene3D(RootEntity *root) : _root{root}, _urrId{0} {
 void Scene3D::createSphere() noexcept {
   std::string id = "Sphere [" + std::to_string(_urrId++) + "]";
   std::unique_ptr<Sphere> sphere{std::make_unique<Sphere>(id, _root)};
-  auto mesh = sphere->getChildren<Modules::Mesh<Qt3DExtras::QSphereMesh>>("Mesh").get();
+  auto mesh = sphere->getChildren<Modules::SphereMesh>("SphereMesh").get();
   mesh->setRadius(2);
   mesh->setSlices(100);
   mesh->setRings(100);

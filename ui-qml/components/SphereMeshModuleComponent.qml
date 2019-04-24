@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 
 GroupBox {
-  title: qsTr("TorusMesh")
+  title: qsTr("SphereMesh")
 
   ColumnLayout {
     Layout.fillWidth: true
@@ -14,14 +14,14 @@ GroupBox {
     RowLayout {
       CustomText {
         color: Style.likeWhite
-        text: "Minor Radius: "
+        text: "Generate Tangents: "
         Layout.leftMargin: 5
       }
-      CustomDoubleInput {
-        text: TorusMeshModel.minorRadius
+      CheckBox {
+        checked: SphereMeshModel.generateTangents
 
-        onEditingFinished: {
-          TorusMeshModel.setMinorRadius(parseFloat(text))
+        nextCheckState: {
+          SphereMeshModel.setGenerateTangents(checked)
         }
       }
     }
@@ -32,10 +32,10 @@ GroupBox {
         Layout.leftMargin: 5
       }
       CustomDoubleInput {
-        text: TorusMeshModel.radius
+        text: SphereMeshModel.radius
 
         onEditingFinished: {
-          TorusMeshModel.setRadius(parseFloat(text))
+          SphereMeshModel.setRadius(parseFloat(text))
         }
       }
     }
@@ -46,10 +46,10 @@ GroupBox {
         Layout.leftMargin: 5
       }
       CustomDoubleInput {
-        text: TorusMeshModel.rings
+        text: SphereMeshModel.rings
 
         onEditingFinished: {
-          TorusMeshModel.setRings(parseInt(text))
+          SphereMeshModel.setRings(parseInt(text))
         }
       }
     }
@@ -61,10 +61,10 @@ GroupBox {
         Layout.leftMargin: 5
       }
       CustomDoubleInput {
-        text: TorusMeshModel.slices
+        text: SphereMeshModel.slices
 
         onEditingFinished: {
-          TorusMeshModel.setSlices(parseInt(text))
+          SphereMeshModel.setSlices(parseInt(text))
         }
       }
     }
