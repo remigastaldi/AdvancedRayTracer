@@ -25,7 +25,7 @@ class ADVANCED_RAY_TRACER_EXPORT Scene3D : public Scene {
   DISABLE_MOVE(Scene3D)
 
 public:
-  explicit Scene3D(RootEntity *root = 0);
+  explicit Scene3D(RootEntity *root = nullptr);
   ~Scene3D() override = default;
 
 public Q_SLOTS:

@@ -16,5 +16,7 @@
       <file alias="TorusMeshModuleComponent.qml">TorusMeshModuleComponent.qml</file>
       <file alias="SphereMeshModuleComponent.qml">SphereMeshModuleComponent.qml</file>
       <file alias="PenModuleComponent.qml">PenModuleComponent.qml</file>
+      <file alias="MultiViewCamera.qml">MultiViewCamera.qml</file>
+      <file alias="SingleViewCamera.qml">SingleViewCamera.qml</file>
   </qresource>
 </RCC>

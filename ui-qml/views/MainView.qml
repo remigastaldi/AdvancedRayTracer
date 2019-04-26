@@ -13,8 +13,8 @@ ApplicationWindow {
   visible: true
   title: qsTr("AdvancedRayTracer")
 
-  width: appContent.implicitWidth
-  height: appContent.implicitHeight
+  // width: appContent.implicitWidth
+  // height: appContent.implicitHeight
 
   property int topOffset: menuBar.implicitHeight + header.implicitHeight
   minimumWidth: appContent.Layout.minimumWidth
