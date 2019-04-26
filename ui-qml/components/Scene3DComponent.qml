@@ -33,23 +33,9 @@ Item {
       }
       
       components: [
-        // RenderSettings {
-        //   activeFrameGraph: ForwardRenderer {
-        //     clearColor: Qt.rgba(0, 0, 0, 0)
-        //     camera: camera1
-        //     frustumCulling: false
-        //   }
-        // },
         RenderSettings {
           id: renderSettings
           activeFrameGraph: singleViewCamera
-            // Loader {
-              // sourceComponent: multiViewCamera
-              // source: "MultiViewCamera.qml"
-
-            // }
-
-          // }
           pickingSettings.pickMethod: PickingSettings.TrianglePicking
         },
         InputSettings { }
@@ -71,13 +57,12 @@ Item {
       MouseDevice {
         id:mouse
       }
-      
+
       MouseHandler {
         sourceDevice: mouse
         onPressed: {
           scene3D.focus = true
-          console.log(mouse.x)
-          console.log(mouse.y)
+          multiViewCamera.pressed(mouse.x, mouse.y)
         }
       }
 
@@ -100,8 +85,8 @@ Item {
         multiViewCamera.enabled = true
         renderSettings.activeFrameGraph = multiViewCamera
       } else {
-        singleViewCamera.enabled = false
-        multiViewCamera.enabled = true
+        multiViewCamera.enabled = false
+        singleViewCamera.enabled = true
         renderSettings.activeFrameGraph = singleViewCamera
       }
     }
