@@ -12,13 +12,8 @@ class MetalRoughMaterial : public Material<Qt3DExtras::QMetalRoughMaterial> {
 
 public:
   MetalRoughMaterial(Shape3D &parent, std::string id,
-                     Qt3DExtras::QMetalRoughMaterial *material = new Qt3DExtras::QMetalRoughMaterial)
-      : Material<Qt3DExtras::QMetalRoughMaterial>{parent, id, material} {
-    material->setBaseColor(QColor(125, 125, 125));
-    material->setRoughness(0.10);
-    material->setMetalness(0.95);
-  }
-  ~MetalRoughMaterial() override{};
+                     Qt3DExtras::QMetalRoughMaterial *material = new Qt3DExtras::QMetalRoughMaterial);
+  ~MetalRoughMaterial() override;
 
 public Q_SLOTS:
 

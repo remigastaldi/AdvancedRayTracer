@@ -1,15 +1,15 @@
 
 #include "Scene3D.hpp"
+#include "Cuboid.hpp"
+#include "CuboidMesh.hpp"
 #include "Material.hpp"
-#include "MetalRoughMaterial.hpp"
 #include "Mesh.hpp"
+#include "MetalRoughMaterial.hpp"
 #include "Object3D.hpp"
 #include "SceneLoader.hpp"
-#include "Cuboid.hpp"
+#include "SphereMesh.hpp"
 #include "Torus.hpp"
 #include "TorusMesh.hpp"
-#include "CuboidMesh.hpp"
-#include "SphereMesh.hpp"
 #include "Transform3D.hpp"
 
 #include <QPropertyAnimation>
@@ -21,7 +21,6 @@ namespace ART::Logic {
 Scene3D::Scene3D(RootEntity *root) : _root{root}, _urrId{0} {
   connect(root, &RootEntity::keyPressedEvent, this, &Scene3D::keyPressedEvent);
   connect(root, &RootEntity::cameraMoveEvent, this, &Scene3D::updateSkyboxPosition);
-
 
   // camera
 
@@ -75,6 +74,16 @@ Scene3D::Scene3D(RootEntity *root) : _root{root}, _urrId{0} {
   Qt3DCore::QTransform *tr2 = new Qt3DCore::QTransform(lightEntity2);
   tr2->setTranslation({0, 0, -20});
   lightEntity2->addComponent(tr2);
+
+  Qt3DCore::QEntity *lightEntity3 = new Qt3DCore::QEntity(_root);
+  Qt3DRender::QDirectionalLight *light3 = new Qt3DRender::QDirectionalLight(_root);
+  light3->setColor("green");
+  light3->setIntensity(1);
+  light3->setWorldDirection({0, 1, 0});
+  lightEntity3->addComponent(light3);
+  Qt3DCore::QTransform *tr3 = new Qt3DCore::QTransform(lightEntity3);
+  tr3->setTranslation({0, 100, 0});
+  lightEntity3->addComponent(tr3);
 }
 
 void Scene3D::createSphere() noexcept {
@@ -106,13 +115,6 @@ void Scene3D::createTorus() noexcept {
   mesh->setSlices(100);
   mesh->setRings(100);
 
-  torus->removeChildren("Material");
-  auto *material = new Modules::Material<Qt3DExtras::QMetalRoughMaterial>(*torus, "Material");
-  auto *metal = material->get();
-  metal->setBaseColor(QColor(125, 125, 125));
-  metal->setRoughness(0.10);
-  metal->setMetalness(0.95);
-
   connect(torus.get(), &Shape3D::entitySelectedChanged, this, &Scene3D::selectEntity);
 
   _entities.emplace(id, std::move(torus));
@@ -142,13 +144,6 @@ void Scene3D::import3DModel(const QUrl &url) {
   // Qt3DCore::QEntity *model3D = new Qt3DCore::QEntity(_root);
   // Qt3DRender::QMesh *modelMesh = new Qt3DRender::QMesh();
   mesh->setSource(QUrl::fromLocalFile(url.path()));
-
-  object3D->removeChildren("Material");
-  auto *material = new Modules::Material<Qt3DExtras::QMetalRoughMaterial>(*object3D, "Material");
-  auto *metal = material->get();
-  metal->setBaseColor(QColor(125, 125, 125));
-  metal->setRoughness(0.10);
-  metal->setMetalness(0.95);
 
   connect(object3D.get(), &Shape3D::entitySelectedChanged, this, &Scene3D::selectEntity);
 

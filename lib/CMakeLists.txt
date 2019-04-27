@@ -46,7 +46,10 @@ add_library(${PROJECT_NAME} SHARED
   src/logic/3D/modules/meshes/SphereMesh.cpp
 
   #### Modules Materials
+  src/logic/3D/modules/materials/PhongAlphaMaterial.cpp
   src/logic/3D/modules/materials/PhongMaterial.cpp
+  src/logic/3D/modules/materials/MetalRoughMaterial.cpp
+  
 
   ## 2D
   src/logic/2D/Scene2D.cpp
@@ -96,6 +99,7 @@ add_library(${PROJECT_NAME} SHARED
 
   #### Modules Materials
   public/logic/3D/modules/materials/PhongMaterial.hpp
+  public/logic/3D/modules/materials/PhongAlphaMaterial.hpp
   public/logic/3D/modules/materials/MetalRoughMaterial.hpp
 
   ## 2D

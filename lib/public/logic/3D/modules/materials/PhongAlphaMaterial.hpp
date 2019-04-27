@@ -6,21 +6,28 @@ namespace ART {
 namespace Logic {
 namespace Modules {
 
-class PhongMaterial : public Material<Qt3DExtras::QPhongMaterial> {
+class PhongAlphaMaterial : public Material<Qt3DExtras::QPhongAlphaMaterial> {
   Q_OBJECT
+  Q_PROPERTY(float alpha READ alpha NOTIFY dataUpdate)
+  Q_PROPERTY(float shininess READ shininess NOTIFY dataUpdate)
   Q_PROPERTY(QColor diffuse READ diffuse NOTIFY dataUpdate)
   Q_PROPERTY(QColor specular READ specular NOTIFY dataUpdate)
   Q_PROPERTY(QColor ambient READ ambient NOTIFY dataUpdate)
-  Q_DISABLE_COPY(PhongMaterial)
+  Q_DISABLE_COPY(PhongAlphaMaterial)
 public:
-  PhongMaterial(Shape3D &parent, std::string id, Qt3DExtras::QPhongMaterial *mesh = new Qt3DExtras::QPhongMaterial);
-  ~PhongMaterial() override;
+  PhongAlphaMaterial(Shape3D &parent, std::string id,
+                     Qt3DExtras::QPhongAlphaMaterial *mesh = new Qt3DExtras::QPhongAlphaMaterial);
+  ~PhongAlphaMaterial() override;
 
+  float alpha();
+  float shininess();
   QColor diffuse();
   QColor specular();
   QColor ambient();
 
 public Q_SLOTS:
+  void setAlpha(float alpha) noexcept;
+  void setShininess(float shininess) noexcept;
   void setDiffuse(const QColor &color) noexcept;
   void setAmbient(const QColor &color) noexcept;
   void setSpecular(const QColor &color) noexcept;
