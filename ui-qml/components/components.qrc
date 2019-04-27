@@ -11,9 +11,10 @@
       <file alias="ZIndexModuleComponent.qml">ZIndexModuleComponent.qml</file>
       <file alias="Transform2DModuleComponent.qml">Transform2DModuleComponent.qml</file>
       <file alias="Transform3DModuleComponent.qml">Transform3DModuleComponent.qml</file>
-      <file alias="MaterialModuleComponent.qml">MaterialModuleComponent.qml</file>
+      <file alias="MetalRoughMaterialModuleComponent.qml">MetalRoughMaterialModuleComponent.qml</file>
       <file alias="BrushModuleComponent.qml">BrushModuleComponent.qml</file>
       <file alias="TorusMeshModuleComponent.qml">TorusMeshModuleComponent.qml</file>
+      <file alias="CuboidMeshModuleComponent.qml">CuboidMeshModuleComponent.qml</file>
       <file alias="SphereMeshModuleComponent.qml">SphereMeshModuleComponent.qml</file>
       <file alias="PenModuleComponent.qml">PenModuleComponent.qml</file>
       <file alias="MultiViewCamera.qml">MultiViewCamera.qml</file>

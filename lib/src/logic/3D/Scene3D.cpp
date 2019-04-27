@@ -1,12 +1,14 @@
 
 #include "Scene3D.hpp"
 #include "Material.hpp"
+#include "MetalRoughMaterial.hpp"
 #include "Mesh.hpp"
 #include "Object3D.hpp"
 #include "SceneLoader.hpp"
-#include "Square.hpp"
+#include "Cuboid.hpp"
 #include "Torus.hpp"
 #include "TorusMesh.hpp"
+#include "CuboidMesh.hpp"
 #include "SphereMesh.hpp"
 #include "Transform3D.hpp"
 
@@ -83,12 +85,11 @@ void Scene3D::createSphere() noexcept {
   mesh->setSlices(100);
   mesh->setRings(100);
 
-  sphere->removeChildren("Material");
-  auto *material = new Modules::Material<Qt3DExtras::QMetalRoughMaterial>(*sphere, "Material");
-  auto *metal = material->get();
-  metal->setBaseColor(QColor(125, 125, 125));
-  metal->setRoughness(0.10);
-  metal->setMetalness(0.95);
+  // sphere->removeChildren("MetalRoughMaterial");
+  // auto *material = new Modules::MetalRoughMaterial(*sphere, "MetalRoughMaterial");
+  // material->setBaseColor(QColor(125, 125, 125));
+  // material->setRoughness(0.10);
+  // material->setMetalness(0.95);
 
   connect(sphere.get(), &Shape3D::entitySelectedChanged, this, &Scene3D::selectEntity);
 
@@ -120,19 +121,12 @@ void Scene3D::createTorus() noexcept {
 }
 
 void Scene3D::createSquare() noexcept {
-  std::string id = "Square [" + std::to_string(_urrId++) + "]";
-  std::unique_ptr<Square> square{std::make_unique<Square>(id, _root)};
-  auto mesh = square->getChildren<Modules::Mesh<Qt3DExtras::QCuboidMesh>>("Mesh").get();
+  std::string id = "Cuboid [" + std::to_string(_urrId++) + "]";
+  std::unique_ptr<Cuboid> square{std::make_unique<Cuboid>(id, _root)};
+  auto mesh = square->getChildren<Modules::CuboidMesh>("CuboidMesh").get();
   mesh->setXExtent(2);
   mesh->setYExtent(2);
   mesh->setZExtent(2);
-
-  square->removeChildren("Material");
-  auto *material = new Modules::Material<Qt3DExtras::QMetalRoughMaterial>(*square, "Material");
-  auto *metal = material->get();
-  metal->setBaseColor(QColor(125, 125, 125));
-  metal->setRoughness(0.10);
-  metal->setMetalness(0.95);
 
   connect(square.get(), &Shape3D::entitySelectedChanged, this, &Scene3D::selectEntity);
 

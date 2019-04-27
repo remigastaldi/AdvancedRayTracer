@@ -12,10 +12,10 @@
 namespace ART {
 namespace Logic {
 
-class Square : public Shape3D {
+class Cuboid : public Shape3D {
 
 public:
-  Square(std::string id, Qt3DCore::QEntity *parent);
+  Cuboid(std::string id, Qt3DCore::QEntity *parent);
 
 private:
 };

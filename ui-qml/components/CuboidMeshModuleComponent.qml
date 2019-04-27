@@ -5,52 +5,52 @@ import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
 
 GroupBox {
-  title: qsTr("Transform3D")
+  title: qsTr("CuboidMesh")
 
   ColumnLayout {
     Layout.fillWidth: true
     Layout.fillHeight: true
 
     RowLayout {
-      Layout.fillWidth: true
-      Layout.fillHeight: true
-      // spacing: 4
-
       CustomText {
         color: Style.likeWhite
-        text: "x: "
+        text: "xExtent: "
         Layout.leftMargin: 5
       }
       CustomDoubleInput {
-        text: Transform3DModel.x
+        text: CuboidMeshModel.xExtent
 
         onEditingFinished: {
-          Transform3DModel.setX(parseFloat(text))
+          CuboidMeshModel.setXExtent(parseFloat(text))
         }
       }
-      
+    }
+    RowLayout {
       CustomText {
-        text: "y: "
+        color: Style.likeWhite
+        text: "yExtent: "
         Layout.leftMargin: 5
       }
       CustomDoubleInput {
-        text: Transform3DModel.y
+        text: CuboidMeshModel.yExtent
 
         onEditingFinished: {
-          Transform3DModel.setY(parseFloat(text))
-        }    
+          CuboidMeshModel.setYExtent(parseFloat(text))
+        }
       }
-    
+    }
+    RowLayout {
       CustomText {
-        text: "z: "
+        color: Style.likeWhite
+        text: "zExtent: "
         Layout.leftMargin: 5
       }
       CustomDoubleInput {
-        text: Transform3DModel.z
+        text: CuboidMeshModel.zExtent
 
         onEditingFinished: {
-          Transform3DModel.setZ(parseFloat(text))
-        }    
+          CuboidMeshModel.setZExtent(parseFloat(text))
+        }
       }
     }
   }        

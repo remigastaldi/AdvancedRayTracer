@@ -6,6 +6,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Dialogs 1.3
 
 GroupBox {
+  title: qsTr("Metal Rough Material")
   ColumnLayout {
     Layout.fillWidth: true
     Layout.fillHeight: true
@@ -19,10 +20,10 @@ GroupBox {
     Slider {  
       Layout.maximumWidth: parent.width
       from: 0
-      value: MaterialModel.metalness()
+      value: MetalRoughMaterialModel.metalness()
       to: 1
       onMoved: {
-        MaterialModel.setMetalness(value)
+        MetalRoughMaterialModel.setMetalness(value)
       }
     }
     CustomText {
@@ -34,16 +35,16 @@ GroupBox {
     Slider {
       Layout.maximumWidth: parent.width
       from: 0
-      value: MaterialModel.roughness()
+      value: MetalRoughMaterialModel.roughness()
       to: 1
       onMoved: {
-        MaterialModel.setRoughness(value)
+        MetalRoughMaterialModel.setRoughness(value)
       }
     }
 
     CustomText {
       color: Style.likeWhite
-      text: "Color: " + MaterialModel.baseColor()
+      text: "Color: " + MetalRoughMaterialModel.baseColor()
       Layout.leftMargin: 5
       MouseArea {
         anchors.fill: parent
@@ -55,7 +56,7 @@ GroupBox {
         id: colorDialog
         title: "Please choose a color"
         onAccepted: {
-          MaterialModel.setBaseColor(color)
+          MetalRoughMaterialModel.setBaseColor(color)
         }
       }
     }
@@ -92,50 +93,55 @@ GroupBox {
   }
   FileDialog {
     id: baseColorDialog
+    folder: shortcuts.desktop
     title: "Please choose an image"
     nameFilters: [ "Image files (*.jpg *.png)", "All files (*)" ]
     onAccepted: {
-      MaterialModel.setBaseColor(fileUrl)
+      MetalRoughMaterialModel.setBaseColor(fileUrl)
       mainController.updateCurrentScene()
     }
   }
 
   FileDialog {
     id: metalnessDialog
+    folder: shortcuts.desktop
     title: "Please choose an image"
     nameFilters: [ "Image files (*.jpg *.png)", "All files (*)" ]
     onAccepted: {
-      MaterialModel.setMetalnessTexture(fileUrl)
+      MetalRoughMaterialModel.setMetalnessTexture(fileUrl)
       mainController.updateCurrentScene()
     }
   }
 
   FileDialog {
     id: roughnessDialog
+    folder: shortcuts.desktop
     title: "Please choose an image"
     nameFilters: [ "Image files (*.jpg *.png)", "All files (*)" ]
     onAccepted: {
-      MaterialModel.setRoughnessTexture(fileUrl)
+      MetalRoughMaterialModel.setRoughnessTexture(fileUrl)
       mainController.updateCurrentScene()
     }
   }
 
   FileDialog {
     id: normalDialog
+    folder: shortcuts.desktop
     title: "Please choose an image"
     nameFilters: [ "Image files (*.jpg *.png)", "All files (*)" ]
     onAccepted: {
-      MaterialModel.setNormalTexture(fileUrl)
+      MetalRoughMaterialModel.setNormalTexture(fileUrl)
       mainController.updateCurrentScene()
     }
   }
 
   FileDialog {
     id: ambientOcclusionDialog
+    folder: shortcuts.desktop
     title: "Please choose an image"
     nameFilters: [ "Image files (*.jpg *.png)", "All files (*)" ]
     onAccepted: {
-      MaterialModel.setAmbientOcclusionTexture(fileUrl)
+      MetalRoughMaterialModel.setAmbientOcclusionTexture(fileUrl)
       mainController.updateCurrentScene()
     }
   }

@@ -10,7 +10,7 @@ namespace ART {
 namespace Logic {
 namespace Modules {
 
-template <typename T = Qt3DRender::QMesh>
+template <typename T>
 class Mesh : public Entity {
 public:
   Mesh(Shape3D &parent, std::string id, T *mesh = new T) : Entity{std::move(id)}, _mesh{mesh}, _parent{parent} {

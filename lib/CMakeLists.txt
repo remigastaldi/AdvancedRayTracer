@@ -28,7 +28,7 @@ add_library(${PROJECT_NAME} SHARED
   src/logic/Entity.cpp
   ## 3D
   src/logic/3D/Torus.cpp
-  src/logic/3D/Square.cpp
+  src/logic/3D/Cuboid.cpp
   src/logic/3D/Object3D.cpp
   src/logic/3D/SceneLoader.cpp
   src/logic/3D/Scene3D.cpp
@@ -38,9 +38,16 @@ add_library(${PROJECT_NAME} SHARED
   ### Modules
   src/logic/3D/modules/Material.cpp
   src/logic/3D/modules/Mesh.cpp
-  src/logic/3D/modules/TorusMesh.cpp
-  src/logic/3D/modules/SphereMesh.cpp
   src/logic/3D/modules/Transform3D.cpp
+
+  #### Modules Meshes
+  src/logic/3D/modules/meshes/TorusMesh.cpp
+  src/logic/3D/modules/meshes/CuboidMesh.cpp
+  src/logic/3D/modules/meshes/SphereMesh.cpp
+
+  #### Modules Materials
+  src/logic/3D/modules/materials/PhongMaterial.cpp
+
   ## 2D
   src/logic/2D/Scene2D.cpp
   src/logic/2D/Shape2D.cpp
@@ -70,7 +77,7 @@ add_library(${PROJECT_NAME} SHARED
   public/logic/Scene.hpp
   ## 3D
   public/logic/3D/Torus.hpp
-  public/logic/3D/Square.hpp
+  public/logic/3D/Cuboid.hpp
   public/logic/3D/SceneLoader.hpp
   public/logic/3D/Object3D.hpp
   public/logic/3D/Scene3D.hpp
@@ -80,9 +87,17 @@ add_library(${PROJECT_NAME} SHARED
   ### Modules
   public/logic/3D/modules/Material.hpp
   public/logic/3D/modules/Mesh.hpp
-  public/logic/3D/modules/TorusMesh.hpp
-  public/logic/3D/modules/SphereMesh.hpp
   public/logic/3D/modules/Transform3D.hpp
+
+  #### Modules Meshes
+  public/logic/3D/modules/meshes/TorusMesh.hpp
+  public/logic/3D/modules/meshes/CuboidMesh.hpp
+  public/logic/3D/modules/meshes/SphereMesh.hpp
+
+  #### Modules Materials
+  public/logic/3D/modules/materials/PhongMaterial.hpp
+  public/logic/3D/modules/materials/MetalRoughMaterial.hpp
+
   ## 2D
   public/logic/2D/Scene2D.hpp
   public/logic/2D/Shape2D.hpp
@@ -100,7 +115,6 @@ add_library(${PROJECT_NAME} SHARED
   public/logic/2D/modules/Pen.hpp
 
   ## Models
-  public/models/MaterialModel.hpp
   public/models/ToolbarModel.hpp
   public/models/RightSidebarModel.hpp
   public/models/Outliner.hpp
@@ -120,6 +134,8 @@ target_include_directories(${PROJECT_NAME}
       public/logic/2D/modules
       public/logic/3D
       public/logic/3D/modules
+      public/logic/3D/modules/meshes
+      public/logic/3D/modules/materials
      >
     $<BUILD_INTERFACE:
       ${CMAKE_CURRENT_SOURCE_DIR}/public
@@ -128,6 +144,8 @@ target_include_directories(${PROJECT_NAME}
       ${CMAKE_CURRENT_SOURCE_DIR}/public/logic
       ${CMAKE_CURRENT_SOURCE_DIR}/public/logic/3D
       ${CMAKE_CURRENT_SOURCE_DIR}/public/logic/3D/modules
+      ${CMAKE_CURRENT_SOURCE_DIR}/public/logic/3D/modules/meshes
+      ${CMAKE_CURRENT_SOURCE_DIR}/public/logic/3D/modules/materials
       ${CMAKE_CURRENT_SOURCE_DIR}/public/logic/2D
       ${CMAKE_CURRENT_SOURCE_DIR}/public/logic/2D/modules
      >
@@ -138,6 +156,8 @@ target_include_directories(${PROJECT_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/src/logic
     ${CMAKE_CURRENT_SOURCE_DIR}/src/logic/3D
     ${CMAKE_CURRENT_SOURCE_DIR}/src/logic/3D/modules
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/logic/3D/modules/meshes
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/logic/3D/modules/materials
     ${CMAKE_CURRENT_SOURCE_DIR}/src/logic/2D
     ${CMAKE_CURRENT_SOURCE_DIR}/src/logic/2D/modules
 )
