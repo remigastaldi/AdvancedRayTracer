@@ -81,7 +81,7 @@ void Scene3D::createSphere() noexcept {
   std::string id = "Sphere [" + std::to_string(_urrId++) + "]";
   std::unique_ptr<Sphere> sphere{std::make_unique<Sphere>(id, _root)};
   auto mesh = sphere->getChildren<Modules::SphereMesh>("SphereMesh").get();
-  mesh->setRadius(2);
+  mesh->setRadius(4);
   mesh->setSlices(100);
   mesh->setRings(100);
 
@@ -102,7 +102,7 @@ void Scene3D::createTorus() noexcept {
   std::string id = "Torus [" + std::to_string(_urrId++) + "]";
   std::unique_ptr<Torus> torus{std::make_unique<Torus>(id, _root)};
   auto mesh = torus->getChildren<Modules::TorusMesh>("TorusMesh").get();
-  mesh->setRadius(5);
+  mesh->setRadius(6);
   mesh->setSlices(100);
   mesh->setRings(100);
 
@@ -124,9 +124,9 @@ void Scene3D::createSquare() noexcept {
   std::string id = "Cuboid [" + std::to_string(_urrId++) + "]";
   std::unique_ptr<Cuboid> square{std::make_unique<Cuboid>(id, _root)};
   auto mesh = square->getChildren<Modules::CuboidMesh>("CuboidMesh").get();
-  mesh->setXExtent(2);
-  mesh->setYExtent(2);
-  mesh->setZExtent(2);
+  mesh->setXExtent(4);
+  mesh->setYExtent(4);
+  mesh->setZExtent(4);
 
   connect(square.get(), &Shape3D::entitySelectedChanged, this, &Scene3D::selectEntity);
 
