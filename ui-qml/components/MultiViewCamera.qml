@@ -8,20 +8,27 @@ import QtQuick 2.12
 import QtQuick.Scene3D 2.12
 
 RenderSurfaceSelector {
+  property var currentCamera
+
   signal pressed(int posx, int posy);
+  signal cameraChanged(Camera newCamera);
 
   onPressed: (posx, posy) => {
     if (posx < width / 2) {
       if (posy < height / 2) {
-        firstPersonCameraController.camera = camera1
+        currentCamera = camera1
+        cameraChanged(camera1)
       } else {
-        firstPersonCameraController.camera = camera3
+        currentCamera = camera3
+        cameraChanged(camera3)
       }
     } else {
       if (posy < height / 2) {
-        firstPersonCameraController.camera = camera2
+        currentCamera = camera2
+        cameraChanged(camera2)
       } else {
-        firstPersonCameraController.camera = camera4
+        currentCamera = camera4
+        cameraChanged(camera4)
       }
     }
   }
@@ -71,7 +78,7 @@ RenderSurfaceSelector {
 
   Camera {
     id: camera2
-    projectionType: CameraLens.FrustumProjection
+    projectionType: CameraLens.PerspectiveProjection
     fieldOfView: 60
     nearPlane : 0.1
     farPlane : 1000.0
@@ -84,7 +91,7 @@ RenderSurfaceSelector {
   
   Camera {
     id: camera3
-    projectionType: CameraLens.OrthographicProjection
+    projectionType: CameraLens.FrustumProjection
     fieldOfView: 60
     nearPlane : 0.1
     farPlane : 1000.0
@@ -97,7 +104,7 @@ RenderSurfaceSelector {
 
   Camera {
     id: camera4
-    projectionType: CameraLens.PerspectiveProjection
+    projectionType: CameraLens.OrthographicProjection
     fieldOfView: 60
     nearPlane : 0.1
     farPlane : 1000.0
@@ -110,7 +117,7 @@ RenderSurfaceSelector {
   
   FirstPersonCameraController {
     id: firstPersonCameraController
-    camera: camera1
+    camera: currentCamera
     linearSpeed: 50
     // linearSpeed: 300
     lookSpeed: 100

@@ -12,6 +12,8 @@ import QtQuick.Controls 2.12
 
 Item {
   id: root
+  property alias currentRender: renderSettings.activeFrameGraph
+  // property alias currentCamera: cameraController.camera
 
   Scene3D {
     id: scene3D
@@ -26,10 +28,19 @@ Item {
       SingleViewCamera {
         id: singleViewCamera
         enabled: true
+        onCameraChanged: (newCamera) => {
+          // currentCamera = newCamera
+          // console.log(currentCamera)
+          projectionControl.currentIndex = newCamera.projectionType
+        }
       }
       MultiViewCamera {
         id: multiViewCamera
         enabled: false
+        onCameraChanged: (newCamera) => {
+          // currentCamera = newCamera
+          projectionControl.currentIndex = newCamera.projectionType
+        }
       }
       
       components: [
@@ -74,6 +85,15 @@ Item {
         //   translation: camera1.position
         // }
       }
+
+      // FirstPersonCameraController {
+      //   id: cameraController
+      //   // camera: currentCamera
+      //   linearSpeed: 50
+      //   // linearSpeed: 300
+      //   lookSpeed: 100
+      //   // lookSpeed: 3000
+      // }
     }
   }
 
@@ -81,13 +101,71 @@ Item {
     anchors.right: root.right
     onClicked: {
       if (checked) {
-        singleViewCamera.enabled = false
+        // singleViewCamera.enabled = false
         multiViewCamera.enabled = true
-        renderSettings.activeFrameGraph = multiViewCamera
+        currentRender = multiViewCamera
       } else {
         multiViewCamera.enabled = false
-        singleViewCamera.enabled = true
-        renderSettings.activeFrameGraph = singleViewCamera
+        singleViewCamera.enabled =  true
+        currentRender = singleViewCamera
+      }
+    }
+  }
+
+  ComboBox {
+    id: projectionControl
+    width: 100
+    height:25
+    font.pointSize: 10
+    model: [ "Orthographic", "Perspective", "Frustum" ]
+
+    delegate: ItemDelegate {
+      width: projectionControl.width
+      height: projectionControl.height
+      contentItem: Text {
+          text: modelData
+          color: Style.likeWhite
+          font: projectionControl.font
+          elide: Text.ElideRight
+          verticalAlignment: Text.AlignVCenter
+      }
+      highlighted: projectionControl.highlightedIndex === index
+    }
+
+    popup: Popup {
+      y: projectionControl.height - 1
+      width: projectionControl.width
+      implicitHeight: contentItem.implicitHeight
+      padding: 1
+
+      contentItem: ListView {
+          clip: true
+          implicitHeight: contentHeight
+          model: projectionControl.popup.visible ? projectionControl.delegateModel : null
+          currentIndex: projectionControl.highlightedIndex
+
+          ScrollIndicator.vertical: ScrollIndicator { }
+      }
+
+      background: Rectangle {
+          border.color: Style.likeWhite
+          border.width: 2
+          color: "black"
+          opacity: 0.5
+      }
+    }
+
+    onActivated: (index) => {
+      switch (index) {
+        case 0:
+          renderSettings.activeFrameGraph.currentCamera.projectionType = CameraLens.OrthographicProjection
+          break;
+        case 1:
+          renderSettings.activeFrameGraph.currentCamera.projectionType = CameraLens.PerspectiveProjection
+          break;
+        case 2:
+          renderSettings.activeFrameGraph.currentCamera.projectionType = CameraLens.FrustumProjection
+          break;
       }
     }
   }

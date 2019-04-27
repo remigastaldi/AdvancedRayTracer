@@ -29,22 +29,6 @@ UiMainBorder {
       }
     }
 
-    RowLayout {
-      id: cameraLensSelection
-      Layout.alignment: Qt.AlignHCenter
-      Layout.fillWidth: true
-
-      Text {
-        text: ("CameraLens")
-        font.pointSize: 10
-        color: Style.likeWhite
-      }
-      ComboBox {
-        Layout.preferredHeight: 25
-        model: [ "Perspective", "Orthographic", "Frustum" ]
-      }
-    }
-    
     GroupBox {
       title: qsTr("Components")
       font.pointSize: 10
@@ -52,7 +36,7 @@ UiMainBorder {
       Layout.fillWidth: true
       Layout.rightMargin: 5
       Layout.leftMargin: 5
-      Layout.maximumHeight: root.height - outLiner.height - cameraLensSelection.height - 20
+      Layout.maximumHeight: root.height - outLiner.height - 10
       Layout.alignment: Qt.AlignHCenter
 
       Component.onCompleted: {
