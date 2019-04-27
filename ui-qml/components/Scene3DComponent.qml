@@ -13,7 +13,6 @@ import QtQuick.Controls 2.12
 Item {
   id: root
   property alias currentRender: renderSettings.activeFrameGraph
-  // property alias currentCamera: cameraController.camera
 
   Scene3D {
     id: scene3D
@@ -29,8 +28,7 @@ Item {
         id: singleViewCamera
         enabled: true
         onCameraChanged: (newCamera) => {
-          // currentCamera = newCamera
-          // console.log(currentCamera)
+          cameraController.camera = newCamera
           projectionControl.currentIndex = newCamera.projectionType
         }
       }
@@ -38,9 +36,12 @@ Item {
         id: multiViewCamera
         enabled: false
         onCameraChanged: (newCamera) => {
-          // currentCamera = newCamera
+          cameraController.camera = newCamera
           projectionControl.currentIndex = newCamera.projectionType
         }
+      }
+      Loader {
+        id: loader
       }
       
       components: [
@@ -73,8 +74,17 @@ Item {
         sourceDevice: mouse
         onPressed: {
           scene3D.focus = true
-          multiViewCamera.pressed(mouse.x, mouse.y)
+          currentRender.pressed(mouse.x, mouse.y)
         }
+      }
+
+      FirstPersonCameraController {
+        id: cameraController
+        // camera: singleViewCamera.currentcamera
+        linearSpeed: 50
+        // linearSpeed: 300
+        lookSpeed: 100
+        // lookSpeed: 3000
       }
 
       SkyboxEntity {
@@ -85,15 +95,6 @@ Item {
         //   translation: camera1.position
         // }
       }
-
-      // FirstPersonCameraController {
-      //   id: cameraController
-      //   // camera: currentCamera
-      //   linearSpeed: 50
-      //   // linearSpeed: 300
-      //   lookSpeed: 100
-      //   // lookSpeed: 3000
-      // }
     }
   }
 
@@ -101,13 +102,15 @@ Item {
     anchors.right: root.right
     onClicked: {
       if (checked) {
-        // singleViewCamera.enabled = false
+        singleViewCamera.enabled = false
         multiViewCamera.enabled = true
         currentRender = multiViewCamera
+        currentRender.pressed(0,0);
       } else {
         multiViewCamera.enabled = false
         singleViewCamera.enabled =  true
         currentRender = singleViewCamera
+        currentRender.pressed(0,0);
       }
     }
   }
@@ -158,15 +161,18 @@ Item {
     onActivated: (index) => {
       switch (index) {
         case 0:
-          renderSettings.activeFrameGraph.currentCamera.projectionType = CameraLens.OrthographicProjection
+          currentRender.currentCamera.projectionType = CameraLens.OrthographicProjection
           break;
         case 1:
-          renderSettings.activeFrameGraph.currentCamera.projectionType = CameraLens.PerspectiveProjection
+          currentRender.currentCamera.projectionType = CameraLens.PerspectiveProjection
           break;
         case 2:
-          renderSettings.activeFrameGraph.currentCamera.projectionType = CameraLens.FrustumProjection
+          currentRender.currentCamera.projectionType = CameraLens.FrustumProjection
           break;
       }
+    }
+    Component.onCompleted: {
+      currentIndex = singleViewCamera.camera.projectionType
     }
   }
 }

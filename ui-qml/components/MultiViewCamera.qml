@@ -114,14 +114,5 @@ RenderSurfaceSelector {
     upVector: Qt.vector3d(0.0, 1.0, 0.0)
     viewCenter: Qt.vector3d(0.0, 0.0, 0.0)
   }
-  
-  FirstPersonCameraController {
-    id: firstPersonCameraController
-    camera: currentCamera
-    linearSpeed: 50
-    // linearSpeed: 300
-    lookSpeed: 100
-    // lookSpeed: 3000
-  }
 }
 
