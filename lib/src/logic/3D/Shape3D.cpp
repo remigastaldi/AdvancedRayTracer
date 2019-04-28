@@ -1,4 +1,5 @@
 #include "Shape3D.hpp"
+#include "MaterialPicker.hpp"
 #include "Transform3D.hpp"
 #include <iostream>
 
@@ -8,6 +9,7 @@ namespace Logic {
 Shape3D::Shape3D(std::string id, Qt3DCore::QEntity *parent)
    : Entity{std::move(id)} , _qEntity{new Qt3DCore::QEntity{parent}} {
   new Modules::Transform3D(*this, "Transform3D");
+  new Modules::MaterialPicker(*this, "MaterialPicker");
   _mousePicker = new Qt3DRender::QObjectPicker{_qEntity};
   _qEntity->addComponent(_mousePicker);
   connect(_mousePicker, &Qt3DRender::QObjectPicker::clicked, this, &Shape3D::_mouseClicked);

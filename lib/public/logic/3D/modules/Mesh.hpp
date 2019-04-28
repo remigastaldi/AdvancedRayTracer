@@ -25,17 +25,11 @@ public:
   }
 
   T *get() noexcept { return _mesh; }
-  // T * operator->();
 
 private:
   Shape3D &_parent;
   T *_mesh;
 };
-
-// template <typename T>
-// T * Mesh<T>::operator->() {
-//   return _mesh;
-// }
 
 } // namespace Modules
 } // namespace Logic

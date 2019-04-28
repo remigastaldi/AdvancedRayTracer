@@ -39,6 +39,7 @@ add_library(${PROJECT_NAME} SHARED
   src/logic/3D/modules/Material.cpp
   src/logic/3D/modules/Mesh.cpp
   src/logic/3D/modules/Transform3D.cpp
+  src/logic/3D/modules/MaterialPicker.cpp
 
   #### Modules Meshes
   src/logic/3D/modules/meshes/TorusMesh.cpp
@@ -50,7 +51,6 @@ add_library(${PROJECT_NAME} SHARED
   src/logic/3D/modules/materials/PhongMaterial.cpp
   src/logic/3D/modules/materials/MetalRoughMaterial.cpp
   
-
   ## 2D
   src/logic/2D/Scene2D.cpp
   src/logic/2D/Shape2D.cpp
@@ -91,6 +91,7 @@ add_library(${PROJECT_NAME} SHARED
   public/logic/3D/modules/Material.hpp
   public/logic/3D/modules/Mesh.hpp
   public/logic/3D/modules/Transform3D.hpp
+  public/logic/3D/modules/MaterialPicker.hpp
 
   #### Modules Meshes
   public/logic/3D/modules/meshes/TorusMesh.hpp
