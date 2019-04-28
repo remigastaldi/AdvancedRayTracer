@@ -162,15 +162,20 @@ void MainController::selectedShapeUpdate() {
 
 // TODO: Remove this crappy function, bad dataflow
 void MainController::selectEntityByIndex(int index) {
+
   auto &vect = _outliner->entitiesHierarchy();
-  auto it = std::find(vect.cbegin(), vect.cend(), vect[static_cast<size_t>(index)]);
-  if (it == vect.cend() || *it == "|   Material" || *it == "|   Mesh" || *it == "|   Transform3D") {
-    qInfo() << "Not implemented yet, outliner rework needed";
+
+  int i = index;
+  while (i >= 0 && vect[i].find("|   ") != std::string::npos ) {
+    i--;
+  }
+  if (i < 0) {
+    std::cout << "Outliner entity selection error" << std::endl;
     return;
   }
 
   if (_currentScene != nullptr) {
-    _currentScene->selectEntity(_outliner->entitiesHierarchy()[static_cast<size_t>(index)]);
+    _currentScene->selectEntity(vect[i]);
   }
 }
 
