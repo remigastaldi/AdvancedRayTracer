@@ -1,8 +1,6 @@
 #include "WireframeMaterial.hpp"
 
-namespace ART {
-namespace Logic {
-namespace Modules {
+namespace ART::Logic::Modules {
 
 WireframeMaterial::WireframeMaterial(Shape3D &parent, std::string id, Qt3DRender::QMaterial *material)
     : Material<Qt3DRender::QMaterial>{parent, id, material} {
@@ -42,7 +40,6 @@ WireframeMaterial::WireframeMaterial(Shape3D &parent, std::string id, Qt3DRender
   effect->addTechnique(technique);
 
   material->setEffect(effect);
-
 }
 
 // QColor WireframeMaterial::diffuse() { return get()->diffuse(); }
@@ -54,6 +51,4 @@ WireframeMaterial::WireframeMaterial(Shape3D &parent, std::string id, Qt3DRender
 // void WireframeMaterial::setSpecular(const QColor &color) noexcept { get()->setSpecular(color); }
 WireframeMaterial::~WireframeMaterial() {}
 
-} // namespace Modules
-} // namespace Logic
-} // namespace ART
+} // namespace ART::Logic::Modules

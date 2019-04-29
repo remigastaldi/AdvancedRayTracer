@@ -12,16 +12,16 @@
 #include "TorusMesh.hpp"
 #include "Transform3D.hpp"
 
+#include <QGraphicsApiFilter>
 #include <QPropertyAnimation>
 #include <Qt3DExtras/QSkyboxEntity>
 #include <QtConcurrent>
-#include <QGraphicsApiFilter>
 
 namespace ART::Logic {
 
-Scene3D::Scene3D(RootEntity *root) : _root{root}, _urrId{0} {
+Scene3D::Scene3D(RootEntity *root) : _root{root}, _cameraController{new Controllers::CameraController{root}}, _urrId{0} {
   connect(root, &RootEntity::keyPressedEvent, this, &Scene3D::keyPressedEvent);
-  connect(root, &RootEntity::cameraMoveEvent, this, &Scene3D::updateSkyboxPosition);
+  // connect(root, &RootEntity::cameraMoveEvent, this, &Scene3D::updateSkyboxPosition);
 
   // camera
 

@@ -28,16 +28,18 @@ Item {
         id: singleViewCamera
         enabled: true
         onCameraChanged: (newCamera) => {
-          cameraController.camera = newCamera
+          firstPersoneCamera.camera = newCamera
           projectionControl.currentIndex = newCamera.projectionType
+          mainController.scene3D.cameraController.setModel(newCamera)
         }
       }
       MultiViewCamera {
         id: multiViewCamera
         enabled: false
         onCameraChanged: (newCamera) => {
-          cameraController.camera = newCamera
+          firstPersoneCamera.camera = newCamera
           projectionControl.currentIndex = newCamera.projectionType
+          mainController.scene3D.cameraController.setModel(newCamera)
         }
       }
       Loader {
@@ -79,7 +81,7 @@ Item {
       }
 
       FirstPersonCameraController {
-        id: cameraController
+        id: firstPersoneCamera
         // camera: singleViewCamera.currentcamera
         linearSpeed: 50
         // linearSpeed: 300

@@ -17,7 +17,7 @@ public:
 
 Q_SIGNALS:
   void keyPressedEvent(Qt::Key event);
-  void cameraMoveEvent(QVector3D pos);
+  // void cameraMoveEvent(QVector3D pos);
 };
 
 } // namespace Logic

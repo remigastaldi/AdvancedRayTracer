@@ -75,6 +75,7 @@ add_library(${PROJECT_NAME} SHARED
   public/controllers/RightSidebarController.hpp
   public/controllers/DrawToolbar3DController.hpp
   public/controllers/DrawToolbar2DController.hpp
+  public/controllers/CameraController.hpp
 
   ## Logic
   public/logic/Entity.hpp
@@ -125,7 +126,6 @@ add_library(${PROJECT_NAME} SHARED
   public/models/ToolbarModel.hpp
   public/models/RightSidebarModel.hpp
   public/models/Outliner.hpp
-  public/models/Camera.hpp
 
   public/globals.h
 )
