@@ -13,19 +13,17 @@
 
 #include <Qt3DInput/QInputAspect>
 
+#include <QQmlApplicationEngine>
+#include <QQmlContext>
 #include <Qt3DExtras/QCylinderMesh>
 #include <Qt3DExtras/QForwardRenderer>
 #include <Qt3DExtras/QPhongMaterial>
 #include <Qt3DExtras/QSphereMesh>
 #include <Qt3DExtras/QTorusMesh>
 #include <Qt3DRender/QRenderAspect>
-#include <QQmlApplicationEngine>
-#include <QQmlContext>
 
 class QQmlApplicationEngine;
 
-// #include "Outliner.hpp"
-// #include "Scene3D.hpp"
 namespace ART {
 namespace Logic {
 class Scene3D;
@@ -34,7 +32,7 @@ class Scene;
 class Entity;
 namespace Modules {
 class ZIndex;
-}
+} // namespace Modules
 } // namespace Logic
 namespace Models {
 class Outliner;
@@ -61,7 +59,7 @@ class ADVANCED_RAY_TRACER_EXPORT MainController : public QObject {
 
 public:
   explicit MainController(QObject *parent = nullptr);
-  ~MainController() = default;
+  ~MainController() override = default;
   MainController(MainController &&other) = delete;
   MainController &operator=(MainController &&other) = delete;
 
@@ -70,13 +68,13 @@ public:
   void setOutliner(ART::Models::Outliner *outliner) noexcept;
   void setEngine(QQmlApplicationEngine *engine) noexcept;
 
-  ToolbarController *toolbarController() const noexcept;
-  DrawToolbar3DController *drawToolbar3DController() const noexcept;
-  DrawToolbar2DController *drawToolbar2DController() const noexcept;
-  RightSidebarController *rightSidebarController() const noexcept;
-  Logic::Scene3D *scene3D() const noexcept;
-  Logic::Scene2D *scene2D() const noexcept;
-  ART::Models::Outliner *outliner() const noexcept;
+  [[nodiscard]] ToolbarController *toolbarController() const noexcept;
+  [[nodiscard]] DrawToolbar3DController *drawToolbar3DController() const noexcept;
+  [[nodiscard]] DrawToolbar2DController *drawToolbar2DController() const noexcept;
+  [[nodiscard]] RightSidebarController *rightSidebarController() const noexcept;
+  [[nodiscard]] Logic::Scene3D *scene3D() const noexcept;
+  [[nodiscard]] Logic::Scene2D *scene2D() const noexcept;
+  [[nodiscard]] ART::Models::Outliner *outliner() const noexcept;
 
 public Q_SLOTS:
   void sceneUpdate() noexcept;

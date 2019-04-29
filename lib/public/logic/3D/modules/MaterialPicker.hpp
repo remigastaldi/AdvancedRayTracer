@@ -16,12 +16,14 @@ namespace Modules {
 class MaterialPicker : public Entity {
   Q_OBJECT
   Q_PROPERTY(QStringList materials READ materials NOTIFY dataUpdate)
+  Q_PROPERTY(int materialSelected READ materialSelected NOTIFY dataUpdate)
   Q_DISABLE_COPY(MaterialPicker)
 public:
   MaterialPicker(Shape3D &parent, std::string id);
   virtual ~MaterialPicker();
 
   const QStringList materials();
+  int materialSelected();
 
 public Q_SLOTS:
   void pickMaterial(const QString &materialName);
@@ -32,7 +34,7 @@ Q_SIGNALS:
 private:
   Shape3D &_parent;
 
-  std::string _materialSelected = "PhongAlphaMaterial";
+  QString _materialSelected;
 };
 } // namespace Modules
 } // namespace Logic

@@ -22,6 +22,11 @@ float Transform3D::y() { return _transform->translation().y(); }
 
 float Transform3D::z() { return _transform->translation().z(); }
 
+float Transform3D::rotationX() { return _transform->rotationX(); }
+float Transform3D::rotationY() { return _transform->rotationY(); }
+float Transform3D::rotationZ() { return _transform->rotationZ(); }
+
+
 Qt3DCore::QTransform *Transform3D::get() noexcept { return _transform; }
 
 void Transform3D::setX(float x) noexcept {
@@ -45,6 +50,21 @@ void Transform3D::setZ(float z) noexcept {
   Q_EMIT dataUpdate();
 }
 
+
+void Transform3D::setRotationX(float x) noexcept {
+  _transform->setRotationX(x);
+  Q_EMIT dataUpdate();
+}
+
+void Transform3D::setRotationY(float y) noexcept {
+  _transform->setRotationY(y);
+  Q_EMIT dataUpdate();
+}
+
+void Transform3D::setRotationZ(float z) noexcept {
+  _transform->setRotationZ(z);
+  Q_EMIT dataUpdate();
+}
 void Transform3D::setTransform(Qt3DCore::QTransform *transform) noexcept {
   transform->QObject::setParent(_parent.getQEntity());
   _transform = transform;

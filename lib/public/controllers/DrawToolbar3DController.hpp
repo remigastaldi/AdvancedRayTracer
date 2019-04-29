@@ -17,7 +17,7 @@ class ADVANCED_RAY_TRACER_EXPORT DrawToolbar3DController : public QObject {
 
 public:
   explicit DrawToolbar3DController(QObject* parent = nullptr);
-  ~DrawToolbar3DController() = default;
+  ~DrawToolbar3DController() override = default;
 
   // void setModel(ART::Models::DrawToolbar3DModel* model);
 

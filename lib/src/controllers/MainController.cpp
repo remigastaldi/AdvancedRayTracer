@@ -6,9 +6,6 @@
 #include "Scene3D.hpp"
 #include "Scene2D.hpp"
 #include "Outliner.hpp"
-// #include "Entity.hpp"
-// #include "Mesh.hpp"
-#include "Camera.hpp"
 #include "ZIndex.hpp"
 
 namespace ART::Controllers {
@@ -42,7 +39,6 @@ void  MainController::setScene3D(Logic::Scene3D *scene) noexcept {
   connect(_drawToolbar3DController, &DrawToolbar3DController::castRay, _scene3D, &Logic::Scene3D::castRay);
   connect(_drawToolbar3DController, &DrawToolbar3DController::import3DModel, _scene3D, &Logic::Scene3D::import3DModel);
   connect(_drawToolbar3DController, &DrawToolbar3DController::import3DScene, _scene3D, &Logic::Scene3D::import3DScene);
-  // _engine->rootContext()->setContextProperty("CameraModel", _scene3D->camera);
 }
 
 void  MainController::setScene2D(Logic::Scene2D *scene) noexcept {
