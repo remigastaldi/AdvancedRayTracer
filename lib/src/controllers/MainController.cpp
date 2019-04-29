@@ -39,6 +39,7 @@ void  MainController::setScene3D(Logic::Scene3D *scene) noexcept {
   connect(_drawToolbar3DController, &DrawToolbar3DController::createSphere, _scene3D, &Logic::Scene3D::createSphere);
   connect(_drawToolbar3DController, &DrawToolbar3DController::createTorus, _scene3D, &Logic::Scene3D::createTorus);
   connect(_drawToolbar3DController, &DrawToolbar3DController::createSquare, _scene3D, &Logic::Scene3D::createSquare);
+  connect(_drawToolbar3DController, &DrawToolbar3DController::castRay, _scene3D, &Logic::Scene3D::castRay);
   connect(_drawToolbar3DController, &DrawToolbar3DController::import3DModel, _scene3D, &Logic::Scene3D::import3DModel);
   connect(_drawToolbar3DController, &DrawToolbar3DController::import3DScene, _scene3D, &Logic::Scene3D::import3DScene);
   // _engine->rootContext()->setContextProperty("CameraModel", _scene3D->camera);

@@ -38,6 +38,12 @@ UiMainBorder {
         onClicked: mainController.drawToolbar3DController.createTorus()
       }
 
+	  CustomButton {
+        Layout.alignment: Qt.AlignHCenter
+        text: "Cast ray"
+        onClicked: mainController.drawToolbar3DController.castRay()
+      }
+
       CustomButton {
         Layout.alignment: Qt.AlignHCenter
         text: "Import 3D Model"
