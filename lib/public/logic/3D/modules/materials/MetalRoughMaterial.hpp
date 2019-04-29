@@ -2,9 +2,7 @@
 
 #include "Material.hpp"
 
-namespace ART {
-namespace Logic {
-namespace Modules {
+namespace ART::Logic::Modules {
 
 class MetalRoughMaterial : public Material<Qt3DExtras::QMetalRoughMaterial> {
   Q_OBJECT
@@ -67,6 +65,4 @@ public Q_SLOTS:
   }
 };
 
-} // namespace Modules
-} // namespace Logic
-} // namespace ART
+} // namespace ART::Logic::Modules

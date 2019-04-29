@@ -21,7 +21,7 @@ public:
     _parent.addChildren(Entity::id(), std::unique_ptr<Entity>(this));
   }
 
-  virtual ~Material() {
+  ~Material() override {
     _parent.getQEntity()->removeComponent(_material);
     delete _material;
   }

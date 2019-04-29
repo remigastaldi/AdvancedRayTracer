@@ -1,8 +1,6 @@
 #include "MetalRoughMaterial.hpp"
 
-namespace ART {
-namespace Logic {
-namespace Modules {
+namespace ART::Logic::Modules {
 
 MetalRoughMaterial::MetalRoughMaterial(Shape3D &parent, std::string id, Qt3DExtras::QMetalRoughMaterial *material)
     : Material<Qt3DExtras::QMetalRoughMaterial>{parent, id, material} {
@@ -12,6 +10,4 @@ MetalRoughMaterial::MetalRoughMaterial(Shape3D &parent, std::string id, Qt3DExtr
 }
 MetalRoughMaterial::~MetalRoughMaterial() {}
 
-} // namespace Modules
-} // namespace Logic
-} // namespace ART
+} // namespace ART::Logic::Modules

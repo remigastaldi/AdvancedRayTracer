@@ -50,6 +50,7 @@ add_library(${PROJECT_NAME} SHARED
   src/logic/3D/modules/materials/PhongAlphaMaterial.cpp
   src/logic/3D/modules/materials/PhongMaterial.cpp
   src/logic/3D/modules/materials/MetalRoughMaterial.cpp
+  src/logic/3D/modules/materials/WireframeMaterial.cpp
   
   ## 2D
   src/logic/2D/Scene2D.cpp
@@ -102,6 +103,7 @@ add_library(${PROJECT_NAME} SHARED
   public/logic/3D/modules/materials/PhongMaterial.hpp
   public/logic/3D/modules/materials/PhongAlphaMaterial.hpp
   public/logic/3D/modules/materials/MetalRoughMaterial.hpp
+  public/logic/3D/modules/materials/WireframeMaterial.hpp
 
   ## 2D
   public/logic/2D/Scene2D.hpp

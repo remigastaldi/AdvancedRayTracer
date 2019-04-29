@@ -6,7 +6,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Dialogs 1.3
 
 GroupBox {
-  title: qsTr("Metal Rough Material")
+  title: qsTr("Phong Material")
   ColumnLayout {
     Layout.fillWidth: true
     Layout.fillHeight: true

@@ -15,6 +15,7 @@
 #include <QPropertyAnimation>
 #include <Qt3DExtras/QSkyboxEntity>
 #include <QtConcurrent>
+#include <QGraphicsApiFilter>
 
 namespace ART::Logic {
 
@@ -93,12 +94,6 @@ void Scene3D::createSphere() noexcept {
   mesh->setRadius(4);
   mesh->setSlices(100);
   mesh->setRings(100);
-
-  // sphere->removeChildren("MetalRoughMaterial");
-  // auto *material = new Modules::MetalRoughMaterial(*sphere, "MetalRoughMaterial");
-  // material->setBaseColor(QColor(125, 125, 125));
-  // material->setRoughness(0.10);
-  // material->setMetalness(0.95);
 
   connect(sphere.get(), &Shape3D::entitySelectedChanged, this, &Scene3D::selectEntity);
 

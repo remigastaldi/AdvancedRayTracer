@@ -18,7 +18,6 @@ class ADVANCED_RAY_TRACER_EXPORT Shape3D : public Entity {
 
 public:
   Shape3D(std::string id, Qt3DCore::QEntity *parent);
-  Qt3DCore::QEntity *_qEntity;
 
   Qt3DCore::QEntity *getQEntity() const noexcept;
 
@@ -30,6 +29,7 @@ Q_SIGNALS:
   void entitySelectedChanged(const std::string &id);
 
 private:
+  Qt3DCore::QEntity *_qEntity;
   Qt3DRender::QObjectPicker *_mousePicker;
 };
 

@@ -1,4 +1,5 @@
 #include "MaterialPicker.hpp"
+#include "WireframeMaterial.hpp"
 
 namespace ART::Logic::Modules {
 
@@ -20,6 +21,8 @@ void MaterialPicker::pickMaterial(const QString &materialName) {
     _materialSelected = "PhongMaterial";
     new PhongMaterial(_parent, "PhongMaterial");
   } else if (materialName == "WireframeMaterial") {
+    _materialSelected = "WireframeMaterial";
+    new WireframeMaterial(_parent, "WireframeMaterial");
   }
 }
 

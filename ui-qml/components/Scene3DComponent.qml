@@ -95,6 +95,18 @@ Item {
         //   translation: camera1.position
         // }
       }
+
+    // TrefoilKnot {
+    //     id: trefoilKnot
+    //     material: wireframeMaterial
+    //   WireframeMaterial {
+    //     id: wireframeMaterial
+    //     effect: WireframeEffect {}
+    //     ambient: Qt.rgba( 0.2, 0.0, 0.0, 1.0 )
+    //     diffuse: Qt.rgba( 0.8, 0.0, 0.0, 1.0 )
+    //   }
+    // }
+
     }
   }
 
