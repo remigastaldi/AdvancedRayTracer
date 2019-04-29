@@ -6,7 +6,7 @@ namespace Modules {
 
 PhongAlphaMaterial::PhongAlphaMaterial(Shape3D &parent, std::string id, Qt3DExtras::QPhongAlphaMaterial *material)
     : Material<Qt3DExtras::QPhongAlphaMaterial>{parent, id, material} {
-  material->setDiffuse(QColor(255, 255, 255, 125));
+  material->setDiffuse(QColor(128, 128, 128));
   material->setSpecular(QColor(255, 255, 255));
   material->setAmbient(QColor(255, 255, 255));
 }

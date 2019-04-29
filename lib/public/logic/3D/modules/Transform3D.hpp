@@ -13,6 +13,9 @@ class Transform3D : public Entity {
   Q_PROPERTY(float x READ x NOTIFY dataUpdate)
   Q_PROPERTY(float y READ y NOTIFY dataUpdate)
   Q_PROPERTY(float z READ z NOTIFY dataUpdate)
+  Q_PROPERTY(float rotationX READ rotationX NOTIFY dataUpdate)
+  Q_PROPERTY(float rotationY READ rotationY NOTIFY dataUpdate)
+  Q_PROPERTY(float rotationZ READ rotationZ NOTIFY dataUpdate)
   Q_DISABLE_COPY(Transform3D)
 
 public:
@@ -25,12 +28,19 @@ public:
   float y();
   float z();
 
+  float rotationX();
+  float rotationY();
+  float rotationZ();
+
   Qt3DCore::QTransform *get() noexcept;
 
 public Q_SLOTS:
   void setX(float x) noexcept;
   void setY(float y) noexcept;
   void setZ(float z) noexcept;
+  void setRotationX(float x) noexcept;
+  void setRotationY(float y) noexcept;
+  void setRotationZ(float z) noexcept;
   void setTransform(Qt3DCore::QTransform *transform) noexcept;
   void setTranslation(QVector3D transform) noexcept;
 

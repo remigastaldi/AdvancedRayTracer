@@ -6,9 +6,9 @@ namespace Modules {
 
 PhongMaterial::PhongMaterial(Shape3D &parent, std::string id, Qt3DExtras::QPhongMaterial *material)
     : Material<Qt3DExtras::QPhongMaterial>{parent, id, material} {
-  material->setDiffuse(QColor(255, 255, 255, 125));
-  material->setSpecular(QColor(255, 255, 255));
-  material->setAmbient(QColor(255, 255, 255));
+  material->setDiffuse(QColor(128, 128, 128));
+  material->setSpecular(QColor(13, 106, 117));
+  material->setAmbient(QColor(95, 77, 165));
 }
 
 QColor PhongMaterial::diffuse() { return get()->diffuse(); }

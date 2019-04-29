@@ -21,6 +21,7 @@ GroupBox {
         ComboBox {
             id: cbItems
             model: MaterialPickerModel.materials
+            currentIndex: MaterialPickerModel.materialSelected
             width: 200
             onActivated: {
               MaterialPickerModel.pickMaterial(currentText);
