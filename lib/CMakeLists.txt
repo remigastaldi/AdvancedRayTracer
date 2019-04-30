@@ -48,6 +48,7 @@ add_library(${PROJECT_NAME} SHARED
   src/logic/3D/modules/meshes/TorusMesh.cpp
   src/logic/3D/modules/meshes/CuboidMesh.cpp
   src/logic/3D/modules/meshes/SphereMesh.cpp
+  src/logic/3D/modules/meshes/ConeMesh.cpp
 
   #### Modules Materials
   src/logic/3D/modules/materials/PhongAlphaMaterial.cpp
@@ -112,6 +113,7 @@ add_library(${PROJECT_NAME} SHARED
   public/logic/3D/modules/meshes/CuboidMesh.hpp
   public/logic/3D/modules/meshes/SphereMesh.hpp
   public/logic/3D/modules/meshes/PlaneMesh.hpp
+  public/logic/3D/modules/meshes/ConeMesh.hpp
 
   #### Modules Materials
   public/logic/3D/modules/materials/PhongMaterial.hpp
