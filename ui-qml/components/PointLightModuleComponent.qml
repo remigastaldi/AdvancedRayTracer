@@ -30,5 +30,19 @@ GroupBox {
         }
       }
     }
+    RowLayout {
+      CustomText {
+        color: Style.likeWhite
+        text: "Intensity: "
+        Layout.leftMargin: 5
+      }
+      CustomDoubleInput {
+        text: PointLightModel.intensity
+
+        onEditingFinished: {
+          PointLightModel.setIntensity(parseFloat(text))
+        }
+      }
+    }
   }
 }

@@ -18,6 +18,8 @@ PointLight::~PointLight() {}
 
 QColor PointLight::color() { return get()->color(); }
 
+float PointLight::intensity() { return get()->intensity(); }
+
 void PointLight::setColor(const QColor &color) {
   _material->setDiffuse(color);
   _material->setAmbient(color);
@@ -25,4 +27,11 @@ void PointLight::setColor(const QColor &color) {
   get()->setColor(color);
   Q_EMIT dataUpdate();
 }
+
+void PointLight::setIntensity(float intensity) {
+  get()->setIntensity(intensity);
+
+  Q_EMIT dataUpdate();
+}
+
 } // namespace ART::Logic::Modules::Lights
