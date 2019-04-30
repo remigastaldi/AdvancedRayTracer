@@ -90,6 +90,7 @@ add_library(${PROJECT_NAME} SHARED
   ## 3D
   public/logic/3D/LightEntity.hpp
   public/logic/3D/Torus.hpp
+  public/logic/3D/Plane.hpp
   public/logic/3D/Cuboid.hpp
   public/logic/3D/SceneLoader.hpp
   public/logic/3D/Object3D.hpp
@@ -110,6 +111,7 @@ add_library(${PROJECT_NAME} SHARED
   public/logic/3D/modules/meshes/TorusMesh.hpp
   public/logic/3D/modules/meshes/CuboidMesh.hpp
   public/logic/3D/modules/meshes/SphereMesh.hpp
+  public/logic/3D/modules/meshes/PlaneMesh.hpp
 
   #### Modules Materials
   public/logic/3D/modules/materials/PhongMaterial.hpp

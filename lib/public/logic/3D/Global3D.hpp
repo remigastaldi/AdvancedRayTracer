@@ -5,6 +5,7 @@ namespace ART::Logic {
     SPHERE,
     CUBE,
     TORUS,
+    PLANE,
     LIGHT,
     SCENE_LOADER,
     OBJECT3D

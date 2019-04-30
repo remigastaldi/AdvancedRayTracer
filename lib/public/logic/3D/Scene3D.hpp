@@ -36,6 +36,7 @@ public Q_SLOTS:
   void createSphere() noexcept;
   void createCube() noexcept;
   void createTorus() noexcept;
+  void createPlane() noexcept;
   void castRay() noexcept;
   void raytracingReflection() noexcept;
   void import3DModel(const QUrl &);

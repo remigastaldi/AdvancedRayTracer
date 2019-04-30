@@ -6,6 +6,8 @@
 #include "Mesh.hpp"
 #include "MetalRoughMaterial.hpp"
 #include "Object3D.hpp"
+#include "PlaneMesh.hpp"
+#include "Plane.hpp"
 #include "SceneLoader.hpp"
 #include "SphereMesh.hpp"
 #include "Torus.hpp"
@@ -17,10 +19,10 @@
 #include "SpotLight.hpp"
 
 #include <QGraphicsApiFilter>
+#include <QMessageBox>
 #include <QPropertyAnimation>
 #include <Qt3DExtras/QSkyboxEntity>
 #include <QtConcurrent>
-#include <QMessageBox>
 
 namespace ART::Logic {
 
@@ -194,6 +196,17 @@ void Scene3D::createCube() noexcept {
   connect(square.get(), &Shape3D::entitySelectedChanged, this, &Scene3D::selectEntity);
 
   _entities.emplace(id, std::move(square));
+
+  Q_EMIT sceneUpdate();
+}
+
+void Scene3D::createPlane() noexcept {
+  std::string id = "Plane [" + std::to_string(_urrId++) + "]";
+  std::unique_ptr<Plane> plane{std::make_unique<Plane>(id, _root)};
+
+  connect(plane.get(), &Shape3D::entitySelectedChanged, this, &Scene3D::selectEntity);
+
+  _entities.emplace(id, std::move(plane));
 
   Q_EMIT sceneUpdate();
 }

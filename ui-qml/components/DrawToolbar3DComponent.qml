@@ -38,6 +38,12 @@ UiMainBorder {
         onClicked: mainController.drawToolbar3DController.createTorus()
       }
 
+      CustomButton {
+        Layout.alignment: Qt.AlignHCenter
+        text: "Plane"
+        onClicked: mainController.drawToolbar3DController.createPlane()
+      }
+
 	    CustomButton {
         Layout.alignment: Qt.AlignHCenter
         text: "Ray intersection"

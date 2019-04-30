@@ -35,6 +35,7 @@ void  MainController::setScene3D(Logic::Scene3D *scene) noexcept {
   connect(_scene3D, &Logic::Scene::selectedShapeUpdate, this, &MainController::selectedShapeUpdate);
   connect(_drawToolbar3DController, &DrawToolbar3DController::createSphere, _scene3D, &Logic::Scene3D::createSphere);
   connect(_drawToolbar3DController, &DrawToolbar3DController::createTorus, _scene3D, &Logic::Scene3D::createTorus);
+  connect(_drawToolbar3DController, &DrawToolbar3DController::createPlane, _scene3D, &Logic::Scene3D::createPlane);
   connect(_drawToolbar3DController, &DrawToolbar3DController::castRay, _scene3D, &Logic::Scene3D::castRay);
   connect(_drawToolbar3DController, &DrawToolbar3DController::raytracingReflection, _scene3D, &Logic::Scene3D::raytracingReflection);
   connect(_drawToolbar3DController, &DrawToolbar3DController::createCube, _scene3D, &Logic::Scene3D::createCube);
