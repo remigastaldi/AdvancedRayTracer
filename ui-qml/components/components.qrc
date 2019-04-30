@@ -26,6 +26,7 @@
       <file alias="SpotLightModuleComponent.qml">SpotLightModuleComponent.qml</file>
       <file alias="SingleViewCamera.qml">SingleViewCamera.qml</file>
       <file alias="WireframeMaterialModuleComponent.qml">WireframeMaterialModuleComponent.qml</file>
+      <file alias="DirectionalLightModuleComponent.qml">DirectionalLightModuleComponent.qml</file>
       <file alias="PlaneMeshModuleComponent.qml">PlaneMeshModuleComponent.qml</file>
   </qresource>
 </RCC>

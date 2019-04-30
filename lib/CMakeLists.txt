@@ -60,6 +60,7 @@ add_library(${PROJECT_NAME} SHARED
   #### Modules Lights 
   src/logic/3D/modules/lights/SpotLight.cpp
   src/logic/3D/modules/lights/PointLight.cpp
+  src/logic/3D/modules/lights/DirectionalLight.cpp
   
   ## 2D
   src/logic/2D/Scene2D.cpp
@@ -125,6 +126,7 @@ add_library(${PROJECT_NAME} SHARED
   #### Modules Lights 
   public/logic/3D/modules/lights/SpotLight.hpp
   public/logic/3D/modules/lights/PointLight.hpp
+  public/logic/3D/modules/lights/DirectionalLight.hpp
 
   ## 2D
   public/logic/2D/Scene2D.hpp
