@@ -16,6 +16,7 @@
 #include <QPropertyAnimation>
 #include <Qt3DExtras/QSkyboxEntity>
 #include <QtConcurrent>
+#include <QMessageBox>
 
 namespace ART::Logic {
 
@@ -119,15 +120,41 @@ void Scene3D::createTorus() noexcept {
 
 void Scene3D::castRay() noexcept {
 	float sphere_dist = std::numeric_limits<float>::max();
+	int i = 0;
+	std::string message = "The ray did not intersect with a shape.";
 	for (auto& it : _entities) {
 		QVector3D center(it.second.get()->getChildren<Modules::Transform3D>("Transform3D").x(), it.second.get()->getChildren<Modules::Transform3D>("Transform3D").y(), it.second.get()->getChildren<Modules::Transform3D>("Transform3D").z());
 		float radius = it.second.get()->getChildren<Modules::SphereMesh>("SphereMesh").radius();
-		QVector3D direction = _cameraController->model()->viewVector().normalized();
-		QVector3D origin(_cameraController->model()->position());
-		rayIntersect(origin, direction, center, radius, sphere_dist);
+		QVector3D direction;
+		QVector3D origin;
+
+		if (_cameraController->model() == nullptr) {
+			direction = QVector3D(0.707107, 0.0, -0.707107);
+			origin = QVector3D(-20.0, 0.0, 20.0);
+		} else {
+			direction = _cameraController->model()->viewVector().normalized();
+			origin = (_cameraController->model()->position());
+		}
+
+		if (rayIntersect(origin, direction, center, radius, sphere_dist)) {
+			message = "The ray intersected with the Sphere [" + std::to_string(i) + "].";
+			break;
+		}
+
+		i++;
 	}
 
+	const char *cmessage = message.c_str();
+	QMessageBox::information(
+		nullptr,
+		tr("Ray intersection result"),
+		tr(cmessage));
+
 	Q_EMIT sceneUpdate();
+}
+
+void Scene3D::raytracingReflection() noexcept {
+	qInfo() << "ok";
 }
 
 bool Scene3D::rayIntersect(const QVector3D origin, const QVector3D direction, QVector3D center, float radius, float &t0) {
@@ -136,6 +163,7 @@ bool Scene3D::rayIntersect(const QVector3D origin, const QVector3D direction, QV
 	float d2 = QVector3D::dotProduct(L, L) - (tca * tca);
 
 	if (d2 > (radius * radius)) {
+		qInfo() << "false";
 		return false;
 	}
 
@@ -148,9 +176,10 @@ bool Scene3D::rayIntersect(const QVector3D origin, const QVector3D direction, QV
 	}
 
 	if (t0 < 0) {
+		qInfo() << "false";
 		return false;
 	}
-
+	qInfo() << "true";
 	return true;
 }
 

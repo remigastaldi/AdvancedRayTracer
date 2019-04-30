@@ -40,8 +40,14 @@ UiMainBorder {
 
 	  CustomButton {
         Layout.alignment: Qt.AlignHCenter
-        text: "Cast ray"
+        text: "Ray intersection"
         onClicked: mainController.drawToolbar3DController.castRay()
+      }
+
+	  CustomButton {
+        Layout.alignment: Qt.AlignHCenter
+        text: "Ray reflection"
+        onClicked: mainController.drawToolbar3DController.raytracingReflection()
       }
 
       CustomButton {

@@ -35,6 +35,7 @@ public Q_SLOTS:
   void createSquare() noexcept;
   void createTorus() noexcept;
   void castRay() noexcept;
+  void raytracingReflection() noexcept;
   void import3DModel(const QUrl &);
   void import3DScene(const QUrl &);
   bool rayIntersect(const QVector3D origin, const QVector3D direction, QVector3D center, float radius, float &t0);

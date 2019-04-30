@@ -32,6 +32,7 @@ Q_SIGNALS:
   void createSquare();
   void createTorus();
   void castRay();
+  void raytracingReflection();
   void import3DModel(const QUrl &);
   void import3DScene(const QUrl &);
 
