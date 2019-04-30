@@ -12,6 +12,10 @@
 #include "TorusMesh.hpp"
 #include "Transform3D.hpp"
 
+#include "LightEntity.hpp"
+
+#include "SpotLight.hpp"
+
 #include <QGraphicsApiFilter>
 #include <QPropertyAnimation>
 #include <Qt3DExtras/QSkyboxEntity>
