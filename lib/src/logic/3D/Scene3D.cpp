@@ -118,33 +118,28 @@ void Scene3D::createTorus() noexcept {
 }
 
 void Scene3D::castRay() noexcept {
-	QVector3D origin(-20.0, 0.0, 20.0);
-	QVector3D direction(1, 1, 1);
-	direction.normalize();
-	qInfo() << "Ray casted from origin (x, y, z) = (" << origin.x() << "," << origin.y() << "," << origin.z() << ")";
-
+	float sphere_dist = std::numeric_limits<float>::max();
 	for (auto& it : _entities) {
-		qInfo() << "x: " << it.second.get()->getChildren<Modules::Transform3D>("Transform3D").x() << " y " << it.second.get()->getChildren<Modules::Transform3D>("Transform3D").y() << " z " << it.second.get()->getChildren<Modules::Transform3D>("Transform3D").z();
-		float sphere_dist = std::numeric_limits<float>::max();
 		QVector3D center(it.second.get()->getChildren<Modules::Transform3D>("Transform3D").x(), it.second.get()->getChildren<Modules::Transform3D>("Transform3D").y(), it.second.get()->getChildren<Modules::Transform3D>("Transform3D").z());
 		float radius = it.second.get()->getChildren<Modules::SphereMesh>("SphereMesh").radius();
+		QVector3D direction = _cameraController->model()->viewVector().normalized();
+		QVector3D origin(_cameraController->model()->position());
 		rayIntersect(origin, direction, center, radius, sphere_dist);
 	}
 
 	Q_EMIT sceneUpdate();
 }
 
-bool Scene3D::rayIntersect(const QVector3D &origin, const QVector3D &direction, QVector3D &center, float &radius, float &t0) {
+bool Scene3D::rayIntersect(const QVector3D origin, const QVector3D direction, QVector3D center, float radius, float &t0) {
 	QVector3D L = center - origin;
 	float tca = QVector3D::dotProduct(L, direction);
-	float d2 = QVector3D::dotProduct(L, L);
+	float d2 = QVector3D::dotProduct(L, L) - (tca * tca);
 
 	if (d2 > (radius * radius)) {
-		qInfo() << "false";
 		return false;
 	}
 
-	float thc = sqrtf(radius * radius - d2);
+	float thc = sqrtf((radius * radius) - d2);
 	t0 = tca - thc;
 	float t1 = tca + thc;
 	
@@ -153,10 +148,9 @@ bool Scene3D::rayIntersect(const QVector3D &origin, const QVector3D &direction, 
 	}
 
 	if (t0 < 0) {
-		qInfo() << "false";
 		return false;
 	}
-	qInfo() << "true";
+
 	return true;
 }
 
