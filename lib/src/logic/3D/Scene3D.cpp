@@ -187,7 +187,7 @@ bool Scene3D::rayIntersect(const QVector3D origin, const QVector3D direction, QV
 	return true;
 }
 
-void Scene3D::createSquare() noexcept {
+void Scene3D::createCube() noexcept {
   std::string id = "Cuboid [" + std::to_string(_urrId++) + "]";
   std::unique_ptr<Cuboid> square{std::make_unique<Cuboid>(id, _root)};
 
