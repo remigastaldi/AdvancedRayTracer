@@ -44,5 +44,47 @@ GroupBox {
         }
       }
     }
+    RowLayout {
+      CustomText {
+        color: Style.likeWhite
+        text: "Constant Attenation: "
+        Layout.leftMargin: 5
+      }
+      CustomDoubleInput {
+        text: PointLightModel.constantAttenuation
+
+        onEditingFinished: {
+          PointLightModel.setConstantAttenuation(parseFloat(text))
+        }
+      }
+    }
+    RowLayout {
+      CustomText {
+        color: Style.likeWhite
+        text: "Linear Attenuation: "
+        Layout.leftMargin: 5
+      }
+      CustomDoubleInput {
+        text: PointLightModel.linearAttenuation
+
+        onEditingFinished: {
+          PointLightModel.setLinearAttenuation(parseFloat(text))
+        }
+      }
+    }
+    RowLayout {
+      CustomText {
+        color: Style.likeWhite
+        text: "Quadratic Attenuation: "
+        Layout.leftMargin: 5
+      }
+      CustomDoubleInput {
+        text: PointLightModel.quadraticAttenuation
+
+        onEditingFinished: {
+          PointLightModel.setQuadraticAttenuation(parseFloat(text))
+        }
+      }
+    }
   }
 }
