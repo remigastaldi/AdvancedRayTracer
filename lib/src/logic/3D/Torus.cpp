@@ -6,7 +6,11 @@ namespace ART {
 namespace Logic {
 
 Torus::Torus(std::string id, Qt3DCore::QEntity *parent) : Shape3D{std::move(id), parent} {
-  new Modules::TorusMesh(*this, "TorusMesh");
+  auto *mesh = new Modules::TorusMesh(*this, "TorusMesh");
+
+  mesh->setRadius(6);
+  mesh->setSlices(50);
+  mesh->setRings(100);
 }
 
 } // namespace Logic
