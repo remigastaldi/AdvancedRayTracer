@@ -22,6 +22,9 @@ public:
     return _light;
   }
 
+  Shape3D &getShape() noexcept { return _parent; }
+
+
 private:
   Shape3D &_parent;
   T *_light;

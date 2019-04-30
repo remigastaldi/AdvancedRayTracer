@@ -10,8 +10,8 @@ namespace Logic {
 
 
 LightEntity::LightEntity(std::string id, Qt3DCore::QEntity *parent) : Shape3D{std::move(id), parent} {
-  new Modules::SphereMesh(*this, "Mesh");
-  new Modules::PhongAlphaMaterial(*this, "Material");
+  auto *mesh = new Modules::SphereMesh(*this, "Mesh");
+  mesh->setRadius(0.5);
   new Modules::LightPicker(*this, "LightPicker");
 }
 

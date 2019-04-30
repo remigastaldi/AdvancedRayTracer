@@ -22,6 +22,8 @@
       <file alias="MultiViewCamera.qml">MultiViewCamera.qml</file>
       <file alias="MaterialPickerModuleComponent.qml">MaterialPickerModuleComponent.qml</file>
       <file alias="LightPickerModuleComponent.qml">LightPickerModuleComponent.qml</file>
+      <file alias="PointLightModuleComponent.qml">PointLightModuleComponent.qml</file>
+      <file alias="SpotLightModuleComponent.qml">SpotLightModuleComponent.qml</file>
       <file alias="SingleViewCamera.qml">SingleViewCamera.qml</file>
       <file alias="WireframeMaterialModuleComponent.qml">WireframeMaterialModuleComponent.qml</file>
   </qresource>
