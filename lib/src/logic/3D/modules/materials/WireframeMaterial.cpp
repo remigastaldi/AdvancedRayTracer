@@ -71,7 +71,6 @@ bool WireframeMaterial::alphaCoverage() const noexcept {
 }
 
 void WireframeMaterial::enableAlphaCoverage(bool enable) noexcept {
-  qInfo() << "enable " << enable;
   _alphaCoverage = enable;
   if (enable && _renderPass != nullptr) {
     if (_qAlphaCoverage == nullptr) {

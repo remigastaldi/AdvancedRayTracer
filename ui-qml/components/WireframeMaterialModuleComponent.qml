@@ -26,7 +26,6 @@ GroupBox {
         checked: WireframeMaterialModel.alphaCoverage
 
         nextCheckState: {
-          console.log(WireframeMaterialModel.alphaCoverage)
           WireframeMaterialModel.enableAlphaCoverage(checked)
         }
       }

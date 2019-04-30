@@ -97,6 +97,7 @@ add_library(${PROJECT_NAME} SHARED
   public/logic/3D/Sphere.hpp
   public/logic/3D/Shape3D.hpp
   public/logic/3D/RootEntity.hpp
+  public/logic/3D/Global3D.hpp
   ### Modules
   public/logic/3D/modules/Material.hpp
   public/logic/3D/modules/Mesh.hpp

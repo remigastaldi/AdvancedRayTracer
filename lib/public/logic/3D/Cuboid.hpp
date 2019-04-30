@@ -1,6 +1,7 @@
 #pragma once
 
 #include "globals.h"
+#include "Global3D.hpp"
 
 #include "Shape3D.hpp"
 // #include <QEntity>
@@ -17,6 +18,9 @@ class Cuboid : public Shape3D {
 public:
   Cuboid(std::string id, Qt3DCore::QEntity *parent);
 
+  Type type() const noexcept {
+    return Type::CUBE;
+  }
 private:
 };
 } // namespace Logic

@@ -1,6 +1,8 @@
 #pragma once
 
 #include "globals.h"
+#include "Global3D.hpp"
+
 #include "Entity.hpp"
 
 #include <QEntity>
@@ -20,6 +22,8 @@ public:
   Shape3D(std::string id, Qt3DCore::QEntity *parent);
 
   Qt3DCore::QEntity *getQEntity() const noexcept;
+
+  virtual Type type() const noexcept = 0;
 
 public Q_SLOTS:
   void _mouseClicked(Qt3DRender::QPickEvent *pick);

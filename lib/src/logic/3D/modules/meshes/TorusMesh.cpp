@@ -7,7 +7,7 @@ namespace Modules {
 TorusMesh::TorusMesh(Shape3D &parent, std::string id)
     : Mesh<Qt3DExtras::QTorusMesh>{parent, id} {
   get()->setRadius(6);
-  get()->setSlices(50);
+  get()->setSlices(25);
   get()->setRings(100);
 };
 
