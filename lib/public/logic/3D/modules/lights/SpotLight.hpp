@@ -2,9 +2,8 @@
 
 #include "Light.hpp"
 #include "Shape3D.hpp"
+#include "PhongMaterial.hpp"
 
-#include "ConeMesh.hpp"
-#include "PhongAlphaMaterial.hpp"
 
 #include <Qt3DCore>
 
@@ -13,6 +12,7 @@ namespace ART::Logic::Modules::Lights {
 class SpotLight : public Light<Qt3DRender::QSpotLight> {
   Q_OBJECT
   Q_PROPERTY(QColor color READ color NOTIFY dataUpdate)
+  Q_PROPERTY(float intensity READ intensity NOTIFY dataUpdate)
   Q_DISABLE_COPY(SpotLight)
 public:
   SpotLight(Shape3D &parent, std::string id);
@@ -20,16 +20,18 @@ public:
   virtual ~SpotLight();
 
   QColor color();
+  float intensity();
 
 public Q_SLOTS:
 
   void setColor(const QColor &color);
+  void setIntensity(float intensity);
 
 Q_SIGNALS:
   void dataUpdate();
 
 private:
-  PhongAlphaMaterial *_material;
+  PhongMaterial *_material;
 };
 
 } // namespace ART::Logic::Modules::Lights
