@@ -4,8 +4,12 @@ namespace ART {
 namespace Logic {
 namespace Modules {
 
-TorusMesh::TorusMesh(Shape3D &parent, std::string id, Qt3DExtras::QTorusMesh *mesh)
-    : Mesh<Qt3DExtras::QTorusMesh>{parent, id, mesh} {};
+TorusMesh::TorusMesh(Shape3D &parent, std::string id)
+    : Mesh<Qt3DExtras::QTorusMesh>{parent, id} {
+  get()->setRadius(6);
+  get()->setSlices(50);
+  get()->setRings(100);
+};
 
 TorusMesh::~TorusMesh() {}
 

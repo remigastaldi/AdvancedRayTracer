@@ -9,8 +9,7 @@ class MetalRoughMaterial : public Material<Qt3DExtras::QMetalRoughMaterial> {
   Q_DISABLE_COPY(MetalRoughMaterial)
 
 public:
-  MetalRoughMaterial(Shape3D &parent, std::string id,
-                     Qt3DExtras::QMetalRoughMaterial *material = new Qt3DExtras::QMetalRoughMaterial);
+  MetalRoughMaterial(Shape3D &parent, std::string id);
   ~MetalRoughMaterial() override;
 
 public Q_SLOTS:

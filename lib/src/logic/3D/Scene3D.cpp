@@ -67,25 +67,33 @@ Scene3D::Scene3D(RootEntity *root) : _root{root}, _cameraController{new Controll
   tr->setTranslation({0, 0, 100});
   lightEntity->addComponent(tr);
 
-  Qt3DCore::QEntity *lightEntity2 = new Qt3DCore::QEntity(_root);
-  Qt3DRender::QSpotLight *light2 = new Qt3DRender::QSpotLight(_root);
-  light2->setColor("blue");
-  light2->setIntensity(1);
-  light2->setLocalDirection({0, 0, 1});
-  lightEntity2->addComponent(light2);
-  Qt3DCore::QTransform *tr2 = new Qt3DCore::QTransform(lightEntity2);
-  tr2->setTranslation({0, 0, -20});
-  lightEntity2->addComponent(tr2);
+  // Qt3DCore::QEntity *lightEntity2 = new Qt3DCore::QEntity(_root);
+  // Qt3DRender::QSpotLight *light2 = new Qt3DRender::QSpotLight(_root);
+  // light2->setColor("blue");
+  // light2->setIntensity(1);
+  // light2->setLocalDirection({0, 0, 1});
+  // lightEntity2->addComponent(light2);
+  // Qt3DCore::QTransform *tr2 = new Qt3DCore::QTransform(lightEntity2);
+  // tr2->setTranslation({0, 0, -20});
+  // lightEntity2->addComponent(tr2);
+}
 
-  Qt3DCore::QEntity *lightEntity3 = new Qt3DCore::QEntity(_root);
-  Qt3DRender::QDirectionalLight *light3 = new Qt3DRender::QDirectionalLight(_root);
-  light3->setColor("green");
-  light3->setIntensity(1);
-  light3->setWorldDirection({0, 1, 0});
-  lightEntity3->addComponent(light3);
-  Qt3DCore::QTransform *tr3 = new Qt3DCore::QTransform(lightEntity3);
-  tr3->setTranslation({0, 100, 0});
-  lightEntity3->addComponent(tr3);
+void Scene3D::createLight() noexcept {
+  std::string id = "Light [" + std::to_string(_urrId++) + "]";
+
+  std::unique_ptr<LightEntity> lightEntity{std::make_unique<LightEntity>(id, _root)};
+  auto *lightMesh = lightEntity->getChildren<Modules::SphereMesh>("Mesh").get();
+
+
+  // auto *light = lightEntity->getChildren<Modules::Lights::SpotLight>("Light").get();
+  // light->setColor("green");
+  // light->setIntensity(1);
+  // light->setLocalDirection({0, 0, 1});
+
+  connect(lightEntity.get(), &Shape3D::entitySelectedChanged, this, &Scene3D::selectEntity);
+  _entities.emplace(id, std::move(lightEntity));
+
+  Q_EMIT sceneUpdate();
 }
 
 void Scene3D::createSphere() noexcept {

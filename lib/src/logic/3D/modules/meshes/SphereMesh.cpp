@@ -4,8 +4,12 @@ namespace ART {
 namespace Logic {
 namespace Modules {
 
-SphereMesh::SphereMesh(Shape3D &parent, std::string id, Qt3DExtras::QSphereMesh *mesh)
-    : Mesh<Qt3DExtras::QSphereMesh>{parent, id, mesh} {};
+SphereMesh::SphereMesh(Shape3D &parent, std::string id)
+    : Mesh<Qt3DExtras::QSphereMesh>{parent, id} {
+  get()->setRadius(4);
+  get()->setSlices(50);
+  get()->setRings(50);
+};
 
 SphereMesh::~SphereMesh() {}
 

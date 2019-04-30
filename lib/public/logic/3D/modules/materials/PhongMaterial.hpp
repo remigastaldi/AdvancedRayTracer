@@ -13,7 +13,7 @@ class PhongMaterial : public Material<Qt3DExtras::QPhongMaterial> {
   Q_PROPERTY(QColor ambient READ ambient NOTIFY dataUpdate)
   Q_DISABLE_COPY(PhongMaterial)
 public:
-  PhongMaterial(Shape3D &parent, std::string id, Qt3DExtras::QPhongMaterial *material = new Qt3DExtras::QPhongMaterial);
+  PhongMaterial(Shape3D &parent, std::string id);
   ~PhongMaterial() override;
 
   QColor diffuse();

@@ -2,10 +2,10 @@
 
 #include "globals.h"
 
+#include "CameraController.hpp"
 #include "RootEntity.hpp"
 #include "Scene.hpp"
 #include "Sphere.hpp"
-#include "CameraController.hpp"
 
 #include <QPointLight>
 #include <QRenderSettings>
@@ -31,8 +31,10 @@ public:
   ~Scene3D() override = default;
 
 public Q_SLOTS:
+
+  void createLight() noexcept;
   void createSphere() noexcept;
-  void createSquare() noexcept;
+  void createCube() noexcept;
   void createTorus() noexcept;
   void castRay() noexcept;
   void raytracingReflection() noexcept;
@@ -46,9 +48,7 @@ public Q_SLOTS:
 
   void keyPressedEvent(Qt::Key event) override;
 
-  Controllers::CameraController * cameraController() const noexcept {
-    return _cameraController;
-  }
+  Controllers::CameraController *cameraController() const noexcept { return _cameraController; }
 
 private:
   std::unordered_map<std::string, std::unique_ptr<Entity>> _entities;

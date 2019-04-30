@@ -29,7 +29,7 @@ UiMainBorder {
       CustomButton {
         Layout.alignment: Qt.AlignHCenter
         text: "Cube"
-        onClicked: mainController.drawToolbar3DController.createSquare()
+        onClicked: mainController.drawToolbar3DController.createCube()
       }
 
       CustomButton {
@@ -38,7 +38,7 @@ UiMainBorder {
         onClicked: mainController.drawToolbar3DController.createTorus()
       }
 
-	  CustomButton {
+	    CustomButton {
         Layout.alignment: Qt.AlignHCenter
         text: "Ray intersection"
         onClicked: mainController.drawToolbar3DController.castRay()
@@ -48,6 +48,12 @@ UiMainBorder {
         Layout.alignment: Qt.AlignHCenter
         text: "Ray reflection"
         onClicked: mainController.drawToolbar3DController.raytracingReflection()
+      }
+
+      CustomButton {
+        Layout.alignment: Qt.AlignHCenter
+        text: "Light"
+        onClicked: mainController.drawToolbar3DController.createLight()
       }
 
       CustomButton {

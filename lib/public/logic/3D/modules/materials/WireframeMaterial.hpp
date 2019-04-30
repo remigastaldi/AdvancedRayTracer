@@ -12,7 +12,7 @@ class WireframeMaterial : public Material<Qt3DRender::QMaterial> {
   Q_PROPERTY(bool alphaCoverage READ alphaCoverage NOTIFY dataUpdate)
   Q_DISABLE_COPY(WireframeMaterial)
 public:
-  WireframeMaterial(Shape3D &parent, std::string id, Qt3DRender::QMaterial *material = new Qt3DRender::QMaterial);
+  WireframeMaterial(Shape3D &parent, std::string id);
   ~WireframeMaterial() override;
 
   void makeMaterial() noexcept;

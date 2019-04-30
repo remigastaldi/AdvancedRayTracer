@@ -17,7 +17,7 @@ class TorusMesh : public Mesh<Qt3DExtras::QTorusMesh> {
   Q_PROPERTY(int slices READ slices NOTIFY dataUpdate)
   Q_DISABLE_COPY(TorusMesh)
 public:
-  TorusMesh(Shape3D &parent, std::string id, Qt3DExtras::QTorusMesh *mesh = new Qt3DExtras::QTorusMesh);
+  TorusMesh(Shape3D &parent, std::string id);
 
   ~TorusMesh() override;
 

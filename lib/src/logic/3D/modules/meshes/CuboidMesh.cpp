@@ -5,7 +5,11 @@ namespace Logic {
 namespace Modules {
 
 CuboidMesh::CuboidMesh(Shape3D &parent, std::string id, Qt3DExtras::QCuboidMesh *mesh)
-    : Mesh<Qt3DExtras::QCuboidMesh>{parent, id, mesh} {};
+    : Mesh<Qt3DExtras::QCuboidMesh>{parent, id, mesh} {
+        get()->setXExtent(4);
+        get()->setYExtent(4);
+        get()->setZExtent(4);
+    };
 
 CuboidMesh::~CuboidMesh() {}
 

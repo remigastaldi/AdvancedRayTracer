@@ -2,8 +2,8 @@
 #include <QSeamlessCubemap>
 namespace ART::Logic::Modules {
 
-WireframeMaterial::WireframeMaterial(Shape3D &parent, std::string id, Qt3DRender::QMaterial *material)
-    : Material<Qt3DRender::QMaterial>{parent, id, material}, _alphaCoverage{false}, _qAlphaCoverage{nullptr}, _qMultisample{nullptr} {
+WireframeMaterial::WireframeMaterial(Shape3D &parent, std::string id)
+    : Material<Qt3DRender::QMaterial>{parent, id}, _alphaCoverage{false}, _qAlphaCoverage{nullptr}, _qMultisample{nullptr} {
   makeMaterial();
 }
 
@@ -54,7 +54,7 @@ void WireframeMaterial::makeMaterial() noexcept {
   technique->addRenderPass(_renderPass);
   effect->addTechnique(technique);
 
-  material->setEffect(effect);
+  get()->setEffect(effect);
 }
 
 // QColor WireframeMaterial::diffuse() { return get()->diffuse(); }

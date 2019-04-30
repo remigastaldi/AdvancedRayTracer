@@ -4,11 +4,11 @@ namespace ART {
 namespace Logic {
 namespace Modules {
 
-PhongAlphaMaterial::PhongAlphaMaterial(Shape3D &parent, std::string id, Qt3DExtras::QPhongAlphaMaterial *material)
-    : Material<Qt3DExtras::QPhongAlphaMaterial>{parent, id, material} {
-  material->setDiffuse(QColor(128, 128, 128));
-  material->setSpecular(QColor(255, 255, 255));
-  material->setAmbient(QColor(255, 255, 255));
+PhongAlphaMaterial::PhongAlphaMaterial(Shape3D &parent, std::string id)
+    : Material<Qt3DExtras::QPhongAlphaMaterial>{parent, id} {
+  get()->setDiffuse(QColor(128, 128, 128));
+  get()->setSpecular(QColor(255, 255, 255));
+  get()->setAmbient(QColor(255, 255, 255));
 }
 
 float PhongAlphaMaterial::alpha() { return get()->alpha(); }

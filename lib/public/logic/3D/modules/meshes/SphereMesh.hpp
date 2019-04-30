@@ -17,7 +17,7 @@ class SphereMesh : public Mesh<Qt3DExtras::QSphereMesh> {
   Q_PROPERTY(int slices READ slices NOTIFY dataUpdate)
   Q_DISABLE_COPY(SphereMesh)
 public:
-  SphereMesh(Shape3D &parent, std::string id, Qt3DExtras::QSphereMesh *mesh = new Qt3DExtras::QSphereMesh);
+  SphereMesh(Shape3D &parent, std::string id);
 
   ~SphereMesh() override;
 

@@ -29,12 +29,14 @@ private:
 
 Q_SIGNALS:
   void createSphere();
-  void createSquare();
+  void createCube();
   void createTorus();
   void castRay();
   void raytracingReflection();
   void import3DModel(const QUrl &);
   void import3DScene(const QUrl &);
+
+  void createLight();
 
   // void createSphereEvent() noexcept;
 };
