@@ -12,24 +12,51 @@ GroupBox {
     Layout.fillHeight: true
     // spacing: 10
 
-  //   CustomText {
-  //     color: Style.likeWhite
-  //     text: "Diffuse: " + PhongMaterialModel.diffuse
-  //     Layout.leftMargin: 5
-  //     MouseArea {
-  //       anchors.fill: parent
-  //         onClicked: {
-  //           diffuseColorDialog.open() 
-  //       }
-  //     }
-  //     ColorDialog {
-  //       id: diffuseColorDialog
-  //       title: "Please choose a color"
-  //       onAccepted: {
-  //         PhongMaterialModel.setDiffuse(color)
-  //       }
-  //     }
-  //   }
+    RowLayout {
+      Layout.fillWidth: true
+      Layout.fillHeight: true
+      // spacing: 4
+
+      CustomText {
+        color: Style.likeWhite
+        text: "alpha coverage: "
+        Layout.leftMargin: 5
+      }
+      CheckBox {
+        checked: WireframeMaterialModel.alphaCoverage
+
+        nextCheckState: {
+          console.log(WireframeMaterialModel.alphaCoverage)
+          WireframeMaterialModel.enableAlphaCoverage(checked)
+        }
+      }
+
+      // CustomDoubleInput {
+      //   text: WireframeMaterialModel.alphaCoverage;
+
+      //   onEditingFinished: {
+      //     WireframeMaterialModel.setAlphaCoverage(parseFloat(text))
+      //   }
+      // }
+    }
+    // CustomText {
+    //   color: Style.likeWhite
+    //   text: "Diffuse: " + PhongMaterialModel.diffuse
+    //   Layout.leftMargin: 5
+    //   MouseArea {
+    //     anchors.fill: parent
+    //       onClicked: {
+    //         diffuseColorDialog.open() 
+    //     }
+    //   }
+    //   ColorDialog {
+    //     id: diffuseColorDialog
+    //     title: "Please choose a color"
+    //     onAccepted: {
+    //       PhongMaterialModel.setDiffuse(color)
+    //     }
+    //   }
+    // }
   //   CustomText {
   //     color: Style.likeWhite
   //     text: "Specular: " + PhongMaterialModel.specular

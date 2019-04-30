@@ -14,6 +14,7 @@ uniform vec3 ka;            // Ambient reflectivity
 uniform vec3 kd;            // Diffuse reflectivity
 uniform vec3 ks;            // Specular reflectivity
 uniform float shininess;    // Specular shininess factor
+uniform float opacity;
 
 in WireframeVertex {
     vec3 position;
@@ -98,11 +99,13 @@ vec4 shadeLine( const in vec4 color )
     }
 
     return mix( color, line.color, mixVal);
+    // return vec4(0,0,0.0);
 }
 
 void main()
 {
     // Calculate the color from the phong model
-    vec4 color = vec4( adsModel( fs_in.position, normalize( fs_in.normal ) ), 1.0 );
+    vec4 color = vec4( adsModel( fs_in.position, normalize( fs_in.normal ) ), opacity);
     fragColor = shadeLine( color );
+    // fragColor = shadeLine( vec4(0,0,0,0) );
 }

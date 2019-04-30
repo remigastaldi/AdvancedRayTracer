@@ -93,8 +93,8 @@ void Scene3D::createSphere() noexcept {
   std::unique_ptr<Sphere> sphere{std::make_unique<Sphere>(id, _root)};
   auto mesh = sphere->getChildren<Modules::SphereMesh>("SphereMesh").get();
   mesh->setRadius(4);
-  mesh->setSlices(100);
-  mesh->setRings(100);
+  mesh->setSlices(50);
+  mesh->setRings(50);
 
   connect(sphere.get(), &Shape3D::entitySelectedChanged, this, &Scene3D::selectEntity);
 
@@ -108,7 +108,7 @@ void Scene3D::createTorus() noexcept {
   std::unique_ptr<Torus> torus{std::make_unique<Torus>(id, _root)};
   auto mesh = torus->getChildren<Modules::TorusMesh>("TorusMesh").get();
   mesh->setRadius(6);
-  mesh->setSlices(100);
+  mesh->setSlices(50);
   mesh->setRings(100);
 
   connect(torus.get(), &Shape3D::entitySelectedChanged, this, &Scene3D::selectEntity);
