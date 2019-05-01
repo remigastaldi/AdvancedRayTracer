@@ -21,6 +21,7 @@ namespace ART {
 namespace Models {} // nameSpace Models
 
 namespace Logic {
+class RenderItem;
 
 class ADVANCED_RAY_TRACER_EXPORT Scene3D : public Scene {
   Q_OBJECT
@@ -31,12 +32,7 @@ class ADVANCED_RAY_TRACER_EXPORT Scene3D : public Scene {
 
 public:
   explicit Scene3D(RootEntity *root = nullptr);
-  ~Scene3D() override {
-    qInfo() << "ok";
-    _renderView->close();
-    _renderView->destroy();
-    _renderView->deleteLater();
-  };
+  ~Scene3D() override;
 
   void setEngine(QQmlApplicationEngine *engine);
 
@@ -70,6 +66,7 @@ private:
   std::string _selectedEntity;
 
   std::unique_ptr<QQuickView> _renderView;
+  RenderItem* _paintedItem;
   QQmlApplicationEngine *_engine;
   size_t _urrId;
 };

@@ -4,7 +4,7 @@
 
 #include "Geometry.hpp"
 #include "Shape3D.hpp"
-#include "Sphere.hpp"
+#include "SphereMesh.hpp"
 #include "Transform3D.hpp"
 
 #include <fstream>
@@ -93,7 +93,7 @@ public:
     Vec3f point, N;
     RenderMaterial material;
 
-    if (depth > 4 || !scene_intersect(orig, dir, spheres, point, N, material)) {
+    if (depth > 6 || !scene_intersect(orig, dir, spheres, point, N, material)) {
       // int a = std::max(
       //     0, std::min(envmap_width - 1, static_cast<int>((atan2(dir.z, dir.x) / (2 * M_PI) + .5) * envmap_width)));
       // int b = std::max(0, std::min(envmap_height - 1, static_cast<int>(acos(dir.y) / M_PI * envmap_height)));
@@ -144,10 +144,21 @@ public:
         float x = (2 * (i + 0.5) / (float)width - 1) * tan(fov / 2.) * width / (float)height;
         float y = -(2 * (j + 0.5) / (float)height - 1) * tan(fov / 2.);
         Vec3f dir = Vec3f(x, y, -1).normalize();
-        framebuffer[i + j * width] = cast_ray(Vec3f(0, 0, 0), dir, spheres, lights, 0);
+        framebuffer[i + j * width] = cast_ray(_cameraPos, dir, spheres, lights, 0);
       }
     }
 
+    _pixmap.reserve(width * height * 3);
+    for (size_t i = 0; i < height * width; ++i) {
+      Vec3f &c = framebuffer[i];
+      float max = std::max(c[0], std::max(c[1], c[2]));
+      if (max > 1)
+        c = c * (1. / max);
+      for (size_t j = 0; j < 3; j++) {
+        _pixmap[i * 3 + j] = (unsigned char)(255 * std::max(0.f, std::min(1.f, framebuffer[i][j])));
+      }
+    }
+    std::cout << "=== END ===" << std::endl;
     std::ofstream ofs; // save the framebuffer to file
     ofs.open("./out.ppm");
     ofs << "P6\n" << width << " " << height << "\n255\n";
@@ -163,7 +174,7 @@ public:
     ofs.close();
   }
 
-  void startRendering(std::unordered_map<std::string, std::unique_ptr<Entity>> &entities) {
+  void startRendering(std::unordered_map<std::string, std::unique_ptr<Entity>> &entities, const QVector3D &cameraPos) {
     RenderMaterial ivory(1.0, Vec4f(0.6, 0.3, 0.1, 0.0), Vec3f(0.4, 0.4, 0.3), 50.);
     RenderMaterial glass(1.5, Vec4f(0.0, 0.5, 0.1, 0.8), Vec3f(0.6, 0.7, 0.8), 125.);
     RenderMaterial red_rubber(1.0, Vec4f(0.9, 0.1, 0.0, 0.0), Vec3f(0.3, 0.1, 0.1), 10.);
@@ -177,26 +188,42 @@ public:
 
     // std::vector<RenderLight> lights;
     // {Vec3f(-20, 20, 20), 1.5}, {Vec3f(30, 50, -25), 1.8}, {Vec3f(30, 20, 30), 1.7}};
-    std::vector<RenderLight> lights{{Vec3f(-20, 20, 20), 1.5}, {Vec3f(30, 50, -25), 1.8}, {Vec3f(30, 20, 30), 1.7}};
+    std::vector<RenderLight> lights{{Vec3f(-20, 20, 20), 1.5}};
 
+    _cameraPos = Vec3f(cameraPos.x(), cameraPos.y(), cameraPos.y());
+    // _cameraPos = Vec3f(cameraPos.x(), cameraPos.y(), cameraPos.y());
 
     for (auto &[key, value] : entities) {
-      Shape3D *shape = dynamic_cast<Shape3D*>(value.get());
-        std::cout << (int)shape->type() << std::endl;
+      Shape3D *shape = dynamic_cast<Shape3D *>(value.get());
+      std::cout << (int)shape->type() << std::endl;
       if (shape->type() == Type::SPHERE) {
         auto &mesh = value->getChildren<Modules::SphereMesh>("SphereMesh");
         auto &tran = value->getChildren<Modules::Transform3D>("Transform3D");
-        
+
         spheres.emplace_back(RenderSphere{Vec3f{tran.x(), tran.y(), tran.z()}, mesh.radius(), ivory});
+      }   else if (shape->type() == Type::LIGHT) {
+        auto &tran = value->getChildren<Modules::Transform3D>("Transform3D");
+
+        lights.emplace_back(RenderLight{Vec3f{tran.x(), tran.y(), tran.z()}, 1});
       }
     }
     render(spheres, lights);
+  }
+
+  const std::vector<unsigned char> &pixmap() const noexcept {
+    return _pixmap;
+  }
+
+  bool empty() const noexcept {
+    return  _pixmap.empty();
   }
 
 private:
   int envmap_width;
   int envmap_height;
   std::vector<Vec3f> envmap;
+  Vec3f _cameraPos;
+  std::vector<unsigned char> _pixmap;
 };
 
 } // namespace ART::Logic

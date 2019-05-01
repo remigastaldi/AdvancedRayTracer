@@ -30,7 +30,7 @@
 namespace ART::Logic {
 
 Scene3D::Scene3D(RootEntity *root)
-    : _root{root}, _cameraController{new Controllers::CameraController{root}}, _urrId{0} {
+    : _root{root}, _cameraController{new Controllers::CameraController{root}}, _urrId{0}, _paintedItem{nullptr} {
   connect(root, &RootEntity::keyPressedEvent, this, &Scene3D::keyPressedEvent);
   // connect(root, &RootEntity::cameraMoveEvent, this, &Scene3D::updateSkyboxPosition);
 
@@ -66,9 +66,9 @@ Scene3D::Scene3D(RootEntity *root)
   envLight->setIrradiance(envIrradiance);
   envLight->setSpecular(envSpecular);
   _root->addComponent(envLight);
-  
-  _renderView = std::make_unique<QQuickView>(_engine, nullptr);
-  _renderView->setSource(QUrl(QStringLiteral("qrc:/views/RenderView.qml")));
+
+// _renderView{std::make_unique<QQuickView>()}
+
   // envLightEntity->addComponent(envLight);
 
   // Qt3DCore::QEntity *lightEntity = new Qt3DCore::QEntity(_root);
@@ -90,6 +90,14 @@ Scene3D::Scene3D(RootEntity *root)
   // // tr2->setTranslation({0, 0, -20});
   // // lightEntity2->addComponent(tr2);
 }
+
+Scene3D::~Scene3D() {
+  if (_renderView != nullptr) {
+    _renderView->close();
+    _renderView->destroy();
+    _renderView->deleteLater();
+  }
+};
 
 void Scene3D::createLight() noexcept {
   std::string id = "Light [" + std::to_string(_urrId++) + "]";
@@ -126,9 +134,15 @@ void Scene3D::createTorus() noexcept {
 }
 
 void Scene3D::castRay() noexcept {
-  Render render;
 
-  render.startRendering(_entities);
+
+  // if (_cameraController->model() != nullptr) {
+    // render.startRendering(_entities, _cameraController->model()->position());
+  // } else {
+  // }
+  return;
+
+  // render.startRendering(_entities, _cameraController->model()->position());
   // QImage image{":/skybox/skybox.jpg"};
   // int n = -1;
   // std::vector<Vec3f> envmap(image.width() * image.height());
@@ -159,7 +173,6 @@ void Scene3D::castRay() noexcept {
   // std::vector<CustomLight> lights{{Vec3f(-20, 20, 20), 1.5}, {Vec3f(30, 50, -25), 1.8}, {Vec3f(30, 20, 30), 1.7}};
 
   // render(spheres, lights);
-  return;
   // float sphere_dist = std::numeric_limits<float>::max();
   // int i = 0;
   // std::string message = "The ray did not intersect with a shape.";
@@ -274,16 +287,23 @@ void Scene3D::import3DScene(const QUrl &url) {
 }
 
 void Scene3D::render() noexcept {
-  _renderView->show();
-  auto *paintedItem = _engine->rootObjects().first()->findChild<RenderItem *>("renderPainter");
-  if (paintedItem != nullptr) {
-    paintedItem->QQuickItem::update();
-  }else {
+  Render render;
+  render.startRendering(_entities,  QVector3D{0,0,0});
+  // _renderView->show();
+  // _paintedItem = _engine->rootObjects().first()->findChild<RenderItem *>("renderPainter");
+  // if (_paintedItem != nullptr) {
+    // _paintedItem->startRendering(_entities, QVector3D{0,0,0});
+    // _paintedItem->QQuickItem::update();
+  // } else {
     qInfo() << "NULL";
-  }
+  // }
 }
 
-void Scene3D::setEngine(QQmlApplicationEngine *engine) { _engine = engine; }
+void Scene3D::setEngine(QQmlApplicationEngine *engine) {
+  _engine = engine;
+  _renderView = std::make_unique<QQuickView>(_engine, nullptr);
+  _renderView->setSource(QUrl(QStringLiteral("qrc:/views/RenderView.qml")));
+}
 
 const std::unordered_map<std::string, std::unique_ptr<Entity>> &Scene3D::entities() const noexcept { return _entities; }
 
