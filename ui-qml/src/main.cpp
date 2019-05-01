@@ -86,10 +86,12 @@ int main(int argc, char *argv[]) {
   }
 
   auto *rootEntity = engine.rootObjects().first()->findChild<ART::Logic::RootEntity *>("rootEntity");
-  mainController.setScene3D(new ART::Logic::Scene3D(rootEntity));
+  ART::Logic::Scene3D scene3D(rootEntity);
+  mainController.setScene3D(&scene3D);
 
   auto *paintedItem = engine.rootObjects().first()->findChild<ART::Logic::PaintedItem *>("paintedItem");
-  mainController.setScene2D(new ART::Logic::Scene2D(paintedItem));
+  ART::Logic::Scene2D scene2D(paintedItem);
+  mainController.setScene2D(&scene2D);
 
   mainController.dumpObjectTree();
   return QApplication::exec();
