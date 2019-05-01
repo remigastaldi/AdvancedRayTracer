@@ -26,6 +26,12 @@ public:
     return static_cast<T &>(*_childrens.at(id));
   }
 
+  bool hasChildren(const std::string &id) {
+    auto children = _childrens.find(id);
+    
+    return children != _childrens.end();
+  }
+
   const std::string &id() const noexcept;
   void setId(std::string id) noexcept;
 

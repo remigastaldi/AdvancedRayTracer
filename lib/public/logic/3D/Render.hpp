@@ -6,6 +6,7 @@
 #include "Shape3D.hpp"
 #include "SphereMesh.hpp"
 #include "Transform3D.hpp"
+#include "MetalRoughMaterial.hpp"
 
 #include <fstream>
 #include <unordered_map>
@@ -188,7 +189,7 @@ public:
 
     // std::vector<RenderLight> lights;
     // {Vec3f(-20, 20, 20), 1.5}, {Vec3f(30, 50, -25), 1.8}, {Vec3f(30, 20, 30), 1.7}};
-    std::vector<RenderLight> lights{{Vec3f(-20, 20, 20), 1.5}};
+    std::vector<RenderLight> lights{{Vec3f(-20, 20, 20), 1}};
 
     _cameraPos = Vec3f(cameraPos.x(), cameraPos.y(), cameraPos.y());
     // _cameraPos = Vec3f(cameraPos.x(), cameraPos.y(), cameraPos.y());
@@ -199,8 +200,13 @@ public:
       if (shape->type() == Type::SPHERE) {
         auto &mesh = value->getChildren<Modules::SphereMesh>("SphereMesh");
         auto &tran = value->getChildren<Modules::Transform3D>("Transform3D");
-
-        spheres.emplace_back(RenderSphere{Vec3f{tran.x(), tran.y(), tran.z()}, mesh.radius(), ivory});
+        RenderMaterial material = ivory;
+        if (value->hasChildren("MetalRoughMaterial")) {
+          material = mirror;
+        } else if (value->hasChildren("PhongAlphaMaterial")) {
+          material = glass;
+        }
+        spheres.emplace_back(RenderSphere{Vec3f{tran.x(), tran.y(), tran.z()}, mesh.radius(), material});
       }   else if (shape->type() == Type::LIGHT) {
         auto &tran = value->getChildren<Modules::Transform3D>("Transform3D");
 
