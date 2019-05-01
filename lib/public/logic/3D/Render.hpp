@@ -3,13 +3,15 @@
 #include "globals.h"
 
 #include "Geometry.hpp"
+#include "MetalRoughMaterial.hpp"
 #include "Shape3D.hpp"
 #include "SphereMesh.hpp"
 #include "Transform3D.hpp"
-#include "MetalRoughMaterial.hpp"
 
 #include <fstream>
 #include <unordered_map>
+
+#include "stb_image.h"
 
 namespace ART::Logic {
 
@@ -86,7 +88,19 @@ public:
         material = spheres[i].material;
       }
     }
-    return spheres_dist < 1000;
+
+    float checkerboard_dist = std::numeric_limits<float>::max();
+    if (fabs(dir.y) > 1e-3) {
+      float d = -(orig.y + 4) / dir.y; // the checkerboard plane has equation y = -4
+      Vec3f pt = orig + dir * d;
+      if (d > 0 && fabs(pt.x) < 10 && pt.z < -10 && pt.z > -30 && d < spheres_dist) {
+        checkerboard_dist = d;
+        hit = pt;
+        N = Vec3f(0, 1, 0);
+        material.diffuse_color = (int(.5 * hit.x + 1000) + int(.5 * hit.z)) & 1 ? Vec3f(.3, .3, .3) : Vec3f(.3, .2, .1);
+      }
+    }
+    return std::min(spheres_dist, checkerboard_dist) < 1000;
   }
 
   Vec3f cast_ray(const Vec3f &orig, const Vec3f &dir, const std::vector<RenderSphere> &spheres,
@@ -96,9 +110,9 @@ public:
 
     if (depth > 6 || !scene_intersect(orig, dir, spheres, point, N, material)) {
       // int a = std::max(
-      //     0, std::min(envmap_width - 1, static_cast<int>((atan2(dir.z, dir.x) / (2 * M_PI) + .5) * envmap_width)));
+          // 0, std::min(envmap_width - 1, static_cast<int>((atan2(dir.z, dir.x) / (2 * M_PI) + .5) * envmap_width)));
       // int b = std::max(0, std::min(envmap_height - 1, static_cast<int>(acos(dir.y) / M_PI * envmap_height)));
-      // return envmap[a+b*envmap_width]; // background color
+      // return envmap[a + b * envmap_width]; // background color
       return Vec3f(0.4, 0.7, 0.8);
     }
 
@@ -161,7 +175,7 @@ public:
     }
     std::cout << "=== END ===" << std::endl;
     std::ofstream ofs; // save the framebuffer to file
-    ofs.open("./out.ppm");
+    ofs.open("./out.jpg");
     ofs << "P6\n" << width << " " << height << "\n255\n";
     for (size_t i = 0; i < height * width; ++i) {
       Vec3f &c = framebuffer[i];
@@ -180,6 +194,23 @@ public:
     RenderMaterial glass(1.5, Vec4f(0.0, 0.5, 0.1, 0.8), Vec3f(0.6, 0.7, 0.8), 125.);
     RenderMaterial red_rubber(1.0, Vec4f(0.9, 0.1, 0.0, 0.0), Vec3f(0.3, 0.1, 0.1), 10.);
     RenderMaterial mirror(1.0, Vec4f(0.0, 10.0, 0.8, 0.0), Vec3f(1.0, 1.0, 1.0), 1425.);
+
+    // int n = -1;
+    // unsigned char *pixmap = stbi_load(":/skybox.jpg", &envmap_width, &envmap_height, &n, 0);
+    // if (!pixmap || 3 != n) {
+    //   std::cerr << "Error: can not load the environment map" << std::endl;
+    //   return;
+    // }
+    // envmap = std::vector<Vec3f>(envmap_width * envmap_height);
+    // for (int j = envmap_height - 1; j >= 0; j--) {
+    //   for (int i = 0; i < envmap_width; i++) {
+    //     envmap[i + j * envmap_width] =
+    //         Vec3f(pixmap[(i + j * envmap_width) * 3 + 0], pixmap[(i + j * envmap_width) * 3 + 1],
+    //               pixmap[(i + j * envmap_width) * 3 + 2]) *
+    //         (1 / 255.);
+    //   }
+    // }
+    // stbi_image_free(pixmap);
 
     std::vector<RenderSphere> spheres;
     // {Vec3f(-3, 0, -16), 2, ivory},
@@ -205,9 +236,11 @@ public:
           material = mirror;
         } else if (value->hasChildren("PhongAlphaMaterial")) {
           material = glass;
+        } else if (value->hasChildren("PhongAlphaMaterial")) {
+          material = red_rubber;
         }
         spheres.emplace_back(RenderSphere{Vec3f{tran.x(), tran.y(), tran.z()}, mesh.radius(), material});
-      }   else if (shape->type() == Type::LIGHT) {
+      } else if (shape->type() == Type::LIGHT) {
         auto &tran = value->getChildren<Modules::Transform3D>("Transform3D");
 
         lights.emplace_back(RenderLight{Vec3f{tran.x(), tran.y(), tran.z()}, 1});
@@ -216,13 +249,9 @@ public:
     render(spheres, lights);
   }
 
-  const std::vector<unsigned char> &pixmap() const noexcept {
-    return _pixmap;
-  }
+  const std::vector<unsigned char> &pixmap() const noexcept { return _pixmap; }
 
-  bool empty() const noexcept {
-    return  _pixmap.empty();
-  }
+  bool empty() const noexcept { return _pixmap.empty(); }
 
 private:
   int envmap_width;
