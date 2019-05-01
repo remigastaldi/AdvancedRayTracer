@@ -50,10 +50,16 @@ UiMainBorder {
         onClicked: mainController.drawToolbar3DController.castRay()
       }
 
-	  CustomButton {
+      CustomButton {
         Layout.alignment: Qt.AlignHCenter
         text: "Ray reflection"
         onClicked: mainController.drawToolbar3DController.raytracingReflection()
+      }
+
+      CustomButton {
+        Layout.alignment: Qt.AlignHCenter
+        text: "Render"
+        onClicked: mainController.drawToolbar3DController.render()
       }
 
       CustomButton {

@@ -15,12 +15,12 @@ MainController::MainController(QObject* parent) :
   _drawToolbar3DController{new DrawToolbar3DController{this}},
   _drawToolbar2DController{new DrawToolbar2DController{this}},
   _toolbarController{new ToolbarController{this}},
-  _rightSidebarController{new RightSidebarController{this}},
+  _rightSidebarController{new RightSidebarController{this}},  
+  _engine{nullptr},
   _scene3D{nullptr},
   _scene2D{nullptr},
   _outliner{nullptr},
-  _currentScene{nullptr},
-  _engine{nullptr}
+  _currentScene{nullptr}
 {
   connect(_toolbarController, &ToolbarController::saveFileClicked, this, &MainController::handleSaveFileClicked);
   connect(_toolbarController, &ToolbarController::saveAsFileClicked, this, &MainController::handleSaveAsFileClicked);
@@ -31,6 +31,7 @@ MainController::MainController(QObject* parent) :
 void  MainController::setScene3D(Logic::Scene3D *scene) noexcept {
   _scene3D = scene;
   _currentScene = scene;
+  _scene3D->setEngine(_engine);
   connect(_scene3D, &Logic::Scene::sceneUpdate, this, &MainController::sceneUpdate);
   connect(_scene3D, &Logic::Scene::selectedShapeUpdate, this, &MainController::selectedShapeUpdate);
   connect(_drawToolbar3DController, &DrawToolbar3DController::createSphere, _scene3D, &Logic::Scene3D::createSphere);
@@ -39,6 +40,7 @@ void  MainController::setScene3D(Logic::Scene3D *scene) noexcept {
   connect(_drawToolbar3DController, &DrawToolbar3DController::castRay, _scene3D, &Logic::Scene3D::castRay);
   connect(_drawToolbar3DController, &DrawToolbar3DController::raytracingReflection, _scene3D, &Logic::Scene3D::raytracingReflection);
   connect(_drawToolbar3DController, &DrawToolbar3DController::createCube, _scene3D, &Logic::Scene3D::createCube);
+  connect(_drawToolbar3DController, &DrawToolbar3DController::render, _scene3D, &Logic::Scene3D::render);
   connect(_drawToolbar3DController, &DrawToolbar3DController::createLight, _scene3D, &Logic::Scene3D::createLight);
   connect(_drawToolbar3DController, &DrawToolbar3DController::import3DModel, _scene3D, &Logic::Scene3D::import3DModel);
   connect(_drawToolbar3DController, &DrawToolbar3DController::import3DScene, _scene3D, &Logic::Scene3D::import3DScene);

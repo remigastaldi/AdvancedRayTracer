@@ -37,6 +37,8 @@ Q_SIGNALS:
   void import3DModel(const QUrl &);
   void import3DScene(const QUrl &);
 
+  void render();
+
   void createLight();
 
   // void createSphereEvent() noexcept;

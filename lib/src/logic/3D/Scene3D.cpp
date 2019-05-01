@@ -2,19 +2,19 @@
 #include "Scene3D.hpp"
 #include "Cuboid.hpp"
 #include "CuboidMesh.hpp"
+#include "LightEntity.hpp"
 #include "Material.hpp"
 #include "Mesh.hpp"
 #include "MetalRoughMaterial.hpp"
 #include "Object3D.hpp"
 #include "Plane.hpp"
 #include "PlaneMesh.hpp"
+#include "RenderItem.hpp"
 #include "SceneLoader.hpp"
 #include "SphereMesh.hpp"
 #include "Torus.hpp"
 #include "TorusMesh.hpp"
 #include "Transform3D.hpp"
-
-#include "LightEntity.hpp"
 
 #include "SpotLight.hpp"
 
@@ -25,6 +25,8 @@
 #include <QtConcurrent>
 
 #include "Render.hpp"
+#include <QQuickView>
+
 namespace ART::Logic {
 
 Scene3D::Scene3D(RootEntity *root)
@@ -64,26 +66,29 @@ Scene3D::Scene3D(RootEntity *root)
   envLight->setIrradiance(envIrradiance);
   envLight->setSpecular(envSpecular);
   _root->addComponent(envLight);
+  
+  _renderView = std::make_unique<QQuickView>(_engine, nullptr);
+  _renderView->setSource(QUrl(QStringLiteral("qrc:/views/RenderView.qml")));
   // envLightEntity->addComponent(envLight);
 
-  Qt3DCore::QEntity *lightEntity = new Qt3DCore::QEntity(_root);
-  Qt3DRender::QPointLight *light = new Qt3DRender::QPointLight(_root);
-  light->setColor("red");
-  light->setIntensity(0.8);
-  lightEntity->addComponent(light);
-  Qt3DCore::QTransform *tr = new Qt3DCore::QTransform(lightEntity);
-  tr->setTranslation({0, 0, 100});
-  lightEntity->addComponent(tr);
+  // Qt3DCore::QEntity *lightEntity = new Qt3DCore::QEntity(_root);
+  // Qt3DRender::QPointLight *light = new Qt3DRender::QPointLight(_root);
+  // light->setColor("red");
+  // light->setIntensity(0.8);
+  // lightEntity->addComponent(light);
+  // Qt3DCore::QTransform *tr = new Qt3DCore::QTransform(lightEntity);
+  // tr->setTranslation({0, 0, 100});
+  // lightEntity->addComponent(tr);
 
-  // Qt3DCore::QEntity *lightEntity2 = new Qt3DCore::QEntity(_root);
-  // Qt3DRender::QSpotLight *light2 = new Qt3DRender::QSpotLight(_root);
-  // light2->setColor("blue");
-  // light2->setIntensity(1);
-  // light2->setLocalDirection({0, 0, 1});
-  // lightEntity2->addComponent(light2);
-  // Qt3DCore::QTransform *tr2 = new Qt3DCore::QTransform(lightEntity2);
-  // tr2->setTranslation({0, 0, -20});
-  // lightEntity2->addComponent(tr2);
+  // // Qt3DCore::QEntity *lightEntity2 = new Qt3DCore::QEntity(_root);
+  // // Qt3DRender::QSpotLight *light2 = new Qt3DRender::QSpotLight(_root);
+  // // light2->setColor("blue");
+  // // light2->setIntensity(1);
+  // // light2->setLocalDirection({0, 0, 1});
+  // // lightEntity2->addComponent(light2);
+  // // Qt3DCore::QTransform *tr2 = new Qt3DCore::QTransform(lightEntity2);
+  // // tr2->setTranslation({0, 0, -20});
+  // // lightEntity2->addComponent(tr2);
 }
 
 void Scene3D::createLight() noexcept {
@@ -91,11 +96,6 @@ void Scene3D::createLight() noexcept {
 
   std::unique_ptr<LightEntity> lightEntity{std::make_unique<LightEntity>(id, _root)};
   auto *lightMesh = lightEntity->getChildren<Modules::SphereMesh>("Mesh").get();
-
-  // auto *light = lightEntity->getChildren<Modules::Lights::SpotLight>("Light").get();
-  // light->setColor("green");
-  // light->setIntensity(1);
-  // light->setLocalDirection({0, 0, 1});
 
   connect(lightEntity.get(), &Shape3D::entitySelectedChanged, this, &Scene3D::selectEntity);
   _entities.emplace(id, std::move(lightEntity));
@@ -272,6 +272,18 @@ void Scene3D::import3DScene(const QUrl &url) {
 
   Q_EMIT sceneUpdate();
 }
+
+void Scene3D::render() noexcept {
+  _renderView->show();
+  auto *paintedItem = _engine->rootObjects().first()->findChild<RenderItem *>("renderPainter");
+  if (paintedItem != nullptr) {
+    paintedItem->QQuickItem::update();
+  }else {
+    qInfo() << "NULL";
+  }
+}
+
+void Scene3D::setEngine(QQmlApplicationEngine *engine) { _engine = engine; }
 
 const std::unordered_map<std::string, std::unique_ptr<Entity>> &Scene3D::entities() const noexcept { return _entities; }
 

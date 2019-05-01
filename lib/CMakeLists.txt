@@ -36,6 +36,8 @@ add_library(${PROJECT_NAME} SHARED
   src/logic/3D/Sphere.cpp
   src/logic/3D/Shape3D.cpp
   src/logic/3D/RootEntity.cpp
+  src/logic/3D/RenderItem.cpp
+  
   ### Modules
   src/logic/3D/modules/Material.cpp
   src/logic/3D/modules/Mesh.cpp
@@ -104,6 +106,8 @@ add_library(${PROJECT_NAME} SHARED
   public/logic/3D/Global3D.hpp
   public/logic/3D/Geometry.hpp
   public/logic/3D/Render.hpp
+  public/logic/3D/RenderItem.hpp
+  
   ### Modules
   public/logic/3D/modules/Material.hpp
   public/logic/3D/modules/Mesh.hpp

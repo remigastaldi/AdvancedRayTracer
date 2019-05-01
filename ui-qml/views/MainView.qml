@@ -52,7 +52,6 @@ ApplicationWindow {
   header: ToolbarComponent {
     id: menu
   }
-
   
   RowLayout {
     id: appContent

@@ -1,11 +1,12 @@
+#include "CameraController.hpp"
 #include "DrawToolbar2DController.hpp"
 #include "DrawToolbar3DController.hpp"
 #include "MainController.hpp"
 #include "RightSidebarController.hpp"
 #include "ToolbarController.hpp"
-#include "CameraController.hpp"
 
 #include "PaintedItem.hpp"
+#include "RenderItem.hpp"
 #include "RightSidebarModel.hpp"
 #include "RootEntity.hpp"
 #include "Scene2D.hpp"
@@ -42,14 +43,14 @@ int main(int argc, char *argv[]) {
   qmlRegisterType<ART::Controllers::MainController>("AdvancedRayTracer", 1, 0, "MainController");
   qmlRegisterType<ART::Controllers::ToolbarController>("AdvancedRayTracer", 1, 0, "ToolbarController");
   qmlRegisterType<ART::Controllers::RightSidebarController>("AdvancedRayTracer", 1, 0, "RightSidebarController");
-  qmlRegisterType<ART::Controllers::DrawToolbar3DController>("AdvancedRayTracer", 1, 0,
-                                                             "DrawToolbar3DController");
-  qmlRegisterType<ART::Controllers::DrawToolbar2DController>("AdvancedRayTracer", 1, 0,
-                                                             "DrawToolbar2DController");
+  qmlRegisterType<ART::Controllers::DrawToolbar3DController>("AdvancedRayTracer", 1, 0, "DrawToolbar3DController");
+  qmlRegisterType<ART::Controllers::DrawToolbar2DController>("AdvancedRayTracer", 1, 0, "DrawToolbar2DController");
   qmlRegisterType<ART::Logic::RootEntity>("AdvancedRayTracer", 1, 0, "RootEntity");
   qmlRegisterType<ART::Logic::PaintedItem>("AdvancedRayTracer", 1, 0, "CustomPaintedItem");
+  qmlRegisterType<ART::Logic::RenderItem>("AdvancedRayTracer", 1, 0, "CustomRenderItem");
   qmlRegisterType<ART::Logic::Scene3D>("AdvancedRayTracer", 1, 0, "Scene3D");
   qmlRegisterType<ART::Controllers::CameraController>("AdvancedRayTracer", 1, 0, "CameraController");
+  // qmlRegisterType<ART::Logic::RenderItem>("AdvancedRayTracer", 1, 0, "RenderController");
 
   QSurfaceFormat format;
   if (QOpenGLContext::openGLModuleType() == QOpenGLContext::LibGL) {

@@ -14,6 +14,8 @@
 #include <Qt3DRender>
 #include <unordered_map>
 
+#include <QQmlApplicationEngine>
+#include <QQuickView>
 
 namespace ART {
 namespace Models {} // nameSpace Models
@@ -29,7 +31,14 @@ class ADVANCED_RAY_TRACER_EXPORT Scene3D : public Scene {
 
 public:
   explicit Scene3D(RootEntity *root = nullptr);
-  ~Scene3D() override = default;
+  ~Scene3D() override {
+    qInfo() << "ok";
+    _renderView->close();
+    _renderView->destroy();
+    _renderView->deleteLater();
+  };
+
+  void setEngine(QQmlApplicationEngine *engine);
 
 public Q_SLOTS:
 
@@ -42,6 +51,7 @@ public Q_SLOTS:
   void raytracingReflection() noexcept;
   void import3DModel(const QUrl &);
   void import3DScene(const QUrl &);
+  void render() noexcept;
   bool rayIntersect(const QVector3D origin, const QVector3D direction, QVector3D center, float radius, float &t0);
 
   const std::unordered_map<std::string, std::unique_ptr<Entity>> &entities() const noexcept override;
@@ -56,7 +66,11 @@ private:
   std::unordered_map<std::string, std::unique_ptr<Entity>> _entities;
   RootEntity *_root;
   Controllers::CameraController *_cameraController;
+
   std::string _selectedEntity;
+
+  std::unique_ptr<QQuickView> _renderView;
+  QQmlApplicationEngine *_engine;
   size_t _urrId;
 };
 
