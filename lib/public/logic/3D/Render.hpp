@@ -11,7 +11,7 @@
 #include <fstream>
 #include <unordered_map>
 
-#include "stb_image.h"
+// #include "stb_image.h"
 
 namespace ART::Logic {
 
