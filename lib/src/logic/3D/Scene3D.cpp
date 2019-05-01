@@ -6,8 +6,8 @@
 #include "Mesh.hpp"
 #include "MetalRoughMaterial.hpp"
 #include "Object3D.hpp"
-#include "PlaneMesh.hpp"
 #include "Plane.hpp"
+#include "PlaneMesh.hpp"
 #include "SceneLoader.hpp"
 #include "SphereMesh.hpp"
 #include "Torus.hpp"
@@ -24,9 +24,11 @@
 #include <Qt3DExtras/QSkyboxEntity>
 #include <QtConcurrent>
 
+#include "Render.hpp"
 namespace ART::Logic {
 
-Scene3D::Scene3D(RootEntity *root) : _root{root}, _cameraController{new Controllers::CameraController{root}}, _urrId{0} {
+Scene3D::Scene3D(RootEntity *root)
+    : _root{root}, _cameraController{new Controllers::CameraController{root}}, _urrId{0} {
   connect(root, &RootEntity::keyPressedEvent, this, &Scene3D::keyPressedEvent);
   // connect(root, &RootEntity::cameraMoveEvent, this, &Scene3D::updateSkyboxPosition);
 
@@ -90,7 +92,6 @@ void Scene3D::createLight() noexcept {
   std::unique_ptr<LightEntity> lightEntity{std::make_unique<LightEntity>(id, _root)};
   auto *lightMesh = lightEntity->getChildren<Modules::SphereMesh>("Mesh").get();
 
-
   // auto *light = lightEntity->getChildren<Modules::Lights::SpotLight>("Light").get();
   // light->setColor("green");
   // light->setIntensity(1);
@@ -125,68 +126,102 @@ void Scene3D::createTorus() noexcept {
 }
 
 void Scene3D::castRay() noexcept {
-	float sphere_dist = std::numeric_limits<float>::max();
-	int i = 0;
-	std::string message = "The ray did not intersect with a shape.";
-	for (auto& it : _entities) {
-		QVector3D center(it.second.get()->getChildren<Modules::Transform3D>("Transform3D").x(), it.second.get()->getChildren<Modules::Transform3D>("Transform3D").y(), it.second.get()->getChildren<Modules::Transform3D>("Transform3D").z());
-		float radius = it.second.get()->getChildren<Modules::SphereMesh>("SphereMesh").radius();
-		QVector3D direction;
-		QVector3D origin;
+  Render render;
 
-		if (_cameraController->model() == nullptr) {
-			direction = QVector3D(0.707107, 0.0, -0.707107);
-			origin = QVector3D(-20.0, 0.0, 20.0);
-		} else {
-			direction = _cameraController->model()->viewVector().normalized();
-			origin = (_cameraController->model()->position());
-		}
+  render.startRendering(_entities);
+  // QImage image{":/skybox/skybox.jpg"};
+  // int n = -1;
+  // std::vector<Vec3f> envmap(image.width() * image.height());
+  // envmap.reserve(image.width() * image.height());
+  // envmap_width = image.width();
+  // envmap_height = image.height();
 
-		if (rayIntersect(origin, direction, center, radius, sphere_dist)) {
-			message = "The ray intersected with the Sphere [" + std::to_string(i) + "].";
-			break;
-		}
+  // uchar *pixmap = image.bits();
+  // for (int j = image.height() - 1; j >= 0; j--) {
+  //   for (int i = 0; i < image.width(); i++) {
+  //     envmap[i + j * image.width()] =
+  //         Vec3f(pixmap[(i + j * image.width()) * 3 + 0], pixmap[(i + j * image.width()) * 3 + 1],
+  //               pixmap[(i + j * image.width()) * 3 + 2]) *
+  //         (1 / 255.);
+  //   }
+  // }
 
-		i++;
-	}
+  // CustomMaterial ivory(1.0, Vec4f(0.6, 0.3, 0.1, 0.0), Vec3f(0.4, 0.4, 0.3), 50.);
+  // CustomMaterial glass(1.5, Vec4f(0.0, 0.5, 0.1, 0.8), Vec3f(0.6, 0.7, 0.8), 125.);
+  // CustomMaterial red_rubber(1.0, Vec4f(0.9, 0.1, 0.0, 0.0), Vec3f(0.3, 0.1, 0.1), 10.);
+  // CustomMaterial mirror(1.0, Vec4f(0.0, 10.0, 0.8, 0.0), Vec3f(1.0, 1.0, 1.0), 1425.);
 
-	const char *cmessage = message.c_str();
-	QMessageBox::information(
-		nullptr,
-		tr("Ray intersection result"),
-		tr(cmessage));
+  // std::vector<CustomSphere> spheres{{Vec3f(-3, 0, -16), 2, ivory},
+  //                                   {Vec3f(-1.0, -1.5, -12), 2, glass},
+  //                                   {Vec3f(1.5, -0.5, -18), 3, red_rubber},
+  //                                   {Vec3f(7, 5, -18), 4, mirror}};
 
-	Q_EMIT sceneUpdate();
+  // std::vector<CustomLight> lights{{Vec3f(-20, 20, 20), 1.5}, {Vec3f(30, 50, -25), 1.8}, {Vec3f(30, 20, 30), 1.7}};
+
+  // render(spheres, lights);
+  return;
+  // float sphere_dist = std::numeric_limits<float>::max();
+  // int i = 0;
+  // std::string message = "The ray did not intersect with a shape.";
+  // for (auto& it : _entities) {
+  // 	QVector3D center(it.second.get()->getChildren<Modules::Transform3D>("Transform3D").x(),
+  // it.second.get()->getChildren<Modules::Transform3D>("Transform3D").y(),
+  // it.second.get()->getChildren<Modules::Transform3D>("Transform3D").z()); 	float radius =
+  // it.second.get()->getChildren<Modules::SphereMesh>("SphereMesh").radius(); 	QVector3D direction; 	QVector3D
+  // origin;
+
+  // 	if (_cameraController->model() == nullptr) {
+  // 		direction = QVector3D(0.707107, 0.0, -0.707107);
+  // 		origin = QVector3D(-20.0, 0.0, 20.0);
+  // 	} else {
+  // 		direction = _cameraController->model()->viewVector().normalized();
+  // 		origin = (_cameraController->model()->position());
+  // 	}
+
+  // 	if (rayIntersect(origin, direction, center, radius, sphere_dist)) {
+  // 		message = "The ray intersected with the Sphere [" + std::to_string(i) + "].";
+  // 		break;
+  // 	}
+
+  // 	i++;
+  // }
+
+  // const char *cmessage = message.c_str();
+  // QMessageBox::information(
+  // 	nullptr,
+  // 	tr("Ray intersection result"),
+  // 	tr(cmessage));
+
+  // Q_EMIT sceneUpdate();
 }
 
-void Scene3D::raytracingReflection() noexcept {
-	qInfo() << "ok";
-}
+void Scene3D::raytracingReflection() noexcept { qInfo() << "ok"; }
 
-bool Scene3D::rayIntersect(const QVector3D origin, const QVector3D direction, QVector3D center, float radius, float &t0) {
-	QVector3D L = center - origin;
-	float tca = QVector3D::dotProduct(L, direction);
-	float d2 = QVector3D::dotProduct(L, L) - (tca * tca);
+bool Scene3D::rayIntersect(const QVector3D origin, const QVector3D direction, QVector3D center, float radius,
+                           float &t0) {
+  QVector3D L = center - origin;
+  float tca = QVector3D::dotProduct(L, direction);
+  float d2 = QVector3D::dotProduct(L, L) - (tca * tca);
 
-	if (d2 > (radius * radius)) {
-		qInfo() << "false";
-		return false;
-	}
+  if (d2 > (radius * radius)) {
+    qInfo() << "false";
+    return false;
+  }
 
-	float thc = sqrtf((radius * radius) - d2);
-	t0 = tca - thc;
-	float t1 = tca + thc;
-	
-	if (t0 < 0) {
-		t0 = t1;
-	}
+  float thc = sqrtf((radius * radius) - d2);
+  t0 = tca - thc;
+  float t1 = tca + thc;
 
-	if (t0 < 0) {
-		qInfo() << "false";
-		return false;
-	}
-	qInfo() << "true";
-	return true;
+  if (t0 < 0) {
+    t0 = t1;
+  }
+
+  if (t0 < 0) {
+    qInfo() << "false";
+    return false;
+  }
+  qInfo() << "true";
+  return true;
 }
 
 void Scene3D::createCube() noexcept {

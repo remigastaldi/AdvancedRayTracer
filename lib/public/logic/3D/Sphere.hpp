@@ -16,7 +16,7 @@ public:
   Sphere(std::string id, Qt3DCore::QEntity *parent);
 
   Type type() const noexcept {
-    return Type::SCENE_LOADER;
+    return Type::SPHERE;
   }
 
 private:
