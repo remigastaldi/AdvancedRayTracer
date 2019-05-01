@@ -44,17 +44,17 @@ UiMainBorder {
         onClicked: mainController.drawToolbar3DController.createPlane()
       }
 
-	    CustomButton {
-        Layout.alignment: Qt.AlignHCenter
-        text: "Ray intersection"
-        onClicked: mainController.drawToolbar3DController.castRay()
-      }
+	    // CustomButton {
+      //   Layout.alignment: Qt.AlignHCenter
+      //   text: "Ray intersection"
+      //   onClicked: mainController.drawToolbar3DController.castRay()
+      // }
 
-      CustomButton {
-        Layout.alignment: Qt.AlignHCenter
-        text: "Ray reflection"
-        onClicked: mainController.drawToolbar3DController.raytracingReflection()
-      }
+      // CustomButton {
+      //   Layout.alignment: Qt.AlignHCenter
+      //   text: "Ray reflection"
+      //   onClicked: mainController.drawToolbar3DController.raytracingReflection()
+      // }
 
       CustomButton {
         Layout.alignment: Qt.AlignHCenter
