@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/views">
+      <file alias="MainView.qml">MainView.qml</file>
+      <file alias="RenderView.qml">RenderView.qml</file>
+  </qresource>
+</RCC>

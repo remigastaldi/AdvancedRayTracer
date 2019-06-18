@@ -1,0 +1,9 @@
+<RCC>
+  <qresource prefix="/shaders">
+      <file alias="test.vert">test.vert</file>
+      <file alias="test.frag">test.frag</file>
+      <file alias="robustwireframe.frag">robustwireframe.frag</file>
+      <file alias="robustwireframe.geom">robustwireframe.geom</file>
+      <file alias="robustwireframe.vert">robustwireframe.vert</file>
+  </qresource>
+</RCC>

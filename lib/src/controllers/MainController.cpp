@@ -1,26 +1,106 @@
 #include "MainController.hpp"
-#include "MenuController.hpp"
-#include "SidebarController.hpp"
+#include "ToolbarController.hpp"
+#include "RightSidebarController.hpp"
+#include "DrawToolbar3DController.hpp"
+#include "DrawToolbar2DController.hpp"
+#include "Scene3D.hpp"
+#include "Scene2D.hpp"
+#include "Outliner.hpp"
+#include "ZIndex.hpp"
 
-namespace ART {
-namespace Controllers {
+namespace ART::Controllers {
 
 MainController::MainController(QObject* parent) :
   QObject{parent},
-  _menuController{new MenuController{this}},
-  _sidebarController{new SidebarController{this}}
+  _drawToolbar3DController{new DrawToolbar3DController{this}},
+  _drawToolbar2DController{new DrawToolbar2DController{this}},
+  _toolbarController{new ToolbarController{this}},
+  _rightSidebarController{new RightSidebarController{this}},  
+  _engine{nullptr},
+  _scene3D{nullptr},
+  _scene2D{nullptr},
+  _outliner{nullptr},
+  _currentScene{nullptr}
 {
-  connect(_menuController, &MenuController::saveFileClicked, this, &MainController::handleSaveFileClicked);
-  connect(_menuController, &MenuController::saveAsFileClicked, this, &MainController::handleSaveAsFileClicked);
-  connect(_menuController, &MenuController::newFileClicked, this, &MainController::handleNewFileClicked);
+  connect(_toolbarController, &ToolbarController::saveFileClicked, this, &MainController::handleSaveFileClicked);
+  connect(_toolbarController, &ToolbarController::saveAsFileClicked, this, &MainController::handleSaveAsFileClicked);
+  connect(_toolbarController, &ToolbarController::newFileClicked, this, &MainController::handleNewFileClicked);
+  connect(_toolbarController, &ToolbarController::importImageClicked, this, &MainController::handleimportImageClicked);
 }
 
-MenuController* MainController::menuController() const noexcept {
-  return _menuController;
+void  MainController::setScene3D(Logic::Scene3D *scene) noexcept {
+  _scene3D = scene;
+  _currentScene = scene;
+  _scene3D->setEngine(_engine);
+  connect(_scene3D, &Logic::Scene::sceneUpdate, this, &MainController::sceneUpdate);
+  connect(_scene3D, &Logic::Scene::selectedShapeUpdate, this, &MainController::selectedShapeUpdate);
+  connect(_drawToolbar3DController, &DrawToolbar3DController::createSphere, _scene3D, &Logic::Scene3D::createSphere);
+  connect(_drawToolbar3DController, &DrawToolbar3DController::createTorus, _scene3D, &Logic::Scene3D::createTorus);
+  connect(_drawToolbar3DController, &DrawToolbar3DController::createPlane, _scene3D, &Logic::Scene3D::createPlane);
+  connect(_drawToolbar3DController, &DrawToolbar3DController::castRay, _scene3D, &Logic::Scene3D::castRay);
+  connect(_drawToolbar3DController, &DrawToolbar3DController::raytracingReflection, _scene3D, &Logic::Scene3D::raytracingReflection);
+  connect(_drawToolbar3DController, &DrawToolbar3DController::createCube, _scene3D, &Logic::Scene3D::createCube);
+  connect(_drawToolbar3DController, &DrawToolbar3DController::render, _scene3D, &Logic::Scene3D::render);
+  connect(_drawToolbar3DController, &DrawToolbar3DController::createLight, _scene3D, &Logic::Scene3D::createLight);
+  connect(_drawToolbar3DController, &DrawToolbar3DController::import3DModel, _scene3D, &Logic::Scene3D::import3DModel);
+  connect(_drawToolbar3DController, &DrawToolbar3DController::import3DScene, _scene3D, &Logic::Scene3D::import3DScene);
 }
 
-SidebarController *MainController::sidebarController() const noexcept {
-  return _sidebarController;
+void  MainController::setScene2D(Logic::Scene2D *scene) noexcept {
+  _scene2D = scene;
+  connect(_scene2D, &Logic::Scene::sceneUpdate, this, &MainController::sceneUpdate);
+  connect(_scene2D, &Logic::Scene::selectedShapeUpdate, this, &MainController::selectedShapeUpdate);
+  connect(_scene2D, &Logic::Scene2D::isDrawingChanged, _drawToolbar2DController, &DrawToolbar2DController::isDrawingChanged);
+  connect(_drawToolbar2DController, &DrawToolbar2DController::createLine, _scene2D, &Logic::Scene2D::createLine);
+  connect(_drawToolbar2DController, &DrawToolbar2DController::createRectangle, _scene2D, &Logic::Scene2D::createRectangle);
+  connect(_drawToolbar2DController, &DrawToolbar2DController::createCircle, _scene2D, &Logic::Scene2D::createCircle);
+  connect(_drawToolbar2DController, &DrawToolbar2DController::createTriangle, _scene2D, &Logic::Scene2D::createTriangle);
+  connect(_drawToolbar2DController, &DrawToolbar2DController::createPolygon, _scene2D, &Logic::Scene2D::createPolygon);
+  connect(_drawToolbar2DController, &DrawToolbar2DController::cutImage, _scene2D, &Logic::Scene2D::cutImage);
+  connect(_drawToolbar2DController, &DrawToolbar2DController::importImg, _scene2D, &Logic::Scene2D::importImg);
+  connect(_drawToolbar2DController, &DrawToolbar2DController::saveScene, _scene2D, &Logic::Scene2D::saveScene);
+  connect(_drawToolbar2DController, &DrawToolbar2DController::setBackgroundColor, _scene2D, &Logic::Scene2D::setBackgroundColor);
+}
+
+ART::Models::Outliner *MainController::outliner() const noexcept {
+  return _outliner;
+}
+
+void  MainController::setOutliner(ART::Models::Outliner *outliner) noexcept {
+  _outliner = outliner;
+}
+
+void MainController::setEngine(QQmlApplicationEngine *engine) noexcept {
+  _engine = engine;
+}
+
+void MainController::sceneUpdate() noexcept {
+  _outliner->setEntities(_currentScene->entities());
+  _outliner->dataUpdate();
+}
+
+ToolbarController* MainController::toolbarController() const noexcept {
+  return _toolbarController;
+}
+
+RightSidebarController *MainController::rightSidebarController() const noexcept {
+  return _rightSidebarController;
+}
+
+DrawToolbar3DController *MainController::drawToolbar3DController() const noexcept {
+  return _drawToolbar3DController;
+}
+
+DrawToolbar2DController *MainController::drawToolbar2DController() const noexcept {
+  return _drawToolbar2DController;
+}
+
+Logic::Scene3D  *MainController::scene3D() const noexcept {
+  return _scene3D;
+}
+
+Logic::Scene2D  *MainController::scene2D() const noexcept {
+  return _scene2D;
 }
 
 void MainController::handleSaveFileClicked() {
@@ -33,5 +113,72 @@ void MainController::handleSaveAsFileClicked(const QUrl& url) {
 void MainController::handleNewFileClicked() {
 }
 
-} // namespace Controllers
-} // namespace ART
+void MainController::handleimportImageClicked(const QUrl& url) {
+	// qInfo() << url.path();
+}
+
+void MainController::selectScene3D() {
+  _currentScene = _scene3D;
+  sceneUpdate();
+  Q_EMIT updateUiModules();
+}
+
+void MainController::selectScene2D() {
+  _currentScene = _scene2D;
+  sceneUpdate();
+  Q_EMIT updateUiModules();
+}
+
+QVariantList MainController::loadTree() {
+  QVariantList list;
+  if (_currentScene->selectedEntity() != nullptr) {
+    for (const auto &shape : _currentScene->selectedEntity()->childrens()) {
+      list.push_back(QString::fromStdString(shape.second->id()));
+    }
+  }
+  return list;
+}
+
+// Init modules of entity to qml
+void MainController::initEntityModulesModels() {
+  if (_currentScene->selectedEntity() == nullptr)
+    return;
+  for (auto &module : _currentScene->selectedEntity()->childrens()) {
+    _engine->rootContext()->setContextProperty(QString::fromStdString(module.first + "Model"), module.second.get());
+  }
+}
+
+void MainController::updateCurrentScene() {
+  if (_currentScene != nullptr) {
+    _currentScene->update();
+  }
+}
+
+void MainController::selectedShapeUpdate() {
+  if (_currentScene != nullptr && _currentScene->selectedEntity() != nullptr) {
+    _outliner->setSelectionEntity(_currentScene->selectedEntity()->id());
+  }
+
+  Q_EMIT updateUiModules();
+}
+
+// TODO: Remove this crappy function, bad dataflow
+void MainController::selectEntityByIndex(int index) {
+
+  auto &vect = _outliner->entitiesHierarchy();
+
+  int i = index;
+  while (i >= 0 && vect[i].find("|   ") != std::string::npos ) {
+    i--;
+  }
+  if (i < 0) {
+    std::cout << "Outliner entity selection error" << std::endl;
+    return;
+  }
+
+  if (_currentScene != nullptr) {
+    _currentScene->selectEntity(vect[i]);
+  }
+}
+
+} // namespace ART::Controllers

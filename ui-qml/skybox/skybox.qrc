@@ -1,0 +1,7 @@
+<!DOCTYPE RCC><RCC version="1.0">
+    <qresource prefix="/skybox">
+        <file alias="output_skybox.dds">output_skybox.dds</file>
+        <file alias="output_pmrem.dds">output_pmrem.dds</file>
+        <file alias="output_iem.dds">output_iem.dds</file>
+    </qresource>
+</RCC>

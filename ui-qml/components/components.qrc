@@ -1,0 +1,32 @@
+<RCC>
+  <qresource prefix="/components">
+      <file alias="ToolbarComponent.qml">ToolbarComponent.qml</file>
+      <file alias="RightSidebarComponent.qml">RightSidebarComponent.qml</file>
+      <file alias="FbItemComponent.qml">FbItemComponent.qml</file>
+      <file alias="Scene3DComponent.qml">Scene3DComponent.qml</file>
+      <file alias="Scene2DComponent.qml">Scene2DComponent.qml</file>
+      <file alias="DrawToolbar3DComponent.qml">DrawToolbar3DComponent.qml</file>
+      <file alias="DrawToolbar2DComponent.qml">DrawToolbar2DComponent.qml</file>
+      <file alias="Outliner.qml">Outliner.qml</file>
+      <file alias="ZIndexModuleComponent.qml">ZIndexModuleComponent.qml</file>
+      <file alias="Transform2DModuleComponent.qml">Transform2DModuleComponent.qml</file>
+      <file alias="Transform3DModuleComponent.qml">Transform3DModuleComponent.qml</file>
+      <file alias="MetalRoughMaterialModuleComponent.qml">MetalRoughMaterialModuleComponent.qml</file>
+      <file alias="PhongMaterialModuleComponent.qml">PhongMaterialModuleComponent.qml</file>
+      <file alias="BrushModuleComponent.qml">BrushModuleComponent.qml</file>
+      <file alias="TorusMeshModuleComponent.qml">TorusMeshModuleComponent.qml</file>
+      <file alias="PhongAlphaMaterialModuleComponent.qml">PhongAlphaMaterialModuleComponent.qml</file>
+      <file alias="CuboidMeshModuleComponent.qml">CuboidMeshModuleComponent.qml</file>
+      <file alias="SphereMeshModuleComponent.qml">SphereMeshModuleComponent.qml</file>
+      <file alias="PenModuleComponent.qml">PenModuleComponent.qml</file>
+      <file alias="MultiViewCamera.qml">MultiViewCamera.qml</file>
+      <file alias="MaterialPickerModuleComponent.qml">MaterialPickerModuleComponent.qml</file>
+      <file alias="LightPickerModuleComponent.qml">LightPickerModuleComponent.qml</file>
+      <file alias="PointLightModuleComponent.qml">PointLightModuleComponent.qml</file>
+      <file alias="SpotLightModuleComponent.qml">SpotLightModuleComponent.qml</file>
+      <file alias="SingleViewCamera.qml">SingleViewCamera.qml</file>
+      <file alias="WireframeMaterialModuleComponent.qml">WireframeMaterialModuleComponent.qml</file>
+      <file alias="DirectionalLightModuleComponent.qml">DirectionalLightModuleComponent.qml</file>
+      <file alias="PlaneMeshModuleComponent.qml">PlaneMeshModuleComponent.qml</file>
+  </qresource>
+</RCC>

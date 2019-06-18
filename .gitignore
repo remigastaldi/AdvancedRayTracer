@@ -47,3 +47,6 @@ CMakeLists.txt.user*
 
 # Build folder
 build/
+
+.vscode/ipch
+.vscode/settings.json
